@@ -1,0 +1,28 @@
+@import '../../../styles/core/variables';
+
+.tab-block{
+  cursor: pointer;
+  padding: 5px 15px;
+  border-radius: 8px;
+  margin: 5px 0;
+  &.active{
+    background-color: $gb-blue;
+  }
+}
+a{
+  color: $white;
+  text-decoration: none
+}
+::ng-deep{
+  .ant-tabs-dropdown-menu-item a{
+    color: $black;
+  }
+  .ant-form .ant-form-item{
+    @media screen and (max-width: 776px) {
+      flex-flow: wrap;
+
+    }
+    //flex-flow: wrap!important;
+  }
+}
+

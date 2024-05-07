@@ -1,0 +1,20 @@
+@import "src/app/styles/core/variables";
+@import "src/app/styles/functions";
+
+.rules-container{
+  background: $gb-sec-bg;
+  padding: 25px;
+  border-radius: 8px;
+  h3{
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  ul{
+    list-style: none;
+    padding: 0;
+    li{
+      @include dynamic-font(14);
+      opacity: 0.9;
+    }
+  }
+}

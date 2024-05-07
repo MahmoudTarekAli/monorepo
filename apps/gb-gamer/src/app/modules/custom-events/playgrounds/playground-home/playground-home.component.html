@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="banner">
+    <img class="img-fluid d-none d-md-flex" src="assets/images/playgrounds/banner-2.jpg" alt="">
+    <img class="img-fluid d-flex d-md-none" src="assets/images/playgrounds/banner-m.webp" alt="">
+  </div>
+
+  <nz-divider></nz-divider>
+  <div class="description-section">
+    <div class="icons">
+      <img src="assets/images/playgrounds/pg-league-of-legends-icon.svg" alt="">
+      <img src="assets/images/playgrounds/pg-valorant-icon.svg" alt="">
+      <img src="assets/images/playgrounds/pg-wild-rift-icon.svg" alt="">
+    </div>
+
+    <div class="description">
+      <h1>PLAYGROUNDS</h1>
+      <p>Get ready for a gaming festival in Playground's Season 3! This season brings even more excitement with three
+        tournaments for each game.
+        Whether you're a casual player or a seasoned pro, there's a tournament just for you.
+        Win fantastic prizes and create unforgettable gaming memories.</p>
+    </div>
+
+  </div>
+  <nz-divider></nz-divider>
+
+
+    <div class="blocks-container d-flex d-md-none" >
+      <nz-carousel>
+
+      <div nz-carousel-content  class="block first">
+        <h1>Registration</h1>
+        <p>22 October - 12 November</p>
+      </div>
+      <div nz-carousel-content class="block second">
+        <h1>Tournament Starts</h1>
+        <p>14 November</p>
+      </div>
+      <div nz-carousel-content class="block third">
+        <h1>Final Stages</h1>
+        <p>20 November - 27 November</p>
+      </div>
+      </nz-carousel>
+    </div>
+
+  <div class="blocks-container d-none d-md-flex">
+      <div class="block first">
+        <h1>Registration</h1>
+        <p>22 October - 14 November</p>
+      </div>
+      <div class="block second">
+        <h1>Tournament Starts</h1>
+        <p>16 November</p>
+      </div>
+      <div class="block third">
+        <h1>Final Stages</h1>
+        <p>24 November - 27 November</p>
+      </div>
+  </div>
+
+
+  <div class="row">
+    <div class="prizes-container">
+      <div class="text">
+        <h1 class="title">Prize Pool</h1>
+      </div>
+      <div class="prize-count-container">
+        <div class="square"></div>
+        <div class="prize-count">
+          <img class="character" src="assets/images/playgrounds/character.png" alt="">
+
+          <h1>
+            $15,000 +
+          </h1>
+          <h1>
+            <img class="coins" src="assets/svg-icons/coins.svg" alt="">
+            20,052,870
+          </h1>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <h1>Select Game</h1>
+
+    <div class="blocks-container">
+      <ng-container *ngFor="let game of (event$ | async).games">
+        <div class="block games"
+             *ngIf="game?.code === 'league-of-legends' || game?.code === 'valorant' || game?.code === 'wild-rift'"
+             routerLink="./{{game.code}}/tournaments">
+          <img class="img-fluid" src="assets/images/playgrounds/{{game?.code}}-game.webp" alt="">
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+
+</div>
+<!--<p>playgrounds works!</p>-->

@@ -1,0 +1,129 @@
+<div class="container">
+  <ng-container *ngIf="(tournament$ | async) as tournament">
+    <app-banner-card [gameIcon]="tournament.game.data.icon" [gameName]="tournament.game.data.name" [inner]="false"
+                     [banner]="tournament.cover_pictures | responsiveImage | defaultImage"
+                     [profile]="tournament.profile_pictures | responsiveImage">
+      <!--      [banner] = "'assets/images/cover4.webp'"-->
+
+
+      <div class="info" ngProjectAs="tournament-description">
+        <h5 >{{'common.hostedBy' | translate}}
+          <a [routerLink]="tournament.arena_slug? (tournament.arena_slug | appArenaRouter) : './gamer/'+tournament.organizer.slug">
+             {{tournament.arena_name ? tournament.arena_name : tournament.organizer.username}}</a>
+          <p *ngIf="tournament.is_premium" class="pemium-text">GB Prime Subscribers</p>
+        </h5>
+
+        <h2 class="w-100">
+          <app-marquee [text]="tournament.name"></app-marquee>
+        </h2>
+        <!--      </h2>-->
+
+        <div class="status-container">
+          <div [class]="'status ' + tournament.status | lowercase"><p>{{tournament.status}}</p></div>
+
+          <h4 class="text-gray" *ngIf="tournament.status == 'Live' || tournament.status == 'Finished'">
+            <b>{{'common.started' | translate}}</b>
+            {{tournament.start_at_date + 'Z' | date : 'MMMM d, YYYY - h:mm a'}}
+            <app-user-timezone></app-user-timezone>
+          </h4>
+          <h4 class="text-gray" *ngIf="tournament.status == 'Closed'">
+            {{tournament.start_at_date + 'Z' | date : 'MMMM d, YYYY - h:mm a'}}
+            <app-user-timezone></app-user-timezone>
+          </h4>
+
+          <ng-container *ngIf="tournament.status == 'Open'">
+            <h4 class="text-green">
+              <b>{{'common.StartingAt' | translate}}</b>
+              {{tournament.start_at_date + 'Z' | date : 'MMMM d, h:mm a'}}
+              <app-user-timezone></app-user-timezone>
+              <br>
+              ({{tournament.start_at_date + 'Z' | countdown | async}})
+            </h4>
+          </ng-container>
+
+        </div>
+        <!--        <app-button variant="rounded-green-solid">View More</app-button>-->
+      </div>
+
+      <app-button class="w-100" variant="two-tone-primary" ngProjectAs="tournament-buttons"
+                  (click)="openJoinTournamentDialog()"
+                  *ngIf="!(isJoinedData$ | async).is_joined && (isUserLoggedIn ? (isJoinedData$ | async).is_joinable: true) && tournament.registration_status === 'on'">
+        {{isUserLoggedIn ? ('tournament.joinTournament' | translate) : ('tournament.loginToJoin'| translate)}}
+      </app-button>
+      <app-button class="w-100" variant="two-tone-primary" ngProjectAs="tournament-buttons"
+                  (click)="openJoinTournamentDialog()"
+                  *ngIf="!tournament.is_premium && this.monthlyJoinsCount >= this.monthlyJoinsLimit  && !(isJoinedData$ | async).is_joined &&  isUserLoggedIn && !(isJoinedData$ | async).is_joinable && tournament.registration_status === 'on'">
+        {{isUserLoggedIn ? ('tournament.joinTournament' | translate) : ('tournament.loginToJoin'| translate)}}
+      </app-button>
+
+
+      <app-button class="w-100" ngProjectAs="tournament-buttons" *ngIf="tournament.is_premium && !(isJoinedData$ | async).is_joinable " routerLink="/prime" variant="primary">
+        <img src="assets/svg-icons/pro-icon.svg" alt="">
+        {{'common.buttons.upgradeToPremium' | translate | uppercase}} </app-button>
+
+      <app-button class="w-100" variant="two-tone-primary" ngProjectAs="tournament-buttons"
+                  (click)="openTournamentActionDialog()"
+                  *ngIf="isSuperAdmin">
+        {{ 'tournament.tournamentActions'| translate}}
+      </app-button>
+
+      <app-button class="w-100" variant="danger" ngProjectAs="tournament-buttons" (click)="isLeaveDialogVisible = true"
+                  *ngIf="(isJoinedData$ | async).is_joined && tournament.registration_status === 'on' "> {{ 'common.buttons.leave' | translate: {leaveWord: 'common.tournament' | translate} }}
+
+      </app-button>
+
+      <app-button class="w-100" variant="default" ngProjectAs="tournament-buttons" (click)="manageTournament()"
+                  *ngIf="tournamentAuthority != 'None'">{{'tournament.manageTournament' | translate }}
+      </app-button>
+
+      <app-button class="w-100" variant="default" ngProjectAs="tournament-buttons" (click)="checkIn()"
+                  *ngIf="(isJoinedData$ | async).is_joined && !(isJoinedData$ | async).has_checked_in && tournament.participants_must_check_in && tournament.check_in_open && (isJoinedData$ | async).status !== 0">
+        {{'common.checkIn'}}
+      </app-button>
+    </app-banner-card>
+    <div class="container">
+      <nz-tabset nzType="card" (nzSelectedIndexChange)="onTabSelected($event)" [nzSelectedIndex]="selectedTabIndex">
+        <nz-tab *ngFor="let tab of tabs; let i = index" [nzClosable]="i > 1" [nzTitle]="tab.title">
+          <ng-template nz-tab>
+            <router-outlet></router-outlet>
+          </ng-template>
+        </nz-tab>
+      </nz-tabset>
+    </div>
+  </ng-container>
+
+
+  <nz-modal [(nzVisible)]="isLeaveDialogVisible" [nzTitle]="'common.buttons.leave' | translate: {leaveWord: 'common.tournament' | translate}" [nzClosable]="false">
+    <ng-container *nzModalContent>
+      <div class="text-center p-5">
+        {{'common.messages.leaveMessage'| translate:{item: 'common.tournament'| translate} }}
+      </div>
+    </ng-container>
+
+    <ng-container *nzModalFooter>
+      <div class="d-flex justify-content-around w-100 gap-2">
+        <app-button variant="default" (click)="isLeaveDialogVisible = false">{{'common.buttons.cancel'|translate}}</app-button>
+        <app-button variant="danger" (click)="leaveTournament()">{{'common.buttons.leave'| translate : {leaveWord: 'common.tournament' | translate} }}</app-button>
+      </div>
+
+    </ng-container>
+  </nz-modal>
+  <nz-modal [(nzVisible)]="isTournamentActionDialogVisible" [nzTitle]="'tournament.tournamentActions' | translate"
+            [nzClosable]="false">
+    <ng-container *nzModalContent>
+      <div class="text-center tournament-actions">
+        <nz-checkbox-group [(ngModel)]="tournamentActions" (ngModelChange)="log(tournamentActions)"></nz-checkbox-group>
+
+      </div>
+    </ng-container>
+
+    <ng-container *nzModalFooter>
+      <div class="d-flex justify-content-around w-100 gap-2">
+        <app-button variant="default"
+                    (click)="isTournamentActionDialogVisible = false">{{'common.buttons.cancel'| translate}}</app-button>
+        <app-button variant="danger" (click)="saveTournamentAction()">{{'common.buttons.save'| translate}}</app-button>
+      </div>
+
+    </ng-container>
+  </nz-modal>
+</div>

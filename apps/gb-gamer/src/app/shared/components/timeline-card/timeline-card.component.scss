@@ -1,0 +1,43 @@
+@import 'src/app/styles/core/variables';
+
+.time-line-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: $gb-sec-bg;
+  padding: 20px 20px 35px 20px;
+  gap: 20px;
+  color: white;
+  border-radius: 8px;
+  width: 100%;
+  min-width: 200px;
+  .circle {
+    width: 40px;
+    height: 40px;
+    background-color: $gb-main-bg;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .number {
+    font-size: 20px;
+    color: $white;
+    font-weight: bold;
+  }
+
+  .icon {
+    background: $green;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .title {
+    font-weight: bold;
+  }
+}

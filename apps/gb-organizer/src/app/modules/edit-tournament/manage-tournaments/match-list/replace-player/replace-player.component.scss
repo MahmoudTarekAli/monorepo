@@ -1,0 +1,52 @@
+@import '../../../../../components/kit/core/mixins';
+
+.replace-player-wrapper {
+  height: 500px;
+  overflow: scroll;
+
+  .participants {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .ant-input-affix-wrapper > input.ant-input {
+    background: none !important;
+  }
+
+}
+
+.purple {
+  background: $purple !important;
+}
+
+.ant-radio-button-wrapper {
+  &:before {
+    display: none !important;
+  }
+
+  background: $dark-gray-9 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  color: white !important;
+}
+
+.ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+  background-color: $purple !important;
+  border-color: $purple !important;
+  color: white;
+}
+
+label {
+  width: 150px;
+
+  .player-card {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+}
+
+

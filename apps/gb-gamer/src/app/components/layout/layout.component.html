@@ -1,0 +1,25 @@
+<nz-layout [ngClass]="{'ant-layout-screen' : !router.url.includes('riot-ramadan-quests')}">
+  <nz-header>
+    <app-navbar></app-navbar>
+  </nz-header>
+  <ng-container *ngIf="(userData$|async) as userData">
+  <div *ngIf="userData.verified === 0" class="verification-container">
+    <p>Your email address in not verified yet.
+      Please review your email at <b>'{{userData.email}}'</b> and click on the verification button.
+    </p>
+  </div>
+  </ng-container>
+
+<!--      <div class="container" [ngClass]="{'container-fluid' : !router.url.includes('arenas/etisalat-gaming-eg') && !router.url.includes('riot-mena')&& !router.url.includes('premium')  }">-->
+
+
+<!--  <div class="container" [ngClass]="{'container-fluid' : !router.url.includes('arenas/etisalat-gaming-eg') && !router.url.includes('riot-mena')&& !router.url.includes('premium')  }">-->
+<!--  <div>-->
+  <nz-content  [ngClass]="{'rtl' : globalService.selectedLanguage == 'ar-EG'}"
+                [ngStyle]="{'padding-top': router.url.includes('riot-ramadan') ? '0' : '10px'}">
+      <router-outlet ></router-outlet>
+<!--      </div>-->
+    </nz-content>
+  <div *ngIf="router.url.includes('ramadan-riot')" class="spacer"></div>
+  <app-footer  *ngIf="!mobileView"></app-footer>
+</nz-layout>

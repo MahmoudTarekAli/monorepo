@@ -1,0 +1,17 @@
+
+<div class="row" [formGroup]="arenaForm">
+<ng-container formGroupName="social_media">
+  <!--      <nz-divider class="my-2"></nz-divider>-->
+  <h3 class="my-2">{{'social_links' | translate}}</h3>
+
+  <nz-form-item *ngFor="let social of socialMedia" class="col-12">
+    <nz-form-label>{{social.name | translate}}</nz-form-label>
+    <input class="small" formControlName="{{social.formName}}" nz-input [placeholder]="social.placeholder"/>
+  </nz-form-item>
+
+
+</ng-container>
+  <app-button [disabled]="!arenaForm.dirty || arenaForm.invalid" class="d-flex justify-content-end"  variant="two-tone-primary fit-content" height="40"
+              (click)="updateArena()">Update Social Media</app-button>
+
+</div>

@@ -1,0 +1,20 @@
+<div class="members-container">
+
+
+  <div class="d-flex  align-items-start flex-grow-1 gap-1">
+    <a routerLink="/gamer/{{slug}}">
+      <img src="{{avatar}}" class="gb-avatar">
+    </a>
+    <div class="d-flex flex-column mx-2">
+      <p>{{ username }}</p>
+      <span class="reference_number">#{{ reference_number}}</span>
+    </div>
+
+    <ng-content select="roles"></ng-content>
+
+  </div>
+
+  <div class="buttons-container">
+    <ng-content></ng-content>
+  </div>
+</div>

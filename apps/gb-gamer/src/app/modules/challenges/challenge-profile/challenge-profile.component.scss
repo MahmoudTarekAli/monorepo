@@ -1,0 +1,196 @@
+@import '../../../styles/core/variables';
+@import 'src/app/styles/functions';
+
+h5 {
+  span {
+    color: $green;
+  }
+}
+.arena-name{
+  color: $green;
+  cursor: pointer;
+}
+.image-container {
+  width: 35px;
+
+  &.champion {
+    border-radius: 50px;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.coins-container {
+  display: flex;
+  //justify-content: center;
+  min-width: 70px;
+
+}
+.icon-challenge{
+  margin: 0 15px;
+  color: gray;
+}
+
+::ng-deep {
+
+  th:first-child {
+   @include dynamic-dimensions(width, 100);
+    @media screen and (max-width: 767px) {
+      width: 100px;
+
+    }
+  }
+
+
+  table tr th.ant-table-selection-column, table tr td.ant-table-selection-column {
+    text-align: left !important;
+
+  }
+
+  table .ant-table-measure-now {
+    display: none;
+  }
+
+  .ant-table-tbody > tr > td, .ant-table-thead tr th {
+    //text-align: center;
+    //justify-content: center;
+  }
+
+  td, th {
+    img {
+      cursor: pointer;
+    }
+
+
+  }
+}
+
+.buttons-scanner {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  width: 170px;
+
+  .scanner-container {
+    background: #00DDBD;
+    border-radius: 4px;
+    padding: 5px;
+    height: 32px;
+    width: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+
+  }
+}
+
+//::ng-deep {
+//  app-button {
+//    width:100%;
+//  }
+//}
+app-info-card{
+  flex: 1;
+}
+.buttons-container {
+  display: flex;
+  flex-flow: column;
+  @include dynamic-s-v-property(gap, 10);
+  @include dynamic-m-v-property(padding, 10);
+
+  @media screen and (max-width: 767px) {
+    background: $gb-main-darker;
+    flex-flow: row;
+    position: fixed;
+    bottom: 65px;
+    border-bottom: solid $gb-sec-bg;
+    @include dynamic-m-v-property(border-width, 2);
+    z-index: 2;
+    width: 100%;
+  }
+}
+
+
+.info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-flow: column;
+  @include dynamic-s-v-property(gap, 5);
+
+  @media screen and (max-width: 767px) {
+    justify-content: center;
+    align-items: center;
+  }
+  .pemium-text{
+    color: $premium-gold;
+    border: 1px solid $premium-gold;
+    border-radius: 12px;
+    width: fit-content;
+    padding: 0 5px;
+    margin: 0 5px;
+  }
+}
+
+//.status-container {
+//  display: flex; justify-content: flex-start; align-items: center;
+//  @include dynamic-s-v-property(gap, 5); flex-flow: row;
+//
+//  @media screen and (max-width: 767px) {
+//    flex-flow: column-reverse;
+//    @include dynamic-s-v-property(gap, 10);
+//  }
+//}
+
+
+
+.owner-row{
+  td{
+    background-color: $gb-main-darker!important;
+  }
+}
+.event-container{
+  display: flex;
+  border-radius: 10px;
+  flex-direction: column;
+  padding: 0 20px!important;
+  justify-content: center;
+  height: 100%;
+  background-size:cover;
+  @media screen and  (max-width: 767px){
+    min-height: 150px;
+  }
+
+  }
+:host ::ng-deep app-arena-card{
+    .arena-card{
+      padding: 10px 20px!important;
+      @media screen and (max-width: 992px) and (min-width: 576px){
+        .arena-img {
+         min-width: 100px!important;
+         width: 100px!important;
+         height: 100px!important;min-height: 100px!important;
+        }
+      }
+
+
+    }
+}
+.location-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 15px;
+  border-radius: 8px;
+  background-color: $gb-sec-bg;
+  @media screen and (max-width: 767px) {
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

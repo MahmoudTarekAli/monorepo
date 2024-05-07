@@ -1,0 +1,62 @@
+<div class="row my-challenges" *ngIf="(Challenges$ | async) as challenges">
+  <perfect-scrollbar >
+    <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger
+              [nzData]="challenges?.data"
+              [nzFrontPagination]="false"
+              [nzScroll]="{ x: '1400px', y: '700px' }"
+              [nzPageSize]="50"
+              class="border-radius-10 overflow-hidden">
+      <thead>
+      <tr>
+        <th *ngFor="let column of displayedColumns">{{column | translate}}</th>
+
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of rowSelectionTable.data; let index = index"
+          [ngClass]="{'owner-row' :data?.isOwner == true}">
+<!--        <td>-->
+<!--          {{data?.id}}-->
+<!--        </td>-->
+        <td>
+          {{data?.name}}
+        </td>
+        <td>
+          <img [nz-tooltip]="data?.game?.name" class="image-container" src="{{data?.game?.icon}}" alt="">
+        </td>
+        <td>
+          {{data?.start_at |date: 'yyyy/MM/dd'}}
+        </td>
+        <td>
+          {{data?.end_date |date: 'yyyy/MM/dd'}}
+        </td>
+        <td>
+          {{data?.type}}
+        </td>
+        <td>
+          {{data?.status}}
+        </td>
+        <td>
+          <span style="cursor: pointer" nz-icon nzType="more" nzTheme="outline" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu"></span>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <a nz-menu-item routerLink="/challenges/{{data.id}}">Edit Challenge</a>
+              <a nz-menu-item (click)="duplicateChallenge(data.id)">Duplicate Challenge</a>
+              <a nz-menu-item href="{{environment.gbarenaUrl}}/challenges/{{data.id}}">View Challenge</a>
+            </ul>
+          </nz-dropdown-menu>
+        </td>
+
+      </tr>
+
+      </tbody>
+    </nz-table>
+  </perfect-scrollbar>
+    <div class="col-12 d-flex justify-content-end" *ngIf="challenges?.meta?.total > 50">
+      <nz-pagination [nzPageIndex]="challenges.meta.current_page"
+                     [nzPageSize]="50"
+                     [nzTotal]="challenges?.meta?.total"
+                     (nzPageIndexChange)="changePage($event)"></nz-pagination>
+    </div>
+</div>

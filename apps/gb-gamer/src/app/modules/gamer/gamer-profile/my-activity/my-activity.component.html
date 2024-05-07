@@ -1,0 +1,80 @@
+<div class="row gx-4  mt-4">
+  <div class="col-md-9 col-12 gy-3">
+    <ng-container *ngIf="upcomingMatches$ | async as upcomingMatches">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>{{'gamer.activity.upComingMatches' |translate}}</h2>
+        <!--      *ngIf="(upcomingMatches$ | async)?.length > 2"-->
+        <app-button *ngIf=" upcomingMatches.length > 2" variant="rounded-green" routerLink="../esports"
+                    [queryParams]="{tab:'matches'}">
+          <p>{{'common.viewMore' | translate}}</p>
+        </app-button>
+
+      </div>
+      <ng-container *ngIf="upcomingMatches.length > 0 ; else noUpcomingMatches">
+        <div class="mb-2" *ngFor="let match of upcomingMatches?.slice(0 , 3)">
+          <app-match-bar [match]="match"></app-match-bar>
+        </div>
+      </ng-container>
+      <ng-template #noUpcomingMatches>
+        <app-place-holder [className]="'second-container'" [text]="'common.messages.noUpComingMatches' | translate">
+
+        </app-place-holder>
+      </ng-template>
+    </ng-container>
+
+
+    <div class="row">
+      <h2>{{'gamer.activity.favGames'| translate}}</h2>
+      <div class="row">
+        <ng-container *ngIf=" preferences$ | async as preferences">
+          <ng-container *ngIf="preferences.length > 0 ; else noPreferences ">
+            <div class="col-lg-3 col-md-4 col-6" *ngFor="let card of preferences">
+              <app-game-card [game]="card"></app-game-card>
+            </div>
+          </ng-container>
+          <ng-template #noPreferences>
+            <app-place-holder [className]="'second-container'"
+                              [text]="'common.messages.noPreference' | translate">
+              <app-button variant="two-tone-primary" class="mx-auto mt-3" routerLink="/games">{{'gamer.activity.goToGames' | translate}}</app-button>
+            </app-place-holder>
+          </ng-template>
+        </ng-container>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="col-md-3 col-12 gy-3">
+
+    <div class="row">
+      <h2 class="px-0">{{'common.stats'| translate}}</h2>
+      <div class="stats-container" *ngIf="matchStats$ | async as matchState">
+        <div class="win-progress">
+          <h5>{{'common.win' | translate}} <span>{{matchState?.win_rate}}%</span></h5>
+          <p>{{matchState?.win}} {{'common.matches'| translate}}</p>
+          <nz-progress [nzPercent]="matchState?.win_rate" [nzShowInfo]="false"></nz-progress>
+        </div>
+        <div class="lose-progress">
+          <h5>{{'common.lose' | translate}} <span>{{matchState?.lose_rate}}%</span></h5>
+          <p>{{matchState?.lose}} {{'common.matches' | translate}}</p>
+          <nz-progress [nzPercent]="matchState?.lose_rate" [nzShowInfo]="false"></nz-progress>
+        </div>
+        <h5>{{'common.total' | translate}} {{'common.matches'| translate}}</h5>
+        <p>{{matchState?.total_matches}} {{'common.matches'| translate}}</p>
+      </div>
+    </div>
+    <div class="row" *ngIf="gamerService.isAccountOwner">
+      <h2 class="px-0">{{'common.connectedAccounts'| translate}}</h2>
+      <div class="stats-container d-flex flex-column p-0" *ngIf="matchStats$ | async as matchState">
+        <app-league-accounts [isSelectedShown]="false"></app-league-accounts>
+        <div style="padding: 10px">
+          <app-button variant="two-tone-primary" routerLink="../settings/connect-accounts">{{'common.connectAccounts'| translate}}</app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+

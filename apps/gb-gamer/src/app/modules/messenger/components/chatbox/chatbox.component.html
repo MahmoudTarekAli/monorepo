@@ -1,0 +1,36 @@
+<div class="chat-box">
+  <div class="header" (click)="showOrHide()">
+    <div class="info">
+      <div class="user">
+        <img [src]="chat.avatar ? chat.avatar : 'assets/svg-icons/announcement-message.svg'">
+        <div class="name" style="width: 100px"><p nz-typography nzEllipsis>{{chat.name}}</p></div>
+      </div>
+      <div class="action">
+        <!--        <span nz-icon nzType="minus-circle" nzTheme="outline" (click)="showOrHide()"></span>-->
+        <img src="assets/svg-icons/close.svg" (click)="closeChatBox(chat.id)">
+      </div>
+
+    </div>
+
+
+  </div>
+
+  <div class="expand" [ngClass]="{'active':show}">
+    <div class="body" *ngIf="show">
+      <div class="chat">
+        <app-chat-list [chat]="chat" [isChatbox]="true"></app-chat-list>
+      </div>
+    </div>
+  </div>
+  <div class="input" *ngIf="chat.type !== 'tournament_message' && show && chat.type !== 'marketing' ">
+    <input #myInput (keydown.enter)="sendMessage()" [(ngModel)]="message" class="small" nz-input
+           [placeholder]="'Send Message... '"/>
+    <img src="assets/svg-icons/send.svg" (click)="sendMessage()">
+
+  </div>
+
+</div>
+
+
+
+

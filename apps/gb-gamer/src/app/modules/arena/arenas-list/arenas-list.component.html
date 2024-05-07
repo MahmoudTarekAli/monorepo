@@ -1,0 +1,66 @@
+<img class="arena-banner" src="https://gbarena-development.s3.amazonaws.com/arenas/covers/default.jpg" alt="">
+
+<app-section *ngIf="featuredArenas$ | async as featuredArenas" [title]="'arena.featuredArenas'| translate | uppercase" [customButtons]="customButtons">
+  <ng-container *ngIf="!(getFeaturedArenasIsExecuting$ | async) ; else loadingIndicator">
+    <ng-container *ngIf="featuredArenas.length ; else noArena">
+    <div class="row gy-5 gx-2">
+      <div class="col-md-2 col-6" *ngFor="let arena of featuredArenas">
+        <app-arena-card [arena]="arena">
+        </app-arena-card>
+      </div>
+    </div>
+    </ng-container>
+
+  </ng-container>
+  <ng-template #customButtons >
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input class="small"  type="text" nz-input #searchInput (input)="searchFeaturedArenas(searchInput.value , 'featured')"
+             [placeholder]="'arena.searchPlaceholder' | translate: {status: 'arena.featured' | translate}"/>
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <span nz-icon nzType="search"></span>
+    </ng-template>
+    <app-button variant="primary" (click)="routeCreateArena()">{{'arena.createArena' | translate}}</app-button>
+
+  </ng-template>
+</app-section>
+
+<app-section *ngIf="ActiveArenas$ | async as ActiveArenas"  class="mt-3" [title]="'arena.activeArenas'| translate | uppercase" [customButtons]="searchActiveArenaInput">
+  <ng-container *ngIf="ActiveArenas ; else loadingIndicator ">
+    <ng-container *ngIf="ActiveArenas?.data?.length ; else noArena">
+
+    <div class="row gy-5 gx-2">
+      <div class="col-md-2 col-6" *ngFor="let arena of ActiveArenas?.data ">
+        <app-arena-card [arena]="arena"></app-arena-card>
+      </div>
+    </div>
+      <div class="col-12" *ngIf="ActiveArenas.meta.total > ActiveArenas?.meta?.per_page">
+        <nz-pagination [nzPageIndex]="ActiveArenas?.meta?.current_page"
+                       [nzPageSize]="ActiveArenas?.meta?.per_page"
+                       [nzTotal]="ActiveArenas?.meta?.total"
+                       (nzPageIndexChange)="changeArenaPage($event)"></nz-pagination>
+      </div>
+
+    </ng-container>
+
+  </ng-container>
+  <ng-template #searchActiveArenaInput >
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input class="small"  type="text" nz-input #searchActiveArena
+             [placeholder]="'arena.searchPlaceholder' | translate: {status: 'arena.active' | translate}"/>
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <span nz-icon nzType="search"></span>
+    </ng-template>
+
+  </ng-template>
+</app-section>
+
+<ng-template #loadingIndicator>
+  <app-loading-indicator></app-loading-indicator>
+</ng-template>
+<ng-template #noArena>
+  <div class="second-container d-flex align-items-center justify-content-center py-5 my-4">
+    {{ 'common.placeholders.noItemsFound' | translate: {itemName: 'common.arena' | translate} }}
+  </div>
+</ng-template>

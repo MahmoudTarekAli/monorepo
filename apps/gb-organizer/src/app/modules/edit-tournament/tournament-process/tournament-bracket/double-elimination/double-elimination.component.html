@@ -1,0 +1,22 @@
+<app-section-container [title]="'double_elimination_settings'|translate"
+                       [createButton]="createButton" [isTournamentBracket]="true">
+  <ng-container [formGroup]="doubleEliminationForm">
+
+    <div class="row mb-4 row-gap-15" style="margin-bottom: 0 !important;">
+      <div class="col-12 mb-3"  style="margin-bottom: 0 !important;">
+        <!--        [sectionTitle]="'single_elimination_settings'|translate"-->
+
+        <p>No specific settings to this bracket type</p>
+      </div>
+    </div>
+  </ng-container>
+</app-section-container>
+
+
+<ng-template #createButton>
+  <nz-affix [nzOffsetTop]="0">
+
+    <button nz-button nzType="primary" nzSize="large"  (click)="updateBracket()">
+      <span nz-icon nzType="plus"></span>{{'select_bracket'|translate}}</button>
+  </nz-affix>
+</ng-template>

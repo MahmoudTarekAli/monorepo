@@ -1,0 +1,80 @@
+<div *ngIf="isBackground  && (accounts$ | async )?.length > 0" class="background-container"
+     [ngStyle]="{'background-image' : challenge?.game?.code === 'league-of-legends' ?  'url(assets/images/challenges/league-of-legends-challenge-banner.jpg)' : 'url(assets/images/challenges/valorant-challenge-banner.webp)'}"
+></div>
+
+<div class="px-4">
+  <ng-container *ngIf="isChallengeRequiredInputs else noRequiredTemplates">
+    <nz-steps class="my-5" nzSize="small" [nzCurrent]="currentStep" >
+      <nz-step nzSize="default" *ngFor="let step of [ 1 , 2 ]">
+      </nz-step>
+
+    </nz-steps>
+    <div [ngSwitch]="currentStep" class="my-4">
+      <div *ngSwitchCase="0" >
+<!--        <p>Select your internet cafe name</p>-->
+        <nz-select class="w-100" nzShowSearch [nzPlaceHolder]="'Select your internet cafe name' " [(ngModel)]="requiredInputs" >
+          <nz-option *ngFor=" let requiredInput of challenge.required_inputs.data[0]?.possible_values"
+                     [nzLabel]="requiredInput" [nzValue]="requiredInput"></nz-option>
+        </nz-select>
+        <app-button [disabled]="!requiredInputs" class="my-5 d-flex justify-content-center" variant="primary fit-content"
+                    (click)="currentStep = 1">Next Step</app-button>
+      </div>
+      <div *ngSwitchCase="1">
+        <ng-container *ngTemplateOutlet="connectAccounts"></ng-container>
+
+      </div>
+
+    </div>
+  </ng-container>
+  <ng-template #noRequiredTemplates>
+    <ng-container *ngTemplateOutlet="connectAccounts"></ng-container>
+
+
+  </ng-template>
+
+</div>
+
+
+
+
+<ng-template #connectAccounts>
+  <ng-container  *ngIf="!(getAccountsIsExecuting$ | async) else loadingIndicator">
+    <ng-container *ngIf=" (accounts$ | async )?.length > 0 ; else joinRiotAccount">
+  <app-league-accounts [isChallenge]="true" [accountId]="accountId" (setSelectedAccount)="selectAccount($event)"></app-league-accounts>
+
+
+
+      <ng-container *ngIf="type === 'challenge'  && challenge.allow_referrals">
+        <h4 class="my-3">Write Referral</h4>
+        <input  class="ant-input " [(ngModel)]="referralCode">
+      </ng-container>
+
+      <div class="d-flex justify-content-between align-items-center flex-wrap my-5 gap-2">
+        <app-button [disabled]="!selectedAccount" (click)="join()" variant=" my-1 two-tone-primary " class="  flex-grow-1">
+          {{buttonName | uppercase}}
+        </app-button>
+
+        <app-button (click)="closeModal()" routerLink="/gamer/{{authService.userAuth.slug}}/settings/connect-accounts" variant=" white " class="flex-grow-1">
+          {{'Add Another Accounts' | uppercase}}
+        </app-button>
+      </div>
+    </ng-container>
+
+    <ng-template #joinRiotAccount>
+      <div class="p-5">
+        <img class="d-flex mx-auto "  height="60"  src="assets/images/riot-logo.png" alt="">
+        <p class="my-3 text-center">
+          To participate in GBarena challenges, you must link your Riot account. Please ensure that your account is connected.</p>
+
+        <a class="ant-btn danger d-flex align-items-center mx-auto "  (click)="linkRiotAccount()">
+          <img width="25" height="25" src="assets/images/riot-game.svg" alt="">
+          {{'connect_riot' | translate}}
+        </a>
+      </div>
+    </ng-template>
+  </ng-container>
+</ng-template>
+
+<ng-template #loadingIndicator>
+  <app-loading-indicator></app-loading-indicator>
+</ng-template>

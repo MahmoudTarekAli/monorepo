@@ -1,0 +1,19 @@
+@import '../../../styles/core/variables';
+
+.reference_number{
+  color: $gb-thirdly-color;
+}
+.members-container {
+  display: flex; margin:10px; flex-flow: row wrap;
+
+  @media screen and (max-width: 590px) {
+    //flex-flow: column;
+
+  }
+}
+
+.buttons-container {
+  gap:10px;
+  margin:5px 0; display: flex; flex-flow: row;
+
+}

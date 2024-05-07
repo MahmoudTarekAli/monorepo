@@ -1,0 +1,113 @@
+@import '../../../styles/core/variables';
+@import "src/app/shared/components/radio-buttons-filters/radio-buttons-filters.component.scss";
+
+::ng-deep {
+  .ant-list-item-meta {
+    align-items: center !important;
+  }
+  .ant-list-item-meta-content {
+    display: flex;
+    flex-flow: row;
+    gap: 10px;
+  }
+  .ant-collapse-content-box{
+    text-align: left!important;
+  }
+  .team-view-collapse {
+    padding: 10px 20px!important;
+    .ant-collapse-item {
+      background: $gb-sec-bg !important;
+      border-radius: 10px!important;
+      overflow: hidden;
+      border: none;
+      margin: 10px 0;
+      display: flex;
+      flex-flow: column;
+      color: white;
+    }
+
+    .ant-collapse-content {
+      border: 0;
+      border-radius: 0 0 10px 10px;
+      background-color: $dark-gray-9 !important;
+
+      .ant-collapse-content-box {
+        padding:10px !important; background:$gb-blue;
+        border-top: solid 1px $gb-sec-bg;
+        p {
+          font-size:12px; margin:0;
+        }
+      }
+    }
+
+    .ant-collapse-header {
+      background: $gb-sec-bg !important;
+      //margin: 10px 0;
+      border: 1px solid unset!important;
+      display: flex;
+      flex-flow: column;
+      border-radius: 10px;
+      max-height: fit-content;
+      padding: 0 !important;
+      color:$white;
+
+      .ant-list {
+        flex: 1 !important;
+        padding: 5px 10px;
+      }
+
+      .ant-list-item {
+        padding: 0 !important;
+      }
+    }
+  }
+
+  .ant-collapse-extra {
+    background: $gb-blue;
+    padding: 5px 10px;
+    width: 100%;
+  }
+
+  .ant-collapse-arrow {
+    top: 20% !important;
+    transform: unset !important;
+  }
+}
+
+.ant-radio-group {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  padding:10px 0;
+  ::ng-deep{
+    span {
+      margin: auto;
+    }
+  }
+
+  .ant-radio-button-wrapper {
+    border-radius: 2px!important;
+    flex: 1;
+    background-color: $gb-sec-bg;
+    border: none!important;
+  }
+  .ant-radio-button-wrapper-checked{
+    background-color: $gb-primary-color!important;
+  }
+}
+
+.required-account {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  gap: 5px;
+
+  .id {
+    color: lightgray;
+  }
+  .image-container{
+    width: 40px;
+    height: 40px;
+  }
+}

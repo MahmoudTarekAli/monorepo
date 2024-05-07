@@ -1,0 +1,111 @@
+// Import mixins
+@import 'src/app/components/mixins.scss';
+
+.ant-input {
+  border-radius: 5px !important;
+  //height: 35px;
+
+  &:hover,
+  &:focus,
+  &:active {
+    border-color: $gb-sec-bg !important;
+  }
+}
+
+.ant-input-affix-wrapper {
+  &:hover,
+  &:focus,
+  &:active {
+    .ant-input:not(.ant-input-disabled) {
+      border-color: $gb-sec-bg;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+[data-kit-theme='dark'] {
+  .ant-input-affix-wrapper {
+    background: $gb-sec-bg!important;
+    &:hover{
+      border-color: #4f4f7a!important;
+      border: 1px solid #4f4f7a;
+    }
+  }
+  .ant-input {
+    background: $gb-sec-bg;
+
+    &-number {
+      &-handler {
+        &-wrap {
+          background: $dark-gray-3;
+        }
+      }
+    }
+  }
+
+  .ant-input::placeholder {
+    color: $gray-4 !important;
+  }
+
+  .ant-switch-checked {
+    background-color: $purple;
+  }
+
+  .ant-switch-handle::before {
+    background-color: $white
+  }
+
+  .ant-select-selector {
+    border-radius: 5px !important;
+    background: $gb-sec-bg !important
+  }
+
+  .ant-select-disabled.ant-select:not(.ant-select-customize-input) .ant-select-selector{
+    color: $gray-5;
+  }
+  .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+    border-color: $dark-gray-3 !important;
+
+  }
+
+  .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    border-color: $dark-gray-3 !important;
+  }
+  .ant-select-selection-search-input::placeholder{
+    color: $gray-4 !important;
+  }
+  ::ng-deep.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    border-color: $dark-gray-3 !important;
+  }
+}
+
+.ant-radio-checked .ant-radio-inner {
+  background: $purple !important;
+}
+
+nz-date-picker {
+  width: 100% !important;
+}
+
+.ant-picker {
+  background: $gb-sec-bg !important;
+  border-radius: 5px !important;
+}
+.ant-picker:hover {
+  border-color: $gb-sec-bg !important;
+
+}
+
+nz-input-number {
+  width: 100% !important;
+  color: $white !important;
+  background: $gb-sec-bg !important;
+  border-radius: 5px !important;
+  border: 1px solid $gb-sec-bg !important;
+
+}
+
+.ant-input-number-input:placeholder-shown::placeholder {
+  color: $gray-4 !important;
+}

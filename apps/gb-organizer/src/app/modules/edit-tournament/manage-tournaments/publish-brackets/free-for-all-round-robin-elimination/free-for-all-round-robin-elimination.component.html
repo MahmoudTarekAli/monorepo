@@ -1,0 +1,62 @@
+<div class="row row-gap-20">
+  <ng-container *ngIf="(isGetTournamentAllParticipants$ | async) === true; else templateRef">
+    <div class="col-12">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+  </ng-container>
+  <ng-template #templateRef>
+    <div class="col-3" *ngFor="let group of bracket; let groupIndex = index">
+      <nz-table [nzLoading]="checkedGroupIndex  && groupIndex +1 !== checkedGroupIndex"
+                [nzLoadingIndicator]="drop"
+                [nzTitle]="'Group ' + (groupIndex | convertNumToChar)"
+                #table
+                [nzData]="group"
+                nzShowPagination="false"
+                [nzFrontPagination]="false">
+
+        <thead>
+        <tr>
+          <th *ngIf="group.length > 0"></th>
+          <th>#</th>
+          <th>Name</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let participant of table.data ;let participantIndex = index">
+          <td *ngIf="group.length > 0" [nzChecked]="false" #checkbox
+              [nzDisabled]="((group.length < 3 || (group.length - selectedPlayers.length === 2) && checkbox.nzChecked !== true) )||
+              ( (group.length - selectedPlayers.length <= tournament?.tree?.data[0]?.group_settings?.no_of_qualified_participants)
+               && checkbox.nzChecked !== true)"
+              (nzCheckedChange)="selectParticipant($event, participant, participantIndex , groupIndex, group)"></td>
+          <td>{{ participantIndex + 1 }}</td>
+          <td nz-tooltip="true" nzTooltipColor="#8429f5" [nzTooltipTitle]="participant?.original?.participant_name">
+            <img [src]="participant?.original?.avatar"
+                 class="gb-avatar" loading="lazy">
+            &nbsp; {{(participant?.original?.participant_name.length > 15) ? (participant?.original?.participant_name | slice:0:15) + '..' : (participant?.original?.participant_name)}}
+          </td>
+        </tr>
+        <ng-template #drop>
+          <ng-container *ngTemplateOutlet="dropButton context: {index:groupIndex, group: group}"></ng-container>
+        </ng-template>
+        </tbody>
+      </nz-table>
+    </div>
+  </ng-template>
+</div>
+
+
+<ng-template #dropButton let-index="index">
+  <nz-affix [nzOffsetTop]="20">
+    <div class="d-flex justify-content-center mt-3">
+
+      <button nz-button nzType="primary" class=" d-flex gap-2" (click)="dropPlayers(index)" [@enter]="true">
+        <img src="../../../../../../assets/icons/shuffle.svg">
+        <p>Drop Players Here</p>
+      </button>
+    </div>
+
+  </nz-affix>
+
+</ng-template>
+

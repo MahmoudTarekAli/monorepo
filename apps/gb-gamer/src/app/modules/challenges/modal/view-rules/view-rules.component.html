@@ -1,0 +1,21 @@
+
+<div class="background-container" [ngStyle]="{'background-image' : gameBanner === 'league-of-legends' ?  'url(assets/images/challenges/league-of-legends-challenge-banner.jpg)' : 'url(assets/images/challenges/valorant-challenge-banner.webp)'}" ></div>
+<div class="px-4">
+  <app-section [title]="'Challenge Rules'">
+    <div *ngIf="challengeRules" [innerHTML]="challengeRules"> </div>
+    <ul class="mb-3" *ngIf="!challengeRules">
+      <li>1- All champions are allowed. (Assassin/fighter/ADC recommended)</li>
+      <li>2- Only games that played during the challenge period will count</li>
+      <li>3- Always press claim score after finishing your game, only the highest score will be counted even if you got a lower score after.</li>
+      <li>4- It will take few to calculate your prizes and to count your score.</li>
+      <li>5- If you faced any issues or any inquires please head to our discord server and contact us at the challenges section.
+        <a href="https://discord.gg/KXFKuzr5Gw" target="_blank">https://discord.gg/KXFKuzr5Gw</a></li>
+    </ul>
+
+  </app-section>
+</div>
+
+<a href="https://discord.gg/gbarena-291637954290384896" class=" ant-btn blue fit-content my-5 mx-auto d-flex align-items-center pb-0"  >
+  <img src="../../../../../assets/svg-icons/discord.svg" class="img-fluid" alt="">
+  {{'Join Our Community' | uppercase}}
+</a>

@@ -1,0 +1,53 @@
+
+  <h3>{{'arena.admins' | translate}}</h3>
+  <div class="row" [formGroup]="moderatorForm">
+
+  <nz-form-item class=" col-lg-6  col-12">
+    <nz-form-label>{{'moderator_name' | translate}}</nz-form-label>
+    <nz-input-group nzSize='default' class=" input-group" [nzSuffix]='suffixIcon'>
+
+      <input #searchInput formControlName="user"  nz-input class=" mid-height"  [nzAutocomplete]='auto'
+             placeholder="{{'moderator_placeholder'|translate}}">
+    </nz-input-group>
+    <nz-autocomplete #auto>
+      <nz-auto-option *ngFor='let user of users' [nzValue]='user.id' [nzLabel]="user.slug">
+        <nz-avatar nzIcon='user' [nzSrc]='user.avatar' nzSize='default'
+                   class='avatar mx-2'></nz-avatar>
+        {{user.slug}}</nz-auto-option>
+
+    </nz-autocomplete>
+    <ng-template #suffixIcon>
+      <span nz-icon nzType='search'></span>
+    </ng-template>
+
+  </nz-form-item>
+  <nz-form-item class=" col-lg-6  col-12">
+    <nz-form-label>{{'moderator_type' | translate}}</nz-form-label>
+    <nz-select formControlName="role"  class="w-100 border-radius-8 mid-height" [nzShowSearch]="true" nzPlaceHolder="{{'moderator_type_placeholder'|translate}}"
+               [nzShowArrow]="true">
+      <nz-option  [nzLabel]="'Moderator'" [nzValue]="'arena_moderator'"></nz-option>
+      <nz-option  [nzLabel]="'Admin'" [nzValue]="'arena_admin'"></nz-option>
+    </nz-select>
+
+  </nz-form-item>
+    <div class="d-flex justify-content-center">
+      <app-button [disabled]="moderatorForm.invalid" (click)="assignRole()" variant="primary fit-content" > Add Moderator</app-button>
+
+    </div>
+  </div>
+
+  <h3>{{'arena.admins' | translate}}</h3>
+   <div class="row">
+     <ng-container *ngFor="let moderator of (Controllers$ | async)">
+       <app-user-card class="col-12" [avatar]="moderator.avatar" [username]="moderator.username"
+                      [reference_number]="moderator.reference_number" >
+         <ng-container ngProjectAs="roles">
+            <div class="d-flex flex-wrap">
+              <div class="badge {{moderator.type}}  mx-1" >{{moderator.type === 'Organizer' ? 'Arena Owner' : moderator.type}}</div>
+            </div>
+         </ng-container>
+         <app-button variant="danger" *ngIf="moderator.type === 'Moderator' || (moderator.type === 'Admin' && moderator.type !== arenaService.authority)" (click)="unAssignRole(moderator.id)">Remove</app-button>
+       </app-user-card>
+     </ng-container>
+
+   </div>

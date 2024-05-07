@@ -1,0 +1,33 @@
+
+<app-button variant="white" nz-popover [nzPopoverOverlayClassName]="'filters-popover'"
+            [nzPopoverPlacement]="'bottomLeft'"
+            [nzPopoverBackdrop]="true"
+            [(nzPopoverVisible)]="popoverFilterVisible"
+            nzPopoverTrigger="click"
+            [nzPopoverContent]="popoverFilterTemplate" [nzPopoverArrowPointAtCenter]="true">{{'common.filterBy'| translate}}
+</app-button>
+
+<ng-template #popoverFilterTemplate>
+  <ng-container>
+    <div class="position-relative">
+      <h5 class="text">{{'common.status' | translate}}</h5>
+      <img src="assets/svg-icons/close-x-icon.svg" class="close-icon" (click)="popoverFilterVisible = false" alt="">
+    </div>
+    <nz-radio-group class="d-flex flex-column mx-2" [(ngModel)]="status">
+      <ng-container *ngFor="let filter of filters">
+        <label nz-radio class="my-1" [nzValue]="filter.value">
+          <span>{{filter.name}}</span>
+        </label>
+      </ng-container>
+    </nz-radio-group>
+    <div class="d-flex justify-content-center mt-2 w-100">
+      <app-button  variant="primary" class=" mx-2  " (click)="filterStatus(status)">
+        {{'apply_filters'|translate}}
+      </app-button>
+      <app-button variant="default" (click)="filterStatus(null)">
+        {{'clear'|translate}}
+      </app-button>
+    </div>
+
+  </ng-container>
+</ng-template>

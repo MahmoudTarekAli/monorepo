@@ -1,0 +1,36 @@
+@import 'src/app/components/mixins.scss';
+
+::ng-deep{
+  .ant-steps-item-subtitle{
+    color: #fff!important;
+  }
+}
+
+::ng-deep{
+  .ant-tabs-tab{
+    background: none!important;
+    border: none!important;
+  }
+  .ant-tabs-nav .ant-tabs-tab-active{
+    border-bottom: 3px solid #8429F5 !important;
+
+  }
+  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+    color: #fff !important;
+  }
+  .ant-steps-item-icon{
+    background-color: transparent!important;
+    color: #000!important;
+  }
+}
+.item-container{
+  width: 150px;
+  display: flex;
+  align-items: center;
+  background: $purple;
+  border-radius: 8px;
+  padding: 5px;
+  p{
+    margin: 0!important;
+  }
+}

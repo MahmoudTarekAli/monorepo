@@ -1,0 +1,47 @@
+<!--<app-radio-buttons-filters [items]="Genres$ | async" (itemsFiltration)="filterGames($event)" ></app-radio-buttons-filters>-->
+
+
+<div class="row">
+  <div class="col-12">
+    <img [src]="bannerImages[this.gameCode]" class="banner-container" alt="">
+<!--    <app-ad-banner [height]="400" [backgroundImage]="bannerImages[this.gameCode]"></app-ad-banner>-->
+  </div>
+</div>
+<app-section [title]="'common.challenges'| translate | uppercase" [customButtons]="customButton">
+  <div class="row">
+    <div class="col-12">
+      <nz-radio-group  [(ngModel)]="gameCode" (ngModelChange)="filterByGame($event)" >
+
+        <label class="mx-2 mb-2" style="margin-left: 0!important" nz-radio-button *ngFor="let item of challengesGames" [nzValue]="item.value">{{item.name}}</label>
+      </nz-radio-group>
+    </div>
+  </div>
+  <ng-container *ngIf="!(getChallengeIsExecuting | async); else loadingIndicator">
+    <ng-container *ngIf="(Challenges$|async )?.data?.length ; else noChallenges">
+    <app-card-list [isPaginated]="true" [cardType]="'challenges'" [cards]="(Challenges$|async)?.data"
+                   [total]="(Challenges$|async)?.meta?.total" [page]="(Challenges$|async)?.meta?.current_page"
+                   (changePage)="changeChallengePage($event)"></app-card-list>
+    </ng-container>
+  </ng-container>
+
+
+  <ng-template #customButton>
+    <app-filter-popover (statusFiltration)="filterChallenge($event)"
+                        [type]="'challenge'"></app-filter-popover>
+
+  </ng-template>
+  <!--Filters-->
+</app-section>
+  <ng-template #loadingIndicator>
+    <div class="row">
+      <div class="col-12">
+        <app-loading-indicator></app-loading-indicator>
+      </div>
+    </div>
+  </ng-template>
+
+<ng-template #noChallenges>
+  <div class="second-container d-flex align-items-center justify-content-center py-5 my-4">
+    No {{challengeStatus}} challenges found yet !
+  </div>
+</ng-template>

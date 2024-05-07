@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-12">
+    <div class="menu-container">
+      <img src="assets/riot-ramadan/riot-logo.svg" [routerLink]="'/riot-ramadan-quests'" alt="">
+      <div class="items-container">
+        <a class="menu-item" [class.active]="activeItem === 'challenges'" (click)="scrollTo('challenges')">
+          {{'common.challenge' | translate}}</a>
+        <a class="menu-item" [class.active]="activeItem === 'quests'" (click)="scrollTo('quests')">{{'riotRamadan.quests' | translate}}</a>
+        <!--            <a class="menu-item" [class.active]="activeItem === 'refer'" (click)="scrollTo( 'refer')">{{'riotRamadan.referFriend' | translate}}</a>-->
+        <a class="menu-item" [class.active]="activeItem === 'rules'"
+           (click)="scrollTo('rules')">{{'riotRamadan.faq' | translate}}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<img class="quests-cover" src="assets/riot-ramadan/main-ramadan-quest.webp" alt="">
+
+<section class="row row-gap-2" id="games">
+
+  <h2>{{ 'riotRamadan.selectGame' | translate | uppercase }}</h2>
+  <div class="col-lg-4 col-md-6">
+    <img
+      [ngClass]="{'active-game': activeGame === 'league-of-legends'}"
+      (click)="filterByGame('league-of-legends')" class="game-image" src="assets/riot-ramadan/select-lol.webp"
+      alt="league game">
+  </div>
+  <div class="col-lg-4 col-md-6">
+    <img
+      [ngClass]="{'active-game': activeGame === 'valorant'}"
+      (click)="filterByGame('valorant')" class="game-image" src="assets/riot-ramadan/select-valo.webp"
+      alt="valorant game">
+  </div>
+</section>
+
+
+
+
+<section  id="challenges">
+  <ng-container *ngIf="(challenges$ |async) as challenges ">
+    <app-section *ngIf="challenges?.length > 0 " [title]="'common.challenges' | translate | uppercase" [customButtons]="filterChallengeButton">
+      <ng-container *ngIf="!(getChallengesIsExecuting$ | async) ; else loadingIndicator">
+        <app-card-list
+                       [isFeatured]="false"
+                       [cardType]="'challenges'"
+                       [cards]="challenges| sliceArray: 20" [challengeQueryParam]="'riot-ramadan-quests'" [flexWrap]="false"></app-card-list>
+      </ng-container>
+    </app-section>
+    <ng-template #filterChallengeButton>
+      <app-button [routerLink]="['./challenges']" [queryParams]="{game : activeGame}" variant=rounded-gold><p>{{ 'common.viewAll' | translate | uppercase }}</p>
+      </app-button>
+    </ng-template>
+  </ng-container>
+
+</section>
+
+<ng-container *ngIf="authService.isLoggedIn; else login">
+  <section class="row row-gap-2" #questsSection id="quests">
+    <h2>{{ 'riotRamadan.quests' | translate }}</h2>
+    <app-quests [activeGame]="activeGame" [isRefer]="false"></app-quests>
+  </section>
+  <section id="refer" *ngIf="authService.isLoggedIn">
+    <h2>{{ 'riotRamadan.friendShipQuests' | translate }}</h2>
+    <app-quests [activeGame]="activeGame" [isRefer]="true"></app-quests>
+  </section>
+</ng-container>
+
+<ng-template #login>
+  <section class="mt-3">
+    <div class="login-riot">
+      <div class="info">
+        <h1> {{'riotRamadan.loginToJoin' | translate | uppercase}}</h1>
+        <div class="claim-button">
+          <button nz-button nzType="default" (click)="routeLogin()">
+            {{'login'}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-template>
+
+<section  id="rules">
+  <!-- Content of the Rules section -->
+  <h2>{{'riotRamadan.faq' | translate | uppercase }}</h2>
+  <app-faq></app-faq>
+</section>
+
+<ng-template #loadingIndicator>
+  <app-loading-indicator></app-loading-indicator>
+</ng-template>

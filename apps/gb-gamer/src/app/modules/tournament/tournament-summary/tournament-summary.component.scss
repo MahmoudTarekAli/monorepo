@@ -1,0 +1,185 @@
+@import 'src/app/styles/core/variables';
+
+.game-settings {
+  background-repeat: no-repeat;
+  width: 200px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 8px;
+
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: self-end;
+    height: 100%;
+    padding: 2px;
+
+  }
+}
+
+.description {
+  max-height: 300px;
+  overflow: scroll;
+
+  .ant-list-item-action li {
+    color: white !important;
+
+  }
+
+}
+
+.ant-list {
+  border: none;
+  background: $gb-sec-bg;
+  border-radius: 10px;
+  color: white;
+
+  .ant-list-item-action li {
+    color: white !important;
+
+  }
+
+
+}
+
+.ant-list-item {
+  color: white;
+  display: flex;
+  padding: 15px;
+
+}
+
+.ant-steps-item-content {
+  padding-bottom: 0 !important;
+}
+
+.tournament-progress {
+  background: #341671;
+  padding: 50px 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+
+.prizes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.complete-your-team {
+  background: #FDA60E;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+
+  @media screen and (max-width: 767px) {
+    flex-flow: column;
+
+  }
+
+
+  .title {
+    color: $gb-main-bg;
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    gap: 15px;
+    //align-items: center;
+
+    h2 {
+      color: $gb-main-bg;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    h5 {
+      color: $gb-main-bg;
+    }
+
+    p {
+      color: $gb-main-bg;
+      font-weight: bold;
+    }
+  }
+
+  .action {
+
+  }
+}
+
+.contacts {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  .contact-icon {
+    background: $gb-sec-bg;
+    padding: 8px;
+    border-radius: 10px;
+
+    img {
+      width: 40px;
+      height: 35px;
+    }
+  }
+}
+
+.requests {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: $gb-sec-bg;
+  padding: 10px;
+  border-radius: 10px;
+
+  .team {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    .info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+
+    }
+
+    .action {
+
+    }
+
+  }
+}
+
+.guaranteed_prizes {
+  background: #FFB133;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  margin-bottom: 10px;
+  .info {
+    display: flex;
+    flex-direction: column;
+
+    .title {
+      font-size: 15px;
+      font-weight: bold;
+    }
+    span {
+      font-size: 13px;
+      a{
+        color: $gb-main-bg; text-decoration: underline; font-weight: bold
+      }
+    }
+  }
+}

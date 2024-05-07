@@ -1,0 +1,76 @@
+// This sheet is to include all global functions to use across the different stylesheets
+$normal-scree-view: 1920;
+
+
+//function to difine @media screen
+@function min-view() {
+  $screen-point: 'screen and (min-width: #{$normal-scree-view}px)';
+  @return $screen-point;
+}
+
+
+//convert to VW from pixel
+@function convert-vw($value) {
+  @return calc((#{$value} / #{$normal-scree-view}) * 100vw);
+}
+
+
+//responsive width and height
+@mixin dynamic-dimensions($property,$dimension, $important: null) {
+  #{$property}: convert-vw($dimension) $important;
+  min-#{$property}: #{$dimension}+'px' $important;
+}
+
+
+@mixin dynamic-equal-dimensions($dimension) {
+  height: convert-vw($dimension);
+  min-height: #{$dimension}+'px';
+  width: convert-vw($dimension);
+  min-width: #{$dimension}+'px';
+}
+
+
+
+//Dynamic dynamic font with font properties (Ex: Font-size, color, Transform, weight)
+@mixin dynamic-font($value, $transform:null, $font-weight: null) {
+  font-size: $value+px !important;
+  font-weight: $font-weight, normal;
+  text-transform: $transform, inherit;
+  @media #{min-view()} {
+    font-size: calc((#{$value}px - 16px) + (var(--viewport-width) / 100)) !important;
+  }
+}
+
+//Dynamic single-value properties 'properties that accepts only single values' (Gap)
+@mixin dynamic-s-v-property($property, $base-size) {
+  #{$property}: $base-size+px !important;
+  @media #{min-view()} {
+    #{$property}: convert-vw($base-size) !important;
+  }
+}
+
+
+//Dynamic multi-values properties 'properties that can accept more than one value' (Padding, Margins, Border-radius, border-width)
+@mixin dynamic-m-v-property($property, $space-top, $space-right:null, $space-bottom:null, $space-left:null) {
+  @if ($space-right == null and $space-bottom == null and $space-left == null) {
+    #{$property}: $space-top+px !important;
+    @media #{min-view()} {
+      #{$property}: convert-vw($space-top) !important;
+    }
+  } @else if ($space-bottom == null and $space-left == null) {
+    #{$property}: $space-top+px $space-right+px !important;
+    @media #{min-view()} {
+      #{$property}: convert-vw($space-top) convert-vw($space-right) !important;
+    }
+  } @else if $space-left == null {
+    #{$property}: $space-top+px $space-right+px $space-bottom+px $space-right+px !important;
+    @media #{min-view()} {
+      #{$property}: convert-vw($space-top) convert-vw($space-right) convert-vw($space-bottom) convert-vw($space-right) !important;
+    }
+  } @else {
+    #{$property}: $space-top+px $space-right+px $space-bottom+px $space-left+px !important;
+    @media #{min-view()} {
+      #{$property}: convert-vw($space-top) convert-vw($space-right) convert-vw($space-bottom) convert-vw($space-left) !important;
+    }
+  }
+}

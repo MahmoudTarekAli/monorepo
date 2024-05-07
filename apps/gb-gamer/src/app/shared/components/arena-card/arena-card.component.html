@@ -1,0 +1,25 @@
+<div class="arena-card flex-{{flexDirection}}">
+  <img class="arena-img" [routerLink]="(arena.slug) | appArenaRouter" width="100" height="100"
+       [src]="arena.profile_picture || 'assets/images/default-arena-profile.webp'">
+<!--  <ng-container *ngIf="!isChallenge">-->
+
+  <div class="d-flex gap-2 w-100  flex-column {{flexDirection == 'column' ? 'align-items-center text-center' : 'align-items-start'}}">
+    <div class="d-flex align-items-center w-100">
+<!--      <img *ngIf="arena?.is_verified"  src="assets/svg-icons/verified-icon.svg" alt="">-->
+      <app-marquee class="card-text" [text]="arena.name"></app-marquee>
+    </div>
+    <ng-container *ngIf="isShowFollowButton">
+      <h6 class="text-green" >{{ arena.followers }} {{ 'common.followers' | translate }}</h6>
+      <button nz-button nzType="default" [ngClass]="typeOfFollowArena ?? arena.is_following ? 'unfollow' : 'follow'"
+              (click)="followUnfollowArena(typeOfFollowArena ?? arena.is_following ? 'unfollow' : 'follow')">
+        <img src="assets/svg-icons/{{typeOfFollowArena ?? arena.is_following ? 'minus-icon' : 'plus-icon'}}.svg"
+             alt=""> {{ typeOfFollowArena ?? arena.is_following ? ('common.unfollow' | translate) : 'common.follow' | translate }}
+      </button>
+    </ng-container>
+</div>
+<!--  </ng-container>-->
+
+<!--  <ng-container *ngIf="isChallenge">-->
+<!--     <ng-content></ng-content>-->
+<!--  </ng-container>-->
+</div>

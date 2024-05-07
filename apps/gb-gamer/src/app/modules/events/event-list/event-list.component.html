@@ -1,0 +1,15 @@
+<div class="container">
+
+  <div class="row gx-3 gy-3">
+    <ng-container *ngIf="!loading; else loadingIndicator">
+      <div class="col-md-4 col-12" *ngFor="let event of events">
+        <app-event-card [event]="event"></app-event-card>
+      </div>
+    </ng-container>
+    <ng-template #loadingIndicator>
+      <app-loading-indicator></app-loading-indicator>
+    </ng-template>
+
+  </div>
+
+</div>

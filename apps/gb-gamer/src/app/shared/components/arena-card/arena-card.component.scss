@@ -1,0 +1,45 @@
+@import 'src/app/styles/core/variables.scss';
+@import 'src/app/styles/functions';
+
+.arena-card {
+  display: flex;
+  flex-direction: column;
+  @include dynamic-s-v-property(gap, 10);
+  color: $white;
+  align-items: center;
+  background: $gb-main-darker;
+  border: solid $gb-main-light-border;
+  @include dynamic-s-v-property(border-width, 1);
+  @include dynamic-m-v-property(padding, 10);
+  @include dynamic-m-v-property(border-radius, 10);
+
+  .arena-img {
+    @include dynamic-equal-dimensions(150);
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+
+  .arena-name {
+    @include dynamic-font(14);
+    font-weight: bold;
+  }
+
+  .arena-followers {
+    //font-size: 10px;
+    @include dynamic-font(10);
+    font-weight: normal;
+  }
+
+  button  {
+  &.follow {
+    background: $purple;
+  }
+    &.unfollow {
+      @include dynamic-s-v-property(border-width, 1);
+      border: solid $purple;
+      background: transparent;
+    }
+  }
+
+}

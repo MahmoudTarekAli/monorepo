@@ -1,0 +1,25 @@
+@import 'src/app/styles/core/variables.scss';
+
+.chat-list {
+  position: fixed;
+  right: 5%;
+  bottom: 0;
+  justify-content: flex-end;
+  display: flex;
+  align-items: flex-end;
+  z-index: 100;
+
+  .chat-number {
+    background: $gb-primary-color;
+    padding: 6px 15px 6px 15px;
+    margin-right: 10px;
+    border-radius: 10px 10px 0px 0px;
+
+  }
+
+  app-chatbox {
+    display: flex;
+    align-items: flex-end;
+  }
+
+}

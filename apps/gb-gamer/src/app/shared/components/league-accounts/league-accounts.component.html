@@ -1,0 +1,82 @@
+<!--<ng-container *ngIf="(accounts | async) as accounts"></ng-container>-->
+<!--class="league-container"-->
+<div *ngIf=" (accounts$ | async)?.length > 0 ; else noAccounts">
+  <h4 class="m-3 mb-" *ngIf=" isUserProfile">Accounts</h4>
+
+  <ng-scrollbar [ngStyle]="{'height': (accounts$ | async)?.length > 2 && isUserProfile ? '200px' : 'auto' }">
+
+    <div *ngFor="let account of accounts$ | async ; let index = index" class="lol-account-card">
+      <div class="d-flex align-items-center">
+        <img src="{{account?.game?.icon}}" class="img-fluid game-icon" alt="">
+        <div class="d-flex flex-column">
+          <p class="font-weight-bold">{{account.game_username}}</p>
+<!--          <p class="font-weight-bold"> Connected: {{account.created_at | date : 'MMMM dd, yyyy'}}</p>-->
+          <span >
+            <img *ngIf="account?.full_data?.rank?.name !=='unranked'" [nz-tooltip]="account?.full_data?.rank?.name" style="width: 35px" src="{{account?.full_data?.rank?.image}}" alt="{{account?.full_data?.rank?.image}}">
+                      <span *ngIf="account?.full_data?.rank?.name === 'unranked'" style="color: #fff"> {{account?.full_data?.rank?.image | uppercase}} / </span>
+            {{account.game_server}}</span>
+        </div>
+      </div>
+      <div class="d-flex align-items-center">
+        <ng-container *ngIf="!isUserProfile">
+<!--          <img [nz-tooltip]="'Verify Account'" *ngIf="!account.is_verified" (click)="VerifyAccount(account)"-->
+<!--               class="mx-4" style="width: 22px; cursor: pointer" src="assets/svg-icons/verified-icon.svg" alt="">-->
+          <img [nz-tooltip]="'Delete Account'" *ngIf="!account.is_verified" (click)="deleteAccount(account , index)"
+               style="width: 22px; cursor: pointer" src="assets/svg-icons/trash-icon.svg" alt="">
+        </ng-container>
+
+<!--        <app-button *ngIf="!account.is_verified && (isChallenge || isTournament)"-->
+<!--                    routerLink="/gamer/{{authService.userAuth.slug}}/settings/connect-accounts" (click)="closeModal()"-->
+<!--                    class="mx-2" variant="secondary fit-content" height="40"> Verify-->
+<!--        </app-button>-->
+
+        <a nz-tooltip [nzTooltipTitle]="account?.reason? titleTemplate: null" [nzTooltipColor]="'red'"
+           [nzTooltipTitleContext]="{ $implicit: 'Icon' }">
+          <app-button *ngIf="isSelectedShown" [disabled]="!account.is_verified || !account.allowed"
+                      (click)="selectAccount(account , index)"
+                      variant="{{account.account_id === selectedAccount?.account_id? 'green' : 'primary'}}"
+                      class="me-2" height="40" style="min-width:150px;">
+            {{account.account_id === selectedAccount?.account_id ? 'Selected' : 'Select' }}
+          </app-button>
+        </a>
+        <app-button *ngIf="account?.updatable" (click)="updateRank(account)" class="mx-2" variant="white fit-content" height="40">
+          Update Rank
+        </app-button>
+        <app-button *ngIf="!account?.updatable" class="mx-2" variant="white fit-content" height="40">
+          {{account.next_update_at  | countdown: false: true | async}}
+        </app-button>
+
+
+        <ng-template #titleTemplate let-thing>
+          <span nz-icon nzType="alert" nzTheme="outline"></span>  &nbsp;
+          <span>{{account?.reason}}</span>
+        </ng-template>
+
+
+      </div>
+    </div>
+  </ng-scrollbar>
+
+</div>
+
+
+<ng-template #noAccounts>
+  <ng-container *ngIf="isTournament">
+    <div class="d-flex justify-content-center align-items-center flex-column">
+      <img height="60" src="assets/images/riot-logo.png" alt="">
+      <p class="my-3 text-center text-gray flex-wrap w-75">GBarena hosts RIOT Games' tournaments with complete automation. To join one
+        of these tournaments, you need to link your Riot account.
+        click on <b>Connect Riot Account</b>, re-join the tournament, and choose your in-game account</p>
+
+      <a class="ant-btn danger d-flex align-items-center mx-auto " (click)="linkRiotAccount()">
+        <img width="25" height="25" src="assets/images/riot-game.svg" alt="">
+        {{'connect_riot' | translate}}
+      </a>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!isTournament">
+    <div class="content-container d-flex align-items-center justify-content-center py-5 my-4">
+      No Accounts Found
+    </div>
+  </ng-container>
+</ng-template>

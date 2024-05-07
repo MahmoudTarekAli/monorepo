@@ -1,0 +1,28 @@
+<ng-container *ngIf="(tournament$ | async) as tournament">
+
+  <app-section *ngIf="tournament.status === 'Finished' && winners.length > 0"
+               [title]="'tournament.winners' |translate">
+    <ng-scrollbar>
+
+      <div class="d-flex gap-2">
+        <div class="winner-card" *ngFor="let user of winners | sortByRank" (click)="viewTeam(user)">
+          <div class="d-flex justify-content-between" >
+            <p class="placement" *ngIf="user?.rank">{{user?.rank | order }}</p>
+            <nz-avatar class="country" [nzSize]="'small'" *ngIf="user?.original?.country  "
+                       [nzSrc]="user?.original?.country | countryImage"></nz-avatar>
+          </div>
+          <div class="avatar">
+            <img [src]="user?.original?.avatar" [ngClass]="user.rank | rank">
+          </div>
+          <div class="d-flex justify-content-evenly mt-2">
+            <P class="user-info">{{user?.original?.participant_name}}</P>
+
+          </div>
+        </div>
+
+
+      </div>
+    </ng-scrollbar>
+
+  </app-section>
+</ng-container>

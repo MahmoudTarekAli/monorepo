@@ -1,0 +1,288 @@
+<app-section-container [createButton]='createButton' [title]="'tournament_setting' | translate">
+
+  <div [formGroup]='TournamentSettingsForm' nz-form nzLayout='vertical' class='mt-4'>
+    <nz-tabset nzType='card' [nzSize]="'large'" (nzSelectChange)="changeTab($event)">
+      <nz-tab [nzTitle]="'overview'| translate ">
+        <h2 class='mt-2'>{{'permissions'|translate}}</h2>
+        <p class="label_placeholder d-block m-0">{{'permissions_text'|translate}}</p>
+
+        <div class='row mt-2'>
+          <div class='col-md-6'>
+            <p>{{'moderator_name'|translate}}</p>
+            <nz-input-group nzSize='default' [nzSuffix]='suffixIcon'>
+
+              <input #searchInput nz-input [(ngModel)]='moderatorName' [nzAutocomplete]='auto'
+                     [ngModelOptions]='{standalone: true}' placeholder="{{'moderator_placeholder'|translate}}">
+            </nz-input-group>
+            <nz-autocomplete #auto>
+              <nz-auto-option *ngFor='let user of users' [nzValue]='user.slug'>
+                <nz-avatar nzIcon='user' [nzSrc]='user.avatar' nzSize='default'
+                           class='avatar mx-2'></nz-avatar>
+                {{user.slug}}</nz-auto-option>
+
+            </nz-autocomplete>
+            <ng-template #suffixIcon>
+              <span nz-icon nzType='search'></span>
+            </ng-template>
+
+          </div>
+          <div class='col-md-6'>
+            <p>{{'moderator_type'|translate}}</p>
+
+            <nz-select nzPlaceHolder="{{'moderator_type_placeholder' | translate}}" [nzShowSearch]='true' [(ngModel)]='moderatorType'
+                       [ngModelOptions]='{standalone: true}'>
+
+              <nz-option [nzLabel]="'Moderator'" [nzValue]="'Moderator'"></nz-option>
+              <nz-option [nzLabel]="'Admin'" [nzValue]="'Admin'"></nz-option>
+
+            </nz-select>
+          </div>
+
+
+          <div class='col-12 d-flex my-3'>
+            <button class='m-auto save-button' nz-button nzType='primary'
+                    (click)='addModerator()'>
+              <i class='fa fa-plus mx-2' aria-hidden='true'></i>
+              {{'add_moderator'|translate}}
+            </button>
+          </div>
+          <div class='col-12'>
+            <h2>{{'moderators'|translate}}</h2>
+            <ng-container *ngIf="moderatorList?.length > 0 else noModerators">
+              <div class='col-12 moderators-list' *ngFor='let moderator of moderatorList ; let index = index'>
+                <div class='d-flex align-items-center'>
+                  <nz-avatar nzIcon='user' [nzSrc]='moderator.avatar' nzSize='default'
+                             class='avatar mx-2'></nz-avatar>
+                  <div class='d-flex flex-column'>
+                    <span>{{moderator.username}} </span>
+                    <span>{{moderator.role}} </span>
+
+                  </div>
+                </div>
+                <button nz-button class='remove'
+                        (click)='removeModerator(moderator.id , index)'>
+                  <i class='fa-thin fa-xmark'></i>
+                  {{'remove'|translate}}
+                </button>
+
+              </div>
+            </ng-container>
+            <ng-template #noModerators>
+              <p class="d-block"> {{'no_moderator'|translate}}</p>
+            </ng-template>
+          </div>
+          <nz-divider></nz-divider>
+          <div class='col-6'>
+            <h2> {{'tournament_hidden'|translate}}</h2>
+            <span class="label_placeholder d-block m-0">{{'tournament_hidden_text' | translate}}</span>
+          </div>
+          <div class='col-6 d-flex justify-content-end'>
+            <nz-switch formControlName='visibility'></nz-switch>
+          </div>
+        </div>
+        <nz-divider></nz-divider>
+        <div class='row'  *appIsSuperAdmin>
+          <div class='col-12'>
+            <h2>{{'add_tournament_event' | translate}}</h2>
+            <span class="label_placeholder d-block m-0">{{'add_tournament_event_desc' | translate}}</span>
+          </div>
+          <div class='col-6'>
+            <p>Event Name</p>
+            <nz-select [nzShowSearch]='true' nzPlaceHolder='Select event...' formControlName='event_id'>
+              <nz-option [nzValue]="null" [nzLabel]="'None'"></nz-option>
+              <nz-option *ngFor='let event of getEvents$| async' [nzLabel]='event.name'
+                         [nzValue]='event.id'></nz-option>
+
+            </nz-select>
+          </div>
+<!--          <div class='col-3 d-flex align-items-end' *ngIf="(getTournament | async)?.event?.data?.slug">-->
+<!--            <button nz-button nzType='primary' class='save-button' (click)='addTournamentEvent()'>-->
+<!--              <i class='fa fa-save mx-2' aria-hidden='true'></i>-->
+<!--              {{'add_tournament_event' | translate}}-->
+<!--            </button>-->
+<!--          </div>-->
+<!--          <div class='col-3 d-flex align-items-end'>-->
+<!--            <button nz-button  class='remove' (click)='removeTournamentEvent()' *ngIf="!(getTournament | async)?.event?.data?.slug">-->
+<!--              {{'remove_event' | translate}}-->
+<!--            </button>-->
+<!--          </div>-->
+
+        </div>
+        <nz-divider></nz-divider>
+        <div class="d-block">
+          <h2 >{{'contact_details' | translate}}</h2>
+          <p class="label_placeholder"> {{'contact_details_text' | translate}}</p>
+        </div>
+        <div class="row" [formGroupName]="'contact_details'">
+
+          <div class="col-md-4 col-6" *ngFor='let contact of contactDetails'>
+            <p>{{contact.name | translate}}</p>
+
+            <nz-form-control [nzErrorTip]='contact_error'>
+              <ng-container *ngIf="contact.value === 'phone' ; else anotherContacts">
+              <ngx-intl-tel-input
+                type="text"
+                class="phone_input"
+                [customPlaceholder]=" contact.placeholder |translate"
+                [cssClass]="'phone_input'"
+                [preferredCountries]="['eg']"
+                [onlyCountries]="abbrCountries"
+                [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="true"
+                [phoneValidation]="true"
+                [searchCountryFlag]="true"
+                name="phone"
+                formControlName="{{contact.value}}"></ngx-intl-tel-input>
+              </ng-container>
+              <ng-template #anotherContacts>
+                <input formControlName='{{contact.value}}' nz-input placeholder=' {{contact.placeholder |translate}}'/>
+              </ng-template>
+            </nz-form-control>
+            <ng-template #contact_error>
+              <ng-container>
+                wrong {{contact.name | translate}} format
+              </ng-container>
+            </ng-template>
+          </div>
+
+        </div>
+
+      </nz-tab>
+      <nz-tab  [nzTitle]="'Advanced' ">
+        <div class="row">
+          <div class="col-6 my-4" *ngIf="tournament?.status !== 'Cancelled' && tournament?.status !== 'Finished'">
+            <button class="w-100 action-button"  nz-button nzType="default" (click)="openDialog('reset_bracket')" >{{'reset_bracket' | translate}}</button>
+          </div>
+          <div class="col-6 my-4" *ngIf="tournament?.tree?.data[1]?.is_published === 1 && tournament?.status !== 'Cancelled' && tournament?.status !== 'Finished'">
+            <button class="w-100 action-button" nz-button nzType="default" (click)="openDialog('reset_second_stage_bracket')">{{'reset_second_stage_bracket' | translate}}</button>
+          </div>
+          <div class="col-6 my-4" *ngIf="tournament?.status !== 'Cancelled' && tournament?.status !== 'Finished'">
+            <button class="w-100 action-button" nz-button nzType="default" (click)="openDialog('cancel_tournament')">{{'cancel_tournament' | translate}}</button>
+          </div>
+          <div class="col-6 my-4" *ngIf="tournament?.status !== 'Finished'">
+            <button class="w-100 action-button" nz-button nzType="default"  (click)="openDialog('delete_tournament')">{{'delete_tournament' | translate}}</button>
+          </div>
+          <div class="col-6 my-4" >
+            <button class="w-100 action-button" nz-button nzType="default" [disabled]="!tournament?.is_published"
+                    (click)="openDialog('duplicate_tournament')">{{'duplicate_tournament' | translate}}</button>
+          </div>
+        </div>
+
+        <ng-container *appIsSuperAdmin>
+        <h5>Add sponsors & CO-Host</h5>
+        <p>Loreum Ipsum</p>
+        <div class='row'>
+          <div class='col-6'>
+            <nz-input-group nzSize='default' [nzSuffix]='suffixIcon'>
+
+              <input #searchArenaInput nz-input [ngModel]='arenaObj| objectValue'
+                     (ngModelChange)='arenaObj=$event' [nzAutocomplete]='arenaAuto'
+                     [ngModelOptions]='{standalone: true}' placeholder='Arena Name...'>
+            </nz-input-group>
+            <nz-autocomplete #arenaAuto>
+              <nz-auto-option *ngFor='let arena of arenas?.data' [nzValue]='arena'>
+                <nz-avatar nzIcon='user' [nzSrc]='arena.profile_picture' nzSize='default'
+                           class='avatar mx-2'></nz-avatar>
+                {{arena.name}}</nz-auto-option>
+
+            </nz-autocomplete>
+            <ng-template #suffixIcon>
+              <span nz-icon nzType='search'></span>
+            </ng-template>
+          </div>
+          <div class='col-6'>
+            <nz-select nzPlaceHolder='Select Type...' [nzShowSearch]='true' [(ngModel)]='sponsorType'
+                       [ngModelOptions]='{standalone: true}'>
+
+              <nz-option [nzLabel]="'Sponsor'" [nzValue]="'sponsor'"></nz-option>
+              <nz-option [nzLabel]="'coHost'" [nzValue]="'coHost'"></nz-option>
+
+            </nz-select>
+          </div>
+          <div class='col-12 d-flex my-3'>
+            <button class='m-auto save-button' nz-button nzType='primary' [disabled]='!sponsorType || arenaObj?.id === undefined'
+                    (click)='addSponsor()'>
+              Send Request
+            </button>
+          </div>
+          <div class='col-12'>
+            <h5>{{'sponsors_cohost'|translate}}</h5>
+            <ng-container *ngIf="sponsorsList?.length > 0 else noModerators">
+              <div class='col-12 moderators-list' *ngFor='let sponsor of sponsorsList ; let index = index'>
+                <div class='d-flex align-items-center'>
+                  <nz-avatar nzIcon='user' [nzSrc]='sponsor.logo' nzSize='default'
+                             class='avatar mx-2'></nz-avatar>
+                  <div class='d-flex flex-column'>
+                    <span>{{sponsor.name}} </span>
+                    <span>{{sponsor.arena_type}} </span>
+
+                  </div>
+                </div>
+                <button nz-button class='remove'
+                        (click)='removeSponsor(sponsor.slug , index)'>
+                  <i class='fa-thin fa-xmark'></i>
+                  {{'remove'|translate}}
+                </button>
+
+              </div>
+            </ng-container>
+            <ng-template #noModerators>
+              <h5>    {{'no_sponsor'|translate}}</h5>
+            </ng-template>
+          </div>
+          <nz-divider></nz-divider>
+          <div class='col-6'>
+            <h5>Allow Third Party</h5>
+            <span>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam.</span>
+          </div>
+          <div class='col-6 d-flex justify-content-end'>
+            <nz-switch formControlName='allow_third_party'
+                       (ngModelChange)="allowthirdParty(TournamentSettingsForm.get('allow_third_party').value)"></nz-switch>
+          </div>
+
+
+        </div>
+        <div class='row' *ngIf="TournamentSettingsForm.get('allow_third_party').value"
+             formGroupName='third_party_subscriptions'>
+          <div class='col-6'>
+            <p>Choose Third Party Subscription *</p>
+            <nz-select nzPlaceHolder='Choose Third Party Subscription ...' [nzShowSearch]='true'
+                       formControlName='operator'>
+
+              <nz-option *ngFor='let thirdParty of thirdParties' [nzLabel]='thirdParty.operator'
+                         [nzValue]='thirdParty.operator'></nz-option>
+
+            </nz-select>
+          </div>
+          <div class='col-6' *ngIf="TournamentSettingsForm.get('third_party_subscriptions').value.operator">
+            <p>Choose Subscription *</p>
+            <nz-select nzPlaceHolder='Choose Subscription ...' [nzShowSearch]='true'
+                       formControlName='subscription'>
+              <ng-container *ngFor='let service of thirdParties'>
+                <ng-container
+                  *ngIf="service.operator === TournamentSettingsForm.get('third_party_subscriptions').value.operator">
+                  <nz-option *ngFor='let subscribe of service.subscriptions' [nzLabel]='subscribe'
+                             [nzValue]='subscribe'></nz-option>
+
+                </ng-container>
+
+              </ng-container>
+
+            </nz-select>
+          </div>
+        </div>
+        </ng-container>
+      </nz-tab>
+
+    </nz-tabset>
+
+    <div class='row mb-4 row-gap-15'>
+
+    </div>
+  </div>
+</app-section-container>
+
+
+<ng-template #createButton>
+  <button  [disabled]='TournamentSettingsForm.invalid' (click)='create()' nz-button nzType='primary'>{{'save' | translate}}</button>
+</ng-template>

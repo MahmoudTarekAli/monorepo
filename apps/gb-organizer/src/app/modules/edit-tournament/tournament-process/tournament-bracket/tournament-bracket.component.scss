@@ -1,0 +1,57 @@
+@import '../../../../components/kit/core/mixins';
+
+
+.title {
+  p {
+    color: lightgray;
+  }
+}
+.bracket-type {
+  border: 1px solid;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px;
+  align-items: center;
+  gap: 30px;
+  text-align: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+
+  img {
+    height: 70px;
+  }
+
+  .bracket-title {
+    text-transform: uppercase
+  }
+  h2 {
+    font-weight: bold;
+  }
+  p {
+    color:#fff;
+  }
+}
+
+.bracket-type:hover {
+  background-color: #8B62F4;
+  border: none;
+}
+
+.selected-bracket-type {
+  background:#8429F5;
+  //background-color: #8B62F4;
+  border: none;
+}
+.ant-btn {
+  img {
+    width:13px;
+    margin:0 5px;
+  }
+}
+.flex-block{
+  @media screen and (max-width: 767px) {
+    flex-flow: column!important;
+    align-items: center;
+  }
+}

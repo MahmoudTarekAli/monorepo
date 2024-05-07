@@ -1,0 +1,43 @@
+@import "src/app/styles/functions";
+@import "src/app/styles/core/variables";
+.faq-container{
+
+::ng-deep{
+  .ant-collapse-content {
+    border-top:0;
+  }
+  .ant-collapse-content-box {
+    background-color: $gb-sec-bg !important;
+    p{
+      border-radius: 4px;
+      padding: 5px 10px;
+      border:0;
+    }
+  }
+  .ant-collapse {
+    //border: none
+  }
+  .ant-collapse-header{
+    //@include dynamic-font(16);
+    font-size: 16px;
+
+  }
+  nz-collapse {
+    border:0;
+    display: flex;
+    flex-flow: column;
+    gap:10px;
+  }
+  nz-collapse-panel{
+    border:0;
+    background: $gb-main-darker;
+    border-radius: 10px;
+    //border-bottom: none!important;
+
+  }
+  .ant-collapse-header .ant-collapse-arrow{
+    font-size: 16px!important;
+    font-weight: bolder;
+  }
+  }
+}

@@ -1,0 +1,318 @@
+@import 'src/app/components/mixins.scss';
+@import "src/app/styles/functions";
+.nav-drop-menu {
+  //width: 300px;
+  //background: $gb-sec-bg;
+
+  //top-arrow
+  &.dropdown-notifcations {
+    overflow: unset;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    //top: -20px;
+    @include dynamic-s-v-property(top, -15);
+    @include dynamic-s-v-property(right, 13);
+
+    width: 0;
+    z-index: 1;
+    height: 0;
+    //background:red;
+    border-bottom: solid 15px $gb-fifth-color;
+    border-left: solid 15px transparent;
+    border-right: solid 15px transparent;
+  }
+
+  //app-section {
+  //  overflow-y: scroll;
+  //}
+
+
+  .ant-radio-button-wrapper {
+    //border-radius: 15px!important;
+    @include dynamic-m-v-property(border-radius, 20);
+    background-color: $gb-main-darker !important;
+    color: $white !important;
+    border: unset !important;
+    //font-size: 18px;
+    @include dynamic-font(14);
+    font-weight: 400;
+    text-transform: capitalize;
+    //padding: 5px 20px;
+    @include dynamic-m-v-property(padding, 5, 20);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+
+  .ant-radio-button-wrapper-checked {
+    background-color: $gb-primary-color !important;
+  }
+
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):focus-within {
+    box-shadow: unset !important;
+  }
+
+  .ant-radio-button-wrapper:not(:first-child)::before {
+    display: none !important;;
+  }
+
+  .ant-page-header {
+    padding: 10px 0;
+    @include dynamic-m-v-property(padding, 10, 0);
+  }
+
+  .hub-container {
+    display: flex;
+    flex-direction: column;
+    //gap: 10px;
+    @include dynamic-s-v-property(gap, 20);
+    @include dynamic-m-v-property(padding, 10);
+
+    .general {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+
+      //h6 {
+      //  text-transform: uppercase;
+      //  margin: 10px 0;
+      //}
+
+      .hub-card-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+
+    .hub-info-card {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 10px;
+      flex: 1;
+      justify-content: space-evenly;
+      flex-basis: 0;
+
+      .card-holder {
+        flex: 1;
+      }
+      ::ng-deep {
+        app-info-card {
+          width: 100%;
+          display: flex;
+          flex: 0 0 48%;
+
+
+          .info-card {
+            background: $gb-main-bg;
+            //@include dynamic-m-v-property(border-width, 1) ;
+            width: 100% !important;
+            min-width: 100% !important;
+            @include dynamic-dimensions(height, 65);
+            //border: solid $gb-fourth-color;
+
+
+            .title {
+              @include dynamic-font(11);
+              font-weight: lighter;
+            }
+
+            .sub-title {
+              @include dynamic-font(12);
+              text-transform: uppercase;
+
+            }
+          }
+        }
+      }
+    }
+
+    .hub-card {
+      .hub-icon {
+        padding: 15px;
+        border-radius: 50%;
+        background: $gb-sec-bg;
+
+        img {
+          width: 22px;
+          height: 22px;
+        }
+      }
+
+      .hub-info {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+
+        .title, .sub-title {
+          color: white;
+          opacity: 0.8;
+        }
+      }
+
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hub-footer {
+      display: flex;
+      gap: 5px;
+      width: 100%;
+      justify-content: center;
+      flex-flow: column;
+      align-items: center;
+
+      .mobile-app {
+        display: flex;
+        gap: 10px; margin:10px 0;
+        width: 100%; justify-content: center; align-items: center;
+        img {
+          width: 150px;
+        }
+      }
+      p {
+        color: $gray-5;
+        margin: 0!important;
+      }
+      ul {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+        margin: 0; padding: 0;
+
+        li {
+          list-style: none;
+          p {
+            color: $gray-5;
+          }
+          &.social {
+            list-style: none;
+            img {
+              width:18px;
+              width:18px;
+            }
+          }
+        }
+      }
+
+    }
+
+  }
+}
+
+
+img {
+  cursor: pointer;
+}
+
+::ng-deep {
+
+  .echo-popover {
+    .ant-popover-inner-content {
+      padding: 5px;
+    }
+
+    width: 250px !important;
+
+    .img-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+
+
+      .logos-container {
+        border-radius: 5px;
+        background: #0b074a;
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        overflow: hidden;
+        background-size: cover !important;
+        position: relative;
+        border: solid 2px transparent;
+
+        &.active {
+          border: solid 2px #3bcd3b;
+        }
+
+        &:hover {
+          border: solid 2px #3bcd3b;
+        }
+
+        img {
+          height: 50px;
+          padding: 10px;
+          flex-grow: 1;
+          z-index: 1;
+        }
+
+        p {
+          font-size: 12px;
+          margin: 0;
+          padding: 10px;
+          color: #fff;
+          font-weight: normal;
+          width: 100%;
+          flex-grow: 2;
+          z-index: 1;
+        }
+
+        .overlay {
+          position: absolute;
+          background: #0c074a;
+          opacity: 0.5;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    .social-media-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      padding: 0 10px;
+      gap: 5px;
+
+      img {
+        width: 23px;
+      }
+    }
+
+    p {
+      text-align: center;
+      color: $dark-gray-9;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+
+    a {
+      color: $dark-gray-9;
+      cursor: pointer;
+      font-size: 10px;
+    }
+
+    nz-divider {
+      margin: 10px 0 !important;
+      background: #d5d5d5 !important;
+
+    }
+  }
+}
+
+
+
+

@@ -1,0 +1,31 @@
+@import 'src/app/styles/core/variables.scss';
+
+
+::ng-deep{
+  .select-role{
+      margin: 20px;
+  .ant-checkbox-group{
+    display: flex!important;
+    flex-flow: column;
+    gap: 5px;
+    margin: 20px;
+    .ant-checkbox-group-item{
+      background-color: $gb-sec-bg;
+      padding: 10px 5px;
+      border-radius: 5px;
+      margin:5px!important;
+      color: $white!important;
+
+    }
+  }
+  .ant-checkbox-inner{
+    width: 20px!important;
+    height: 20px!important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  }
+
+}
+

@@ -1,0 +1,592 @@
+@import 'src/app/styles/core/variables';
+@import "src/app/styles/functions";
+/////////////////////////////////////////////////////////////////////////////////////////
+/*  "CORE" STYLES */
+
+//Roboto
+@font-face {
+  font-family: 'Roboto';
+  src: url('../../../assets/fonts/roboto/Roboto-Regular.eot');
+  src: url('../../../assets/fonts/roboto/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+  url('../../../assets/fonts/roboto/Roboto-Regular.woff2') format('woff2'),
+  url('../../../assets/fonts/roboto/Roboto-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto-Bold';
+  src: url('../../../assets/fonts/roboto/Roboto-Bold.ttf') format('ttf');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../../../assets/fonts/roboto/Roboto-Light.ttf') format('ttf');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../../../assets/fonts/roboto/Roboto-Black.eot');
+  src: url('../../../assets/fonts/roboto/Roboto-Black.eot?#iefix') format('embedded-opentype'),
+  url('../../../assets/fonts/roboto/Roboto-Black.woff2') format('woff2'),
+  url('../../../assets/fonts/roboto/Roboto-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+//Tajawal
+@font-face {
+  font-family: 'Tajawal';
+  src: url('../../../assets/fonts/tajawal/Tajawal-Light.eot');
+  src: url('../../../assets/fonts/tajawal/Tajawal-Light.eot?#iefix') format('embedded-opentype'),
+  url('../../../assets/fonts/tajawal/Tajawal-Light.woff2') format('woff2'),
+  url('../../../assets/fonts/tajawal/Tajawal-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  src: url('../../../assets/fonts/tajawal/Tajawal-Bold.eot');
+  src: url('../../../assets/fonts/tajawal/Tajawal-Bold.eot?#iefix') format('embedded-opentype'),
+  url('../../../assets/fonts/tajawal/Tajawal-Bold.woff2') format('woff2'),
+  url('../../../assets/fonts/tajawal/Tajawal-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  src: url('../../../assets/fonts/tajawal/Tajawal-Regular.eot');
+  src: url('../../../assets/fonts/tajawal/Tajawal-Regular.eot?#iefix') format('embedded-opentype'),
+  url('../../../assets/fonts/tajawal/Tajawal-Regular.woff2') format('woff2'),
+  url('../../../assets/fonts/tajawal/Tajawal-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --kit-color-primary: #00A3FD;
+  --kit-font-family: "Roboto", 'Tajawal', sans-serif;
+}
+
+html {
+  font-size: 15px;
+  @media (max-width: $sm-max-width) {
+    font-size: 14px;
+  }
+}
+
+quill-view-html {
+  font-family: $base-font-family;
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.5;
+  font-family: $base-font-family;
+  color: $white;
+  overflow-x: hidden;
+  background: $gb-main-bg !important;
+  position: relative;
+  font-variant: normal;
+  font-feature-settings: normal;
+}
+
+a {
+  text-decoration: none;
+  color: $text;
+  @include transition-color();
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $blue;
+    text-decoration: none;
+  }
+}
+
+input {
+  outline: none !important;
+  font-family: $base-font-family;
+  color: $text;
+}
+
+button,
+input {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+input[type='text'],
+input[type='password'],
+input[type='email'],
+textarea {
+  appearance: none !important;
+}
+
+//h1,
+//h2,
+//h3,
+//h4,
+//h5,
+//h6, p {
+//  color: $white;
+//}
+
+
+svg {
+  vertical-align: initial;
+  overflow: auto;
+}
+
+.badge-example {
+  font-size: rem(14);
+  text-transform: uppercase;
+  margin-bottom: rem(15);
+  background: $gray-2;
+  color: $black;
+  display: inline-block;
+  padding: rem(3) rem(6);
+  border-radius: 4px;
+}
+
+// dark theme
+body {
+  background: $dark-gray-5;
+  color: $dark-gray-1;
+
+  .badge-example {
+    background: $dark-gray-4;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $dark-gray-1;
+}
+
+a {
+  color: $dark-gray-1;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $blue;
+    text-decoration: none;
+  }
+}
+
+.ant-page-header {
+  @include dynamic-m-v-property(padding, 16, 0)
+}
+
+.container-fluid, .container {
+  --bs-gutter-x: 25.6px;
+  @media screen and (min-width: 1400px) {
+    max-width: 1400px;
+  }
+}
+
+.inner-content {
+  background-color: $dark-gray-4;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.ant-divider-horizontal {
+  border-top-color: #ffffff3b !important;
+}
+
+.gap-1 {
+  @include dynamic-s-v-property(gap, 5)
+}
+
+.gap-2 {
+  @include dynamic-s-v-property(gap, 10)
+}
+
+.gap-3 {
+  @include dynamic-s-v-property(gap, 15)
+}
+
+.gap-4 {
+  @include dynamic-s-v-property(gap, 20)
+}
+
+.gap-2 {
+  @include dynamic-s-v-property(gap, 25)
+}
+
+.gap-6 {
+  @include dynamic-s-v-property(gap, 30)
+}
+
+.row-gap-1 {
+  @include dynamic-s-v-property(row-gap, 5)
+}
+
+.row-gap-2 {
+  @include dynamic-s-v-property(row-gap, 10)
+}
+
+.row-gap-3 {
+  @include dynamic-s-v-property(row-gap, 15)
+}
+
+.row-gap-4 {
+  @include dynamic-s-v-property(row-gap, 20)
+}
+
+.row-gap-2 {
+  @include dynamic-s-v-property(row-gap, 25)
+}
+
+.row-gap-6 {
+  @include dynamic-s-v-property(row-gap, 30)
+}
+
+//.row-gap-10 {
+//  row-gap: 10px;
+//}
+//
+//.row-gap-15 {
+//  row-gap: 15px;
+//}
+//
+//.row-gap-20 {
+//  row-gap: 20px;
+//}
+
+.ant-notification-notice {
+  //background: #2b952b !important;
+  color: white !important;
+  border-radius: 10px !important
+}
+
+.errorNotify {
+  background: #AE2D68 !important;
+}
+
+.successNotify {
+  background-color: green !important;
+}
+.warningNotify {
+  background-color: #c78400 !important;
+  .anticon.ant-notification-notice-icon-warning{
+    color: $white !important;
+  }
+}
+
+.ant-steps-item-title {
+  //color: white !important;
+  font-size: 16px !important;
+  font-weight: 500;
+  color: white;
+
+}
+
+.ant-steps-item-description {
+  //color: white !important;
+  font-size: 13px !important;
+
+}
+
+.ant-steps-item-wait > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title {
+  color: white !important;
+
+}
+
+.ant-steps-item-wait > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-description {
+  color: $white !important;
+
+}
+
+
+.ant-steps-item-content {
+  max-width: 700px !important;
+  padding-bottom: 30px !important;
+
+}
+
+.close {
+  position: absolute;
+  top: 5px;
+  right: 0px;
+  border: none;
+  background-color: transparent;
+  z-index: 10;
+
+  &.close-rewards {
+    top: unset;
+    bottom: 15px;
+  }
+}
+
+.prize-container {
+  position: relative;
+}
+
+
+.ant-typography.ant-typography-secondary {
+  color: rgb(255 251 251 / 45%) !important;
+}
+
+
+.ck.ck-editor__editable_inline {
+  background: $dark-gray-7 !important;
+  min-height: 200px;
+}
+
+.new_button {
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+  color: #ff4d4f !important;
+}
+
+
+.ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-description {
+  color: $white !important;
+
+
+}
+
+.ant-steps-item-finish .ant-steps-item-icon {
+  color: $white;
+  background: $green;
+  border-color: $green;
+}
+
+.ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon {
+  color: white;
+}
+
+.rtl {
+  direction: rtl;
+  text-align: right !important;
+  font-family: Tajawal !important;
+}
+
+.ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-tail::after {
+  background-color: #00cb7a !important;
+  //width: 3px !important;
+}
+
+.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-tail::after {
+  background-color: #fff !important;
+  //width: 1px !important;
+}
+
+.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-description {
+  color: $white !important;
+}
+
+.ant-steps-item-disabled {
+  opacity: 0.7 !important;
+  pointer-events: none;
+  cursor: not-allowed !important;
+
+}
+
+p {
+  margin-bottom: 0 !important;
+}
+
+.ant-ribbon {
+  line-height: unset !important;
+  @include dynamic-s-v-property(font-size, 14);
+  font-weight: normal;
+  text-transform: uppercase;
+  @include dynamic-dimensions(height, 21);
+  @include dynamic-m-v-property(border-radius, 2);
+  @include dynamic-m-v-property(padding, 0, 7);
+  top: 0.5vw;
+}
+
+.inner-content {
+  background-color: $gb-sec-bg;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+
+.gx-2 {
+  --bs-gutter-x: 8px !important;
+  @media screen and (min-width: 1400px) {
+    --bs-gutter-x: calc(6px + var(--viewport-width) / 100) !important;
+
+  }
+}
+
+.gy-3 {
+  --bs-gutter-y: 16px !important;
+  @media screen and (min-width: 1400px) {
+    --bs-gutter-y: calc(6px + var(--viewport-width) / 100) !important;
+  }
+}
+
+.ant-list-item-action {
+  margin-left: 0;
+}
+
+.ant-list-item-action > li {
+  display: flex;
+  align-items: center;
+  color: white;
+  gap: 10px;
+  font-size: 10px;
+
+  .list {
+    display: flex;
+    flex-direction: column;
+
+  }
+}
+
+
+.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title {
+  color: $white;
+}
+
+
+.ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title {
+  color: $gb-thirdly-color
+}
+
+.iti {
+  width: 100%;
+  background: $gb-sec-bg;
+  border-radius: 10px;
+
+}
+
+.iti input, .iti input[type=text], .iti input[type=tel] {
+  width: 100%;
+  height: 60px;
+  background: $gb-sec-bg;
+  border: none;
+  border-radius: 8px;
+
+  color: $white;
+}
+
+.iti input#country-search-box {
+  background: $white;
+}
+
+.primary-container {
+  background-color: $gb-sec-bg;
+  border-radius: 8px;
+}
+
+.content-container {
+  background-color: $gb-blue;
+  border-radius: 8px;
+  padding: 10px 0;
+}
+
+.second-container {
+  background-color: $gb-sec-bg;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.ant-radio-wrapper {
+  color: white;
+}
+
+
+// container
+
+@media (min-width: 1650px) {
+  .container {
+    max-width: 1570px;
+  }
+}
+@media (min-width: 1920px) {
+  .container {
+    max-width: 1780px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .container {
+    max-width: 2380px;
+  }
+}
+
+@media (min-width: 3840px) {
+  .container {
+    max-width: 3680px;
+  }
+}
+
+.ant-typography {
+  color: white;
+}
+
+.ant-pagination-item-ellipsis {
+  background: whitesmoke;
+  color: black;
+}
+
+.ant-pagination-item a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.ant-input-group-addon {
+  height: 40px;
+  background: transparent;
+}
+
+.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-icon {
+  background: $gb-primary-color;
+
+}
+
+.ant-steps-small .ant-steps-item-icon {
+  border: 0;
+  @include dynamic-equal-dimensions(35);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  @include dynamic-font(16);
+  font-weight: bold;
+}
+
+.ant-steps-item-title {
+
+  @include dynamic-font(14);
+  color: $gray-3 !important;
+  line-height: 35px !important;
+
+  &::after {
+    background-color: $gb-fifth-color !important;
+  }
+}
+
+
+.ant-checkbox-wrapper{
+  color: white;
+}

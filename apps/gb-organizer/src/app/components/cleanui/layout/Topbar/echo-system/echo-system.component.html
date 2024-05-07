@@ -1,0 +1,157 @@
+
+<div class="item hub-dropdown" >
+  <app-button nz-button variant="two-tone-primary p-0 hub-btn hub-dropdown " nz-dropdown nzTrigger="click"
+              [nzDropdownMenu]="menu" nzPlacement="bottomRight">
+    <img src="assets/svg-icons/dots-menu.svg">
+
+  </app-button>
+</div>
+
+  <nz-dropdown-menu #menu="nzDropdownMenu" class="hub-dropdown">
+    <div class="nav-drop-menu ">
+
+      <app-section [container]="'t'" [title]="'The Hub'">
+
+        <div class="hub-container">
+          <div class="hub-info-card">
+
+            <a routerLink="/tournaments" class="card-holder">
+              <app-info-card [type]="'smaller'" [title]="'Join'" [subTitle]="'Tournament'"
+                             [icon]="'assets/svg-icons/battle-icon.svg'"></app-info-card>
+            </a>
+            <a routerLink="/challenges" class="card-holder">
+              <app-info-card [type]="'smaller'" [title]="'Play'" [subTitle]="'Challenges'"
+                             [icon]="'assets/svg-icons/warrior-helmet.svg'"></app-info-card>
+            </a>
+
+            <a [href]="environment.storeUrl" class="card-holder">
+              <app-info-card [type]="'smaller'" [title]="'Browse'" [subTitle]="'Store'"
+                             [icon]="'assets/svg-icons/store.svg'"></app-info-card>
+            </a>
+            <a [href]="environment.organizerUrl" class="card-holder">
+              <app-info-card [type]="'smaller'" [title]="'Create'" [subTitle]="'Tournaments'"
+                             [icon]="'assets/svg-icons/game_pad-icon.svg'"></app-info-card>
+            </a>
+          </div>
+
+          <div class="general">
+            <div class="d-flex gap-2">
+              <img src="assets/svg-icons/plus-icon.svg" style="width:18px" alt="">
+              <h5>Create</h5>
+            </div>
+          </div>
+          <div class="hub-info-card">
+
+            <a routerLink="/arenas/create" class="card-holder">
+              <app-info-card [type]="'smaller'" [title]="'Create'" [subTitle]="'Arena'"
+                             [icon]="'assets/svg-icons/arena-icon.svg'"></app-info-card>
+            </a>
+            <a routerLink="/teams/create" class="card-holder">
+              <app-info-card [type]="'smaller'" [title]="'Create'" [subTitle]="'Team'"
+                             [icon]="'assets/svg-icons/team-icon.svg'"></app-info-card>
+            </a>
+
+          </div>
+
+
+          <div class="general">
+            <h4 style="margin:10px 0;">Business</h4>
+            <div class="hub-card-container">
+              <div class="hub-card">
+                <div class="hub-icon">
+                  <img src="assets/echo-system/building.svg">
+                </div>
+                <a href="https://business.gbarena.com/about/" class="hub-info">
+                  <div class="title">About</div>
+                  <div class="sub-title">Know More about our team, Investors</div>
+                </a>
+              </div>
+              <div class="hub-card">
+                <div class="hub-icon">
+                  <img src="assets/echo-system/pen.svg">
+                </div>
+                <a href="https://business.gbarena.com/blog/" class="hub-info">
+                  <div class="title">Blog</div>
+                  <div class="sub-title">Read more about our projects and the latest updates of esports</div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <nz-divider></nz-divider>
+
+          <!--        <div class="general">-->
+          <!--          <h6>Programs</h6>-->
+          <!--          <div class="hub-card-container">-->
+          <!--            <div class="hub-card">-->
+          <!--              <div class="hub-icon">-->
+          <!--                <img src="assets/svg-icons/money.svg">-->
+          <!--              </div>-->
+          <!--              <div class="hub-info">-->
+          <!--                <div class="title">About</div>-->
+          <!--                <div class="sub-title">Lorem ipsum dolor sit amet, consetetur sadipsc elitr, sed diam</div>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--            <div class="hub-card">-->
+          <!--              <div class="hub-icon">-->
+          <!--                <img src="assets/svg-icons/gamepad.svg">-->
+          <!--              </div>-->
+          <!--              <div class="hub-info">-->
+          <!--                <div class="title">About</div>-->
+          <!--                <div class="sub-title">Lorem ipsum dolor sit amet, consetetur sadipsc elitr, sed diam</div>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </div>-->
+          <!--        </div>-->
+          <!--        <nz-divider></nz-divider>-->
+          <!--                  <h6>Download Apps</h6>-->
+          <div class="hub-footer">
+
+
+
+            <div class="mobile-app">
+              <img src="assets/echo-system/app-store.svg">
+              <img src="assets/echo-system/android-store.svg">
+            </div>
+
+            <ul>
+              <li class="social">
+                <a href="https://facebook.com/gbarena" target="_blank">
+                  <img src="assets/echo-system/facebook.svg">
+                </a>
+              </li>
+              <li class="social"><a href="https://instagram.com/gbarenaofficial" target="_blank">
+                <img src="assets/echo-system/instagram.svg" alt="instagram-icon">
+
+              </a>
+              </li>
+              <li class="social"><a href="https://linkedin.com/company/gbarena" target="_blank">
+                <img src="assets/echo-system/linkedin-white.svg" alt="linkedin-icon">
+              </a>
+              </li>
+
+
+              <li class="social">
+                <a href="https://discord.com/invite/PHTn94cgyP" target="_blank">
+                  <img src="assets/echo-system/discord-white-icon.svg" alt="discord-icon">
+                </a>
+              </li>
+
+
+            </ul>
+
+            <ul>
+              <li routerLink="/privacy"> <p>Privacy</p></li>
+              <li routerLink="/terms-conditions"><p>Terms & Conditions</p></li>
+            </ul>
+            <p>All rights reserved, GBarena 2023.</p>
+
+
+
+
+          </div>
+        </div>
+
+      </app-section>
+    </div>
+
+  </nz-dropdown-menu>

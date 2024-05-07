@@ -1,0 +1,25 @@
+<app-section-container [title]="'single_elimination_settings'|translate"
+                       [createButton]="createButton" [isTournamentBracket]="true">
+  <ng-container [formGroup]="singleEliminationForm">
+
+    <div class="row mb-4 row-gap-15" style="margin-bottom: 0 !important;">
+      <div class="col-12 mb-3"  style="margin-bottom: 0 !important;">
+<!--        [sectionTitle]="'single_elimination_settings'|translate"-->
+        <div class="third">
+        <label nz-checkbox formControlName="has_third_place">
+          {{'has_third_and_fourth_match'|translate}}
+        </label>
+      </div>
+      </div>
+
+    </div>
+  </ng-container>
+</app-section-container>
+
+
+<ng-template #createButton>
+  <nz-affix [nzOffsetTop]="20">
+    <button nz-button nzType="primary" nzSize="large"  (click)="updateBracket()">
+      <span nz-icon nzType="plus"></span>{{'select_bracket'|translate}}</button>
+  </nz-affix>
+</ng-template>

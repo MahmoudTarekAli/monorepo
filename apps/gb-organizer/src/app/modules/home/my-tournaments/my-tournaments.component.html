@@ -1,0 +1,86 @@
+<!--[customTemplate]="searchTemplate"-->
+
+    <div class="row my-3">
+      <div class="col-lg-3 col-md-6  col-sm-12">
+        <nz-input-group class="w-100 border-radius-20 participant_search mb-3" [nzSuffix]="suffixIconSearch">
+          <input type="text" nz-input #searchInput [(ngModel)]="searchText"
+                 [placeholder]="'search_in_tournaments' | translate"/>
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <span nz-icon nzType="search"></span>
+        </ng-template>
+      </div>
+    </div>
+    <!--    <app-loading-indicator></app-loading-indicator>-->
+    <div class='row'>
+      <ng-container *ngIf="(getTournamentsIsExecuting$ | async) === true; else templateRef">
+        <div class="col-12">
+          <app-loading-indicator></app-loading-indicator>
+        </div>
+      </ng-container>
+      <ng-template #templateRef>
+        <ng-container *ngIf="(getTournamentsIsExecuting$ | async) === false">
+          <ng-container *ngIf="(tournaments | async)?.data?.length > 0 ; else noData">
+            <div class='col-xl-3 col-lg-4 col-md-6 col-sm-6 my-2' *ngFor='let tournament of (tournaments | async).data'>
+              <ng-container *ngTemplateOutlet='tournamentCard; context: {tournament:tournament}'></ng-container>
+            </div>
+            <div class="col-12 d-flex justify-content-end">
+              <nz-pagination [nzPageIndex]="currentPage" [nzPageSize]="(tournaments | async).meta?.per_page"
+                             [nzTotal]="(tournaments | async).meta?.total"
+                             (nzPageIndexChange)="changeTournamentPage($event)"></nz-pagination>
+            </div>
+          </ng-container>
+
+
+        </ng-container>
+      </ng-template>
+    </div>
+
+
+
+
+<!--Tournament Card-->
+<ng-template #tournamentCard let-tournament='tournament'>
+  <div class='tournament-card' [routerLink]="['/tournament', tournament['code'], 'process' , 'tournament-progress']"
+       (click)="setTournamentCode(tournament)">
+    <div class='cover' [ngStyle]="{'background-image': 'url('+tournament?.cover_picture+')'}">
+      <div class="overlay-container ">
+        <div class="overlay d-flex justify-content-center">
+        </div>
+        <img *ngIf="tournament?.visibility === 'private'" [nz-tooltip]="'Private Tournament'"
+             src="assets/svg-icons/tournament-private.svg" alt="">
+
+      </div>
+
+
+      <img [src]='tournament?.game?.logo' class="img-fluid w-100" alt=''>
+    </div>
+    <div class='body'>
+      <app-marquee [text]="tournament?.name" [nz-tooltip]="tournament?.name"
+                   [marqueeStyle]="marqueeStyle"></app-marquee>
+      <nz-divider></nz-divider>
+      <div class="body-content my-3">
+        <div class="d-flex align-items-center gap-2">
+          <img *ngIf="tournament.start_at_date" src="assets/svg-icons/calender-icon.svg" alt="">
+          <p> {{tournament.start_at_date | date: 'MMM d, y'}}</p>
+        </div>
+      </div>
+      <div class="body-content my-3">
+        <div class="status-button" *ngIf="tournament?.status"
+             [ngStyle]="{ 'background-color' :  statusColor[tournament?.status] }">
+          {{tournament?.status}}
+        </div>
+
+        <div *ngIf="tournament?.total_participants_count" class="d-flex align-items-center gap-2">
+          <img ngSrc="../../../../assets/svg-icons/users-icon.svg" alt="total participants" height="14" width="20">
+          <p> {{tournament?.total_participants_count}} </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!--No data-->
+<ng-template #noData>
+  <app-no-result class=" w-100 d-flex justify-content-center"></app-no-result>
+</ng-template>

@@ -1,0 +1,213 @@
+<!--[customButtons]="createButton"-->
+<app-section-container [createButton]="createButton" [customButtons]="customButton" [title]="'ffa_settings' | translate" [isTournamentBracket]="true"
+                       [saveBracket]="saveBracket">
+
+
+  <div [formGroup]="freeForAllForm" nz-form nzLayout="vertical" class="mt-4">
+    <ng-container [formGroupName]="getFormGroupName()">
+      <div class="row mb-4 row-gap-15">
+
+        <div class="col-md-6">
+          <nz-form-item>
+            <nz-form-label nzFor="no_of_participants_in_group"
+                           nzRequired>{{'no_of_participants_in_group' | translate}}</nz-form-label>
+            <nz-form-control [nzErrorTip]="no_of_participants_in_group">
+              <nz-input-number nzPlaceHolder="{{'no_of_participants_in_group' | translate}}" [nzMin]="2" id="no_of_participants_in_group"
+                               formControlName="no_of_participants_in_group"></nz-input-number>
+
+            </nz-form-control>
+            <ng-template #no_of_participants_in_group let-control>
+              <ng-container>
+                {{'no_of_participants_in_group_error' | translate}}
+              </ng-container>
+            </ng-template>
+          </nz-form-item>
+        </div>
+        <div class="col-md-6">
+          <nz-form-item>
+            <nz-form-label nzFor="no_of_qualified_participants"
+                           nzRequired>{{'no_of_qualified_participants' | translate}}</nz-form-label>
+            <nz-form-control [nzErrorTip]="no_of_qualified_participants">
+              <nz-input-number nzPlaceHolder="{{'no_of_qualified_participants' | translate}}" [nzMin]="1"
+                               id="no_of_qualified_participants"
+                               formControlName="no_of_qualified_participants"></nz-input-number>
+
+            </nz-form-control>
+            <ng-template #no_of_qualified_participants let-control>
+              <ng-container>
+                {{'no_of_qualified_participants_error' | translate}}
+              </ng-container>
+            </ng-template>
+          </nz-form-item>
+        </div>
+        <div class="col-md-6">
+          <nz-form-item>
+            <nz-form-label nzFor="points_per_kill">{{'points_per_kill' | translate}}</nz-form-label>
+            <nz-form-control>
+              <nz-input-number nzPlaceHolder="{{'points_per_kill' | translate}}" [nzMin]="1" id="points_per_kill"
+                               formControlName="points_per_kill"></nz-input-number>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <!--      if aggregate selected-->
+      </div>
+      <nz-divider></nz-divider>
+
+      <!--      Ranking Form-->
+      <div class="col-12 ranking-collapse">
+        <nz-collapse  formArrayName='rank_points' *ngIf="getPointValue()?.controls.length > 0" nzBordered="false">
+          <nz-collapse-panel [nzHeader]="header" [nzActive]="true" class='row prize-container' [nzExtra]="remove"
+                             *ngFor='let prize of getPointValue()?.controls; let index =index'>
+
+            <ng-container [formGroupName]='index'>
+              <ng-template #remove>
+                <button class="remove-button" nzSize="small" nzDanger="true" nz-button
+                        (click)="removePointValue(index)">
+                  <span nz-icon nzType="delete" nzTheme="fill"></span>
+                  <p>{{'remove_rank' | translate}}</p>
+                </button>
+              </ng-template>
+              <ng-template #header>
+                <span class="font-size-14 font-weight-bold">Ranking Points {{index + 1}}</span>
+              </ng-template>
+
+
+              <div class="row w-100">
+                <div class='col-md-4 col-12'>
+                  <p>From</p>
+
+                  <nz-select [nzShowSearch]="true"   nzPlaceHolder='From...' formControlName='fromRank'  (selectionchange)="getStageRankPoints()">
+                    <ng-container *ngFor='let rank of ranks;let index2= index'>
+
+                      <nz-option [nzLabel]='rank' [nzValue]='rank'>
+                      </nz-option>
+                    </ng-container>
+
+                  </nz-select>
+                  <!--                *ngIf="this.freeForAllForm.controls[this.getGroupSetting()]['controls'].rank_points.value[index].fromRank < this.maxRank"-->
+                  <nz-alert *ngIf="getRankError(index)"
+                            nzType="warning" nzMessage="minimum of {{getRankError(index) }}"></nz-alert>
+                </div>
+                <div class='col-md-4 col-12'>
+                  <p>To</p>
+                  <ng-container *ngIf="(prize.value.fromRank!=prize.value.toRank) ; else AddIcon">
+
+                    <nz-select [nzShowSearch]="true"  nzPlaceHolder='To...' formControlName='toRank'  (selectionchange)="getStageRankPoints()" >
+                      <ng-container *ngFor='let rank of ranks;let index3= index'>
+
+                        <nz-option [nzDisabled]="rank < prize.value.fromRank" [nzLabel]='rank' [nzValue]='rank'>
+                        </nz-option>
+                      </ng-container>
+                    </nz-select>
+                  </ng-container>
+                  <ng-template #AddIcon>
+                    <button nz-button nzType="primary"
+                            (click)="cancelToRank(index , prize)">
+                      <i class="fa fa-plus mx-2" aria-hidden="true"></i>
+
+                      {{'Add Rank' | translate}}
+                    </button>
+                  </ng-template>
+                </div>
+                <div class='col-md-4 col-12'>
+                  <p>Points</p>
+                  <input type="number" (ngModelChange)="getStageRankPoints()"
+                         formControlName="points" nz-input placeholder="Points ...."/>
+                </div>
+              </div>
+
+            </ng-container>
+          </nz-collapse-panel>
+        </nz-collapse>
+
+      </div>
+
+      <!--      Ranking bottom-->
+      <div class="text-center mt-3">
+        <button nz-button nzType="default" [disabled]="this.rangeArray.includes('disable')" (click)='addPointValue()'>
+          <span nz-icon nzType="plus"></span>{{'add_placement_points' | translate}}</button>
+        <button nz-button nzType="default" class="mx-2" *ngIf="stage === stages.SECOND_STAGE && freeForAllForm.controls[this.getGroupSetting()]?.['controls'].rank_points.value.length < 1"
+                (click)='patchValueRankingPoints(tournament?.tree?.data[0]?.group_settings , stages.SECOND_STAGE)'>
+          <span nz-icon nzType="plus"></span>{{'dublicate_first_stage_ranking' | translate}}</button>
+      </div>
+
+      <nz-divider></nz-divider>
+
+
+      <!--      aggregation -->
+      <div class="col-12 mb-3">
+        <label nz-checkbox [(ngModel)]="aggregatedChecked" [ngModelOptions]="{standalone: true}"
+               (nzCheckedChange)="aggregatedChecked = $event">
+          <div class="d-flex flex-column">
+            <span>{{'aggregated_matches' | translate}}</span>
+            <p>{{'aggregated_matches_text' | translate}}</p>
+          </div>
+        </label>
+      </div>
+
+      <div class="col-md-6" *ngIf="aggregatedChecked">
+        <nz-form-item>
+          <nz-form-label nzFor="number_of_matches"
+                         nzRequired>{{'number_of_matches' | translate}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="number_of_matches">
+            <nz-input-number nzPlaceHolder="{{'number_of_matches' | translate}}" [nzMin]="1" id="number_of_matches"
+                             formControlName="number_of_matches"></nz-input-number>
+          </nz-form-control>
+          <ng-template #number_of_matches let-control>
+            <ng-container>
+              {{'number_of_matches' | translate}}
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+      <!--      aggregation end -->
+
+    </ng-container>
+
+
+
+
+  </div>
+
+</app-section-container>
+
+
+<ng-template #createButton>
+<!--  <nz-affix [nzOffsetTop]="20">-->
+    <button class="mx-2 my-1" nz-button nzType="primary" nzSize="large" [disabled]="this.rangeArray.includes('disable') || this.freeForAllForm.invalid"
+            (click)="updateBracket()">
+      <img src="assets/svg-icons/save-icon.svg">
+     <p> {{'save' | translate}} </p>
+    </button>
+<!--  </nz-affix>-->
+
+</ng-template>
+
+<ng-template #customButton>
+    <button class="mx-2 my-1" nz-button nzType="primary" nzSize="large"
+           routerLink="/tournament/{{tournament?.code }}/process/tournament-bracket/view-bracket/free-for-all" [queryParams]="{stage , stageType }">
+      <img class="mx-1" src="assets/svg-icons/bracket-icon.svg" alt="">
+     <p> {{'view_bracket_template' | translate}}</p>
+    </button>
+
+</ng-template>
+
+<ng-template #saveBracket>
+    <button class="mx-2 my-1 save-bracket" nz-button nzType="default" nzSize="large" (click)="openDialogBracket()">
+      <img class="mx-1" src="assets/svg-icons/save-icon-colored.svg" alt="">
+      <p>{{'save_bracket_settings' | translate}}</p>
+    </button>
+</ng-template>
+
+<nz-modal [(nzVisible)]="tournamentBracketService.isVisible" nzTitle="Bracket Template" (nzOnCancel)="handleCancel()">
+  <div *nzModalContent>
+    <p>Template Name</p>
+    <nz-input-group>
+      <input [(ngModel)]="templateName"   style="border-radius: 0 !important;" type="text" nz-input [placeholder]="'Please type template name '"/>
+
+    </nz-input-group>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="primary" (click)="saveBracketSettings()" [disabled]="templateName.length === 0"> Submit</button>
+  </div>
+</nz-modal>

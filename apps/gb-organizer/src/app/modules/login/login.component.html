@@ -1,0 +1,24 @@
+<div class="login-container">
+    <div class="header">
+      <div class="container">
+      <div class="d-flex justify-content-end mt-4">
+<!--        <button nz-button class="white mx-2 " href="https://gbarena.com">-->
+<!--          <img src="assets/svg-icons/helmet-dark.svg" alt="">-->
+<!--          GBarena Esports</button>-->
+        <app-echo-system></app-echo-system>
+      </div>
+      </div>
+    </div>
+    <div class="content">
+      <img src="assets/images/gba-logo.png">
+      <h4>{{'creator_space'|translate}}</h4>
+      <p class="my-2 w-75 mx-auto text-center">Unleash your full potential ! create and manage your tournaments with ease</p>
+
+      <div class="d-flex justify-content-center mt-4">
+        <button nz-button nzType="primary" class="mx-2" (click)="routeLogin('login')">Login</button>
+        <button nz-button  class=" sign-up mx-2" (click)="routeLogin('signup')">Signup</button>
+      </div>
+
+    </div>
+
+</div>

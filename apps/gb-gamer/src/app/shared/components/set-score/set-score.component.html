@@ -1,0 +1,92 @@
+<div class="match">
+  <div class="match-versus">
+    <div class="match-versus-player">
+      <nz-avatar class="player" nzIcon="user" [nzSrc]="match?.home?.original?.avatar" nzSize="small"></nz-avatar>
+      <span>{{match?.home?.original?.participant_name | truncate: 15}}</span>
+    </div>
+    <div class="result" [formGroup]="setScoreForm">
+      <nz-input-number [nzMin]="0" formControlName="score_home"
+                       [nzStep]="1"></nz-input-number>
+      <nz-input-number [nzMin]="0" formControlName="score_away"
+                       [nzStep]="1"></nz-input-number>
+    </div>
+
+    <div class="match-versus-player">
+      <nz-avatar class="player" nzIcon="user" [nzSrc]="match?.away?.original?.avatar" nzSize="small"></nz-avatar>
+      <span>{{match?.away?.original?.participant_name | truncate: 15}}</span>
+    </div>
+  </div>
+
+</div>
+<div class="match upload-image">
+  <button nz-button nzType="default" class="w-100 mt-3 input-button-image">
+    <div>
+      <span nz-icon nzType="plus"></span>{{'upload_or_drag' | translate}} & {{'Drag screenshot Issue' | translate}}
+      <input #file1Input type="file" (change)="onChange($event)"/>
+    </div>
+  </button>
+</div>
+<div class="row" *ngIf="imgURL">
+  <div class="col-md-4 ">
+    <div class="uploadedImage">
+      <span nz-icon nzType="close-circle" nzTheme="outline"></span>
+      <img [src]="imgURL">
+    </div>
+
+
+  </div>
+
+</div>
+<div class="match row">
+  <div class="col-md-12 ">
+    <ng-scrollbar >
+
+      <nz-collapse style="max-height: 250px" [nzBordered]="false" [nzExpandIconPosition]="'right'" class="claims">
+        <nz-collapse-panel
+          *ngFor="let claim of match.claims"
+          [nzHeader]="header"
+        >
+          <ng-template #header>
+            <div class="d-flex gap-2 align-items-center">
+              <nz-avatar nzIcon="user" [nzSrc]="claim?.claimer?.avatar"></nz-avatar>
+              <span>{{ claim?.claimer?.name}}  : </span>
+              <span class="font-weight-bold">{{'Claims score at'}}</span>
+              <span class="text-white-50">{{claim?.date | date : 'EEEE, MMMM d, y, h:mm:ss a'}}</span>
+            </div>
+          </ng-template>
+          <p>{{claim?.note}}</p>
+          <div class="uploadedImage" *ngIf="claim.screenshot">
+            <img
+              nz-image
+              width="200px"
+              height="200px"
+              [nzSrc]="claim?.screenshot "
+              alt=""
+            />
+          </div>
+
+          <div class="claim-score">
+            <div class="score" [ngClass]="match?.home?.is_winner === true ? 'winner' : 'loser'">
+              <span> {{claim?.score_home}}</span>
+              <!--                        <span> {{match?.home?.score}}</span>-->
+            </div>
+            <div class="score" [ngClass]="match?.away?.is_winner === true ? 'winner' : 'loser'">
+              <span> {{claim?.score_away}}</span>
+              <!--                        <span> {{match?.away?.score}}</span>-->
+            </div>
+          </div>
+
+        </nz-collapse-panel>
+      </nz-collapse>
+    </ng-scrollbar>
+
+
+  </div>
+  <div class="buttons-container d-flex gap-2 my-4">
+    <app-button variant="primary" class="flex-grow-1" (click)="submitScore()">Submit Score</app-button>
+    <app-button variant="white " class="flex-grow-1" (click)="modal.destroy()">Cancel</app-button>
+  </div>
+
+</div>
+
+

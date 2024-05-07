@@ -1,0 +1,45 @@
+<div class="replace-player-wrapper">
+  <nz-radio-group nzButtonStyle="solid" class="d-flex gap-20 w-100" [(ngModel)]="selectedSide">
+    <label nz-radio-button [nzValue]="'home'" class="w-100">
+      <div class="player-card">
+
+        <nz-avatar nzSize="small" [nzSrc]="match?.home?.original?.avatar"></nz-avatar>
+        <span>{{match?.home?.original?.participant_name}}</span>
+      </div>
+    </label>
+    <label nz-radio-button [nzValue]="'away'" class="w-100">
+      <div class="player-card">
+
+        <nz-avatar nzSize="small" [nzSrc]="match?.away?.original?.avatar"></nz-avatar>
+        <span>{{match?.away?.original?.participant_name}}</span>
+      </div>
+    </label>
+
+  </nz-radio-group>
+
+  <nz-divider></nz-divider>
+
+  <ng-container>
+    <nz-input-group [nzSuffix]="suffixIconSearch" class="mb-3">
+      <input #term (keyup)="findParticipant(term.value)" type="text" nz-input placeholder="Search For Participant"/>
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <span nz-icon nzType="search"></span>
+    </ng-template>
+    <nz-radio-group nzButtonStyle="solid" class="participants" [(ngModel)]="selectedParticipant">
+      <label *ngFor="let participant of term.value.length > 0 ? searchValues : participants" nz-radio-button
+             [nzValue]="participant">
+        <div class="player-card">
+          <nz-avatar nzSize="small" [nzSrc]="participant?.original?.avatar"></nz-avatar>
+          <span>{{participant?.original?.participant_name | truncate : 10}}</span>
+        </div>
+      </label>
+
+    </nz-radio-group>
+  </ng-container>
+</div>
+
+<div *nzModalFooter>
+  <button nz-button nzType="primary" (click)="submit()">Replace Players</button>
+  <button nz-button nzType="default" (click)="modal.destroy()">Cancel</button>
+</div>

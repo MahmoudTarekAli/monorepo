@@ -1,0 +1,157 @@
+// Import mixins
+@import 'src/app/styles/core/variables.scss';
+@import "src/app/styles/functions";
+
+.ant-input {
+  background: $gb-sec-bg !important;
+  @include dynamic-m-v-property(border-radius, 5);
+  @include dynamic-dimensions(height, 50);
+  color: $white;
+  @include dynamic-font(12);
+  border-color: $gb-sec-bg !important;
+  @include dynamic-m-v-property(padding, 10);
+
+  &.small{
+    @include dynamic-dimensions(height, 30);
+  }
+  &.mid-height{
+    @include dynamic-dimensions(height, 40);
+  }
+  &:hover,
+  &:focus,
+  &:active {
+  }
+}
+
+
+.ant-input-affix-wrapper {
+  &:hover,
+  &:focus,
+  &:active {
+    .ant-input:not(.ant-input-disabled) {
+      border-color: $dark-gray-5;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+.ant-input-affix-wrapper {
+  background: $dark-gray-7 !important;
+
+  &:hover {
+    border-color: #4f4f7a !important;
+    border: 1px solid #4f4f7a;
+  }
+}
+
+.ant-input {
+  background: $dark-gray-7;
+
+  &-number {
+    &-handler {
+      &-wrap {
+        background: $dark-gray-3;
+      }
+    }
+  }
+}
+
+.ant-input::placeholder {
+  color: $gray-4 !important;
+  font-size:1em;
+}
+
+.ant-switch-checked {
+  background-color: $purple;
+}
+
+.ant-switch-handle::before {
+  background-color: $white
+}
+
+.ant-select-selector {
+  border-radius: 5px !important;
+  background: $gb-sec-bg !important;
+  color: $white!important;
+  border: none!important;
+  height: 40px!important;
+  display: flex;
+  align-items: center;
+
+}
+
+.ant-select-disabled.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  color: $gray-5;
+}
+
+.ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+  border: none !important;
+
+}
+
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  border: none !important;
+}
+
+::ng-deep.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  border: none !important;
+}
+
+.ant-radio-checked .ant-radio-inner {
+  background: $purple !important;
+}
+
+nz-date-picker {
+  width: 100% !important;
+  color: $white;
+
+}
+
+.ant-input-group > input, .ant-picker-input > input {
+  color: $white;
+}
+
+.ant-form-item-label > label {
+  color: $white;
+}
+.ant-picker-suffix{
+  color: $white
+}
+.ant-picker {
+  background: $gb-sec-bg !important;
+  border-radius: 5px !important;
+  height: 60px;
+  color: $white;
+  border: none
+}
+
+.ant-picker:hover {
+  border-color: $dark-gray-5 !important;
+
+}
+.ant-picker-range{
+  height: 40px!important;
+}
+nz-input-number {
+  width: 100% !important;
+  color: $white !important;
+  background: $dark-gray-7 !important;
+  border-radius: 5px !important;
+  border: 1px solid $dark-gray-7 !important;
+
+}
+::ng-deep{
+  .ant-select-selector{
+    display: flex;
+    align-items: center;
+  }
+}
+
+.ant-input-number-input:placeholder-shown::placeholder {
+  color: $gray-4 !important;
+}
+
+.ant-typography-copy {
+  margin: 0 ;
+}

@@ -1,0 +1,141 @@
+<app-section-container [title]="'claims_issues' | translate">
+  <div class='container'>
+    <nz-tabset [nzSize]="'large'">
+      <nz-tab
+        [nzTitle]="matchesWithClaims?.length > 0 ? ('claims' | translate)  +  ' ('  + matchesWithClaims?.length+ ')' : ('claims' | translate)">
+        <ng-container *ngIf="!loading; else loadingIndicator">
+          <!--          {{'hereee'}} {{matchesWithClaims.length}}-->
+          <div class="d-flex gap-15 flex-column m-auto" *ngIf="matchesWithClaims.length > 0; else no_result_claims">
+            <div class="match" *ngFor="let match of matchesWithClaims ; let index = index">
+              <div class="match-info">
+                <div>{{'# ' + (index + 1)}}</div>
+                <div>{{match?.start_at + 'Z' | date : 'MMM d, y : h:mm a'  }}</div>
+              </div>
+              <div class="match-versus">
+                <div class="match-versus-player">
+                  <nz-avatar class="player" nzIcon="user" [nzSrc]="match?.home?.original?.avatar"
+                             nzSize="small"></nz-avatar>
+                  <span
+                    class="text-center">{{isMobileView ? (match?.home?.original?.participant_name | truncate : 7) : (match?.home?.original?.participant_name | truncate : 10) }}</span>
+                  <nz-avatar class="country" nzIcon="user" *ngIf="!isMobileView"
+                             [nzSrc]="match?.home?.original?.avatar" nzSize="small"></nz-avatar>
+
+                </div>
+                <div class="match-status">
+                  <div class="match-versus-score">
+                    <div style="padding: 4px">
+                      {{match?.home?.score ? (match?.home?.score + ' : ' + match?.away?.score) : 'VS'}}
+                    </div>
+                    <nz-divider></nz-divider>
+                    <div style="padding: 4px">
+                      {{match?.status | translate}}
+                    </div>
+                  </div>
+
+                </div>
+                <div class="match-versus-player away">
+                  <nz-avatar class="player" nzIcon="user" [nzSrc]="match?.away?.original?.avatar"
+                             nzSize="small"></nz-avatar>
+                  <span
+                    class="text-center">{{isMobileView ? (match?.away?.original?.participant_name | truncate : 7) : (match?.away?.original?.participant_name | truncate : 10)}}</span>
+                  <nz-avatar class="country" nzIcon="user" *ngIf="!isMobileView"
+                             [nzSrc]="match?.away?.original?.avatar" nzSize="small"></nz-avatar>
+
+                </div>
+              </div>
+              <div class="match-action">
+                <nz-divider *ngIf="isMobileView"></nz-divider>
+                <a class="match-action-wrapper" routerLink="/match/{{match.code}}">
+                  <img [nz-tooltip]="'Match Profile'" class="action-button" src="assets/svg-icons/vs.svg">
+                </a>
+                <div class="match-action-wrapper">
+                  <img [nz-tooltip]="'Set Score'" (click)="openSetScoreModal(match)" class="action-button" src="assets/svg-icons/check-claims-icon.svg">
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </nz-tab>
+
+      <nz-tab
+        [nzTitle]="issues?.length > 0 ? ('issues' | translate )+  ('('  + issues?.length + ')') : ('issues' | translate)">
+        <ng-container *ngIf="!loading; else loadingIndicator">
+
+          <div *ngIf="issues.length > 0; else no_result">
+            <div class="match" *ngFor="let match of issues ; let index = index">
+              <div class="match-info">
+                <div>{{'# ' + (index + 1)}}</div>
+                <div>{{match?.start_at + 'Z' | date : 'MMM d, y : h:mm a'  }}</div>
+              </div>
+              <div class="match-versus">
+                <div class="match-versus-player">
+                  <nz-avatar class="player" nzIcon="user" [nzSrc]="match?.home?.original?.avatar"
+                             nzSize="small"></nz-avatar>
+                  <span
+                    class="text-center">{{isMobileView ? (match?.home?.original?.participant_name | truncate : 7) : (match?.home?.original?.participant_name | truncate : 10) }}</span>
+                  <nz-avatar class="country" nzIcon="user" *ngIf="!isMobileView"
+                             [nzSrc]="match?.home?.original?.avatar" nzSize="small"></nz-avatar>
+
+                </div>
+                <div class="match-status">
+                  <div class="match-versus-score">
+                    <div style="padding: 4px">
+                      {{match?.home?.score ? (match?.home?.score + ' : ' + match?.away?.score) : 'VS'}}
+                    </div>
+                    <nz-divider></nz-divider>
+                    <div style="padding: 4px">
+                      {{match?.status | translate}}
+                    </div>
+                  </div>
+
+                </div>
+                <div class="match-versus-player away">
+                  <nz-avatar class="player" nzIcon="user" [nzSrc]="match?.away?.original?.avatar"
+                             nzSize="small"></nz-avatar>
+                  <span
+                    class="text-center">{{isMobileView ? (match?.away?.original?.participant_name | truncate : 7) : (match?.away?.original?.participant_name | truncate : 10)}}</span>
+                  <nz-avatar class="country" nzIcon="user" *ngIf="!isMobileView"
+                             [nzSrc]="match?.away?.original?.avatar" nzSize="small"></nz-avatar>
+
+                </div>
+              </div>
+              <div class="match-action">
+                <nz-divider *ngIf="isMobileView"></nz-divider>
+                <div class="match-action-wrapper">
+                  <img (click)="navigateToMatchProfile(match)" class="action-button" src="assets/svg-icons/vs.svg">
+                </div>
+                <div class="match-action-wrapper">
+                  <img class="action-button" src="assets/svg-icons/flag-icon.svg">
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <!--        <ng-container *ngIf="(getConfirmedParticipantsIsExecuting$ | async) !== true ; else loadingIndicator">-->
+        <!--          <ng-container-->
+        <!--            *ngTemplateOutlet="tab context: {participants:(getConfirmedParticipants | async), type: 'confirmed' , page:confirmedPage}">-->
+
+        <!--          </ng-container>-->
+        <!--        </ng-container>-->
+      </nz-tab>
+
+    </nz-tabset>
+  </div>
+</app-section-container>
+
+<ng-template #loadingIndicator>
+  <div class="row">
+    <div class="col-12">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+  </div>
+
+</ng-template>
+
+<ng-template #no_result_claims>
+  <app-no-result [image]="'assets/svg-icons/flag-icon.svg'" [message]="'No Claims Reported yet'" class="d-flex justify-content-center my-5"></app-no-result>
+</ng-template>
+<ng-template #no_result>
+  <app-no-result [image]="'assets/svg-icons/flag-icon.svg'" [message]="'No Issues Reported yet'" class="d-flex justify-content-center my-5"></app-no-result>
+</ng-template>
+

@@ -1,0 +1,55 @@
+<div [ngClass]="{
+  menu: true,
+  white: menuColor === 'white',
+  gray: menuColor === 'gray',
+  dark: menuColor === 'dark'
+}">
+
+  <div class="logoContainer">
+    <div class="logo" routerLink="/" style="cursor: pointer; outline: none">
+      <img src="assets/images/logo.svg" class="me-2" alt="Clean UI"/>
+      <div class="name">{{ logo }}</div>
+    </div>
+  </div>
+  <div class="navigation">
+    <ul nz-menu [nzMode]="'horizontal'" >
+        <li nz-submenu>
+        <span title>
+          <i class="icon fe fe-home"></i>
+          <span class="title">Plaza</span>
+        </span>
+          <ul>
+            <li nz-menu-item routerLink="/plaza">
+            <span>
+              <span class="title">Get Plaza</span>
+            </span>
+            </li>
+            <li nz-menu-item routerLink="/plaza/add-plaza">
+            <span>
+              <span class="title">Add Plaza</span>
+            </span>
+            </li>
+          </ul>
+        </li>
+        <li nz-submenu>
+        <span title>
+          <i class="icon fe fe-home"></i>
+          <span class="title">Users</span>
+        </span>
+          <ul>
+            <li nz-menu-item routerLink="/users">
+            <span>
+              <span class="title">Get Users</span>
+            </span>
+            </li>
+            <li nz-menu-item routerLink="/users/add-user">
+            <span>
+              <span class="title">Add User</span>
+            </span>
+            </li>
+          </ul>
+        </li>
+
+    </ul>
+  </div>
+</div>

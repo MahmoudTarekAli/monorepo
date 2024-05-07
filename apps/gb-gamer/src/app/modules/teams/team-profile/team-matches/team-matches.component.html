@@ -1,0 +1,24 @@
+
+<ng-container *ngIf="!(getUpcomingMatchesIsExecuting$ | async ) ; else loadingIndicator">
+  <ng-container *ngIf="UpComingMatches$ | async as upcomingMatches">
+      <h4 class="my-2">Upcoming Matches</h4>
+    <ng-container *ngIf="upcomingMatches.length > 0 ; else noMatches">
+    <ng-container *ngFor="let match of upcomingMatches?.slice(0 , 3)">
+      <app-match-bar [match]="match"></app-match-bar>
+    </ng-container>
+    </ng-container>
+  </ng-container>
+
+
+<ng-template #noMatches>
+  <div class="second-container p-5">
+    <div class="d-flex flex-column align-items-center m-auto gap-10">
+      <h2>You don’t have any upcoming matches yet!</h2>
+    </div>
+
+  </div>
+</ng-template>
+</ng-container>
+<ng-template #loadingIndicator>
+  <app-loading-indicator></app-loading-indicator>
+</ng-template>

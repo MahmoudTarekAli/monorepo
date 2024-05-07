@@ -1,0 +1,15 @@
+@import '../../../../styles/core/variables';
+.required-info{
+  input , textarea ,.ant-picker, {
+    background-color: $gb-blue!important;
+  }
+  ::ng-deep{
+    .ant-select-selector{
+      background-color: $gb-blue!important;
+    }
+    .ant-select-arrow{
+    color: $white!important;
+    }
+  }
+
+}

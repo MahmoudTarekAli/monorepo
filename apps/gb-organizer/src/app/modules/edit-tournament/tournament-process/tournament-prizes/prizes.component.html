@@ -1,0 +1,162 @@
+<app-section-container [createButton]='createButton' [title]="'prizes'| translate"
+                       [sectionTitle]="'prizes'| translate">
+
+  <div [formGroup]='PrizesForm' nz-form nzLayout='vertical' class='mt-4'>
+    <div class="p-3 prize-collapse-container">
+      <nz-collapse formArrayName='prizes' nzBordered="false" >
+        <nz-collapse-panel class='row prize-container row-gap-15' [nzHeader]="header"
+                           *ngFor='let prize of getPrizesValue().controls; let index =index' [@enter]="true"
+                           [@leave]="true" [nzExtra]="remove" [nzActive]="true">
+          <ng-container [formGroupName]='index'>
+            <ng-template #remove>
+
+              <button class="remove-button" nzSize="small"  nzDanger="true" nz-button
+                      (click)="removePrize(index)">
+                <span nz-icon nzType="delete" nzTheme="fill"></span>
+                <p>{{'remove_prize' | translate}}</p>
+
+              </button>
+            </ng-template>
+            <ng-template #header>
+              <span class="font-size-14 font-weight-bold">{{'prize_pool'| translate}} {{index + 1}}</span>
+            </ng-template>
+
+            <div class="row mt-3">
+              <div class='col-md-4 col-6'>
+                <nz-select nzShowSearch nzPlaceHolder="{{'from_placeholder' | translate}}" formControlName='from'>
+                  <ng-container *ngFor='let order of prizesOrder;let index2= index'>
+
+                    <nz-option [nzLabel]='order' [nzValue]='order'>
+                    </nz-option>
+                    <!--                  <nz-option [nzDisabled]="this.getRange(this.getPrizesValue().value[index].from , this.getPrizesValue().value[index].to , 1).includes(this.maxRankk)" [nzLabel]='order' [nzValue]='order'>-->
+                    <!--                  </nz-option>-->
+                  </ng-container>
+
+                </nz-select>
+                <nz-alert *ngIf="getRankError(index)"
+                          nzType="error" nzMessage="minimum of {{getRankError(index) }}"></nz-alert>
+              </div>
+              <div class='col-md-4 col-6'>
+                <ng-container *ngIf="(prize.value.from!=prize.value.to) ; else AddIcon">
+
+                  <nz-select nzShowSearch nzPlaceHolder="{{'to_placeholder' | translate}}" formControlName='to'
+                             *ngIf="(prize.value.from!=prize.value.to);">
+                    <ng-container *ngFor='let order of prizesOrder;let index3= index'>
+
+                      <nz-option [nzDisabled]="order < prize.value.from" [nzLabel]='order' [nzValue]='order'>
+                      </nz-option>
+                    </ng-container>
+                  </nz-select>
+                </ng-container>
+                <ng-template #AddIcon>
+                  <button nz-button nzType="primary"
+                          (click)="cancelToRank(index , prize)">
+                    <i class="fa fa-plus mx-2" aria-hidden="true"></i>
+
+                    {{'Add Rank' | translate}}
+                  </button>
+                </ng-template>
+              </div>
+              <div class='col-md-4 col-6'>
+                <button nz-button nzType="primary"
+                        (click)="appendOptionsToGroupsControl(index)">
+                  <i class="fa fa-plus mx-2" aria-hidden="true"></i>
+
+                  {{'add_rewards' | translate}}
+                </button>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <nz-collapse class="mt-3 child" nzBordered="true"
+                             *ngFor="let prizeArray of getOptionsGroupsControl(index).controls ; let j = index">
+                  <nz-collapse-panel class="child" [nzHeader]="reward" [nzExtra]="removeReward" [nzActive]="true"
+                  >
+                    <ng-template #reward>
+                      <span>Reward {{j + 1}}</span>
+                    </ng-template>
+                    <ng-container formArrayName="prizes">
+                      <div class='col-12 rewards-container' [formGroupName]="j">
+                        <div class='row'>
+                          <div class='col-md-4 col-6'>
+                            <p>{{'type' | translate}}</p>
+                            <nz-select nzPlaceHolder="Type" formControlName="type" nzShowSearch>
+
+                              <nz-option [nzLabel]="'Cash'" [nzValue]="'cash'"></nz-option>
+                              <nz-option [nzLabel]="'Custom'" [nzValue]="'custom'"></nz-option>
+                              <nz-option [nzLabel]="'coins'" [nzValue]="'coins'"></nz-option>
+                            </nz-select>
+                          </div>
+                          <div class='col-md-4 col-6' *ngIf="prizeArray?.get('type')?.value === 'cash'">
+                            <p>{{'currency' | translate}}</p>
+                            <nz-select nzPlaceHolder="Currency" formControlName="currency">
+
+                              <nz-option [nzLabel]="'EGP'" [nzValue]="'EGP'"></nz-option>
+                              <nz-option [nzLabel]="'USD'" [nzValue]="'USD'"></nz-option>
+                              <nz-option [nzLabel]="'SAR'" [nzValue]="'SAR'"></nz-option>
+                            </nz-select>
+                          </div>
+                          <div class='col-md-4 col-6'>
+                            <p>{{'prize_value' | translate}}</p>
+                            <input type="{{prizeArray?.get('type')?.value === 'coins' ? 'number' : 'text'}}"
+                                   formControlName="value" nz-input
+                                   placeholder="{{prizeArray?.get('type')?.value }} Prize ..."/>
+                          </div>
+                          <div class='col-md-4 col-6' *ngIf="prizeArray?.get('type')?.value === 'custom'">
+                            <p *ngIf="prizeArray?.get('type')?.value === 'custom'">{{'note' | translate}}:</p>
+
+                            <p *ngIf="prizeArray?.get('type')?.value === 'cash'">{{'currency' | translate}}:</p>
+                            <input type="text" formControlName="note" nz-input
+                                   placeholder="{{'note_placeholder' | translate}}"/>
+
+                          </div>
+                          <ng-template #removeReward>
+                            <button class="remove-button" nzSize="small"
+                                    nzDanger="true" nz-button
+                                    (click)="removePrizeOption(j , index)">
+                              <span nz-icon nzType="delete" nzTheme="fill"></span>
+                              <p>{{'remove_reward' | translate}}</p>
+
+
+                            </button>
+                          </ng-template>
+
+                        </div>
+
+                      </div>
+                    </ng-container>
+                  </nz-collapse-panel>
+
+                </nz-collapse>
+
+              </div>
+            </div>
+            <!--            <nz-divider></nz-divider>-->
+          </ng-container>
+
+        </nz-collapse-panel>
+
+      </nz-collapse>
+
+    </div>
+    <div class='text-center mt-3'>
+      <button nz-button (click)="addPrizeValue()" [disabled]="this.rangeArray.includes('disable')">
+        <i class="fa fa-plus mx-2" aria-hidden="true"></i>
+
+        {{'add_prize' | translate}}
+      </button>
+
+    </div>
+
+  </div>
+</app-section-container>
+
+
+<ng-template #createButton>
+  <button class="mt-5" (click)='create()' [disabled]="PrizesForm.invalid || this.rangeArray.includes('disable')"
+          nz-button nzType='primary'>        {{'save_prize' | translate}}
+  </button>
+
+</ng-template>

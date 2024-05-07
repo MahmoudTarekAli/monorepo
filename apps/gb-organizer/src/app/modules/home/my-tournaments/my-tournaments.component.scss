@@ -1,0 +1,203 @@
+@import '../../../components/kit/core/mixins';
+
+
+h1 {
+  &.pagetitle {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+.new_button {
+  background: #8429F5;
+  padding: 0px;
+  border-radius: 8px;
+  border: none;
+  overflow: hidden;
+
+  &:hover {
+    background: #8730f5;
+  }
+
+  p {
+    font-size: 16px !important;
+    margin: 0 20px;
+    text-transform: uppercase;
+  }
+
+  .icon-container {
+    background: #461887;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+
+    img {
+      margin: 0 15px;
+      width: 15px;
+    }
+  }
+
+
+}
+
+
+//::ng-deep {
+//  .ant-tabs-tab {
+//    background: none !important;
+//    border: none !important;
+//  }
+//
+//  .ant-tabs-nav .ant-tabs-tab-active {
+//    border-bottom: 3px solid #8429F5 !important;
+//
+//  }
+//
+//  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+//    color: $dark-gray-1 !important;
+//  }
+//}
+
+.tournament-card {
+  max-width: 300px;
+  border-radius: 10px !important;
+  overflow: hidden;
+  border: 2px solid transparent !important;
+  //min-height: 295px;
+
+
+  .cover {
+    height: 120px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+
+    img {
+      width: 80px !important;
+      object-fit: contain;
+      margin: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @mixin overlay-mixin {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+    }
+
+    .overlay-container {
+      @include overlay-mixin;
+      display: flex;
+      justify-content: center;
+
+      img {
+        width: 65px !important;
+      }
+
+      .overlay {
+        @include overlay-mixin;
+        width: 100%;
+        z-index: 1;
+        background: #240e55;
+        opacity: 0.4;
+      }
+    }
+
+  }
+
+  &:hover {
+    border: 2px solid #8429f5 !important;
+  }
+
+  .body {
+    background: $gb-sec-bg;
+    padding: 5px 0;
+    min-height: 125px;
+
+    h1 {
+      font-size: 16px;
+      padding: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      //border-bottom: solid 1px #584185;
+      font-weight: normal;
+      text-transform: none;
+    }
+
+    .body-content {
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 10px;
+      color: #eeeeee;
+
+      .game {
+        img {
+          width: 50px;
+          object-fit: contain;
+        }
+      }
+
+      img {
+        width: 14px;
+      }
+
+      p {
+        font-size: 12px;
+        margin: 0;
+      }
+    }
+
+    .status-button {
+      padding: 0 10px;
+      border-radius: 18px;
+      border: none;
+      font-size: 12px;
+      color: $dark-gray-1;
+      width: fit-content;
+    }
+  }
+
+}
+
+.participant_search {
+  background-color: $gb-blue !important;
+  display: flex;
+  flex-flow: row-reverse;
+
+  input {
+    background-color: $gb-blue !important;
+    color: $dark-gray-1;
+  }
+
+  .anticon {
+    width: 20px !important;
+
+    svg {
+      font-size: 18px !important;
+    }
+  }
+
+}
+
+
+
+
+
+nz-divider {
+  margin: 0 !important;
+}
+
+.tour-title {
+  font-size: 16px;
+  padding: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  //border-bottom: solid 1px #584185;
+  font-weight: normal;
+  text-transform: none;
+}

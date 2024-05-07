@@ -1,0 +1,24 @@
+@import '../../../../styles/core/variables';
+
+.ant-input {
+  background-color: $gb-blue !important;
+}
+
+.title {
+  cursor: pointer;
+
+  &:hover {
+    color: $gb-thirdly-color !important;
+  }
+}
+
+.disabled2fa {
+  margin: auto;
+  padding-top: 1rem;
+  max-width: 500px;
+
+}
+
+.ant-divider-horizontal {
+  margin: 24px 0;
+}

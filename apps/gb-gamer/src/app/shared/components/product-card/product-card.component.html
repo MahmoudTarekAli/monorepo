@@ -1,0 +1,28 @@
+<!--<ng-container-->
+<!--        *ngIf="section && product.id === section.highlighted_product_id ; else noHighlighted">-->
+<!--    <a class="card-container" *ngIf="product?.id"-->
+<!--       [routerLink]="[ product?.slug]">-->
+<!--        <div class="card-img-container">-->
+<!--            <img [src]="product?.images.featured_image" loading="lazy" alt="Photo">-->
+<!--            <div class="on-hover">-->
+<!--                <h3>{{product.name}}</h3>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </a>-->
+<!--</ng-container>-->
+<!--<ng-template #noHighlighted>-->
+    <a class="card-container" *ngIf="product?.id"
+       href="{{href}}">
+        <div class="card-product-container">
+            <img [src]="product?.images?.image_main" loading="lazy" alt="Photo">
+            <div class="on-hover">
+                <h3>{{product.name}}</h3>
+            </div>
+        </div>
+
+
+    </a>
+<!--</ng-template>-->
+
+
+

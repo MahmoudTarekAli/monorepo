@@ -1,0 +1,24 @@
+<div>
+  <div nz-dropdown nzTrigger="click" nzPlacement="bottomRight" class="dropdown" [nzDropdownMenu]="menu">
+    <div class="flag">
+      <img [src]="mapFlags[language]" [alt]="language" />
+      <span class="text-uppercase">{{language}}</span>
+    </div>
+  </div>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item (click)="changeLanguage('en-US')">
+        <span class="menuIcon">
+          <img [src]="mapFlags.en" alt="English" />
+        </span>
+        English
+      </li>
+      <li nz-menu-item (click)="changeLanguage('ar-EG')">
+        <span class="menuIcon">
+          <img [src]="mapFlags.ar" alt="Arabic" />
+        </span>
+        Arabic
+      </li>
+    </ul>
+  </nz-dropdown-menu>
+</div>

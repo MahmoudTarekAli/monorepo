@@ -1,0 +1,57 @@
+// Import mixins
+@import 'src/app/components/mixins.scss';
+
+.ant-dropdown {
+  color: $gray-6;
+}
+
+.ant-dropdown-menu-item-group-list {
+  margin: 0;
+  list-style: none;
+  padding: 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+[data-kit-theme='dark'] {
+  .ant-dropdown-menu-item-group-title {
+    color: darken($dark-gray-3, 8%) !important;
+  }
+  .ant-select-dropdown {
+    &-menu-item-selected {
+      color: $text;
+      background: lighten($gray-6, 7%);
+    }
+  }
+}
+.ant-dropdown-menu{
+  background-color: $gb-sec-bg!important;
+  border-radius: 8px;
+  border: solid $gb-fifth-color;
+
+}
+.ant-dropdown {
+  .nav-drop-menu {
+    background: $gb-sec-bg;
+    box-shadow: 1px 2px 7px var(--gb-main-darker);
+    border-radius: 10px;
+
+    max-height: 500px;
+    width: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    border-width: 2px;
+    margin: 0 -20px 0 0;
+    //width: auto;
+    border: solid $gb-fifth-color;
+    flex-flow: column;
+    padding-bottom: 40px;
+      ul{
+        background: $gb-sec-bg;
+      }
+    .ant-page-header {
+      padding: 16px;
+    }
+  }
+}

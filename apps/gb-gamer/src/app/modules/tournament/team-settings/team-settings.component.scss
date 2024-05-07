@@ -1,0 +1,65 @@
+@import "src/app/modules/teams/team-profile/team-add-member/team-add-member.component.scss";
+
+h3 {
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+::ng-deep {
+  .ant-select-dropdown {
+    .cdk-virtual-scrollable {
+      min-height: 80px !important;
+    }
+  }
+  .copy-icon {
+    button{
+      width: 100%;
+    }
+  }
+}
+.button-dropdown{
+
+  background: $gb-main-bg;
+  border-radius: 10px;
+  padding: 0!important;
+  li{
+    padding: 5px 15px;
+    color: $white;
+  }
+  .ant-dropdown-menu-item:hover{
+    background: $gb-sec-bg;
+  }
+}
+
+::ng-deep {
+  @media screen and (max-width: 590px) {
+    app-button {
+        flex:1;
+    }
+  }
+
+  app-user-card {
+    border-bottom: solid 1px $gb-main-light-border;
+ &.selected {
+ background: var(--gb-fifth-color);
+ }
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+
+ .team-settings-container {
+      .card-container {
+        gap:0 !important;
+        padding-bottom:0 !important;
+      }
+   .header {
+     margin-bottom:10px;
+   }
+  }
+
+}
+.no-teams{
+  color: $green;
+}
+

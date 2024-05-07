@@ -1,0 +1,55 @@
+@import "../../styles/functions";
+@import '../../styles/core/variables';
+
+.loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000; /* Replace with your desired background color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loading-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #00DDBD; /* Replace with your desired spinner color */
+  border-top-color: #8429F5; /* Replace with your desired spinner color */
+  border-radius: 50%;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+::ng-deep .ps--active-x > .ps__rail-x {
+  //display: none!important;
+}
+
+.section-color {
+  background: $gb-main-darker;
+  @include dynamic-m-v-property(padding, 20, 0, 30, 0);
+}
+
+.cards-container {
+  flex:0 0 24%;
+}
+.products-container {
+  max-width: 250px;
+}
+

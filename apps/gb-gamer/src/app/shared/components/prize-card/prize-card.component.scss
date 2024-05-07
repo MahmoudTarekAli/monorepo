@@ -1,0 +1,48 @@
+@import 'src/app/styles/core/variables.scss';
+
+.prize-card {
+  display: flex;
+  justify-content: space-between;
+  background: $gb-sec-bg;
+  border-radius: 10px;
+  padding: 20px;
+  gap: 10px;
+  .rank {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    .rank-position {
+      font-size: 16px;
+      font-weight: bold;
+      color: white
+    }
+  }
+}
+
+.prize-container {
+
+  .prizes {
+    display: flex;
+    gap: 10px;
+
+    .prize {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 5px;
+
+      .prize-number {
+        font-size: 12px;
+        color: white;
+      }
+
+      .prize-icon {
+        width: 25px;
+        height: 25px;
+      }
+    }
+
+  }
+
+}

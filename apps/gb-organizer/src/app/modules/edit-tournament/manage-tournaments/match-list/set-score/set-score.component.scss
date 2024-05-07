@@ -1,0 +1,226 @@
+@import '../../../../../components/kit/core/mixins';
+
+.match {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+  align-items: center;
+  padding: 20px 20px;
+  @media screen and (max-width: 992px) {
+    flex-direction: column !important;
+    padding: 10px 10px !important;
+    gap: 15px !important;
+  }
+
+
+  .match-info {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    @media screen and (max-width: 992px) {
+      width: 100% !important;
+      justify-content: flex-start;
+    }
+  }
+
+  .match-versus {
+    display: flex;
+    gap: 30px;
+    background: $gb-main-bg;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    justify-content: center;
+    @media screen and (max-width: 992px) {
+      gap: 10px !important;
+      width: 100% !important;
+      justify-content: space-between !important;
+      flex-direction: row !important;
+
+    }
+
+    .result {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      @media screen and (max-width: 992px) {
+        align-items: center !important;
+      }
+
+    }
+
+    .match-versus-player {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+      @media screen and (max-width: 992px) {
+        justify-content: center;
+        flex-direction: column !important;
+      }
+
+      &.flex_column {
+        flex-flow: column !important;
+        align-items: start !important;
+      }
+
+      .player {
+        width: 30px;
+        height: 30px;
+        @media screen and (max-width: 992px) {
+          width: 25px !important;
+          height: 25px !important;
+        }
+      }
+
+      .country {
+        width: 18px;
+        height: 18px;
+      }
+
+      span {
+        word-break: break-all;
+        @media screen and (max-width: 992px) {
+          width: unset !important;
+        }
+      }
+    }
+
+    .match-versus-score {
+      background: $gb-main-bg;
+      border-radius: 30px;
+      align-items: center;
+      width: 70px;
+      display: flex;
+      height: 25px;
+      justify-content: center;
+    }
+  }
+
+  .match-action {
+    display: flex;
+    //gap: 20px;
+    .ant-divider-horizontal {
+      margin: 5px 0;
+    }
+
+    .match-action-wrapper {
+      width: 100% !important;
+      display: flex !important;
+      gap: 20px;
+      justify-content: space-between !important;
+    }
+
+    @media screen and (max-width: 992px) {
+      gap: 10px !important;
+      width: 100% !important;
+      flex-direction: column !important;
+      .match-action-wrapper {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+      }
+    }
+
+    .match-action-icon {
+      width: 70px;
+      font-size: 20px;
+    }
+  }
+}
+
+nz-input-number {
+  width: 100px !important;
+  @media screen and (max-width: 992px) {
+    height: 32px !important;
+    width: 52px !important;
+  }
+}
+
+.uploadedImage {
+  position: relative;
+  border-radius: 4px;
+  margin: 10px 0;
+
+  img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  span {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    cursor: pointer;
+
+    ::ng-deep {
+      svg {
+        width: 20px;
+        height: 20px;
+        color: #f5222e;
+      }
+    }
+
+  }
+
+}
+
+::ng-deep {
+  .claims {
+    .ant-collapse-item {
+      background: $gb-sec-bg !important;
+      border: none !important;
+      border-radius: 8px;
+      margin: 10px 0;
+    }
+
+    .ant-collapse-content {
+      border: 1px solid #FFFFFF4D;
+      border-radius: 0px 0px 12px 12px;
+      background-color: $dark-gray-9 !important;
+    }
+
+    .ant-collapse-header {
+      background: $gb-sec-bg !important;
+      //margin: 10px 0;
+      display: flex;
+      border-radius: 8px 8px 0 0px;
+      max-height: 60px;
+      border-bottom: 1px solid #FFFFFF4D;
+
+      .ant-list {
+        flex: 1 !important;
+      }
+
+      .ant-list-item {
+        padding: 0 !important;
+      }
+    }
+  }
+
+}
+
+.claim-score {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+
+  .score {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+  }
+  .winner {
+    background: $green;
+  }
+  .loser {
+    background: $red;
+  }
+}

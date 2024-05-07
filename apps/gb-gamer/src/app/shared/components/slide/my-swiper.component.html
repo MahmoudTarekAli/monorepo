@@ -1,0 +1,24 @@
+<swiper [config]="config">
+  <ng-container *ngIf="!mobileView">
+    <ng-template swiperSlide *ngFor="let image of images">
+      <ng-container *ngIf="image.background !== null">
+        <img (click)="routeBanner(image.buttons[0])" class="swiper-slide-image swiper-lazy"
+             data-src="{{image?.backgrounds?.desktop_background}}"
+        />
+      </ng-container>
+<!--      <div class="swiper-lazy-preloader"></div>-->
+    </ng-template>
+  </ng-container>
+
+
+  <ng-container *ngIf="mobileView">
+    <ng-template swiperSlide *ngFor="let image of images">
+      <img (click)="routeBanner(image.buttons[0])" class="swiper-slide-image swiper-lazy"
+           data-src="{{image?.backgrounds?.mobile_background}}"
+      />
+<!--      <div class="swiper-lazy-preloader"></div>-->
+    </ng-template>
+  </ng-container>
+
+</swiper>
+

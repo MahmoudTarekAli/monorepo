@@ -1,0 +1,27 @@
+@import "src/app/styles/functions";
+@import "src/app/styles/core/variables";
+::ng-deep{
+  .ant-collapse-content-box {
+    background-color: $gb-sec-bg !important;
+    p{
+      border-radius: 4px;
+      background-color: $gb-main-bg;
+      padding: 5px 10px;
+    }
+  }
+  .ant-collapse {
+    border: none
+  }
+  .ant-collapse-header{
+    //@include dynamic-font(16);
+    font-size: 16px;
+
+  }
+  nz-collapse-panel:last-child{
+    border-bottom: none!important;
+  }
+  .ant-collapse-header .ant-collapse-arrow{
+    font-size: 16px!important;
+    font-weight: bolder;
+  }
+}

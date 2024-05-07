@@ -1,0 +1,193 @@
+// Import mixins
+@import 'src/app/components/mixins.scss';
+@import "src/app/styles/functions";
+
+.ant-btn {
+  border: none;
+  @include dynamic-m-v-property(border-radius, 5);
+  @include dynamic-m-v-property(padding, 7, 20);
+  height: 100%;
+  @include dynamic-font(14);
+  @include dynamic-s-v-property(gap, 5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $white;
+
+
+  &:hover, &:focus {
+    color: inherit;
+    background: inherit;
+  }
+
+
+  &.primary {
+    background-color: $gb-primary-color;
+    color: $white;
+
+    span {
+      color: $white !important;
+    }
+
+  }
+
+  &.secondary {
+    background-color: $gb-green-blue-color;
+    color: $white;
+  }
+
+  &.default {
+    background-color: $transparent;
+    border: solid $gb-primary-color;
+    @include dynamic-s-v-property(border-width, 1);
+    color: $white;
+
+    &:hover {
+      background-color: $gb-primary-color;
+      color: $white;
+
+      span {
+        color: $white !important;
+      }
+    }
+  }
+
+  &.white {
+    background-color: $white;
+    color: $gb-main-bg;
+
+  }
+
+  &.green {
+    background-color: $green;
+    color: $white;
+  }
+
+  &.rounded-green {
+    background-color: $transparent;
+    color: $green;
+    border: solid $green;
+    @include dynamic-s-v-property(border-width, 2);
+    //border-radius: 20px !important;
+    @include dynamic-m-v-property(border-radius, 8);
+
+    p {
+      color: $green;
+    }
+  }
+
+
+  &.rounded-green-solid {
+    background-color: $green;
+    color: $black;
+    border: solid $green;
+    @include dynamic-s-v-property(border-width, 1);
+    //border-radius: 20px !important;
+    @include dynamic-m-v-property(border-radius, 20);
+
+  }
+
+  &.two-tone-primary {
+    background: $two-tone;
+    color: $white;
+  }
+
+  &.blue {
+    background-color: $gb-blueberry;
+    color: $white;
+  }
+
+  &.default-danger {
+    background-color: $transparent;
+    border: solid $red;
+    @include dynamic-s-v-property(border-width, 1);
+    color: $red;
+
+    &:hover {
+      background-color: $red;
+      color: $white;
+    }
+  }
+
+  &.danger {
+    background-color: $red;
+    color: $white;
+  }
+
+  &.rounded {
+    border-radius: 50px !important;
+  }
+
+  &.transparent {
+    background-color: $transparent;
+    color: $green;
+
+    &:hover {
+      background-color: $green;
+      color: $black;
+    }
+  }
+
+  &.baby-blue {
+    background-color: #6AC3FF;
+    color: $black;
+  }
+
+  &.premium {
+    background-color: #ffb133;
+    color: $white;
+  }
+
+  img {
+    //width: 20px;
+    @include dynamic-dimensions(width, 20);
+    //margin: auto 5px;
+    @include dynamic-m-v-property(margin, auto, 5);
+  }
+
+  &.fit-content {
+    width: fit-content;
+  }
+
+  &.wide-width {
+    min-width: 150px;
+  }
+
+  &.full-width {
+    flex: 1
+  }
+
+  &.big-padding {
+    @include dynamic-m-v-property(padding, 10, 30);
+  }
+}
+
+
+.hub-btn {
+  @include dynamic-equal-dimensions(40);
+
+  img {
+    @include dynamic-dimensions(width, 20);
+  }
+
+  @include dynamic-m-v-property(padding, 10);
+}
+
+.prime-btn {
+  display: flex;
+  flex-flow: row;
+  @include dynamic-s-v-property(gap, 10);
+  @include dynamic-m-v-property(padding, 10);
+  background: $gb-primary-color;
+
+  &:focus, &:hover {
+    background: $gb-light-primary-color;
+  }
+}
+
+app-button {
+  button {
+    width: 100%;
+  }
+}
+

@@ -1,0 +1,53 @@
+
+  <div class="second-container py-3 mx-auto" *ngIf="!invitationLoading;else load">
+    <h3 class="text-center mb-3"> {{invitation.type === 'TeamInvitation' ? 'Team Invitation' : 'Tournament Invitation'}} Request</h3>
+      <div class="row" *ngIf="message">
+
+          <img class="invite-image" src="assets/images/invitation.png" alt="">
+          <div class="row my-3">
+            <p class="col-6">Team</p>
+            <h6 class="col-6">{{invitation.team.data.name}}</h6>
+            <nz-divider class="mt-1 mb-2"></nz-divider>
+            <ng-container *ngIf="invitation?.tournament?.data">
+             <p class="col-6">Tournament</p>
+              <a  class="col-6" routerLink="/tournaments/{{invitation.tournament.data.code}}">
+                <h6>{{invitation.tournament.data.name}}</h6>
+              </a>
+            <nz-divider class="mt-1 mb-2"></nz-divider>
+            </ng-container>
+
+            <p class="col-6">Country</p>
+            <div class="col-6">
+              <div class="d-flex align-items-center ">
+                <nz-avatar class="country mx-2" [nzSrc]="invitation.team.data.country | countryImage"></nz-avatar>
+                <h6 class="mb-0">{{invitation.team.data.country}}</h6>
+              </div>
+            </div>
+            <nz-divider class="mt-1 mb-2"></nz-divider>
+            <p class="col-6">Owner</p>
+            <a class="col-6" routerLink="/gamer/{{invitation.team.data.owner.slug}}">
+              <h6 >{{invitation.team.data.owner.username}}</h6>
+            </a>
+
+            <nz-divider class="mt-1 mb-2"></nz-divider>
+            <p class="col-6">Game</p>
+            <a class="col-6" routerLink="/games/{{invitation.team.data.game.data.code}}">
+              <h6 >{{invitation.team.data.game.data.name}}</h6>
+            </a>
+
+          </div>
+
+          <div class="buttons-container">
+            <app-button variant="two-tone-primary" width="200" class="d-flex justify-content-center my-3" (click)="acceptInvitation()">
+              {{buttonLoading ? 'Send...' : 'Send Join Request'}}
+            </app-button>
+
+        </div>
+      </div>
+
+
+    </div>
+
+<ng-template #load>
+  <app-loading-indicator></app-loading-indicator>
+</ng-template>

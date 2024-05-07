@@ -1,0 +1,11 @@
+<div class="d-flex flex-column gap-10 justify-content-center align-items-center m-auto">
+  <ng-container *ngIf="image else noResult ">
+    <img [src]="image" width="80" height="80">
+
+  </ng-container>
+  <ng-template #noResult>
+    <ng-lottie class="mx-auto" width="1-0px" height="150px" [options]="options"></ng-lottie>
+  </ng-template>
+  <h4 class="text-center mt-3">{{message | translate}}</h4>
+</div>
+

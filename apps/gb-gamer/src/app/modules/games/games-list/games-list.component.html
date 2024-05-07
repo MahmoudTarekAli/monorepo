@@ -1,0 +1,60 @@
+<div class="container">
+
+<ng-container *ngIf="(getGamesIsExecuting$ | async) === true; else gameSection">
+  <div class="row">
+    <div class="col-12">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+  </div>
+</ng-container>
+<ng-template #gameSection>
+  <ng-container *ngIf="Games$ | async as games">
+
+  <ng-container *ngIf="(getGamesIsExecuting$ | async) === false">
+    <app-section [title]="'game.trendingGames'|translate | uppercase">
+      <ng-container *ngIf="games.trendingGames.length ; else noGames">
+
+      <div class="row gy-3 gx-2">
+        <div class="col-lg-2 col-lg-3- col-md-4 col-6" *ngFor="let game of games.trendingGames">
+          <app-game-card [game]="game" [type]="'trending'"></app-game-card>
+
+        </div>
+      </div>
+      </ng-container>
+    </app-section>
+    <div class="mt-5"></div>
+  <app-section  [title]="'game.gamesCategories'|translate | uppercase" [customButtons]="searchInput">
+    <ng-container *ngIf="games.filtrationGames.length ; else noGames">
+    <div class="row gy-3 gx-2">
+<!--      <app-radio-buttons-filters [items]="Genres$ | async" (itemsFiltration)="filterGames($event)" ></app-radio-buttons-filters>-->
+      <div class="col-lg-2 col-lg-3- col-md-4 col-6" *ngFor="let game of games.filtrationGames">
+        <app-game-card [isFavourite]="true" [game]="game" [type]="'all'"></app-game-card>
+
+      </div>
+    </div>
+    </ng-container>
+  </app-section>
+<!--    <app-card-list  [cards]="Games$| async" [cardType]="'games'"></app-card-list>-->
+
+  </ng-container>
+  </ng-container>
+
+</ng-template>
+
+
+  <ng-template #noGames>
+    <div class="second-container d-flex align-items-center justify-content-center py-5 my-4">
+      {{ 'common.placeholders.noItemsFound' | translate: {itemName: 'common.games' | translate} }}
+
+    </div>
+  </ng-template>
+<ng-template #searchInput >
+  <nz-input-group [nzSuffix]="suffixIconSearch">
+    <input class="small" type="text" nz-input #searchInput (input)="searchGames(searchInput.value)"
+           [placeholder]="'game.searchPlaceholder' | translate"/>
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <span nz-icon nzType="search"></span>
+  </ng-template>
+
+</ng-template>

@@ -1,0 +1,96 @@
+<div class="container"  *ngIf="!loading; else loadingIndicator">
+  <ng-container *ngIf="(Gamer$ | async) as gamer">
+    <app-banner-card
+      [banner]="gamer.cover_picture || 'https://gbarena-development.s3.amazonaws.com/users/covers/default.webp'"
+      *ngIf="(Gamer$ | async) as gamer" [profile]="gamer.avatar"  [isPremium]="gamer?.is_premium">
+
+      <div class="tournament-description d-flex flex-column justify-content-around"
+           ngProjectAs="tournament-description">
+        <h1 class="d-flex flex-column">
+          <div class="d-flex flex-row gap-2 align-items-center">
+          {{gamer?.username}}
+            <nz-avatar  class="country me-2" loading="lazy" [nzSrc]="gamer.country  | countryImage"></nz-avatar>
+            <img *ngIf="gamer.is_premium" style="width: 25px" src="assets/svg-icons/prime-icon.svg" alt="">
+          </div>
+          <span class="ref-number" [ngClass]="{'premium-color' : gamer?.is_premium}">
+            #{{gamer?.reference_number}}
+<!--            <ng-container *ngIf="(userData$|async) as user" >-->
+<!--            <img *ngIf="gamerService.isAccountOwner" (click)="editRefNumberModal(user.reference_number)" src="assets/svg-icons/premium-edit.svg" alt="">-->
+<!--              </ng-container>-->
+          </span>
+        </h1>
+        <div class="d-flex flex-row gap-10 align-items-center">
+          <h5><span>{{gamer.bio}}</span></h5>
+        </div>
+      </div>
+
+      <ng-container *ngIf="gamerService.isAccountOwner else notOwner" ngProjectAs="tournament-buttons">
+        <app-button routerLink="./settings" variant="primary">
+          <img src="assets/svg-icons/profile-settings.svg" alt="">
+          <span>{{'gamer.profileSettings' | translate}}</span>
+        </app-button>
+        <!--      <app-button    variant="white">-->
+        <!--        Complete Profile-->
+        <!--      </app-button>-->
+      </ng-container>
+      <ng-template #notOwner>
+        <ng-container *ngIf="(Relations$ | async) as relations" ngProjectAs="tournament-buttons">
+          <app-button
+            *ngIf="!relations.friend && !gamer?.friendship_request?.hasSentFriendRequestTo && !gamer?.friendship_request?.hasFriendRequestFrom "
+            (click)="addFriend(gamer?._id)" variant="two-tone-primary">
+            <img src="assets/svg-icons/add-icon.svg" alt="">
+            <span>{{'common.buttons.addFriend' | translate}}</span>
+          </app-button>
+          <app-button
+            *ngIf="!relations.friend && gamer?.friendship_request?.hasSentFriendRequestTo && !gamer?.friendship_request?.hasFriendRequestFrom"
+            (click)="cancelRequest(gamer?.friendship_request?.friendRequestID)" variant="premium">
+            <img src="assets/svg-icons/cancel-icon.svg" alt="">
+            <span>{{'common.buttons.cancelRequest'  | translate}}</span>
+          </app-button>
+          <app-button
+            *ngIf="!relations.friend && !gamer?.friendship_request?.hasSentFriendRequestTo && gamer?.friendship_request?.hasFriendRequestFrom"
+            (click)="acceptRequest(gamer?.friendship_request?.friendRequestID )" variant="green">
+            <img src="assets/svg-icons/accept-friend-request.svg" alt="">
+            <span>{{'common.buttons.acceptRequest' | translate}}</span>
+          </app-button>
+          <app-button
+            *ngIf="!relations.friend && !gamer?.friendship_request?.hasSentFriendRequestTo && gamer?.friendship_request?.hasFriendRequestFrom"
+            (click)="cancelRequest(gamer?.friendship_request?.friendRequestID )" variant="danger">
+            <img src="assets/svg-icons/remove-friend-request.svg" alt="">
+            <span>{{'common.buttons.declineRequest' | translate}}</span>
+          </app-button>
+          <app-button *ngIf="relations.friend" (click)="removeFriend(gamer?._id)" variant="danger">
+            <img src="assets/svg-icons/remove-friend-request.svg" alt="">
+            <span>{{'common.buttons.removeFriend'| translate}}</span>
+          </app-button>
+        </ng-container>
+      </ng-template>
+
+    </app-banner-card>
+
+    <div class="tabbest">
+      <ng-container *ngFor="let tab of tabs; let i = index">
+        <div *ngIf="tab.isOwner">
+          <p routerLink="./{{tab.path}}" routerLinkActive="active">
+            {{ tab.title | translate}}
+          </p>
+        </div>
+      </ng-container>
+    </div>
+    <!--  <nz-tabset nzLinkRouter nzType="card" >-->
+    <!--    <ng-container *ngFor="let tab of tabs; let i = index" >-->
+    <!--    <nz-tab *ngIf="tab.isOwner" [nzClosable]="i > 1" >-->
+    <!--      <a *nzTabLink nz-tab-link routerLink="./{{tab.path}}" >-->
+    <!--        {{ tab.title | translate}}-->
+    <!--      </a>-->
+    <!--    </nz-tab>-->
+    <!--    </ng-container>-->
+    <!--  </nz-tabset>-->
+
+    <router-outlet></router-outlet>
+  </ng-container>
+</div>
+
+<ng-template #loadingIndicator>
+  <app-loading-indicator></app-loading-indicator>
+</ng-template>

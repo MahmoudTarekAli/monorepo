@@ -1,0 +1,29 @@
+<div class="prizes-container">
+  <ng-container *ngFor="let category of prizesCategories; let index = index">
+    <h1 style="font-family: 'Anton';" *ngIf="category?.gameName">{{category?.gameName}}</h1>
+    <h1>{{category.name}}</h1>
+    <ul>
+      <li>
+        <div class="position {{globalService.selectedGame}} header">
+          Place
+        </div>
+        <div class="prize header">
+          Prizes
+        </div>
+      </li>
+      <li *ngFor="let prize of category.prizes">
+        <div class="position {{globalService.selectedGame}} ">
+          {{prize.rank}}
+        </div>
+        <div class="prize">
+          <div>
+            <img class="coins-icon" *ngIf="prize?.icon" src="assets/svg-icons/coins.svg" alt="coins">
+            {{prize.prize}}
+          </div>
+        </div>
+      </li>
+
+    </ul>
+    <nz-divider *ngIf="index !== prizesCategories.length - 1 "></nz-divider>
+  </ng-container>
+</div>

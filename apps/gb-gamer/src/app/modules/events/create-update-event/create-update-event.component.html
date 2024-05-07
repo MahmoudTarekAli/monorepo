@@ -1,0 +1,102 @@
+<h4 class="mt-3 mb-3" style="cursor: pointer;" *ngIf="isEdit" [routerLink]="'/events/'+ eventId">
+  <img class="mx-3" src="assets/svg-icons/arrow-left.svg" alt="">{{'event.eventProfile' | translate}}
+</h4>
+
+<div class="second-container p-4">
+  <div class="d-flex flex-column gap-2">
+    <h2>{{isEdit ?  ('common.buttons.updateEvent' | translate) : ('common.buttons.createEvent' | translate)}} </h2>
+    <h5 class="text-gray" *ngIf="!isEdit">{{'event.createEventDesc' | translate}}</h5>
+  </div>
+  <nz-divider></nz-divider>
+  <div class="row gap-2" [formGroup]="eventForm">
+
+    <nz-form-item class="col-12">
+      <nz-form-label>{{'forms.labels.eventName' | translate}}</nz-form-label>
+      <input formControlName="name" nz-input [placeholder]="'forms.placeholders.eventName' | translate"/>
+    </nz-form-item>
+    <nz-form-item class="col-12">
+      <nz-form-label>{{'forms.labels.country' | translate}}</nz-form-label>
+      <nz-select class="w-100 border-radius-8" [nzShowSearch]="true" nzPlaceHolder="{{'forms.placeholders.country'|translate}}"
+                 formControlName="country"
+                 [nzShowArrow]="true">
+        <nz-option class="small" *ngFor="let country of Countries | async" [nzLabel]="country['name']"
+                   [nzValue]="country['abbr'] === 'Global' ? null : country['abbr'] "></nz-option>
+      </nz-select>
+
+    </nz-form-item>
+    <nz-form-item class="col-12" *ngIf="isEdit">
+      <nz-form-label>{{'common.status' | translate}}</nz-form-label>
+      <nz-select class="w-100 border-radius-8" [nzShowSearch]="true" nzPlaceHolder="{{'common.status'|translate}}"
+                 formControlName="status"
+                 [nzShowArrow]="true">
+        <nz-option class="small" *ngFor="let status of statusList" [nzLabel]="status"
+                   [nzValue]="status"></nz-option>
+      </nz-select>
+
+    </nz-form-item>
+    <nz-form-item class="col-12">
+      <nz-form-label>{{'forms.labels.game' | translate}}</nz-form-label>
+      <nz-select nzMode="multiple" class="w-100 border-radius-8" [nzShowSearch]="true"
+                 nzPlaceHolder="{{'forms.placeholders.game'|translate}}" formControlName="game_code"
+                 [nzShowArrow]="true">
+        <nz-option *ngFor="let game of (Games$ | async)?.games" [nzLabel]="game['name']"
+                   [nzValue]="game['code']"></nz-option>
+      </nz-select>
+
+    </nz-form-item>
+    <nz-form-item class="col-12">
+      <nz-form-label>{{'forms.labels.startDate' | translate}}</nz-form-label>
+      <nz-form-control nzErrorTip="The input is not valid E-mail!">
+        <nz-date-picker class="small" formControlName="start_at" nzPlaceHolder="{{'forms.placeholders.startDate' | translate}}"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="col-12">
+      <nz-form-label>{{'forms.labels.slogan' | translate}}</nz-form-label>
+      <input class="ant-input" formControlName="slogan" placeholder="{{'forms.placeholders.slogan' | translate}}">
+    </nz-form-item>
+    <nz-form-item class="col-12">
+      <nz-form-label>{{'forms.labels.arenaName'|translate}}</nz-form-label>
+      <nz-form-control [nzErrorTip]="name">
+        <nz-select [nzShowSearch]="true" nzPlaceHolder="{{'forms.placeholders.arenaName' | translate}}" formControlName="arena_ids" nzMode="multiple"
+                   [nzShowArrow]="true">
+          <nz-option *ngFor="let arena of myArenas$ | async"
+                     [nzLabel]="arena?.name"
+                     [nzValue]="arena?.id"></nz-option>
+        </nz-select>
+      </nz-form-control>
+      <ng-template #name let-control>
+        <ng-container>
+          Please enter select arena
+        </ng-container>
+      </ng-template>
+    </nz-form-item>
+
+    <nz-form-item class="col-12">
+      <nz-form-label>{{'forms.labels.description'|translate}}</nz-form-label>
+      <textarea class="ant-input" placeholder="{{'forms.placeholders.description'|translate}}" formControlName="description"></textarea>
+    </nz-form-item>
+    <nz-form-item class="col-12">
+      <nz-radio-group formControlName="type" class="d-flex gap-1 text-white"
+                      (ngModelChange)="onselectionchange($event)">
+        <label nz-radio nzValue="default">default</label>
+        <label nz-radio nzValue="custom">Custom</label>
+      </nz-radio-group>
+    </nz-form-item>
+    <nz-form-item class="col-12" *ngIf="this.isCustomUrl">
+      <nz-form-label>Custom Url</nz-form-label>
+      <input class="ant-input" formControlName="custom_url" placeholder="Custom Url">
+    </nz-form-item>
+
+
+    <app-upload-photos [cover]="cover" [avatar]="avatar"
+                       (fileSelected)="selectImages($event)"></app-upload-photos>
+
+
+    <app-button [disabled]="eventForm.invalid" class=""
+                style="margin-left: auto; width: fit-content" variant="two-tone-primary fit-content"
+                height="40"
+                (click)="submitEvent()">{{isEdit ? ('common.buttons.updateEvent' | translate) : ('common.buttons.createEvent' | translate)}}</app-button>
+
+
+  </div>
+</div>

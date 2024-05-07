@@ -1,0 +1,111 @@
+@import 'src/app/components/mixins.scss';
+
+.close {
+  position: absolute;
+  top: 5px;
+  right: 0px;
+  border: none;
+  background-color: transparent;
+  z-index: 10;
+
+  &.close-rewards {
+    top: unset;
+    bottom: 15px;
+  }
+}
+
+.prize-container {
+  position: relative;
+}
+
+p {
+  margin: 10px 0;
+}
+.ranking-collapse{
+  nz-collapse-panel {
+    border-radius: 10px !important;
+
+    .child {
+      border-color: #ffffff57 !important
+    }
+  }
+
+  nz-collapse {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px !important;
+    border-radius: 10px !important;
+
+    .child {
+      border-color: #ffffff57 !important;
+    }
+
+  }
+
+
+  ::ng-deep.ant-collapse > .ant-collapse-item {
+    background: #3d3a6e !important;
+
+    .purple {
+      background: $gb-sec-bg !important;
+    }
+  }
+
+  ::ng-deep.ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content > .ant-collapse-content-box {
+    border-top: 1px gray solid;
+  }
+
+  ::ng-deep.ant-collapse-borderless > .ant-collapse-item{
+    border-bottom: 1px solid $dark-gray-9 !important;
+
+  }
+
+
+
+  ::ng-deep.ant-collapse-item .ant-collapse-content {
+    border-bottom-left-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+    background: #33305a !important;
+  }
+
+}
+
+.ant-btn  {
+  img {
+    width:15px;
+  }
+ p {
+    margin:0 5px;
+  }
+}
+
+
+.remove-button {
+  width: auto !important;
+  height: 30px !important;
+  background: #c6000b;
+  border-color: #e24851;
+  p {
+    margin:0 5px;
+  }
+
+  &:hover {
+    background: darkred !important;
+    border-color: darkred !important;
+  }
+}
+::ng-deep{
+  [data-kit-theme="dark"] .ant-alert-warning{
+    background-color: #AE2D68 !important;
+    border: 1px solid #AE2D68;
+    border-radius: 4px;
+    margin-top: 5px;
+  }
+
+}
+::ng-deep.ant-modal-header, ::ng-deep.ant-modal-footer, ::ng-deep.ant-modal-body {
+  background-color: $gb-sec-bg !important;
+  border: none !important;
+  text-align: center !important;
+}

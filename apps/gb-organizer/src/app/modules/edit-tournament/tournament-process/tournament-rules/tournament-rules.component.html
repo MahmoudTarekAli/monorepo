@@ -1,0 +1,66 @@
+<app-section-container [createButton]='createButton' [title]="'rules'| translate"
+                       [sectionTitle]="'rules'| translate">
+  <div class='row' [formGroup]="TournamentRules">
+
+    <ng-container formGroupName="rules">
+      <div class='col-12 mb-3'>
+        <ckeditor [editor]="Editor" formControlName="general_rules" id="editor1"
+                  (ready)="onReady($event)"></ckeditor>
+
+      </div>
+
+      <div class='col-md-6 col-sm-12'>
+        <h5>{{'game_settings' | translate}}</h5>
+        <span>You can customize a game setting as needed in each game for example (map: greenland, Halftime: 6 min.)</span>
+      </div>
+      <div class=" col-md-6 col-sm-12 mt-3">
+        <button nz-button nzType="default" class='new_button' (click)='addGameSettings()'>
+          <span nz-icon nzType="plus"></span>{{'add_game_setting' | translate}}</button>
+      </div>
+      <div class="col-12 mt-3 prize-collapse-container">
+
+        <nz-collapse formArrayName='game_settings' nzBordered="false">
+          <nz-collapse-panel [nzHeader]="header" [nzActive]="true" class='row prize-container' [nzExtra]="remove"
+                             *ngFor='let gameSettings of game_settings?.controls; let index =index'>
+
+            <div class="row w-100" [formGroupName]='index'>
+
+
+              <div class='col-6'>
+                <p>{{'title' | translate}}</p>
+                <input type="text" formControlName="key" nz-input placeholder="{{'title_placeholder' | translate}}"/>
+
+              </div>
+              <div class='col-6'>
+                <p>{{'description' | translate}}</p>
+                <input type="text" formControlName="value" nz-input
+                       placeholder="{{'description_placeholder' | translate}}"/>
+
+              </div>
+
+            </div>
+            <ng-template #header>
+              <span class="font-size-14 font-weight-bold">Game Setting {{index + 1}}</span>
+            </ng-template>
+            <ng-template #remove>
+              <button class="remove-button" nzSize="small" nzShape="circle" nzDanger="true" nz-button
+                      (click)="deleteGameSetting(index)">
+                <span nz-icon nzType="delete" nzTheme="fill"></span>
+              </button>
+            </ng-template>
+          </nz-collapse-panel>
+        </nz-collapse>
+      </div>
+    </ng-container>
+
+  </div>
+
+
+</app-section-container>
+
+
+<ng-template #createButton>
+  <button (click)='create()' [disabled]='TournamentRules.invalid' nz-button
+          nzType='primary'>{{'save'| translate}}</button>
+
+</ng-template>

@@ -1,0 +1,51 @@
+@import 'src/app/styles/core/variables';
+
+.card {
+  border: none;
+  background: $gb-sec-bg;
+  color: $white;
+  border-radius: 8px;
+  position: relative;
+  .games-container {
+    position: absolute;
+    left:15px; top:10px;
+    display: flex; gap:10px; z-index: 1;
+  }
+
+  .buttons-container {
+    display: flex; gap: 10px;
+    app-button {
+    flex:1;
+    }
+  }
+
+  .cover {
+    width: 100%;
+    object-fit: cover;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+  }
+
+  .card-info {
+    padding:15px !important;
+  }
+  .ant-avatar-group .ant-avatar {
+    border: 2px solid $gb-blueberry;
+  }
+}
+
+h3 {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.game-icon {
+  position:relative !important;
+}
+.more-games {
+  width:30px; height: 30px; border-radius:50%; background:$gb-fifth-color; display: flex; justify-content: center;
+  align-items: center;
+  p {
+    font-weight: bold;
+  }
+}

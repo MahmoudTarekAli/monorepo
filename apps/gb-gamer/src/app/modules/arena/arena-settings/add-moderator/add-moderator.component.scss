@@ -1,0 +1,39 @@
+@import "../../../teams/create-update-team/create-update-team.component";
+@import '../../../../styles/core/variables';
+@import 'src/app/styles/functions';
+::ng-deep{
+  .ant-select-selector{
+    border:none!important;
+  }
+  .ant-select-arrow{
+    color: $white!important;
+  }
+  .ant-select-selector{
+    background-color: $gb-blue!important; ;
+  }
+  .ant-input-affix-wrapper {
+    border: none;
+    background-color: $gb-blue!important; ;
+    border-radius: 8px;
+    color: $white!important;
+
+    .ant-input{
+      color: $white!important;
+
+    }
+  }
+}
+.badge{
+  background-color: $gb-main-bg!important; ;
+  color: $white!important;
+  &.Organizer {
+    background-color: $gold!important;
+  }
+}
+.input-group{
+  @include dynamic-dimensions(height, 40);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}

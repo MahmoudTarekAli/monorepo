@@ -1,0 +1,122 @@
+<div class="d-flex flex-column gap-2">
+<h2>{{'connect_accounts'|translate}}</h2>
+  <h5 class="text-gray mb-3">Each associated game account and social media accounts can only be linked to a single GBarena account. Meanwhile, you have the option to link multiple game accounts or social media accounts to a single GBarena account by by logging out from the social platform and then reconnecting using the new account</h5>
+</div>
+<div class="platform-container">
+  <a class="platform" (click)="linkAccount('riot')">
+    <span class="cover-container riot">
+          <img class="img-fluid"  src="assets/svg-icons/riot-icon.svg" alt="">
+    </span>
+    <p>Riot Games</p>
+    <h6>League of Legends - Valorant</h6>
+  </a>
+
+  <a class="platform" (click)="linkAccount('facebook')">
+    <span class="cover-container facebook">
+          <img class="img-fluid"  src="assets/svg-icons/facebook-icon.svg" alt="">
+    </span>
+    <p>Facebook</p>
+<!--    <h6>Social Login</h6>-->
+
+  </a>
+
+  <a class="platform" (click)="linkAccount('google')">
+    <span class="cover-container google">
+          <img class="img-fluid"  src="assets/svg-icons/google-icon.svg" alt="">
+    </span>
+    <p>Google</p>
+<!--    <h6>Social Login</h6>-->
+
+  </a>
+
+<!--  <a class="platform" (click)="linkAccount('twitter')">-->
+<!--    <span class="cover-container twitter">-->
+<!--          <img class="img-fluid"  src="assets/svg-icons/twitter-icon.svg" alt="">-->
+<!--    </span>-->
+<!--    <p>Twitter</p>-->
+<!--&lt;!&ndash;    <h6>Social Login</h6>&ndash;&gt;-->
+<!--  </a>-->
+
+  <a class="platform" (click)="linkAccount('tiktok')">
+    <span class="cover-container tiktok">
+          <img class="img-fluid"  src="assets/svg-icons/tiktok-icon.svg" alt="">
+    </span>
+    <p>Tiktok</p>
+<!--    <h6>Social Login</h6>-->
+  </a>
+
+
+  <a class="platform" (click)="linkAccount('apple')">
+    <span class="cover-container apple">
+          <img class="img-fluid"  src="assets/svg-icons/apple-icon.svg" alt="">
+    </span>
+    <p>Apple</p>
+<!--    <h6>Social Login</h6>-->
+  </a>
+
+  <a class="platform" (click)="linkAccount('discord')">
+    <span class="cover-container discord">
+          <img class="img-fluid"  src="assets/svg-icons/discord-icon.svg" alt="">
+    </span>
+    <p>Discord</p>
+<!--    <h6>Social Login</h6>-->
+  </a>
+
+  <a class="platform" (click)="linkAccount('twitch')">
+    <span class="cover-container twitch">
+          <img class="img-fluid"  src="assets/svg-icons/twitch.svg" alt="">
+    </span>
+    <p>Twitch</p>
+<!--    <h6>Social Login</h6>-->
+  </a>
+
+
+</div>
+
+<nz-divider class="mt-3 mb-3"></nz-divider>
+
+
+<h3 class="mt-4">Connected Games Accounts</h3>
+
+<app-league-accounts [isSelectedShown]="false"   [isUserProfile]="false" ></app-league-accounts>
+
+<nz-divider class="mt-3 mb-3"></nz-divider>
+
+
+<h3 class="mt-4">Connected Social Accounts</h3>
+<div class="row">
+  <ng-container *ngIf="(socialAccounts$ | async)?.length > 0; else noSocialAccount">
+
+  <div class="col-12 my-2" *ngFor="let socialAccount of (socialAccounts$ | async)">
+
+    <div class="connected-accounts">
+
+      <div class="cover-container {{socialAccount.driver}}">
+        <img src="assets/svg-icons/{{socialAccount.driver}}-icon.svg" alt="">
+      </div>
+<!--        <img *ngIf="socialAccount.driver === 'facebook'" class="img-fluid img-email" src="assets/svg-icons/facebook-dark.svg" alt="">-->
+<!--        <img *ngIf="socialAccount.driver === 'twitter'" class="img-fluid img-email" src="assets/svg-icons/facebook-dark.svg" alt="">-->
+        <div class="content-body d-flex flex-column justify-content-center gap-1 flex-grow-1">
+          <h3>{{socialAccount?.name}}</h3>
+          <h6>{{socialAccount?.email}}</h6>
+          <h6 class="text-gray">{{socialAccount?.created_at | date : 'MMMM dd, yyyy - h:mm a'}}</h6>
+        </div>
+
+        <app-button variant="default-danger h-auto" class="mx-3 d-flex align-items-center" (click)="disconnectAccount(socialAccount.social_id)">Disconnect Account</app-button>
+
+    </div>
+  </div>
+  </ng-container>
+</div>
+
+<ng-template #noSocialAccount>
+  <div class="content-container d-flex align-items-center justify-content-center py-5 my-4">
+    No Accounts Found
+  </div>
+</ng-template>
+<!--<div class="p-3">-->
+<!--  <app-button class="" variant="two-tone-primary">Connect a new account</app-button>-->
+<!--</div>-->
+
+<!--<app-dynamic-required-info></app-dynamic-required-info>-->
+

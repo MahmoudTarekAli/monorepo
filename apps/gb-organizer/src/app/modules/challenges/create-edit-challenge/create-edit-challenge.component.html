@@ -1,0 +1,266 @@
+<app-section-container [title]="isEditable? ('edit_challenge'|translate ):('create_challenge'|translate)"
+                       [customButtons]="viewChallengeButton" class="tournament-info-container">
+
+  <div [formGroup]="ChallengeForm" nz-form nzLayout="vertical">
+    <div class="row">
+      <div class="col-12">
+        <nz-form-label>
+          <p>{{ 'choose_game'|translate }}</p>
+        </nz-form-label>
+      </div>
+      <div class="col-2">
+        <div class="selected-image" *ngIf="isEditable">
+          <img class="game-container isImage" style="border: 4px solid #8429F5FF"
+               [src]="(challenge$ | async)?.data?.game?.profile_image | defaultImage"
+               alt=""/>
+          <span class="img-icon" nz-icon nzType="check-circle" nzTheme="fill"></span>
+        </div>
+
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col-12">
+        <nz-radio-group *ngIf="!isEditable" nzSize="large" class="d-flex flex-wrap justify-content-start gap-15"
+                        formControlName="game_code" (ngModelChange)="selectGame($event)">
+
+          <ng-container *ngFor="let game of challengeGames$ | async ; let index = index">
+            <img nz-radio [@enter]="true"
+                 [nzValue]="game['code']"
+                 class="game-container isImage imagMob"
+                 [src]="game['profile_image']"
+                 alt=""/>
+          </ng-container>
+
+          <!--              <img class="cover">-->
+
+        </nz-radio-group>
+      </div>
+      <nz-divider></nz-divider>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="English Name">{{ 'challenge_name'|translate }}</nz-form-label>
+          <!--          nzRequired-->
+          <nz-form-control [nzErrorTip]="name">
+            <input nz-input placeholder="{{'challenge_name_placeholder'|translate}}" id="English Name"
+                   formControlName="name"/>
+          </nz-form-control>
+          <ng-template #name let-control>
+            <ng-container>
+              {{ 'challenge_name_required'|translate }}
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label>{{ 'visibility'|translate }}</nz-form-label>
+          <nz-form-control>
+            <nz-select nzPlaceHolder="{{'visibility'|translate}}" formControlName="visibility" [nzShowArrow]="true">
+              <nz-option [nzLabel]="'Public'" [nzValue]="'Public'"></nz-option>
+              <nz-option [nzLabel]="'Private'" [nzValue]="'Private'"></nz-option>
+
+            </nz-select>
+          </nz-form-control>
+
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="English Name">{{ 'start_date'|translate }}</nz-form-label>
+          <nz-form-control [nzErrorTip]="date" class="position-relative">
+<!--            <input [owlDateTimeTrigger]="dt" [owlDateTime]="dt" nz-input formControlName="start_at"-->
+<!--                   placeholder="{{'start_date_placeholder' | translate}}">-->
+<!--            <span class="date-icon" [owlDateTimeTrigger]="dt"><i class="fa fa-calendar"></i></span>-->
+<!--            <owl-date-time #dt pickerMode="popup" [scrollStrategy]="scrollStrategy"></owl-date-time>-->
+
+            <p class="gray" style="margin:5px 0;"> {{ 'timezone'|translate }}
+              (UTC {{ globalService.clientTimezoneOffset }})</p>
+          </nz-form-control>
+          <ng-template #date let-control>
+            <ng-container>
+              {{ 'please_enter_date'|translate }}
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="English Name">{{ 'end_date'|translate }}</nz-form-label>
+          <nz-form-control [nzErrorTip]="date" class="position-relative">
+<!--            <input [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" nz-input formControlName="end_date"-->
+<!--                   placeholder="{{'end_date_placeholder' |translate}}">-->
+
+<!--            <span class="date-icon" [owlDateTimeTrigger]="dt2"><i class="fa fa-calendar"></i></span>-->
+<!--            <owl-date-time #dt2 pickerMode="popup" [scrollStrategy]="scrollStrategy"></owl-date-time>-->
+
+            <p class="gray" style="margin:5px 0;"> {{ 'timezone'|translate }}
+              (UTC {{ globalService.clientTimezoneOffset }})</p>
+          </nz-form-control>
+          <ng-template #date let-control>
+            <ng-container>
+              {{ 'please_enter_date'|translate }}
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+      <ng-container formGroupName="settings">
+        <ng-container *ngIf="(gameSettings$ | async).length > 0">
+          <div class="col-6" *ngFor="let setting of gameSettings$ | async">
+            <nz-form-item *ngIf="setting.type === 'select'">
+              <nz-form-label [nzRequired]="setting.required" nzFor="English Name">{{ setting.name|translate }}
+              </nz-form-label>
+              <!--          nzRequired-->
+              <nz-form-control>
+                <nz-select formControlName="{{setting.name}}"
+                           [nzDisabled]="challenge?.status === 'Live' || challenge?.status === 'Finished'"
+                           [nzMode]="setting?.selectType == 'multiple'? 'multiple' : 'default'" [nzShowSearch]="true">
+                  <nz-option *ngFor="let value of setting.value" [nzValue]="value" [nzLabel]="value"></nz-option>
+
+                </nz-select>
+              </nz-form-control>
+
+            </nz-form-item>
+            <ng-container *ngIf="setting.type === 'checkbox'">
+              <label class="h-100 d-flex align-items-center" nz-checkbox
+                     formControlName="{{setting.name}}">{{ setting.name | translate }} </label>
+            </ng-container>
+
+            <nz-form-item *ngIf="setting.type === 'input'">
+              <nz-form-label [nzRequired]="setting.required" nzFor="English Name">{{ setting.name|translate }}
+              </nz-form-label>
+              <input nz-input class="h-100 d-flex align-items-center" formControlName="{{setting.name}}" type="text">
+            </nz-form-item>
+          </div>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="(challengeSettings$ | async).length > 0">
+        <div class="col-6" *ngFor="let setting of challengeSettings$ | async">
+          <nz-form-item>
+            <nz-form-label nzFor="English Name">{{ setting.name|translate }}</nz-form-label>
+            <!--          nzRequired-->
+            <nz-form-control>
+              <nz-select formControlName="{{setting.name}}"
+                         [nzMode]=" 'multiple'" [nzShowSearch]="true">
+                              <nz-option *ngFor="let value of setting.value" [nzValue]="value" [nzLabel]="value"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </ng-container>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzFor="English Name">{{ 'event'|translate }}</nz-form-label>
+          <!--          nzRequired-->
+          <nz-form-control>
+            <nz-select [nzShowSearch]="true" nzPlaceHolder="{{'event_placeholder'|translate}}"
+                       formControlName="event_id" [nzShowArrow]="true">
+              <nz-option [nzLabel]="'None'" [nzValue]="null"></nz-option>
+              <nz-option *ngFor="let event of (events$ | async)" [nzLabel]="event.name"
+                         [nzValue]="event.id"></nz-option>
+
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzFor="English Name">{{ 'Arena'|translate }}</nz-form-label>
+          <!--          nzRequired-->
+          <nz-form-control>
+            <nz-select [nzShowSearch]="true" nzPlaceHolder="{{'arena_placeholder'|translate}}"
+                       formControlName="arena_id" [nzShowArrow]="true">
+              <nz-option [nzLabel]="'None'" [nzValue]="null"></nz-option>
+              <nz-option *ngFor="let arena of (arenas$ | async)" [nzLabel]="arena.name"
+                         [nzValue]="arena.id"></nz-option>
+
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzFor="English Name">{{ 'prize_pool'|translate }}</nz-form-label>
+          <!--          nzRequired-->
+          <nz-form-control>
+            <input nz-input type="number" placeholder="{{'prize_pool_placeholder'|translate}}"
+                   formControlName="prize_pool"/>
+
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzFor="English Name">{{ 'password_type'|translate }}</nz-form-label>
+          <!--          nzRequired-->
+          <nz-form-control>
+            <nz-select nzPlaceHolder="{{'password_type_placeholder'|translate}}" formControlName="password_type"
+                       [nzShowArrow]="true">
+              <nz-option [nzLabel]="'None'" [nzValue]="null"></nz-option>
+              <nz-option [nzValue]="'qrcode'" [nzLabel]="'QRcode'"></nz-option>
+              <nz-option [nzValue]="'password'" [nzLabel]="'Password'"></nz-option>
+
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzFor="English Name">{{ 'password'|translate }}</nz-form-label>
+          <!--          nzRequired-->
+          <nz-form-control>
+            <input
+              [readonly]="ChallengeForm.get('password_type').value === null ||ChallengeForm.get('password_type').value !== 'password'"
+              nz-input type="password" autocomplete="off" placeholder="{{'password_placeholder'|translate}}"
+              formControlName="password"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzFor="English Name">{{ 'description'|translate }}</nz-form-label>
+          <!--          nzRequired-->
+          <nz-form-control>
+            <input nz-input type="string" placeholder="{{'description_placeholder'|translate}}"
+                   formControlName="description"/>
+
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-md-3">
+        <label class="h-100 d-flex align-items-center" nz-checkbox formControlName="allow_referrals">Allow
+          Referrals </label>
+      </div>
+      <div class="col-md-3">
+        <label class="h-100 d-flex align-items-center" nz-checkbox
+               [disabled]="challenge?.status === 'Live' || challenge?.status === 'Finished'"
+               [(ngModel)]="isShowRequiredInputs" [ngModelOptions]="{standalone: true}">Show Required Inputs</label>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzFor="English Name">{{ 'rules'|translate }}</nz-form-label>
+          <!--          nzRequired-->
+          <nz-form-control>
+            <angular-editor [placeholder]="'rules_placeholder'|translate" formControlName="rules"></angular-editor>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <app-upload-photos  [isShowProfile]="false"
+                        [cover]="bannerCropedImage" (fileSelected)="selectImages($event)"></app-upload-photos>
+    <div class="button-container">
+      <!--    [nzLoading]="(addTournamentIsExecuting$ | async) === true || (updateTournamentIsExecuting$ | async) === true"-->
+
+      <button nz-button nzType="primary" nzSize="large" [disabled]="ChallengeForm.invalid"
+              (click)="createChallenge()">
+        {{ isEditable ? 'Edit Challenge' : 'Create Challenge' }}
+      </button>
+    </div>
+  </div>
+
+  <ng-template #viewChallengeButton>
+    <a *ngIf="isEditable" href="{{environment.gbarenaUrl}}/challenges/{{challengeId}}" nz-button nzType='primary'>
+      {{ 'view_challenge' | translate }}
+    </a>
+  </ng-template>
+
+</app-section-container>

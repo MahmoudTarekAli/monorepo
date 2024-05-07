@@ -1,0 +1,161 @@
+<app-match-list-container [customButtons]="createButton" [title]="'bracket'  | translate">
+  <div class="row">
+    <div class="col-12">
+      <nz-radio-group nzButtonStyle="solid" class="d-flex gap-20" [(ngModel)]="selectedStage"
+                      *ngIf="(getTournament |async)?.tree?.data?.length > 1"
+                      (ngModelChange)="selectStage($event)">
+        <label [nzDisabled]="stage?.is_published === 0"
+               *ngFor="let stage of (getTournament |async)?.tree?.data; let i = index" class="w-100 " nz-radio-button
+               [nzValue]="i">{{string(i + 1)| translate}}</label>
+      </nz-radio-group>
+    </div>
+  </div>
+  <nz-divider *ngIf="(getTournament |async)?.tree?.data?.length > 1"></nz-divider>
+
+  <ng-container *ngIf="!(isGetMatches$ | async); else loadingIndicator">
+
+
+    <!--    Single Double Elimination-->
+    <ng-container
+      *ngIf="bracketType === BRACKET_TYPES.DOUBLE_ELIMINATION || bracketType === BRACKET_TYPES.SINGLE_ELIMINATION ">
+
+      <div class="row">
+        <div class="col-md-4 col-12">
+          <nz-select nzPlaceHolder="Select round" [(ngModel)]="selectedTitle" (ngModelChange)="splitMatches($event)">
+            <nz-option [nzValue]="title.order" [nzLabel]="title.name" *ngFor="let title of roundsTitle"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+
+      <nz-divider></nz-divider>
+      <app-react-bracket-view-wrapper [matches]="matches" [rounds]="rounds"
+                                      [singleOrDouble]="bracketType"></app-react-bracket-view-wrapper>
+
+    </ng-container>
+
+
+    <!--  GroupStage Table  -->
+    <ng-container *ngIf=" bracketType === BRACKET_TYPES.GROUP_STAGE">
+      <nz-table #rowSelectionTable
+                [nzShowPagination]="false"
+                [nzShowSizeChanger]="false"
+                [nzData]="groupsParticipants"
+                [nzScroll]="mobView ? { y: '500px' , x: '900px' } : {y: '500px'}"
+                [nzTitle]="('group' | translate) + (selectedGroupIndex | convertNumToChar)"
+                [nzLoading]="isGetMatches$ | async"
+                [nzLoadingIndicator]="loadingIndicator"
+
+      >
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Player Name</th>
+          <th>Country</th>
+          <th>W</th>
+          <th>L</th>
+          <th>D</th>
+          <th>+/-</th>
+          <th>P</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor='let data of rowSelectionTable?.data ; let index = index'>
+          <td>{{index + 1}}</td>
+          <td>{{data?.original?.participant_name}}</td>
+          <td>{{data?.original?.country}}</td>
+          <td>{{data?.wins}}</td>
+          <td>{{data?.losses}}</td>
+          <td>{{data?.draws}}</td>
+          <td>{{data?.difference}}</td>
+          <td>{{data?.points}}</td>
+        </tr>
+        </tbody>
+      </nz-table>
+      <!--    <div class="col-12 d-flex justify-content-end">-->
+      <!--      <nz-pagination [nzPageIndex]="page"-->
+      <!--                     [nzPageSize]="(getTournament |async)?.participants_type === 'single' ? 50 : 20"-->
+      <!--                     [nzTotal]="participants?.count"-->
+      <!--                     (nzPageIndexChange)="changePage($event , type)"></nz-pagination>-->
+      <!--    </div>-->
+    </ng-container>
+    <!--    FreeForAll Table-->
+    <ng-container *ngIf=" bracketType === BRACKET_TYPES.FREE_FOR_ALL">
+      <div class="ffa_table">
+        <ng-container *ngTemplateOutlet="tableView"></ng-container>
+      </div>
+      <ng-template #tableView>
+        <nz-radio-group class="d-flex justify-content-between gap-10 mb-5"
+                        *ngIf="stages[this.selectedStage]?.groups[selectedGroupIndex]?.matches?.length > 1"
+                        [(ngModel)]="selectedMatchIndex" (ngModelChange)="getSelectedFreeForAllGroupsMatches()">
+          <label class="w-100"
+                 *ngFor="let match of stages[this.selectedStage]?.groups[selectedGroupIndex].matches; let i = index"
+                 nz-radio-button nz-radio [nzValue]="i">Match - {{i + 1}}</label>
+          <label class="w-100" *ngIf="stages[this.selectedStage]?.groups[selectedGroupIndex]?.participants?.length > 0"
+                 nz-radio-button nz-radio [nzValue]="'final'">Final</label>
+        </nz-radio-group>
+        <nz-divider *ngIf="stages[this.selectedStage]?.groups[selectedGroupIndex]?.matches?.length > 1"></nz-divider>
+        <nz-table #headerTable [nzData]="groupsParticipants"
+                  [nzFrontPagination]="false" [nzShowPagination]="false"
+                  [nzTitle]="('group' | translate) + (selectedGroupIndex | convertNumToChar)"
+                  [nzScroll]="mobView ? { y: '500px' , x: '900px' }  : {y: '500px'}"
+
+        >
+          <thead>
+          <tr>
+            <th [nzWidth]="'100px'">#</th>
+            <th>{{'name' | translate}}</th>
+            <th>{{'in_game_name' | translate}}</th>
+            <th
+              *ngFor="let variable of this.stagesMatches[this.stageMatchesType]?.scoring_variables">{{variable | translate}}</th>
+            <th>{{'points' | translate}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of headerTable.data; let i = index" class="editable-row">
+            <td> &nbsp; {{ i + 1 }}</td>
+            <td>
+              <img class="gb-avatar" loading="lazy" src="{{data?.original?.avatar}}">
+
+              {{data?.original?.participant_name}}</td>
+            <ng-container *ngIf="data?.tournament_participant?.supported_required_inputs?.length > 0 ; else noIngameName">
+              <ng-container *ngFor="let item of data?.tournament_participant?.supported_required_inputs">
+                <td *ngIf="item?.category === 'IGN'">
+                  {{item?.value}}
+                </td>
+              </ng-container>
+            </ng-container>
+            <ng-template #noIngameName>
+              <td>__</td>
+            </ng-template>
+            <td *ngFor="let variable of this.stagesMatches[this.stageMatchesType]?.scoring_variables">
+              {{ +data[variable] ? data[variable] : 0}}
+            </td>
+            <td>{{data?.score}}</td>
+          </tr>
+          </tbody>
+        </nz-table>
+      </ng-template>
+    </ng-container>
+  </ng-container>
+</app-match-list-container>
+<ng-template #createButton>
+  <nz-select class="select-bracket" *ngIf="bracketType === BRACKET_TYPES.FREE_FOR_ALL || bracketType === BRACKET_TYPES.GROUP_STAGE "
+             nzPlaceHolder="{{'group'|translate}}"
+             [nzShowArrow]="true" [(ngModel)]="selectedGroupIndex" (ngModelChange)="changeGroup($event)">
+    <nz-option *ngFor="let group of stages[selectedStage]?.['groups'] ; let index = index"
+               nzLabel="  {{'Group ' + (index | convertNumToChar)}}
+"
+               [nzValue]="index"></nz-option>
+
+  </nz-select>
+  <!--  <button (click)="changeGroup()" nz-button nzType="primary">{{'Groups Name'|translate}}</button>-->
+</ng-template>
+<ng-template #loadingIndicator>
+  <div class='row'>
+    <div class='col-12'>
+      <app-loading-indicator></app-loading-indicator>
+
+    </div>
+  </div>
+
+</ng-template>

@@ -1,0 +1,19 @@
+<app-section class="my-3" [title]="'Tournaments & Challenges'" [customButtons]="customTournamentButton">
+  <div class="row gx-5 gy-2" >
+    <div class="col-lg-3" *ngFor="let card of ((eventPlayables$ | async)?.data | sliceArray: sliceNumber)">
+      <app-tournament-card *ngIf="card?.resource === 'Tournament'" [tournament]="card"></app-tournament-card>
+      <app-challenge-card *ngIf="card?.resource === 'Challenge'" [challenge]="card"></app-challenge-card>
+    </div>
+  </div>
+
+  <ng-template #customTournamentButton>
+    <app-button *ngIf="showButton" variant="baby-blue" borderRadius="50" routerLink="./tournaments">Browse All</app-button>
+  </ng-template>
+    <div class="col-12"  *ngIf="!showButton && (eventPlayables$ | async)?.total_count > 20 ">
+      <nz-pagination  [nzPageIndex]="page"
+                     [nzPageSize]="20"
+                     [nzTotal]="(eventPlayables$ | async)?.total_count"
+                     (nzPageIndexChange)="changePages($event)"></nz-pagination>
+    </div>
+
+</app-section>

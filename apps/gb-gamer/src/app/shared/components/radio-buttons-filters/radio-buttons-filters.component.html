@@ -1,0 +1,5 @@
+
+<nz-radio-group  [(ngModel)]="filterValue" (ngModelChange)="filterCard($event)" >
+
+  <label class="mx-2 mb-2" style="margin-left: 0!important" nz-radio-button *ngFor="let item of items" [nzValue]="item.value">{{item.name}}</label>
+</nz-radio-group>

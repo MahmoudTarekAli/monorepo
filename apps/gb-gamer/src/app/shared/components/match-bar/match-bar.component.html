@@ -1,0 +1,48 @@
+<div class="match-bar-container">
+  <div class="right-badge {{match?.status | lowercase | removeSpaces}}"></div>
+
+  <div class="d-flex flex-column w-100">
+    <div class="tournament-container">
+      <img src="assets/svg-icons/trophy.svg" alt="">
+      <a routerLink="/tournaments/{{match.tournament_code}}"
+         class="text-gray text-decoration-underline">{{match.tournament_name}}</a>
+    </div>
+    <div class="match-container">
+      <div class="match-status-data">
+        <p><span class="{{match?.status | lowercase | removeSpaces}}">#{{match.order}}</span>
+          <ng-container *ngIf="match?.start_at">{{match?.start_at + 'Z' | date:'MMM d, h:mm a'}} <app-user-timezone></app-user-timezone></ng-container>
+
+        </p>
+        <div class="match-status {{match?.status | lowercase | removeSpaces}}" [nz-tooltip]="match?.status">
+          <div class="circle {{match?.status | lowercase | removeSpaces}}"></div>
+          {{(match?.status | lowercase | removeSpaces) | translate}}
+        </div>
+      </div>
+
+      <div class="match-info">
+        <div class="home">
+          <img src="{{match.home.original.avatar | defaultImage}}" alt="">
+          <app-marquee class="card-text" [text]="match.home.original.participant_name"></app-marquee>
+        </div>
+
+        <div class="versus">
+          <p [ngClass]="match?.home?.score ? '' : 'vs'">
+            {{match?.home?.score ? (match?.home?.score + ' : ' + match?.away?.score) : 'VS'}}
+          </p>
+        </div>
+
+        <div class="home">
+          <img src="{{match.away.original.avatar | defaultImage}}" alt="">
+          <app-marquee class="card-text" [text]="match.away.original.participant_name"></app-marquee>
+        </div>
+      </div>
+
+      <div class="buttons-container">
+        <app-button  *ngIf="match?.away && match?.home" class="d-flex" variant="primary" routerLink="/match/{{match.code}}">
+          <p>{{'common.matchProfile' | translate}}</p>
+        </app-button>
+      </div>
+    </div>
+  </div>
+
+</div>

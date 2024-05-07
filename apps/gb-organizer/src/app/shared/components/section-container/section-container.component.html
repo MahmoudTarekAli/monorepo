@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="site-page-header-ghost-wrapper">
+    <nz-page-header *ngIf="title || customButtons">
+      <nz-page-header-title>
+        <h1>
+          <span *ngIf="isTournamentBracket" class="mx-2"
+                routerLink="/tournament/{{tournamentCode}}/process/tournament-bracket" nz-icon nzType="arrow-left" nzTheme="outline"></span>
+          {{title}}</h1>
+      </nz-page-header-title>
+      <nz-page-header-extra>
+        <nz-space>
+          <ng-template #defaultTabButtons></ng-template>
+          <div class="flex-buttons gap-10">
+            <ng-container *ngTemplateOutlet="saveBracket"></ng-container>
+
+            <ng-container *ngTemplateOutlet="customButtons ? customButtons: defaultTabButtons"></ng-container>
+          </div>
+        </nz-space>
+      </nz-page-header-extra>
+    </nz-page-header>
+  </div>
+  <ng-container *ngTemplateOutlet="customTemplate"></ng-container>
+
+  <div class="inner-content" >
+    <h2 class="mb-3" *ngIf="sectionTitle">{{sectionTitle}}</h2>
+    <ng-content></ng-content>
+    <div class="text-right mt-5" *ngIf=" createButton || saveBracket">
+      <ng-container *ngTemplateOutlet="createButton"></ng-container>
+    </div>
+  </div>
+</div>
+
+

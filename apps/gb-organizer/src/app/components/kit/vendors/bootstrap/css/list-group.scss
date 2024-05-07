@@ -1,0 +1,36 @@
+@import 'src/app/components/mixins.scss';
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/* LIST GROUP */
+
+.list-group-item {
+  border-color: $border;
+
+  &.active {
+    background: $primary;
+  }
+}
+
+// dark theme
+[data-kit-theme='dark'] {
+  .list-group-item {
+    border-color: $gb-main-bg;
+    background: $dark-gray-6;
+    color: inherit;
+
+    &.active {
+      background: $primary !important;
+    }
+
+    &-action {
+      color: $white !important;
+      &:hover {
+        background: $gb-sec-bg;
+      }
+      &.disabled {
+        opacity: 0.5;
+        background: transparent;
+      }
+    }
+  }
+}

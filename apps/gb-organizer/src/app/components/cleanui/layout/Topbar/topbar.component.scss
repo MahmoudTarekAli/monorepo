@@ -1,0 +1,33 @@
+@import 'src/app/components/mixins.scss';
+//@import "../../../../../../node_modules/@gbarena/gbarena-navbar/styles";
+
+
+::ng-deep {
+  lib-gbarena-navbar{
+    p{
+      margin: 0!important;
+    }
+  }
+  .ant-dropdown {
+    &.userDropdown{
+      border: unset!important;
+
+    }
+  }
+  .ant-drawer-content {
+    background-color: $gb-main-bg !important;
+  }
+
+  .ant-drawer-right .ant-drawer-content-wrapper {
+    width: 100% !important;
+    &.mobileMenu{
+      width: 256px!important;
+    }
+  }
+  .avatar{
+    img{
+      width: 100% !important;
+
+    }
+  }
+}

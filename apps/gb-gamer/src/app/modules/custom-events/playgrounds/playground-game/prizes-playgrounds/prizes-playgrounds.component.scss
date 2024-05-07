@@ -1,0 +1,89 @@
+@import "src/app/styles/core/variables";
+
+
+.prizes-container {
+  margin:20px 0;
+  border-radius:10px; background: transparent;
+  display: flex; flex-flow: column; padding:10px; direction: rtl; justify-content: center; align-items: center;
+
+  img {
+    width: 70px;
+  }
+
+  h1 {
+    margin:20px; font-size: 24px; text-transform: uppercase;
+  }
+
+  p {
+
+    li {
+      line-height: 25px; margin:10px 0;
+    }
+  }
+
+
+  ul{
+    background:transparent;
+    border-radius:10px;
+    padding:0;
+    font-family: "Samsung Sharp Sans", SamsungOneArabic, sans-serif;
+    max-width: 700px; width: 100%; overflow: hidden;
+
+    li  {
+      list-style: none;
+      display: flex; flex-flow: row ; flex-basis: 0; border-bottom: 1px solid #333;
+      flex-direction: row-reverse;
+
+      .position {
+        &.league-of-legends {
+          background:#2dc1f8;
+        }
+        &.valorant {
+          background: #df724e;
+        }
+        &.wild-rift{
+          background: #8274ed
+        }
+        color: white; display: flex; justify-content: center; align-items: center;
+        flex: 1;
+        padding:10px;
+        &.header {
+          font-size: 16px;
+          font-weight: bold;
+        }
+      }
+      .prize {
+        flex: 3;
+        color: #fff; display: flex; justify-content: center; align-items: center;
+        padding:10px;
+        background: $gb-main-darker; font-size: 14px; flex-flow: column;
+        flex-direction: row;
+        .coins-icon{
+          width: 20px;
+        }
+        &.header {
+          font-size: 16px;
+          font-weight: bold;
+        }
+        li {
+          list-style: armenian;
+          color:#fff;
+          border-bottom: 0;
+        }
+      }
+    }
+
+
+  }
+
+  hr {
+    margin: 1rem 0;
+    color: inherit;
+    border: 0;
+    border-top: 1px solid #1d1c1c;
+    opacity: 01;
+    background: #fff;
+    width: 100%;
+  }
+
+}

@@ -1,0 +1,22 @@
+ @import "/src/app/styles/core/variables";
+
+ .second-container{
+    max-width: 420px;
+    margin: 20px auto;
+  }
+
+.invite-image{
+    width: 100px;
+    margin: 10px auto;
+
+  }
+
+p{
+  text-align: center;
+}
+
+a {
+  h6 {
+  color: $green;
+  }
+}

@@ -1,0 +1,56 @@
+<nz-input-group class="mid-height mb-3">
+  <input type="text" nz-input [formControl]="searchControl"
+         [placeholder]="'common.search'|translate"/>
+</nz-input-group>
+<nz-divider></nz-divider>
+
+<ng-container *ngIf="!loading ; else loadingIndicator">
+
+  <ng-container *ngIf="participant?.data.length > 0; else noParticipants">
+    <div class="row gy-3">
+      <div class="col-12 col-md-4 col-sm-6 col-lg-3 " *ngFor="let participant of participant?.data">
+        <app-participant-card [isTeam]="tournament.participants_type === 'teams'"
+                              [name]="participant.original.participant_name" [profile]="participant.original.avatar"
+                              [country]="participant.original.country"
+                              [cover]="participant.original.cover_picture"
+                              [reference_number]="participant.reference_number">
+          <ng-container ngProjectAs="tournament-buttons"
+                        *ngIf="tournament.participants_type === 'single'; else teamTemplate">
+            <app-button class="flex-grow-1" variant="primary full-width"
+                        routerLink="/gamer/{{participant.original.slug}}">{{'common.buttons.viewProfile'| translate}}
+            </app-button>
+          </ng-container>
+          <ng-template #teamTemplate>
+            <app-button class="flex-grow-1" variant="primary full-width" (click)="viewTeam(participant)"
+            >{{'common.buttons.viewTeam'| translate}}
+            </app-button>
+
+          </ng-template>
+
+        </app-participant-card>
+
+      </div>
+
+      <nz-pagination class="d-flex justify-content-end" [nzPageIndex]="participant?.page"
+                     [nzPageSize]="(tournament$ |async)?.participants_type === 'single' ? 50 : 20"
+                     [nzTotal]="participant?.count"
+                     (nzPageIndexChange)="getParticipants($event, searchResult)"></nz-pagination>
+
+
+    </div>
+  </ng-container>
+
+  <ng-template #noParticipants>
+    <div class="nodata-placeholder">
+      <img src="assets/svg-icons/users.svg" alt="">
+      <h3>{{'tournament.noAcceptedParticipants' | translate}}</h3>
+      <p class="text-gray">{{'tournament.noAcceptedParticipantsMessage' | translate}}</p>
+      <!--      <h5>You have no messages yet!</h5> -->
+    </div>
+  </ng-template>
+
+</ng-container>
+<ng-template #loadingIndicator>
+  <app-loading-indicator></app-loading-indicator>
+
+</ng-template>

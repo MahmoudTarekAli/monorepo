@@ -1,0 +1,240 @@
+<my-swiper class="ltr" [images]="banners$ | async"></my-swiper>
+
+<!--<app-loading-indicator></app-loading-indicator>-->
+
+<!----------------tournament-section------------>
+
+
+<!----------------challenge-section------------>
+
+<div [ngClass]="isMobileView ? '' : 'container'">
+  <app-section [icon]="'/assets/svg-icons/warrior-helmet.svg'" [title]="'common.challenges' | translate| uppercase"
+               [customButtons]="challengeButton" [margin]="isMobileView? 'px-3' : ''">
+    <!--  [margin]="'px-md-5 px-3'"-->
+    <ng-container *ngIf="(getChallengesIsExecuting$ | async) === true; else challengeSection">
+      <div class="row">
+        <div class="col-12">
+          <app-loading-indicator></app-loading-indicator>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #challengeSection>
+
+      <ng-container *ngIf="!isMobileView; else mobile">
+        <div class="row gy-3 gx-2">
+          <div class="col-md-4 col-lg-3" *ngFor="let challenge of (challenges$ | async)">
+            <app-challenge-card [challenge]="challenge"></app-challenge-card>
+          </div>
+        </div>
+
+      </ng-container>
+
+      <ng-template #mobile>
+        <ng-scrollbar>
+          <div class="gap-2 w-100 px-md-5 px-3 d-flex flex-nowrap justify-content-start">
+            <div *ngFor="let challenge of (challenges$ | async | sliceArray: 8)">
+              <app-challenge-card
+                [challenge]="challenge">
+              </app-challenge-card>
+            </div>
+          </div>
+        </ng-scrollbar>
+      </ng-template>
+
+
+    </ng-template>
+
+    <ng-template #challengeButton>
+      <app-button variant=rounded-green routerLink="/challenges"><p>{{'common.viewMore' | translate}}</p></app-button>
+    </ng-template>
+  </app-section>
+</div>
+
+<div class="spacer"></div>
+
+<!--Tournaments Section -->
+<div class="section-color">
+  <div [ngClass]="isMobileView ? ' ' : 'container'">
+    <app-section [title]="'common.tournaments' | translate | uppercase" [customButtons]="customButton"
+                 [icon]="'/assets/svg-icons/trophy.svg'" [margin]="isMobileView? 'px-3' : ''">
+      <ng-container *ngIf="(getTournamentsIsExecuting$ | async) === true; else tournamentSection">
+        <div class="row">
+          <div class="col-12">
+            <app-loading-indicator></app-loading-indicator>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #tournamentSection>
+        <ng-container *ngIf="!isMobileView; else mobile">
+          <div class="row gy-3 gx-2">
+            <div class="col-md-4 col-lg-3 col-sm-6 col-12" *ngFor="let tournament of (tournaments$ | async)">
+              <app-tournament-card [tournament]="tournament"></app-tournament-card>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #mobile>
+          <ng-scrollbar>
+            <div class="gap-2 w-100 px-md-5 px-3 d-flex flex-nowrap justify-content-start">
+              <div *ngFor="let tournament of (tournaments$ | async)">
+                <app-tournament-card [tournament]="tournament"></app-tournament-card>
+              </div>
+            </div>
+          </ng-scrollbar>
+        </ng-template>
+      </ng-template>
+      <ng-template #customButton>
+        <app-button variant=rounded-green routerLink="/tournaments"><p>{{'common.viewMore' | translate}}</p>
+        </app-button>
+      </ng-template>
+    </app-section>
+
+    <div class="spacer"></div>
+  </div>
+</div>
+<!----------------tournament-section------------>
+
+
+<!----------------Prime-section------------>
+<div [ngClass]="isMobileView ? ' ' : 'container'">
+
+  <app-section *ngIf="(playable$ | async)?.length > 0" [icon]="'/assets/svg-icons/prime-icon.svg'" [margin]="'px-3'"
+               [title]="('common.primeUsers'|translate) | uppercase" [customButtons]="customPremiumButton">
+    <ng-container *ngIf="!(getPlayableIsExecuting$ | async); else loadingIndicators">
+      <ng-container *ngIf="!isMobileView; else mobile">
+        <div class="row gy-3 gx-2">
+          <div class="col-md-4 col-lg-3 col-sm-6 col-12" *ngFor="let playable of (playable$ | async )">
+            <app-tournament-card *ngIf="playable.resource === 'Tournament'"
+                                 [tournament]="playable"></app-tournament-card>
+            <app-challenge-card *ngIf="playable.resource === 'Challenge'" [challenge]="playable"></app-challenge-card>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-template #mobile>
+        <ng-scrollbar>
+          <div class="gap-2 w-100 px-md-5 px-3 d-flex flex-nowrap justify-content-start">
+            <div *ngFor="let playable of (playable$ | async )">
+              <app-tournament-card *ngIf="playable.resource === 'Tournament'"
+                                   [tournament]="playable"></app-tournament-card>
+              <app-challenge-card *ngIf="playable.resource === 'Challenge'" [challenge]="playable"></app-challenge-card>
+            </div>
+          </div>
+        </ng-scrollbar>
+      </ng-template>
+
+    </ng-container>
+    <ng-template #customPremiumButton>
+      <app-button variant=rounded-green routerLink="/tournaments"><p>{{'common.viewMore' | translate}}</p></app-button>
+    </ng-template>
+  </app-section>
+</div>
+
+<!--<div class="spacer"></div>-->
+<!----------------challenge-section------------>
+
+<!---------------- Trending games-section------------>
+<div [ngClass]="isMobileView ? ' ' : 'container'">
+  <ng-container *ngIf="(getGamesIsExecuting$ | async) === true; else gameSection">
+    <div class="row">
+      <div class="col-12">
+        <app-loading-indicator></app-loading-indicator>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #gameSection>
+    <ng-container *ngIf="(getGamesIsExecuting$ | async) === false">
+
+      <app-section [title]="'common.trendingGames' |translate | uppercase" [customButtons]="customGameButton"
+                   [icon]="'/assets/svg-icons/game_pad-icon.svg'" [margin]="isMobileView? 'px-3' : ''">
+
+        <ng-container *ngIf="!isMobileView; else mobile">
+          <div class="row gy-3 gx-2">
+            <div class="col-md-4 col-6 col-lg-2" *ngFor="let game of trendingGames$ | async">
+              <app-game-card [game]="game"></app-game-card>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #mobile>
+          <ng-scrollbar>
+            <div class="gap-2 w-100 px-md-5 px-3 d-flex flex-nowrap justify-content-start">
+              <div *ngFor="let game of trendingGames$ | async">
+                <app-game-card [game]="game"></app-game-card>
+              </div>
+            </div>
+          </ng-scrollbar>
+        </ng-template>
+
+        <ng-template #customGameButton>
+          <app-button variant=rounded-green routerLink="/games"><p>{{'common.viewMore' | translate}}</p></app-button>
+        </ng-template>
+      </app-section>
+    </ng-container>
+
+  </ng-template>
+</div>
+
+<div class="spacer"></div>
+
+<!--Top products Section -->
+<div class="section-color">
+  <app-section [title]="'common.topProducts' | translate| uppercase" [customButtons]="storeProductsButton"
+               [icon]="'/assets/svg-icons/store.svg'" [margin]="'px-md-5 px-3'" style="width:100%;">
+    <ng-container *ngIf="!(getStoreProdutsIsExecuting$ | async); else loadingIndicators">
+      <ng-scrollbar>
+        <div class="row gy-3 gx-3 w-100 px-md-5 px-3 d-flex flex-nowrap justify-content-start">
+          <div class="products-container" *ngFor="let product of (storeProducts$ | async ).data">
+            <app-product-card [product]="product" [href]="environment.storeUrl + '/' + product.slug"></app-product-card>
+          </div>
+        </div>
+      </ng-scrollbar>
+    </ng-container>
+    <ng-template #storeProductsButton>
+      <a href="{{environment.storeUrl}}">
+        <app-button variant=rounded-green><p>{{'common.viewMore' | translate}}</p></app-button>
+      </a>
+    </ng-template>
+
+  </app-section>
+</div>
+
+<div class="spacer"></div>
+
+
+<!----------------arena-section------------>
+<div [ngClass]="isMobileView ? ' ' : 'container'">
+  <app-section [title]="'common.topArenas' | translate | uppercase" [customButtons]="customArenaButton"
+               [icon]="'/assets/svg-icons/arena-icon.svg'" [margin]="isMobileView? 'px-3' : ''">
+    <ng-container *ngIf="(getArenasIsExecuting$ | async) === true; else arenaSection">
+      <div class="row">
+        <div class="col-12">
+          <app-loading-indicator></app-loading-indicator>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #arenaSection>
+
+      <ng-scrollbar>
+        <div class="d-flex w-100 gap-2"
+             [ngClass]="isMobileView ? '  px-md-5 px-3 d-flex flex-nowrap justify-content-start' : 'flex-wrap justify-content-between'">
+          <div class="cards-container" *ngFor="let arena of (featuredArenas$ | async | sliceArray: 8)">
+            <app-arena-card [arena]="arena"></app-arena-card>
+          </div>
+        </div>
+      </ng-scrollbar>
+    </ng-template>
+    <ng-template #customArenaButton>
+      <app-button variant=rounded-green routerLink="/arenas"><p>{{'common.viewMore' | translate}}</p></app-button>
+    </ng-template>
+  </app-section>
+</div>
+
+<ng-template #loadingIndicators>
+  <div class="row">
+    <div class="col-12">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+  </div>
+</ng-template>

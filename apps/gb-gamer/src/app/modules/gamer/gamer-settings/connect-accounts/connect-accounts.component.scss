@@ -1,0 +1,118 @@
+@import "src/app/styles/functions";
+@import "src/app/styles/core/variables";
+
+
+.platform-container {
+
+  display: flex; flex-flow: row wrap;
+  justify-content: start;
+
+  .platform {
+    flex: 25% 0 0;
+    @include dynamic-m-v-property(margin, 5, 0);
+    cursor: pointer;
+    display: flex;
+    flex-flow: column;
+    @include dynamic-s-v-property(gap, 5);
+    justify-content: flex-start;
+    @include dynamic-m-v-property(padding, 10);
+
+    @media screen and (max-width: 767px) {
+      flex: 50% 0 0;
+    }
+
+    p {
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+}
+
+h2 {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+
+ul {
+  li {
+    @include dynamic-font(13);
+  }
+}
+
+.cover-container {
+  @include dynamic-dimensions(height, 100);
+  @include dynamic-m-v-property(border-radius, 10);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    @include dynamic-dimensions(width, 30);
+  }
+
+  &.riot {
+    background: #d1363a;
+  }
+
+  &.facebook {
+    background: #0076fa;
+  }
+
+  &.google {
+    background: white;
+  }
+
+  &.tiktok {
+    background: black;
+  }
+
+  &.twitch {
+    background: #9147ff;
+  }
+
+  &.twitter {
+    background: #29abe1;
+  }
+
+  &.discord {
+    background: #5865F2;
+  }
+
+  &.apple {
+    background: #f8f9fc;
+  }
+}
+
+.connected-accounts {
+  display: flex; flex-flow: row;
+  @include dynamic-s-v-property(gap, 10);
+  background: var(--gb-fifth-color); @include dynamic-m-v-property(border-radius, 10);
+
+ >.cover-container {
+   @include dynamic-dimensions(height, 80);
+   @include dynamic-dimensions(width, 120);
+   @include dynamic-m-v-property(border-radius, 10, 0, 0, 10);
+  }
+
+  @media screen and ( max-width: 767px) {
+    flex-flow: column;
+    overflow: hidden;
+    padding-bottom: 10px;
+    .content-body{
+      padding: 0 10px;
+    }
+    >.cover-container {
+      @include dynamic-dimensions(height, 100);
+      @include dynamic-m-v-property(border-radius, 10, 10, 0, 0);
+
+      width: 100%;
+    }
+
+  }
+
+  h3 {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en" style="margin: 0px; padding: 0px;">
+<head>
+  <style>
+    :root {
+      --viewport-width: 100;
+      --viwport-height: 100px;
+      --scaleValue: 1;
+    }
+
+
+  </style>
+
+  <script>
+    function setViewportWidthVariable() {
+      const viewportWidth = window.innerWidth;
+      document.documentElement.style.setProperty('--viewport-width', `${viewportWidth}px`);
+      document.querySelector(':root').style.setProperty('--viewport-width', `${viewportWidth}px`)
+    }
+
+    setViewportWidthVariable()
+    window.addEventListener('load', setViewportWidthVariable);
+    window.addEventListener('resize', setViewportWidthVariable);
+    console.log(--viewport - width);
+  </script>
+
+  <meta charset="utf-8">
+  <title>GBarena</title>
+  <base href="/">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=750, user-scalable=no">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover ">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="GBarena">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="icon" type="image/x-icon" href="assets/svg-icons/favicon-32x32.png">
+  <script id="cookieyes" type="text/javascript"
+          src="https://cdn-cookieyes.com/client_data/c66d96508b2a0378a0793fc0/script.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <script>
+    // Retrieve username and premium status from localStorage
+    const username = localStorage.getItem('username');
+    const isPremium = localStorage.getItem('is_premium') === 'true'; // Ensure to compare as a string
+    // Create the name with or without "-premium" based on premium status
+    const fullName = isPremium ? username + ' - premium' : username;
+    window.intercomSettings = {
+      api_base: "https://api-iam.intercom.io",
+      app_id: "d734mc91",
+      name: fullName,
+      PremiumUser: isPremium
+    };
+  </script>
+
+  <script>
+    // We pre-filled your app ID in the widget URL: 'https://widget.intercom.io/widget/d734mc91'
+    (function () {
+      var w = window;
+      var ic = w.Intercom;
+      if (typeof ic === "function") {
+        ic('reattach_activator');
+        ic('update', w.intercomSettings);
+      } else {
+        var d = document;
+        var i = function () {
+          i.c(arguments);
+        };
+        i.q = [];
+        i.c = function (args) {
+          i.q.push(args);
+        };
+        w.Intercom = i;
+        var l = function () {
+          var s = d.createElement('script');
+          s.type = 'text/javascript';
+          s.async = true;
+          s.src = 'https://widget.intercom.io/widget/d734mc91';
+          var x = d.getElementsByTagName('script')[0];
+          x.parentNode.insertBefore(s, x);
+        };
+        if (document.readyState === 'complete') {
+          l();
+        } else if (w.attachEvent) {
+          w.attachEvent('onload', l);
+        } else {
+          w.addEventListener('load', l, false);
+        }
+      }
+    })();
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RZBC2G2X8B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-RZBC2G2X8B');
+  </script>
+
+  <!--  &lt;!&ndash; Google tag (gtag.js) &ndash;&gt;-->
+  <!--  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-69021296-1"></script>-->
+  <!--  <script>-->
+  <!--    window.dataLayer = window.dataLayer || [];-->
+  <!--    function gtag(){dataLayer.push(arguments);}-->
+  <!--    gtag('js', new Date());-->
+
+  <!--    gtag('config', 'UA-69021296-1');-->
+  <!--  </script>-->
+
+</head>
+<body>
+
+<!--<div class="loadingContainer" style="">-->
+<!--<div class="loadingAnimation"></div>-->
+<!--&lt;!&ndash;  <img width="180" src="assets/images/loading.svg" alt="">&ndash;&gt;-->
+
+<!--  <div class="logo">-->
+<!--    <img src="assets/images/gbarena.svg" alt="">-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--<img src="assets/gif/gb-loading-2.gif" alt="GBloading">-->
+<app-root></app-root>
+
+
+</body>
+</html>

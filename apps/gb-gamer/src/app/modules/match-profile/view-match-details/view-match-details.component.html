@@ -1,0 +1,160 @@
+<div style="width: 90% ; margin:auto">
+  <ng-container *ngIf="match.participants_type === 'teams'">
+  <nz-radio-group [(ngModel)]="teamType" class="my-5">
+    <label nz-radio-button nzValue="home">{{match.home.username}}</label>
+    <label nz-radio-button nzValue="away">{{match.away.username}}</label>
+
+  </nz-radio-group>
+  <app-participant-card
+    [isArena]="true"
+    [cover]="match[teamType].cover"
+    [profile]="match[teamType].avatar"
+    [name]="match[teamType].username"
+    [routeTo]="'/teams/' + match[teamType]?.original.id"
+    [autoHeight]="true"
+    [isTeam]="true"
+    [bgColor]="'#280659'"
+    [reference_number]="match[teamType]?.original?.reference_number">
+    <ng-container ngProjectAs="team-member">
+<!--      <h3 style="  margin: 2px 15px;">Team Members</h3>-->
+      <ng-scrollbar style="height: 400px">
+        <nz-collapse [nzBordered]="false" [nzExpandIconPosition]="'right'" class="team-view-collapse">
+          <ng-container *ngFor="let  member of match[teamType].members; let isFirst = first">
+            <nz-collapse-panel [nzDisabled]="member?.supported_required_inputs?.length < 1"
+                               [nzShowArrow]="member?.supported_required_inputs?.length > 0"
+                               [nzHeader]="headerCollapse"
+                               [nzExtra]="description"
+                               [nzActive]="member.active">
+
+              <div class="row">
+                <div class="col-6" *ngFor="let req of member?.supported_required_inputs">
+                  <p><b>{{req.placeholder}}:</b> {{req.value}}</p>
+                </div>
+              </div>
+            </nz-collapse-panel>
+            <ng-template #headerCollapse>
+              <app-user-card class="user-card" [avatar]="member.avatar"
+                             [username]="member.username"
+                             [reference_number]="member.reference_number" [slug]="member.slug"
+                           >
+                <ng-container ngProjectAs="roles" *ngIf="member?.roles && member?.roles.length > 0">
+                  <span *ngFor="let role of member.roles" class="badge {{role | lowercase}}">{{role}}</span>
+                </ng-container>
+
+
+              </app-user-card>
+            </ng-template>
+            <ng-template #description>
+
+              <div class="d-flex flex-row justify-content-between align-items-center">
+                <div class="required-account"
+                     *ngIf="tournament?.connected_accounts_required &&member?.required_accounts[0]?.publisher_account; else noConnectedAccount">
+
+                  <div class="d-flex ">
+                    <img *ngIf="member?.required_accounts[0]?.publisher_account?.rank?.image !== 'unranked'"
+                         [nz-tooltip]="member?.required_accounts[0]?.publisher_account?.rank?.name"
+                         class="image-container" src="{{member?.required_accounts[0]?.publisher_account?.rank?.image}}"
+                         alt="">
+                    <p
+                      *ngIf="member?.required_accounts[0]?.publisher_account?.rank?.image === 'unranked'">{{member?.required_accounts[0]?.publisher_account?.rank?.image | uppercase}}</p>
+
+                  </div>
+
+                  <div class="id">
+                    {{member?.required_accounts[0]?.publisher_account?.game_username}}
+                  </div>
+
+                  <img width="15" src="assets/svg-icons/ok-icon-green.svg" alt="">
+
+                </div>
+
+                <ng-template #noConnectedAccount>
+                  <p style="margin:0; font-size: 12px; color:gray;">"No Connected Account"</p>
+                </ng-template>
+              </div>
+
+            </ng-template>
+
+          </ng-container>
+        </nz-collapse>
+      </ng-scrollbar>
+    </ng-container>
+
+  </app-participant-card>
+  </ng-container>
+
+
+</div>
+<ng-container *ngIf="match.participants_type === 'single'">
+  <app-participant-card
+    [isArena]="true"
+    [cover]="match[opponentType].cover"
+    [profile]="match[opponentType].avatar"
+    [name]="match[opponentType].username"
+    [routeTo]="'/teams/' + match[opponentType]?.original.id"
+    [country]="match[opponentType]?.original?.country"
+    [autoHeight]="true"
+    [isTeam]="true"
+    [bgColor]="'#280659'"
+    [reference_number]="match[opponentType]?.original?.reference_number">
+    <ng-container ngProjectAs="team-member">
+      <ng-scrollbar style="height: 400px">
+        <nz-collapse [nzBordered]="false" [nzExpandIconPosition]="'right'" class="team-view-collapse">
+            <nz-collapse-panel [nzDisabled]="match[opponentType]?.supported_required_inputs?.length < 1"
+                               [nzShowArrow]="match[opponentType]?.supported_required_inputs?.length > 0"
+                               [nzHeader]="headerCollapse"
+                               [nzExtra]="description">
+
+              <div class="row">
+                <div class="col-6" *ngFor="let req of match[opponentType]?.supported_required_inputs">
+                  <p><b>{{req.placeholder}}:</b> {{req.value}}</p>
+                </div>
+              </div>
+            </nz-collapse-panel>
+            <ng-template #headerCollapse>
+              <app-user-card class="user-card" [avatar]="match[opponentType]?.original.avatar"
+                             [username]="match[opponentType]?.original.username"
+                             [reference_number]="match[opponentType]?.original.reference_number" [slug]="match[opponentType]?.original.slug"
+              >
+
+
+              </app-user-card>
+            </ng-template>
+            <ng-template #description>
+
+              <div class="d-flex flex-row justify-content-between align-items-center">
+                <div class="required-account"
+                     *ngIf="tournament?.connected_accounts_required &&match[opponentType]?.original?.required_accounts[0]?.publisher_account; else noConnectedAccount">
+
+                  <div>
+                    <img *ngIf="match[opponentType]?.original?.required_accounts[0]?.publisher_account?.rank?.image !== 'unranked'"
+                         [nz-tooltip]="match[opponentType]?.original?.required_accounts[0]?.publisher_account?.rank?.name"
+                         class="image-container" src="{{match[opponentType]?.original?.required_accounts[0]?.publisher_account?.rank?.image}}"
+                         alt="">
+                    <p
+                      *ngIf="match[opponentType]?.original?.required_accounts[0]?.publisher_account?.rank?.image === 'unranked'">{{match[opponentType]?.original?.required_accounts[0]?.publisher_account?.rank?.image | uppercase}}</p>
+
+                  </div>
+
+                  <div class="id">
+                    {{match[opponentType]?.original?.required_accounts[0]?.publisher_account?.game_username}}
+                  </div>
+
+                  <img width="15" src="assets/svg-icons/ok-icon-green.svg" alt="">
+
+                </div>
+
+                <ng-template #noConnectedAccount>
+                  <p style="margin:0; font-size: 12px; color:gray;">"No Connected Account"</p>
+                </ng-template>
+              </div>
+
+            </ng-template>
+
+        </nz-collapse>
+      </ng-scrollbar>
+    </ng-container>
+
+  </app-participant-card>
+
+</ng-container>

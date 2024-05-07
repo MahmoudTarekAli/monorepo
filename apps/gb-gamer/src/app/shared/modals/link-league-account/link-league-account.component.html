@@ -1,0 +1,36 @@
+
+<h5 class="my-3">Link League Accounts</h5>
+<nz-steps class="my-3" nzSize="small" [nzCurrent]="currentStep" >
+  <nz-step *ngFor="let step of [ 1 , 2 , 3 ]">
+  </nz-step>
+
+</nz-steps>
+<div [ngSwitch]="currentStep" class="my-4">
+  <div *ngSwitchCase="0" [formGroup]="linkAccount">
+    <p>Select Server</p>
+    <nz-select class="w-100" nzShowSearch [nzPlaceHolder]="'Select League Server' " formControlName="game_server">
+      <nz-option *ngFor=" let server of leagueServers$ | async"  [nzLabel]="server.key" [nzValue]="server.value"></nz-option>
+    </nz-select>
+    <div class="my-3">
+      <p>Add Summoner name</p>
+      <input nz-input class="small" formControlName="name" placeholder="Summoner Name" />
+    </div>
+    <app-button [disabled]="linkAccount.invalid" class="my-5 d-flex justify-content-center" variant="primary fit-content" (click)="linkLeagueAccount()">Submit</app-button>
+  </div>
+  <div *ngSwitchCase="1">
+      <p>Change summoner icon temporarily</p>
+    <div class="league-logo"><img  src="https://gbarena-development.s3.amazonaws.com/games/logo/19.png" alt=""></div>
+    <ul>
+      <li>Change your  summoner icon to this icon </li>
+      <li>Verify your account</li>
+    </ul>
+
+    <app-button  class="my-5 d-flex justify-content-center" variant="primary fit-content" (click)="verifyAccount()">Connect</app-button>
+
+  </div>
+  <div *ngSwitchCase="2">
+    <h5>          Account verified successfully</h5>
+    <app-button class="my-5 d-flex justify-content-center" variant="primary fit-content" (click)="closeModal()">Done</app-button>
+
+  </div>
+</div>

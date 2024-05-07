@@ -1,0 +1,86 @@
+
+<ng-container *ngIf="userData$ | async as userData">
+    <div class="row" [formGroup]="customUpdatesForm" >
+      <nz-form-item class="col-lg-6 col-12" style="height: fit-content">
+        <nz-form-label>{{'forms.labels.username' | translate}}</nz-form-label>
+        <input class="small" nz-input formControlName="username" [placeholder]="'forms.placeholders.username' | translate"/>
+      </nz-form-item>
+
+<!--      <nz-form-item class="col-lg-6 col-12">-->
+<!--        <nz-form-label>{{'forms.labels.referenceNumber' | translate}}</nz-form-label>-->
+<!--        <input class="small" [readonly]="!userData.is_premium" formControlName="reference_number"   nz-input [placeholder]="'forms.placeholders.referenceNumber' | translate"/>-->
+<!--        <p class="premium-text"><img src="assets/svg-icons/crown-colored-icon.svg" alt="">-->
+<!--          <span >{{'premium.editReferenceNumber' | translate}}</span></p>-->
+<!--      </nz-form-item>-->
+      <app-button variant="primary" class="w-25 m-auto" (click)="changeCustomUpdates()"
+                  [disabled]="(!changeUserNameAvailability && !userData.is_premium) || (profileForm.invalid || !profileForm.dirty) " >
+        {{'common.buttons.save' | translate}}</app-button>
+
+    </div>
+  <nz-divider class="mt-3 mb-3"></nz-divider>
+
+  <form nz-form [formGroup]="profileForm" [nzLayout]="'vertical'">
+      <div class="row ">
+
+        <nz-form-item class="col-12">
+          <nz-form-label>{{'forms.labels.email' | translate}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="email">
+
+          <input class="small" formControlName="email" nz-input [placeholder]="'forms.placeholders.email' | translate"/>
+          </nz-form-control>
+          <ng-template #email>
+              <span class="error-message">{{'forms.validationMessages.invalidEmail' | translate}}</span>
+          </ng-template>
+        </nz-form-item>
+
+        <app-upload-photos class="mb-2" [isUserProfile]="true" [avatar]="avatar"
+                           [cover]="cover" (fileSelected)="selectImages($event)"> </app-upload-photos>
+
+
+
+        <nz-form-item class="col-12">
+          <nz-form-label>{{'forms.labels.about' | translate}}</nz-form-label>
+          <textarea class="ant-input" formControlName="bio" [placeholder]="'forms.placeholders.about' | translate"></textarea>
+        </nz-form-item>
+
+        <nz-form-item class="col-12">
+          <nz-form-label>{{'forms.labels.country' | translate}}</nz-form-label>
+          <nz-select class="w-100 border-radius-8" [nzShowSearch]="true" nzPlaceHolder="{{'forms.placeholders.country'|translate}}"
+                     formControlName="country"
+                     [nzShowArrow]="true">
+            <nz-option *ngFor="let country of Countries | async" [nzLabel]="country['name']"
+                       [nzValue]="country['abbr'] === 'Global' ? null : country['abbr'] "></nz-option>
+          </nz-select>
+
+        </nz-form-item>
+            <nz-form-item class="col-12">
+              <nz-form-label>{{'forms.labels.birthdate' | translate}}</nz-form-label>
+              <nz-form-control >
+                <nz-date-picker [nzFormat]="'yyyy/MM/dd'" formControlName="birthdate"></nz-date-picker>
+              </nz-form-control>
+            </nz-form-item>
+
+
+        <nz-form-item class="col-12" *ngIf="profileForm.get('phone')">
+          <nz-form-label>{{'forms.labels.phone' | translate}}</nz-form-label>
+          <nz-form-control nzErrorTip="{{'forms.validationMessages.invalidPhone' | translate}}">
+            <ngx-intl-tel-input
+              [customPlaceholder]="'forms.placeholders.phone' | translate"
+              [preferredCountries]="[(userData.country ? userData.country : 'eg' ) | lowercase]"
+              [enableAutoCountrySelect]="true"
+              [enablePlaceholder]="true"
+              [searchCountryFlag]="true"
+              [maxLength]="15"
+              [phoneValidation]="true"
+              formControlName="phone"
+              class=" phonenumber small"
+            ></ngx-intl-tel-input>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <app-button variant="primary" [disabled]=" profileForm.invalid || !profileForm.dirty" (click)="submitProfile()">{{'common.buttons.save' | translate}}</app-button>
+    </form>
+
+</ng-container>
+

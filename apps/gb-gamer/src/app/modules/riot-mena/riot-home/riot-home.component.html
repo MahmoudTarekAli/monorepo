@@ -1,0 +1,58 @@
+<!--<app-section class="my-4" [title]="'Top Achievements'" [customButtons]="customButton">-->
+<!--  <div class="row gx-5 gy-2">-->
+<!--    <div class="col-lg-3">-->
+<!--      <ng-container-->
+<!--        *ngTemplateOutlet="achievementCard context:{cardTitle: 'Number of Challenges' , icon: 'assets/svg-icons/warrior-helmet.svg' , achievementNumber: 14}"></ng-container>-->
+<!--    </div>-->
+<!--    <div class="col-lg-3">-->
+<!--      <ng-container-->
+<!--        *ngTemplateOutlet="achievementCard context:{cardTitle: 'Number of Tournaments' , icon: 'assets/svg-icons/warrior-helmet.svg' , achievementNumber: 14}"></ng-container>-->
+<!--    </div>-->
+<!--    <div class="col-lg-3">-->
+<!--      <ng-container-->
+<!--        *ngTemplateOutlet="achievementCard context:{cardTitle: 'Number of Partners' , icon: 'assets/svg-icons/warrior-helmet.svg' , achievementNumber: 14}"></ng-container>-->
+<!--    </div>-->
+<!--    <div class="col-lg-3">-->
+<!--      <ng-container-->
+<!--        *ngTemplateOutlet="achievementCard context:{cardTitle: 'TOTAL PARTICIPATIONS' , icon: 'assets/svg-icons/warrior-helmet.svg' , achievementNumber: 14}"></ng-container>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <ng-template #customButton>-->
+<!--    <app-button variant="baby-blue" borderRadius="50" routerLink="./tournaments">Browse All</app-button>-->
+<!--  </ng-template>-->
+<!--</app-section>-->
+
+<!--Tournaments Challenges Section-->
+<app-tournament-challenges [showButton]="true" [sliceNumber]="8"></app-tournament-challenges>
+
+<!--Partners Table-->
+<app-shared-riot-table [showButton]="true" [sliceNumber]="6"></app-shared-riot-table>
+
+<h3 class="my-3 text-center">Our Sponsors</h3>
+<div class="d-flex">
+    <div class="logo-container"  *ngFor="let sponsor of sponsorList">
+      <img src="assets/riot-images/{{sponsor}}" alt="">
+    </div>
+</div>
+
+<h3 class="my-3 text-center">FAQS</h3>
+<nz-collapse class="riot-collapse" nzAccordion [nzExpandIconPosition]="'right'" >
+  <nz-collapse-panel *ngFor="let panel of tournamentQuestion" [nzHeader]="panel.question | translate" >
+    <p>{{ panel.answer |translate}}</p>
+  </nz-collapse-panel>
+</nz-collapse>
+
+
+
+
+<!--<ng-template #achievementCard let-cardTitle='cardTitle' let-icon='icon' let-achievementNumber='achievementNumber'>-->
+<!--  <div class=" achievement-card">-->
+<!--    <img src="{{icon}}" alt="">-->
+<!--    <div class="d-flex flex-column justify-content-center ">-->
+<!--      <p>{{cardTitle}}</p>-->
+<!--      <p class="achievement-number">{{achievementNumber}}</p>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</ng-template>-->
+

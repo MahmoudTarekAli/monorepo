@@ -1,0 +1,99 @@
+@import 'src/app/styles/core/variables';
+@import "src/app/styles/functions";
+
+.conversation-list {
+  @include dynamic-m-v-property(padding, 5);
+  display: flex;
+  flex-direction: column;
+ //@include dynamic-s-v-property(gap, )
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+.user {
+  display: flex;
+  justify-content: space-between;
+  @include dynamic-m-v-property(padding, 10);
+  align-items: flex-start;
+  border-bottom: solid var(--gb-blue);
+  @include dynamic-m-v-property(border-width, 1);
+
+  &:last-child {
+    border-bottom:0 !important;
+  }
+
+  .dot {
+    background: $red;
+    @include dynamic-equal-dimensions(10);
+    border-radius: 50%;
+  }
+
+  .left {
+    display: flex;
+    flex:1;
+    @include dynamic-s-v-property(gap, 10);
+  }
+
+  .right {
+    @include dynamic-font(11);
+    color: $white;
+  }
+
+  &:hover {
+    background: $gb-blue !important;
+    cursor: pointer;
+  }
+
+  .profile-img {
+    img {
+     @include dynamic-equal-dimensions(40);
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  .name-header {
+    @include dynamic-font(12);
+    background: rgba(132, 41, 245, 0.2);
+    padding: 10px;
+    @include dynamic-m-v-property(padding,10);
+    @include dynamic-m-v-property(border-radius,8);
+  }
+
+  .message-info {
+    color: $white;
+    flex:1;
+    display: flex;
+    flex-flow: column;
+    h5 {
+      font-weight: bold;
+    }
+    .name {
+      p {
+        font-size: 14px;
+        font-weight: bold;
+      }
+    }
+  @include dynamic-s-v-property(gap, 5);
+  }
+
+
+}
+
+.conversation {
+  height: 80vh;
+
+  .conversation-header {
+    padding: 10px;
+  }
+}
+
+.selected-chat {
+  background: $gb-primary-color !important;
+  border-radius: 10px;
+}
+
+.footer {
+  background: $gb-blue;
+}
+

@@ -1,0 +1,21 @@
+<p class="w-100 text-center">Share tournament link</p>
+
+<div>
+<nz-form-label>Form Url</nz-form-label>
+<div class="d-flex align-items-center" >
+  <nz-form-control >
+    <input nz-input readonly id="English Name" [(ngModel)]="shareLink" />
+
+  </nz-form-control>
+  <div class="copy-icon" nz-typography nzCopyable  [nzCopyText]="shareLink">
+  </div>
+</div>
+  <div class="social-buttons-container">
+    <button class="social-button"   shareButton="facebook" [url]="shareLink"><img src="assets/svg-icons/facebook-icon.svg" alt=""></button>
+    <button class="social-button"  shareButton="whatsapp" [url]="shareLink"><img src="assets/svg-icons/whatsapp-icon.svg" alt=""></button>
+    <button class="social-button"  shareButton="twitter" [description]="shareLink"   url="www.gbarena.com/tournaments"><img src="assets/svg-icons/twitter-icon.svg" alt=""></button>
+    <button class="social-button"  shareButton="discord" [url]="shareLink"><img src="assets/svg-icons/discord-icon.png" alt=""></button>
+  </div>
+
+
+</div>

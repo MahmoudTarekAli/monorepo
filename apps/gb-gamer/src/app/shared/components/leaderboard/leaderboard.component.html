@@ -1,0 +1,46 @@
+<nz-table
+  #rowSelectionTable
+  nzShowPagination
+  nzShowSizeChanger
+  [nzFrontPagination]="false"
+  [nzData]="leaderBoard.leaderboard_points"
+  [nzPageSize]="50"
+  [nzLoadingIndicator]="loadingIndicator"
+  class="border-radius-10 overflow-hidden"
+>
+
+  <thead>
+  <!--    <tr>-->
+  <!--      <th [nzChecked]='checked'-->
+  <!--          [nzIndeterminate]='indeterminate'-->
+  <!--          (nzCheckedChange)='onAllChecked($event , participants.data)'>#-->
+  <!--      </th>-->
+  <!--    </tr>-->
+  <tr>
+    <th  [nzWidth]="'100px'"><p>#</p></th>
+    <th>Gamer Name</th>
+    <th>{{'country' | translate}}</th>
+    <th>{{'points' | translate}}</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of rowSelectionTable.data; let index = index">
+    <td>{{index + 1}}</td>
+    <td>
+      <nz-avatar class="country me-2"  [nzSize]="'small'"  [nzSrc]="data?.winner?.avatar"></nz-avatar>
+      {{data.winner.username}}</td>
+    <td> <nz-avatar class="country me-2" [nzSize]="'small'"  [nzSrc]="data?.winner?.country | countryImage"></nz-avatar></td>
+    <td>{{data.points}}</td>
+  </tr>
+  </tbody>
+</nz-table>
+<!--<div class="col-12 d-flex justify-content-end">-->
+<!--  <nz-pagination [nzPageIndex]="page"-->
+<!--                 [nzPageSize]="(getTournament |async)?.participants_type === 'single' ? 50 : 20"-->
+<!--                 [nzTotal]="participants?.count"-->
+<!--                 (nzPageIndexChange)="filterParticipants($event)"></nz-pagination>-->
+<!--</div>-->
+<ng-template #loadingIndicator>
+  <app-loading-indicator></app-loading-indicator>
+</ng-template>

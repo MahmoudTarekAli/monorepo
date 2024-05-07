@@ -1,0 +1,99 @@
+<h3 class="my-2">{{'common.esports' | translate}}</h3>
+<div class="content-container py-0">
+
+  <nz-tabset nzType="card" nzLinkRouter nzLinkExact>
+    <nz-tab>
+      <a *nzTabLink nz-tab-link
+         [routerLink]="['.']">{{'common.joined' |translate}} {{'common.tournament' | translate}}</a>
+      <div class="d-flex gap-2 justify-content-end ">
+        <app-filter-popover (statusFiltration)="filterTournaments(1 ,  $event)"></app-filter-popover>
+        <!--          <nz-input-group [nzSuffix]="suffixIconSearch">-->
+        <input style="max-width: 300px" class="mid-height" type="text" nz-input #searchInput
+               [placeholder]="'Search In Tournaments' | translate"/>
+        <!--          </nz-input-group>-->
+        <ng-template #suffixIconSearch>
+          <span nz-icon nzType="search"></span>
+        </ng-template>
+      </div>
+      <ng-container *ngIf="joinedTournaments$ | async as joinedTournaments ; else loadingIndicator">
+        <ng-container *ngIf="joinedTournaments?.data else loadingIndicator">
+
+          <ng-container *ngIf="joinedTournaments?.data?.length > 0; else noJoinedTournament">
+            <app-gb-bar [type]="'Tournament'" class="m-3" *ngFor="let tournament of joinedTournaments.data"
+                        [card]="tournament"></app-gb-bar>
+          </ng-container>
+          <nz-pagination *ngIf="joinedTournaments?.meta?.total > joinedTournaments?.meta?.per_page"
+                         [nzPageIndex]="joinedTournaments.meta.current_page"
+                         [nzPageSize]="joinedTournaments.meta.per_page"
+                         [nzTotal]="joinedTournaments?.meta?.total"
+                         (nzPageIndexChange)="filterTournaments($event)"></nz-pagination>
+          <ng-template #noJoinedTournament>
+            <app-place-holder [text]="'common.messages.noJoinedTournament' | translate"></app-place-holder>
+          </ng-template>
+        </ng-container>
+      </ng-container>
+    </nz-tab>
+    <nz-tab>
+      <a *nzTabLink nz-tab-link [routerLink]="['.']"
+         [queryParams]="{ tab: 'matches' }">{{'common.matches' | translate}}</a>
+      <div class="d-flex gap-2 justify-content-end ">
+        <app-filter-popover (statusFiltration)="filterMatches(1 ,  $event)" [type]="'matches'"></app-filter-popover>
+      </div>
+      <ng-container *ngIf="(upcomingMatches$ | async) as upcomingMatches">
+        <ng-container *ngIf="upcomingMatches; else loadingIndicator">
+
+          <ng-container *ngIf="upcomingMatches.length > 0 ; else noMatches">
+            <div class="m-3" *ngFor="let match of upcomingMatches$ | async">
+              <app-match-bar [match]="match"></app-match-bar>
+            </div>
+            <!--            <nz-pagination *ngIf="upcomingMatches?.total > 20"-->
+            <!--                           [nzPageIndex]="upcomingMatches.current_page"-->
+            <!--                           [nzPageSize]="20"-->
+            <!--                           [nzTotal]="upcomingMatches?.total"-->
+            <!--                           (nzPageIndexChange)="changePage($event)"></nz-pagination>-->
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <ng-template #noMatches>
+        <app-place-holder [text]="'common.messages.noUpComingMatches' | translate"></app-place-holder>
+      </ng-template>
+    </nz-tab>
+    <nz-tab>
+
+      <a *nzTabLink nz-tab-link [routerLink]="['.']" [queryParams]="{ tab: 'joined-challenge' }"
+         queryParamsHandling="merge">{{'common.joined' | translate}} {{'common.challenges' | translate}}</a>
+      <div class="d-flex gap-2 justify-content-end ">
+        <app-filter-popover (statusFiltration)="filterChallenges(1 ,  $event)"
+                            [type]="'challenge'"></app-filter-popover>
+        <!--          <nz-input-group [nzSuffix]="suffixIconSearch">-->
+        <input style="max-width: 300px" class="mid-height" type="text" nz-input #challengeSearchInput
+               [placeholder]="'Search In Challenges' | translate"/>
+        <!--          </nz-input-group>-->
+
+      </div>
+      <ng-container *ngIf="joinedChallenges$ | async as joinedChallenges ">
+        <ng-container *ngIf="joinedChallenges?.data; else loadingIndicator">
+          <ng-container *ngIf="joinedChallenges?.data?.length > 0; else noJoinedChallenge">
+            <app-gb-bar [type]="'Challenge'" class="m-2" *ngFor="let challenge of joinedChallenges.data"
+                        [card]="challenge"></app-gb-bar>
+          </ng-container>
+          <nz-pagination *ngIf="joinedChallenges?.meta?.total > joinedChallenges?.meta?.per_page"
+                         [nzPageIndex]="joinedChallenges.meta.current_page"
+                         [nzPageSize]="joinedChallenges.meta.per_page"
+                         [nzTotal]="joinedChallenges?.meta?.total"
+                         (nzPageIndexChange)="filterChallenges($event)"></nz-pagination>
+        </ng-container>
+
+
+      </ng-container>
+      <ng-template #noJoinedChallenge>
+        <app-place-holder [text]="'No joined challenge yet!'"></app-place-holder>
+      </ng-template>
+
+    </nz-tab>
+  </nz-tabset>
+</div>
+
+<ng-template #loadingIndicator>
+  <app-loading-indicator></app-loading-indicator>
+</ng-template>

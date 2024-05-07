@@ -1,0 +1,77 @@
+  <!--  <app-radio-buttons-filters [items]="notificationsFilters" (itemsFiltration)="filterByNotification($event)"></app-radio-buttons-filters>-->
+  <ng-container *ngIf="type === ''">
+    <div class="col-12" [ngClass]="{notificationScroll: isComponent}" >
+
+    <ng-container *ngIf="!loadingNotifications || isComponent ; else loadingIndicator">
+      <ng-container *ngIf="(notifications$ | async).data.length > 0 ; else noNotifications">
+          <ng-container
+            *ngTemplateOutlet="tab context: {data: isComponent ? (notifications$ | async).data :((notifications$ | async).data) | sliceArray:5  , type: 'notifications' }">
+
+          </ng-container>
+      </ng-container>
+    </ng-container>
+    </div>
+
+  </ng-container>
+
+  <ng-container *ngIf="type === 'requests'">
+<!--    <ng-container *ngIf="!(getRequestsIsExecuting$ | async) ; else loadingIndicator">-->
+      <ng-container *ngIf="(requests$ | async ).length > 0 ; else noRequests">
+        <div class="col-12" [ngClass]="{notificationScroll: isComponent}">
+          <ng-container *ngTemplateOutlet="tab context: {data:(requests$ | async), type: 'requests' }"></ng-container>
+        </div>
+      </ng-container>
+<!--    </ng-container>-->
+  </ng-container>
+
+
+<!--<div class="see-all-list" routerLink="/notifications" *ngIf="!router.url.includes('notifications')">-->
+<!--  <p class="text-gray">See all notifications</p>-->
+<!--</div>-->
+
+<ng-template #tab let-data='data' let-type='type'>
+<!--  <ng-scrollbar (psYReachEnd)="onScrollDown($event)"  >-->
+<!--  <div class="notification-item-container" [ngClass]="{'rtl' : globalService.selectedLanguage == 'ar-EG' }">-->
+<!--    &lt;!&ndash;  <div  infinite-scroll (scrolled)="onScrollDown($event)"  [infiniteScrollDistance]="2"&ndash;&gt;-->
+<!--    &lt;!&ndash;        [infiniteScrollThrottle]="300">&ndash;&gt;-->
+<!--    <div class="notification" [ngClass]="{unread:notification?.is_read === false }"-->
+<!--         (click)="(type === 'notifications' || type === 'CardsPurchased' )? navigateTo(notification) : $event.stopPropagation()"-->
+<!--         *ngFor="let notification of data">-->
+<!--      <img src="{{notification.image ? notification.image : 'assets/svg-icons/notification-default.png'}}"-->
+<!--           class="notify-image">-->
+<!--      <div class="d-flex flex-column flex-grow-1 justify-content-between">-->
+<!--        <h4 class="notify-title">{{notification?.name}}</h4>-->
+<!--        <p class="notify-subtitle" [innerHTML]="notification.message[globalService.selectedLanguage == 'en-US' ? 'en' : 'ar' ]"></p>-->
+<!--        <h6 class="text-gray">{{notification.created_at | date: 'dd MMMM , h:mm a '}}</h6>-->
+<!--        <div class="button-container d-flex flex-row mt-2 gap-1" *ngIf="type === 'requests'">-->
+<!--          <app-button variant="primary" (click)="acceptRequest(notification)">{{'common.buttons.accept' | translate}}</app-button>-->
+<!--          <app-button variant="default" (click)="declineRequest(notification.id)">{{'common.buttons.decline' | translate}}</app-button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  </ng-scrollbar>-->
+  <!--  </div>-->
+</ng-template>
+<ng-template #loadingIndicator>
+<!--  <ng-container *ngIf="isComponent">-->
+    <app-loading-indicator></app-loading-indicator>
+
+<!--  </ng-container>-->
+</ng-template>
+<ng-template #noRequests>
+  <div class="nodata-placeholder">
+    <img src="assets/svg-icons/no-notification.png" alt="">
+    <h3>{{'navBar.noRequests' | translate}}</h3>
+    <h5>{{'navBar.noRequestsPlaceHolder' | translate}}</h5>
+  </div>
+</ng-template>
+
+
+<ng-template #noNotifications>
+  <div class="nodata-placeholder">
+    <img src="assets/svg-icons/no-notification.png" alt="">
+    <h3>{{'navBar.noNotifications' | translate}}</h3>
+    <h5>{{'navBar.noNotificationsPlaceHolder' | translate}}</h5>
+  </div>
+</ng-template>

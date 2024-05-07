@@ -1,0 +1,55 @@
+@import '../../../../../components/kit/core/mixins';
+
+::ng-deep{
+  .ant-modal-title{
+    display: flex;
+    margin-bottom: 20px;
+    div{
+      display: flex;
+      margin: auto;
+    }
+  }
+  .ant-modal-body{
+    padding: 5px 0 !important;
+  }
+}
+
+nz-select{
+  width: 60%;
+  margin: 20px auto!important;
+  display: flex!important;
+}
+//nz-input-group{
+//  width: 60% !important;
+//  margin: 20px auto!important;
+//  display: flex!important;
+//}
+::ng-deep.ant-modal-header, ::ng-deep.ant-modal-footer, ::ng-deep.ant-modal-body {
+  background-color: $gb-sec-bg !important;
+  border: none !important;
+  text-align: center !important;
+}
+.winner-container{
+  background: $dark-gray-9;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  width: 75%;
+  margin: 10px auto;
+  border-radius: 10px;
+  p{
+    margin: 0!important;
+  }
+}
+
+.svg-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: $gb-sec-bg;
+  img{
+    width: 15px;
+  }
+  border-radius: 50%;
+}

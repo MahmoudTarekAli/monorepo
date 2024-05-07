@@ -1,0 +1,76 @@
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../../assets/fonts/montserrat/static/Montserrat-Regular.ttf') format('ttf');
+  font-weight: 300;
+  font-style: normal;
+}
+h2 {
+  color: #FFB55C;
+  font-size: 30px !important;
+  margin: 10px 0;
+  font-weight: bold;
+  font-family: Montserrat, Tajawal, sans-serif;
+}
+.riot-cover-container {
+  background: url("../../../assets/riot-ramadan/ramadan-bg.png") fixed;
+  padding: 20px 0;
+  background-size: cover;
+
+  .quests-cover {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    margin: 15px 0;
+
+  }
+
+  .game-image {
+    width: 100%;
+    cursor: pointer;
+
+  }
+}
+
+
+
+:host ::ng-deep app-challenge-card {
+  /* Your styles here */
+  .card {
+    border-radius: 8px !important;
+
+    .status {
+      border-radius: 8px !important;
+    }
+
+    .card-body {
+      background: #FFF5D1;
+      color: #000000;
+
+      h6 {
+        color: #000;
+      }
+
+      .marquee-container {
+        color: #000;
+        font-weight: bold;
+        font-size: 15px;
+      }
+    }
+
+    .card-footer {
+      background: #FFB55C;
+
+      p {
+        color: #000;
+      }
+    }
+  }
+}
+
+.active-game {
+  border: 1px solid #FFF4D1;
+  border-radius: 20px;
+}
+
+
+

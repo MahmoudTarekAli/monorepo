@@ -1,0 +1,72 @@
+<div class="card-container"
+     [ngStyle]="{'height': autoHeight ? 'fit-content' : '270px', 'background': bgColor? bgColor : '$gb-sec-bg'}"
+     *ngIf="isArena ; else participant">
+  <div class="header">
+    <ng-container *ngIf="isCover">
+    <div class="cover" [style.background-image]="'url(' + (cover| defaultImage) + ')'"
+         routerLink="{{isTeam ? routeTo : (arena.slug  | appArenaRouter)}}"></div>
+    </ng-container>
+    <!--    <div class="card-img-container">-->
+    <div class="d-flex gap-3 align-items-center justify-content-between">
+
+      <div class="d-flex gap-3">
+        <img class="arena-img" [src]="profile | defaultImage" alt=""
+             routerLink="{{isTeam ? routeTo : (arena.slug  | appArenaRouter)}}">
+        <div class="arena-info">
+          <span class="arena-name">{{name}}
+            <nz-avatar *ngIf="country" class="country mx-2" [nzSize]="'small'"
+                       [nzSrc]="country | countryImage"></nz-avatar>
+
+          </span>
+          <h6 *ngIf="reference_number" class="text-green">#{{reference_number}}</h6>
+
+          <ng-content select="team-info"></ng-content>
+          <div class="arena-buttons-container">
+            <ng-content select="arena-buttons"></ng-content>
+          </div>
+        </div>
+      </div>
+
+      <div class="buttons-container">
+        <ng-content select="arena-action-buttons"></ng-content>
+      </div>
+    </div>
+    <!--    </div>-->
+  </div>
+
+  <ng-content select="team-member"></ng-content>
+</div>
+
+<ng-template #participant>
+  <div class="card-container" style="min-height: 240px;"
+  >
+    <div class="header">
+      <div class="cover" [routerLink]="routeTo" [style.background-image]="'url(' + (cover | defaultImage) + ')'"></div>
+      <!--    <div class="card-img-container">-->
+      <img class="img" [routerLink]="routeTo" [src]="profile | defaultImage" alt="">
+      <!--    </div>-->
+    </div>
+
+    <div class="info">
+
+      <div class="d-flex gap-1 text-center flex-column" style="width: 150px">
+        <app-marquee style="color: white; " [text]="name"></app-marquee>
+        <!--        <nz-avatar class="country" [nzSize]="'small'" [nzSrc]="country | countryImage"></nz-avatar>-->
+        <h6 class="text-green" *ngIf="reference_number">#{{reference_number}}</h6>
+      </div>
+      <!--      <span style="color: #00DDBD">#{{reference_number}}</span>-->
+      <div class="d-flex gap-2 my-2" *ngIf="roles && roles.length > 0">
+        <span *ngFor="let role of roles" class="badge {{role | lowercase}}">{{'team.' + (role | lowercase) | translate}}</span>
+      </div>
+    </div>
+
+    <div class="buttons-container">
+      <ng-content select="tournament-buttons"></ng-content>
+    </div>
+    <div class="buttons-container pt-0">
+      <ng-content select="buttons-bottom"></ng-content>
+    </div>
+
+  </div>
+
+</ng-template>

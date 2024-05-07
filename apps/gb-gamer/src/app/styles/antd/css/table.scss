@@ -1,0 +1,92 @@
+// Import mixins
+@import 'src/app/styles/core/variables.scss';
+@import 'src/app/styles/functions';
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+
+.ant-table {
+  background:transparent;
+}
+  .ant-table table {
+
+    tr:last-child {
+      //border-radius: 10px !important;
+      @include dynamic-m-v-property(border-radius,10);
+
+      td {
+        border-bottom: none !important;
+      }
+    }
+    background-color: $dark-gray-8;
+    color: $white!important;
+
+  }
+.ant-table-thead > tr > th{
+  color: $white !important;
+  border-bottom: none;
+  @include dynamic-font(14);
+  @include dynamic-m-v-property(padding, 16);
+}
+  .ant-table-wrapper {
+    overflow: hidden !important;
+    border-radius: 10px;
+    @include dynamic-m-v-property(border-radius, 10);
+  }
+
+  .ant-table-column-has-sorters {
+    //&:hover {
+    //  background: $dark-gray-8 !important;
+    //}
+  }
+
+  .ant-table-column-sort {
+    background: $dark-gray-8 !important;
+  }
+
+  .ant-table-content {
+    background: $dark-gray-8 !important;
+  }
+
+  .ant-table-thead {
+    background:$gb-main-darker;
+    tr {
+      th {
+        background: transparent;
+      }
+    }
+
+  }
+
+  .ant-table-title {
+    color: $white;
+    background: $dark-gray-8 !important;
+    //border-bottom: solid $dark-gray-3 !important;
+    @include dynamic-s-v-property(border-width, 1);
+  }
+//.ant-table-tbody > tr.ant-table-row:hover > td {
+//  background: $dark-gray-9 !important;
+//  @include dynamic-font(14);
+//}
+.ant-table-tbody > tr > td {
+  background: $dark-gray-8 !important;
+  border-color: $v-line-color!important;
+  @include dynamic-s-v-property(gap, 20);
+  @include dynamic-font(12);
+  @include dynamic-m-v-property(padding, 16);
+}
+
+.ant-avatar {
+  @include dynamic-equal-dimensions(40);
+
+  //img   {
+  //@include dynamic-equal-dimensions(40);
+  //}
+
+  &.country {
+    @include dynamic-equal-dimensions(18);
+    //img   {
+    //  @include dynamic-equal-dimensions(18);
+    //}
+  }
+}

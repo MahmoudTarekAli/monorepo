@@ -1,0 +1,2344 @@
+[
+  {
+    "name": "Global",
+    "abbr": "Global",
+    "zones": [
+      "Global"
+    ]
+  },
+  {
+    "name": "Andorra",
+    "abbr": "AD",
+    "zones": [
+      "Europe/Andorra"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Afghanistan",
+    "abbr": "AF",
+    "zones": [
+      "Asia/Kabul"
+    ],
+    "currencyAbbr": "AFN",
+    "currencySymbol": "&#1547;"
+  },
+  {
+    "name": "Antigua & Barbuda",
+    "abbr": "AG",
+    "zones": [
+      "America/Port_of_Spain"
+    ],
+    "currencyAbbr": "XCD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Anguilla",
+    "abbr": "AI",
+    "zones": [
+      "America/Port_of_Spain"
+    ],
+    "currencyAbbr": "XCD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Albania",
+    "abbr": "AL",
+    "zones": [
+      "Europe/Tirane"
+    ],
+    "currencyAbbr": "ALL",
+    "currencySymbol": "&#76;&#101;&#107;"
+  },
+  {
+    "name": "Armenia",
+    "abbr": "AM",
+    "zones": [
+      "Asia/Yerevan"
+    ],
+    "currencyAbbr": "AMD"
+  },
+  {
+    "name": "Angola",
+    "abbr": "AO",
+    "zones": [
+      "Africa/Lagos"
+    ],
+    "currencyAbbr": "AOA"
+  },
+  {
+    "name": "Antarctica",
+    "abbr": "AQ",
+    "zones": [
+      "Antarctica/Casey",
+      "Antarctica/Davis",
+      "Antarctica/DumontDUrville",
+      "Antarctica/Mawson",
+      "Antarctica/Palmer",
+      "Antarctica/Rothera",
+      "Antarctica/Syowa",
+      "Antarctica/Troll",
+      "Antarctica/Vostok",
+      "Pacific/Auckland"
+    ],
+    "currencyAbbr": ""
+  },
+  {
+    "name": "Argentina",
+    "abbr": "AR",
+    "zones": [
+      "America/Argentina/Buenos_Aires",
+      "America/Argentina/Cordoba",
+      "America/Argentina/Salta",
+      "America/Argentina/Jujuy",
+      "America/Argentina/Tucuman",
+      "America/Argentina/Catamarca",
+      "America/Argentina/La_Rioja",
+      "America/Argentina/San_Juan",
+      "America/Argentina/Mendoza",
+      "America/Argentina/San_Luis",
+      "America/Argentina/Rio_Gallegos",
+      "America/Argentina/Ushuaia"
+    ],
+    "currencyAbbr": "ARS",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Samoa (American)",
+    "abbr": "AS",
+    "zones": [
+      "Pacific/Pago_Pago"
+    ],
+    "currencyAbbr": "USD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Austria",
+    "abbr": "AT",
+    "zones": [
+      "Europe/Vienna"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Australia",
+    "abbr": "AU",
+    "zones": [
+      "Australia/Lord_Howe",
+      "Antarctica/Macquarie",
+      "Australia/Hobart",
+      "Australia/Currie",
+      "Australia/Melbourne",
+      "Australia/Sydney",
+      "Australia/Broken_Hill",
+      "Australia/Brisbane",
+      "Australia/Lindeman",
+      "Australia/Adelaide",
+      "Australia/Darwin",
+      "Australia/Perth",
+      "Australia/Eucla"
+    ],
+    "currencyAbbr": "AUD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Aruba",
+    "abbr": "AW",
+    "zones": [
+      "America/Curacao"
+    ],
+    "currencyAbbr": "AWG",
+    "currencySymbol": "&#402;"
+  },
+  {
+    "name": "Åland Islands",
+    "abbr": "AX",
+    "zones": [
+      "Europe/Helsinki"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Azerbaijan",
+    "abbr": "AZ",
+    "zones": [
+      "Asia/Baku"
+    ],
+    "currencyAbbr": "AZN",
+    "currencySymbol": "&#1084;&#1072;&#1085;"
+  },
+  {
+    "name": "Bosnia & Herzegovina",
+    "abbr": "BA",
+    "zones": [
+      "Europe/Belgrade"
+    ],
+    "currencyAbbr": "BAM",
+    "currencySymbol": "&#75;&#77;"
+  },
+  {
+    "name": "Barbados",
+    "abbr": "BB",
+    "zones": [
+      "America/Barbados"
+    ],
+    "currencyAbbr": "BBD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Bangladesh",
+    "abbr": "BD",
+    "zones": [
+      "Asia/Dhaka"
+    ],
+    "currencyAbbr": "BDT"
+  },
+  {
+    "name": "Belgium",
+    "abbr": "BE",
+    "zones": [
+      "Europe/Brussels"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Burkina Faso",
+    "abbr": "BF",
+    "zones": [
+      "Africa/Abidjan"
+    ],
+    "currencyAbbr": "XOF"
+  },
+  {
+    "name": "Bulgaria",
+    "abbr": "BG",
+    "zones": [
+      "Europe/Sofia"
+    ],
+    "currencyAbbr": "BGN",
+    "currencySymbol": "&#1083;&#1074;"
+  },
+  {
+    "name": "Bahrain",
+    "abbr": "BH",
+    "zones": [
+      "Asia/Qatar"
+    ],
+    "currencyAbbr": "BHD"
+  },
+  {
+    "name": "Burundi",
+    "abbr": "BI",
+    "zones": [
+      "Africa/Maputo"
+    ],
+    "currencyAbbr": "BIF"
+  },
+  {
+    "name": "Benin",
+    "abbr": "BJ",
+    "zones": [
+      "Africa/Lagos"
+    ],
+    "currencyAbbr": "XOF"
+  },
+  {
+    "name": "St Barthelemy",
+    "abbr": "BL",
+    "zones": [
+      "America/Port_of_Spain"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Bermuda",
+    "abbr": "BM",
+    "zones": [
+      "Atlantic/Bermuda"
+    ],
+    "currencyAbbr": "BMD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Brunei",
+    "abbr": "BN",
+    "zones": [
+      "Asia/Brunei"
+    ],
+    "currencyAbbr": "BND",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Bolivia",
+    "abbr": "BO",
+    "zones": [
+      "America/La_Paz"
+    ],
+    "currencyAbbr": "BOB",
+    "currencySymbol": "&#36;&#98;"
+  },
+  {
+    "name": "Caribbean NL",
+    "abbr": "BQ",
+    "zones": [
+      "America/Curacao"
+    ],
+    "currencyAbbr": "USD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Brazil",
+    "abbr": "BR",
+    "zones": [
+      "America/Noronha",
+      "America/Belem",
+      "America/Fortaleza",
+      "America/Recife",
+      "America/Araguaina",
+      "America/Maceio",
+      "America/Bahia",
+      "America/Sao_Paulo",
+      "America/Campo_Grande",
+      "America/Cuiaba",
+      "America/Santarem",
+      "America/Porto_Velho",
+      "America/Boa_Vista",
+      "America/Manaus",
+      "America/Eirunepe",
+      "America/Rio_Branco"
+    ],
+    "currencyAbbr": "BRL",
+    "currencySymbol": "&#82;&#36;"
+  },
+  {
+    "name": "Bahamas",
+    "abbr": "BS",
+    "zones": [
+      "America/Nassau"
+    ],
+    "currencyAbbr": "BSD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Bhutan",
+    "abbr": "BT",
+    "zones": [
+      "Asia/Thimphu"
+    ],
+    "currencyAbbr": "BTN"
+  },
+  {
+    "name": "Botswana",
+    "abbr": "BW",
+    "zones": [
+      "Africa/Maputo"
+    ],
+    "currencyAbbr": "BWP",
+    "currencySymbol": "&#80;"
+  },
+  {
+    "name": "Belarus",
+    "abbr": "BY",
+    "zones": [
+      "Europe/Minsk"
+    ],
+    "currencyAbbr": "BYR",
+    "currencySymbol": "&#112;&#46;"
+  },
+  {
+    "name": "Belize",
+    "abbr": "BZ",
+    "zones": [
+      "America/Belize"
+    ],
+    "currencyAbbr": "BZD",
+    "currencySymbol": "&#66;&#90;&#36;"
+  },
+  {
+    "name": "Canada",
+    "abbr": "CA",
+    "zones": [
+      "America/St_Johns",
+      "America/Halifax",
+      "America/Glace_Bay",
+      "America/Moncton",
+      "America/Goose_Bay",
+      "America/Blanc-Sablon",
+      "America/Toronto",
+      "America/Nipigon",
+      "America/Thunder_Bay",
+      "America/Iqaluit",
+      "America/Pangnirtung",
+      "America/Atikokan",
+      "America/Winnipeg",
+      "America/Rainy_River",
+      "America/Resolute",
+      "America/Rankin_Inlet",
+      "America/Regina",
+      "America/Swift_Current",
+      "America/Edmonton",
+      "America/Cambridge_Bay",
+      "America/Yellowknife",
+      "America/Inuvik",
+      "America/Creston",
+      "America/Dawson_Creek",
+      "America/Fort_Nelson",
+      "America/Vancouver",
+      "America/Whitehorse",
+      "America/Dawson"
+    ],
+    "currencyAbbr": "CAD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Cocos (Keeling) Islands",
+    "abbr": "CC",
+    "zones": [
+      "Indian/Cocos"
+    ],
+    "currencyAbbr": "AUD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Congo (Dem. Rep.)",
+    "abbr": "CD",
+    "zones": [
+      "Africa/Maputo",
+      "Africa/Lagos"
+    ],
+    "currencyAbbr": "CDF"
+  },
+  {
+    "name": "Central African Rep.",
+    "abbr": "CF",
+    "zones": [
+      "Africa/Lagos"
+    ],
+    "currencyAbbr": "XAF"
+  },
+  {
+    "name": "Congo (Rep.)",
+    "abbr": "CG",
+    "zones": [
+      "Africa/Lagos"
+    ],
+    "currencyAbbr": "XAF"
+  },
+  {
+    "name": "Switzerland",
+    "abbr": "CH",
+    "zones": [
+      "Europe/Zurich"
+    ],
+    "currencyAbbr": "CHF",
+    "currencySymbol": "&#67;&#72;&#70;"
+  },
+  {
+    "name": "Côte d'Ivoire",
+    "abbr": "CI",
+    "zones": [
+      "Africa/Abidjan"
+    ],
+    "currencyAbbr": "XOF"
+  },
+  {
+    "name": "Cook Islands",
+    "abbr": "CK",
+    "zones": [
+      "Pacific/Rarotonga"
+    ],
+    "currencyAbbr": "NZD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Chile",
+    "abbr": "CL",
+    "zones": [
+      "America/Santiago",
+      "America/Punta_Arenas",
+      "Pacific/Easter"
+    ],
+    "currencyAbbr": "CLP",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Cameroon",
+    "abbr": "CM",
+    "zones": [
+      "Africa/Lagos"
+    ],
+    "currencyAbbr": "XAF"
+  },
+  {
+    "name": "China",
+    "abbr": "CN",
+    "zones": [
+      "Asia/Shanghai",
+      "Asia/Urumqi"
+    ],
+    "currencyAbbr": "CNY",
+    "currencySymbol": "&#165;"
+  },
+  {
+    "name": "Colombia",
+    "abbr": "CO",
+    "zones": [
+      "America/Bogota"
+    ],
+    "currencyAbbr": "COP",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Costa Rica",
+    "abbr": "CR",
+    "zones": [
+      "America/Costa_Rica"
+    ],
+    "currencyAbbr": "CRC",
+    "currencySymbol": "&#8353;"
+  },
+  {
+    "name": "Cuba",
+    "abbr": "CU",
+    "zones": [
+      "America/Havana"
+    ],
+    "currencyAbbr": "CUP",
+    "currencySymbol": "&#8369;"
+  },
+  {
+    "name": "Cape Verde",
+    "abbr": "CV",
+    "zones": [
+      "Atlantic/Cape_Verde"
+    ],
+    "currencyAbbr": "CVE"
+  },
+  {
+    "name": "Curaçao",
+    "abbr": "CW",
+    "zones": [
+      "America/Curacao"
+    ],
+    "currencyAbbr": "ANG",
+    "currencySymbol": "&#402;"
+  },
+  {
+    "name": "Christmas Island",
+    "abbr": "CX",
+    "zones": [
+      "Indian/Christmas"
+    ],
+    "currencyAbbr": "AUD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Cyprus",
+    "abbr": "CY",
+    "zones": [
+      "Asia/Nicosia",
+      "Asia/Famagusta"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Czech Republic",
+    "abbr": "CZ",
+    "zones": [
+      "Europe/Prague"
+    ],
+    "currencyAbbr": "CZK",
+    "currencySymbol": "&#75;&#269;"
+  },
+  {
+    "name": "Germany",
+    "abbr": "DE",
+    "zones": [
+      "Europe/Zurich",
+      "Europe/Berlin"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Djibouti",
+    "abbr": "DJ",
+    "zones": [
+      "Africa/Nairobi"
+    ],
+    "currencyAbbr": "DJF"
+  },
+  {
+    "name": "Denmark",
+    "abbr": "DK",
+    "zones": [
+      "Europe/Copenhagen"
+    ],
+    "currencyAbbr": "DKK",
+    "currencySymbol": "&#107;&#114;"
+  },
+  {
+    "name": "Dominica",
+    "abbr": "DM",
+    "zones": [
+      "America/Port_of_Spain"
+    ],
+    "currencyAbbr": "XCD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Dominican Republic",
+    "abbr": "DO",
+    "zones": [
+      "America/Santo_Domingo"
+    ],
+    "currencyAbbr": "DOP",
+    "currencySymbol": "&#82;&#68;&#36;"
+  },
+  {
+    "name": "Algeria",
+    "abbr": "DZ",
+    "zones": [
+      "Africa/Algiers"
+    ],
+    "currencyAbbr": "DZD"
+  },
+  {
+    "name": "Ecuador",
+    "abbr": "EC",
+    "zones": [
+      "America/Guayaquil",
+      "Pacific/Galapagos"
+    ],
+    "currencyAbbr": "USD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Estonia",
+    "abbr": "EE",
+    "zones": [
+      "Europe/Tallinn"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Egypt",
+    "abbr": "EG",
+    "zones": [
+      "Africa/Cairo"
+    ],
+    "currencyAbbr": "EGP",
+    "currencySymbol": "&#163;"
+  },
+  {
+    "name": "Western Sahara",
+    "abbr": "EH",
+    "zones": [
+      "Africa/El_Aaiun"
+    ],
+    "currencyAbbr": "MAD"
+  },
+  {
+    "name": "Eritrea",
+    "abbr": "ER",
+    "zones": [
+      "Africa/Nairobi"
+    ],
+    "currencyAbbr": "ERN"
+  },
+  {
+    "name": "Spain",
+    "abbr": "ES",
+    "zones": [
+      "Europe/Madrid",
+      "Africa/Ceuta",
+      "Atlantic/Canary"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Ethiopia",
+    "abbr": "ET",
+    "zones": [
+      "Africa/Nairobi"
+    ],
+    "currencyAbbr": "ETB"
+  },
+  {
+    "name": "Finland",
+    "abbr": "FI",
+    "zones": [
+      "Europe/Helsinki"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Fiji",
+    "abbr": "FJ",
+    "zones": [
+      "Pacific/Fiji"
+    ],
+    "currencyAbbr": "FJD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Falkland Islands",
+    "abbr": "FK",
+    "zones": [
+      "Atlantic/Stanley"
+    ],
+    "currencyAbbr": "FKP",
+    "currencySymbol": "&#163;"
+  },
+  {
+    "name": "Micronesia",
+    "abbr": "FM",
+    "zones": [
+      "Pacific/Chuuk",
+      "Pacific/Pohnpei",
+      "Pacific/Kosrae"
+    ],
+    "currencyAbbr": "USD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Faroe Islands",
+    "abbr": "FO",
+    "zones": [
+      "Atlantic/Faroe"
+    ],
+    "currencyAbbr": "DKK",
+    "currencySymbol": "&#107;&#114;"
+  },
+  {
+    "name": "France",
+    "abbr": "FR",
+    "zones": [
+      "Europe/Paris"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Gabon",
+    "abbr": "GA",
+    "zones": [
+      "Africa/Lagos"
+    ],
+    "currencyAbbr": "XAF"
+  },
+  {
+    "name": "Grenada",
+    "abbr": "GD",
+    "zones": [
+      "America/Port_of_Spain"
+    ],
+    "currencyAbbr": "XCD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Georgia",
+    "abbr": "GE",
+    "zones": [
+      "Asia/Tbilisi"
+    ],
+    "currencyAbbr": "GEL"
+  },
+  {
+    "name": "French Guiana",
+    "abbr": "GF",
+    "zones": [
+      "America/Cayenne"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Guernsey",
+    "abbr": "GG",
+    "zones": [
+      "Europe/London"
+    ],
+    "currencyAbbr": "GBP",
+    "currencySymbol": "&#163;"
+  },
+  {
+    "name": "Ghana",
+    "abbr": "GH",
+    "zones": [
+      "Africa/Accra"
+    ],
+    "currencyAbbr": "GHS"
+  },
+  {
+    "name": "Gibraltar",
+    "abbr": "GI",
+    "zones": [
+      "Europe/Gibraltar"
+    ],
+    "currencyAbbr": "GIP",
+    "currencySymbol": "&#163;"
+  },
+  {
+    "name": "Greenland",
+    "abbr": "GL",
+    "zones": [
+      "America/Godthab",
+      "America/Danmarkshavn",
+      "America/Scoresbysund",
+      "America/Thule"
+    ],
+    "currencyAbbr": "DKK",
+    "currencySymbol": "&#107;&#114;"
+  },
+  {
+    "name": "Gambia",
+    "abbr": "GM",
+    "zones": [
+      "Africa/Abidjan"
+    ],
+    "currencyAbbr": "GMD"
+  },
+  {
+    "name": "Guinea",
+    "abbr": "GN",
+    "zones": [
+      "Africa/Abidjan"
+    ],
+    "currencyAbbr": "GNF"
+  },
+  {
+    "name": "Guadeloupe",
+    "abbr": "GP",
+    "zones": [
+      "America/Port_of_Spain"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Equatorial Guinea",
+    "abbr": "GQ",
+    "zones": [
+      "Africa/Lagos"
+    ],
+    "currencyAbbr": "XAF"
+  },
+  {
+    "name": "Greece",
+    "abbr": "GR",
+    "zones": [
+      "Europe/Athens"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "South Georgia & the South Sandwich Islands",
+    "abbr": "GS",
+    "zones": [
+      "Atlantic/South_Georgia"
+    ],
+    "currencyAbbr": "GBP",
+    "currencySymbol": "&#163;"
+  },
+  {
+    "name": "Guatemala",
+    "abbr": "GT",
+    "zones": [
+      "America/Guatemala"
+    ],
+    "currencyAbbr": "GTQ",
+    "currencySymbol": "&#81;"
+  },
+  {
+    "name": "Guam",
+    "abbr": "GU",
+    "zones": [
+      "Pacific/Guam"
+    ],
+    "currencyAbbr": "USD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Guinea-Bissau",
+    "abbr": "GW",
+    "zones": [
+      "Africa/Bissau"
+    ],
+    "currencyAbbr": "XOF"
+  },
+  {
+    "name": "Guyana",
+    "abbr": "GY",
+    "zones": [
+      "America/Guyana"
+    ],
+    "currencyAbbr": "GYD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Hong Kong",
+    "abbr": "HK",
+    "zones": [
+      "Asia/Hong_Kong"
+    ],
+    "currencyAbbr": "HKD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Honduras",
+    "abbr": "HN",
+    "zones": [
+      "America/Tegucigalpa"
+    ],
+    "currencyAbbr": "HNL",
+    "currencySymbol": "&#76;"
+  },
+  {
+    "name": "Croatia",
+    "abbr": "HR",
+    "zones": [
+      "Europe/Belgrade"
+    ],
+    "currencyAbbr": "HRK",
+    "currencySymbol": "&#107;&#110;"
+  },
+  {
+    "name": "Haiti",
+    "abbr": "HT",
+    "zones": [
+      "America/Port-au-Prince"
+    ],
+    "currencyAbbr": "HTG"
+  },
+  {
+    "name": "Hungary",
+    "abbr": "HU",
+    "zones": [
+      "Europe/Budapest"
+    ],
+    "currencyAbbr": "HUF",
+    "currencySymbol": "&#70;&#116;"
+  },
+  {
+    "name": "Indonesia",
+    "abbr": "ID",
+    "zones": [
+      "Asia/Jakarta",
+      "Asia/Pontianak",
+      "Asia/Makassar",
+      "Asia/Jayapura"
+    ],
+    "currencyAbbr": "IDR",
+    "currencySymbol": "&#82;&#112;"
+  },
+  {
+    "name": "Ireland",
+    "abbr": "IE",
+    "zones": [
+      "Europe/Dublin"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Isle of Man",
+    "abbr": "IM",
+    "zones": [
+      "Europe/London"
+    ],
+    "currencyAbbr": "GBP",
+    "currencySymbol": "&#163;"
+  },
+  {
+    "name": "India",
+    "abbr": "IN",
+    "zones": [
+      "Asia/Kolkata"
+    ],
+    "currencyAbbr": "INR",
+    "currencySymbol": null
+  },
+  {
+    "name": "British Indian Ocean Territory",
+    "abbr": "IO",
+    "zones": [
+      "Indian/Chagos"
+    ],
+    "currencyAbbr": "USD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Iraq",
+    "abbr": "IQ",
+    "zones": [
+      "Asia/Baghdad"
+    ],
+    "currencyAbbr": "IQD"
+  },
+  {
+    "name": "Iran",
+    "abbr": "IR",
+    "zones": [
+      "Asia/Tehran"
+    ],
+    "currencyAbbr": "IRR",
+    "currencySymbol": "&#65020;"
+  },
+  {
+    "name": "Iceland",
+    "abbr": "IS",
+    "zones": [
+      "Atlantic/Reykjavik"
+    ],
+    "currencyAbbr": "ISK",
+    "currencySymbol": "&#107;&#114;"
+  },
+  {
+    "name": "Italy",
+    "abbr": "IT",
+    "zones": [
+      "Europe/Rome"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Jersey",
+    "abbr": "JE",
+    "zones": [
+      "Europe/London"
+    ],
+    "currencyAbbr": "GBP",
+    "currencySymbol": "&#163;"
+  },
+  {
+    "name": "Jamaica",
+    "abbr": "JM",
+    "zones": [
+      "America/Jamaica"
+    ],
+    "currencyAbbr": "JMD",
+    "currencySymbol": "&#74;&#36;"
+  },
+  {
+    "name": "Jordan",
+    "abbr": "JO",
+    "zones": [
+      "Asia/Amman"
+    ],
+    "currencyAbbr": "JOD"
+  },
+  {
+    "name": "Japan",
+    "abbr": "JP",
+    "zones": [
+      "Asia/Tokyo"
+    ],
+    "currencyAbbr": "JPY",
+    "currencySymbol": "&#165;"
+  },
+  {
+    "name": "Kenya",
+    "abbr": "KE",
+    "zones": [
+      "Africa/Nairobi"
+    ],
+    "currencyAbbr": "KES"
+  },
+  {
+    "name": "Kyrgyzstan",
+    "abbr": "KG",
+    "zones": [
+      "Asia/Bishkek"
+    ],
+    "currencyAbbr": "KGS",
+    "currencySymbol": "&#1083;&#1074;"
+  },
+  {
+    "name": "Cambodia",
+    "abbr": "KH",
+    "zones": [
+      "Asia/Bangkok"
+    ],
+    "currencyAbbr": "KHR",
+    "currencySymbol": "&#6107;"
+  },
+  {
+    "name": "Kiribati",
+    "abbr": "KI",
+    "zones": [
+      "Pacific/Tarawa",
+      "Pacific/Enderbury",
+      "Pacific/Kiritimati"
+    ],
+    "currencyAbbr": "AUD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Comoros",
+    "abbr": "KM",
+    "zones": [
+      "Africa/Nairobi"
+    ],
+    "currencyAbbr": "KMF"
+  },
+  {
+    "name": "St Kitts & Nevis",
+    "abbr": "KN",
+    "zones": [
+      "America/Port_of_Spain"
+    ],
+    "currencyAbbr": "XCD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "North Korea",
+    "abbr": "KP",
+    "zones": [
+      "Asia/Pyongyang"
+    ],
+    "currencyAbbr": "KPW",
+    "currencySymbol": "&#8361;"
+  },
+  {
+    "name": "South Korea",
+    "abbr": "KR",
+    "zones": [
+      "Asia/Seoul"
+    ],
+    "currencyAbbr": "KRW",
+    "currencySymbol": "&#8361;"
+  },
+  {
+    "name": "Kuwait",
+    "abbr": "KW",
+    "zones": [
+      "Asia/Riyadh"
+    ],
+    "currencyAbbr": "KWD"
+  },
+  {
+    "name": "Cayman Islands",
+    "abbr": "KY",
+    "zones": [
+      "America/Panama"
+    ],
+    "currencyAbbr": "KYD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Kazakhstan",
+    "abbr": "KZ",
+    "zones": [
+      "Asia/Almaty",
+      "Asia/Qyzylorda",
+      "Asia/Aqtobe",
+      "Asia/Aqtau",
+      "Asia/Atyrau",
+      "Asia/Oral"
+    ],
+    "currencyAbbr": "KZT",
+    "currencySymbol": "&#1083;&#1074;"
+  },
+  {
+    "name": "Laos",
+    "abbr": "LA",
+    "zones": [
+      "Asia/Bangkok"
+    ],
+    "currencyAbbr": "LAK",
+    "currencySymbol": "&#8365;"
+  },
+  {
+    "name": "Lebanon",
+    "abbr": "LB",
+    "zones": [
+      "Asia/Beirut"
+    ],
+    "currencyAbbr": "LBP",
+    "currencySymbol": "&#163;"
+  },
+  {
+    "name": "St Lucia",
+    "abbr": "LC",
+    "zones": [
+      "America/Port_of_Spain"
+    ],
+    "currencyAbbr": "XCD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Liechtenstein",
+    "abbr": "LI",
+    "zones": [
+      "Europe/Zurich"
+    ],
+    "currencyAbbr": "CHF",
+    "currencySymbol": "&#67;&#72;&#70;"
+  },
+  {
+    "name": "Sri Lanka",
+    "abbr": "LK",
+    "zones": [
+      "Asia/Colombo"
+    ],
+    "currencyAbbr": "LKR",
+    "currencySymbol": "&#8360;"
+  },
+  {
+    "name": "Liberia",
+    "abbr": "LR",
+    "zones": [
+      "Africa/Monrovia"
+    ],
+    "currencyAbbr": "LRD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Lesotho",
+    "abbr": "LS",
+    "zones": [
+      "Africa/Johannesburg"
+    ],
+    "currencyAbbr": "LSL"
+  },
+  {
+    "name": "Lithuania",
+    "abbr": "LT",
+    "zones": [
+      "Europe/Vilnius"
+    ],
+    "currencyAbbr": "LTL",
+    "currencySymbol": "&#76;&#116;"
+  },
+  {
+    "name": "Luxembourg",
+    "abbr": "LU",
+    "zones": [
+      "Europe/Luxembourg"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Latvia",
+    "abbr": "LV",
+    "zones": [
+      "Europe/Riga"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Libya",
+    "abbr": "LY",
+    "zones": [
+      "Africa/Tripoli"
+    ],
+    "currencyAbbr": "LYD"
+  },
+  {
+    "name": "Morocco",
+    "abbr": "MA",
+    "zones": [
+      "Africa/Casablanca"
+    ],
+    "currencyAbbr": "MAD"
+  },
+  {
+    "name": "Monaco",
+    "abbr": "MC",
+    "zones": [
+      "Europe/Monaco"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Moldova",
+    "abbr": "MD",
+    "zones": [
+      "Europe/Chisinau"
+    ],
+    "currencyAbbr": "MDL"
+  },
+  {
+    "name": "Montenegro",
+    "abbr": "ME",
+    "zones": [
+      "Europe/Belgrade"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "St Martin (French)",
+    "abbr": "MF",
+    "zones": [
+      "America/Port_of_Spain"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Madagascar",
+    "abbr": "MG",
+    "zones": [
+      "Africa/Nairobi"
+    ],
+    "currencyAbbr": "MGA"
+  },
+  {
+    "name": "Marshall Islands",
+    "abbr": "MH",
+    "zones": [
+      "Pacific/Majuro",
+      "Pacific/Kwajalein"
+    ],
+    "currencyAbbr": "USD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Macedonia",
+    "abbr": "MK",
+    "zones": [
+      "Europe/Belgrade"
+    ],
+    "currencyAbbr": "MKD",
+    "currencySymbol": "&#1076;&#1077;&#1085;"
+  },
+  {
+    "name": "Mali",
+    "abbr": "ML",
+    "zones": [
+      "Africa/Abidjan"
+    ],
+    "currencyAbbr": "XOF"
+  },
+  {
+    "name": "Myanmar (Burma)",
+    "abbr": "MM",
+    "zones": [
+      "Asia/Yangon"
+    ],
+    "currencyAbbr": "MMK"
+  },
+  {
+    "name": "Mongolia",
+    "abbr": "MN",
+    "zones": [
+      "Asia/Ulaanbaatar",
+      "Asia/Hovd",
+      "Asia/Choibalsan"
+    ],
+    "currencyAbbr": "MNT",
+    "currencySymbol": "&#8366;"
+  },
+  {
+    "name": "Macau",
+    "abbr": "MO",
+    "zones": [
+      "Asia/Macau"
+    ],
+    "currencyAbbr": "MOP"
+  },
+  {
+    "name": "Northern Mariana Islands",
+    "abbr": "MP",
+    "zones": [
+      "Pacific/Guam"
+    ],
+    "currencyAbbr": "USD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Martinique",
+    "abbr": "MQ",
+    "zones": [
+      "America/Martinique"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Mauritania",
+    "abbr": "MR",
+    "zones": [
+      "Africa/Abidjan"
+    ],
+    "currencyAbbr": "MRO"
+  },
+  {
+    "name": "Montserrat",
+    "abbr": "MS",
+    "zones": [
+      "America/Port_of_Spain"
+    ],
+    "currencyAbbr": "XCD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Malta",
+    "abbr": "MT",
+    "zones": [
+      "Europe/Malta"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Mauritius",
+    "abbr": "MU",
+    "zones": [
+      "Indian/Mauritius"
+    ],
+    "currencyAbbr": "MUR",
+    "currencySymbol": "&#8360;"
+  },
+  {
+    "name": "Maldives",
+    "abbr": "MV",
+    "zones": [
+      "Indian/Maldives"
+    ],
+    "currencyAbbr": "MVR"
+  },
+  {
+    "name": "Malawi",
+    "abbr": "MW",
+    "zones": [
+      "Africa/Maputo"
+    ],
+    "currencyAbbr": "MWK"
+  },
+  {
+    "name": "Mexico",
+    "abbr": "MX",
+    "zones": [
+      "America/Mexico_City",
+      "America/Cancun",
+      "America/Merida",
+      "America/Monterrey",
+      "America/Matamoros",
+      "America/Mazatlan",
+      "America/Chihuahua",
+      "America/Ojinaga",
+      "America/Hermosillo",
+      "America/Tijuana",
+      "America/Bahia_Banderas"
+    ],
+    "currencyAbbr": "MXN",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Malaysia",
+    "abbr": "MY",
+    "zones": [
+      "Asia/Kuala_Lumpur",
+      "Asia/Kuching"
+    ],
+    "currencyAbbr": "MYR",
+    "currencySymbol": "&#82;&#77;"
+  },
+  {
+    "name": "Mozambique",
+    "abbr": "MZ",
+    "zones": [
+      "Africa/Maputo"
+    ],
+    "currencyAbbr": "MZN",
+    "currencySymbol": "&#77;&#84;"
+  },
+  {
+    "name": "Namibia",
+    "abbr": "NA",
+    "zones": [
+      "Africa/Windhoek"
+    ],
+    "currencyAbbr": "NAD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "New Caledonia",
+    "abbr": "NC",
+    "zones": [
+      "Pacific/Noumea"
+    ],
+    "currencyAbbr": "XPF"
+  },
+  {
+    "name": "Niger",
+    "abbr": "NE",
+    "zones": [
+      "Africa/Lagos"
+    ],
+    "currencyAbbr": "XOF"
+  },
+  {
+    "name": "Norfolk Island",
+    "abbr": "NF",
+    "zones": [
+      "Pacific/Norfolk"
+    ],
+    "currencyAbbr": "AUD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Nigeria",
+    "abbr": "NG",
+    "zones": [
+      "Africa/Lagos"
+    ],
+    "currencyAbbr": "NGN",
+    "currencySymbol": "&#8358;"
+  },
+  {
+    "name": "Nicaragua",
+    "abbr": "NI",
+    "zones": [
+      "America/Managua"
+    ],
+    "currencyAbbr": "NIO",
+    "currencySymbol": "&#67;&#36;"
+  },
+  {
+    "name": "Netherlands",
+    "abbr": "NL",
+    "zones": [
+      "Europe/Amsterdam"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Norway",
+    "abbr": "NO",
+    "zones": [
+      "Europe/Oslo"
+    ],
+    "currencyAbbr": "NOK",
+    "currencySymbol": "&#107;&#114;"
+  },
+  {
+    "name": "Nepal",
+    "abbr": "NP",
+    "zones": [
+      "Asia/Kathmandu"
+    ],
+    "currencyAbbr": "NPR",
+    "currencySymbol": "&#8360;"
+  },
+  {
+    "name": "Nauru",
+    "abbr": "NR",
+    "zones": [
+      "Pacific/Nauru"
+    ],
+    "currencyAbbr": "AUD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Niue",
+    "abbr": "NU",
+    "zones": [
+      "Pacific/Niue"
+    ],
+    "currencyAbbr": "NZD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "New Zealand",
+    "abbr": "NZ",
+    "zones": [
+      "Pacific/Auckland",
+      "Pacific/Chatham"
+    ],
+    "currencyAbbr": "NZD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Oman",
+    "abbr": "OM",
+    "zones": [
+      "Asia/Dubai"
+    ],
+    "currencyAbbr": "OMR",
+    "currencySymbol": "&#65020;"
+  },
+  {
+    "name": "Panama",
+    "abbr": "PA",
+    "zones": [
+      "America/Panama"
+    ],
+    "currencyAbbr": "PAB",
+    "currencySymbol": "&#66;&#47;&#46;"
+  },
+  {
+    "name": "Peru",
+    "abbr": "PE",
+    "zones": [
+      "America/Lima"
+    ],
+    "currencyAbbr": "PEN",
+    "currencySymbol": "&#83;&#47;&#46;"
+  },
+  {
+    "name": "French Polynesia",
+    "abbr": "PF",
+    "zones": [
+      "Pacific/Tahiti",
+      "Pacific/Marquesas",
+      "Pacific/Gambier"
+    ],
+    "currencyAbbr": "XPF"
+  },
+  {
+    "name": "Papua New Guinea",
+    "abbr": "PG",
+    "zones": [
+      "Pacific/Port_Moresby",
+      "Pacific/Bougainville"
+    ],
+    "currencyAbbr": "PGK"
+  },
+  {
+    "name": "Philippines",
+    "abbr": "PH",
+    "zones": [
+      "Asia/Manila"
+    ],
+    "currencyAbbr": "PHP",
+    "currencySymbol": "&#8369;"
+  },
+  {
+    "name": "Pakistan",
+    "abbr": "PK",
+    "zones": [
+      "Asia/Karachi"
+    ],
+    "currencyAbbr": "PKR",
+    "currencySymbol": "&#8360;"
+  },
+  {
+    "name": "Poland",
+    "abbr": "PL",
+    "zones": [
+      "Europe/Warsaw"
+    ],
+    "currencyAbbr": "PLN",
+    "currencySymbol": "&#122;&#322;"
+  },
+  {
+    "name": "St Pierre & Miquelon",
+    "abbr": "PM",
+    "zones": [
+      "America/Miquelon"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Pitcairn",
+    "abbr": "PN",
+    "zones": [
+      "Pacific/Pitcairn"
+    ],
+    "currencyAbbr": "NZD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Puerto Rico",
+    "abbr": "PR",
+    "zones": [
+      "America/Puerto_Rico"
+    ],
+    "currencyAbbr": "USD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Palestine",
+    "abbr": "PS",
+    "zones": [
+      "Asia/Gaza",
+      "Asia/Hebron"
+    ],
+    "currencyAbbr": "ILS",
+    "currencySymbol": "&#8362;"
+  },
+  {
+    "name": "Israel",
+    "abbr": "IL",
+    "zones": [
+      "Asia/Gaza",
+      "Asia/Hebron"
+    ],
+    "currencyAbbr": "ILS",
+    "currencySymbol": "&#8362;"
+  },
+  {
+    "name": "Portugal",
+    "abbr": "PT",
+    "zones": [
+      "Europe/Lisbon",
+      "Atlantic/Madeira",
+      "Atlantic/Azores"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Palau",
+    "abbr": "PW",
+    "zones": [
+      "Pacific/Palau"
+    ],
+    "currencyAbbr": "USD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Paraguay",
+    "abbr": "PY",
+    "zones": [
+      "America/Asuncion"
+    ],
+    "currencyAbbr": "PYG",
+    "currencySymbol": "&#71;&#115;"
+  },
+  {
+    "name": "Qatar",
+    "abbr": "QA",
+    "zones": [
+      "Asia/Qatar"
+    ],
+    "currencyAbbr": "QAR",
+    "currencySymbol": "&#65020;"
+  },
+  {
+    "name": "Réunion",
+    "abbr": "RE",
+    "zones": [
+      "Indian/Reunion"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Romania",
+    "abbr": "RO",
+    "zones": [
+      "Europe/Bucharest"
+    ],
+    "currencyAbbr": "RON",
+    "currencySymbol": "&#108;&#101;&#105;"
+  },
+  {
+    "name": "Serbia",
+    "abbr": "RS",
+    "zones": [
+      "Europe/Belgrade"
+    ],
+    "currencyAbbr": "RSD",
+    "currencySymbol": "&#1044;&#1080;&#1085;&#46;"
+  },
+  {
+    "name": "Russia",
+    "abbr": "RU",
+    "zones": [
+      "Europe/Kaliningrad",
+      "Europe/Moscow",
+      "Europe/Simferopol",
+      "Europe/Volgograd",
+      "Europe/Kirov",
+      "Europe/Astrakhan",
+      "Europe/Saratov",
+      "Europe/Ulyanovsk",
+      "Europe/Samara",
+      "Asia/Yekaterinburg",
+      "Asia/Omsk",
+      "Asia/Novosibirsk",
+      "Asia/Barnaul",
+      "Asia/Tomsk",
+      "Asia/Novokuznetsk",
+      "Asia/Krasnoyarsk",
+      "Asia/Irkutsk",
+      "Asia/Chita",
+      "Asia/Yakutsk",
+      "Asia/Khandyga",
+      "Asia/Vladivostok",
+      "Asia/Ust-Nera",
+      "Asia/Magadan",
+      "Asia/Sakhalin",
+      "Asia/Srednekolymsk",
+      "Asia/Kamchatka",
+      "Asia/Anadyr"
+    ],
+    "currencyAbbr": "RUB",
+    "currencySymbol": "&#1088;&#1091;&#1073;"
+  },
+  {
+    "name": "Rwanda",
+    "abbr": "RW",
+    "zones": [
+      "Africa/Maputo"
+    ],
+    "currencyAbbr": "RWF"
+  },
+  {
+    "name": "Saudi Arabia",
+    "abbr": "SA",
+    "zones": [
+      "Asia/Riyadh"
+    ],
+    "currencyAbbr": "SAR",
+    "currencySymbol": "&#65020;"
+  },
+  {
+    "name": "Solomon Islands",
+    "abbr": "SB",
+    "zones": [
+      "Pacific/Guadalcanal"
+    ],
+    "currencyAbbr": "SBD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Seychelles",
+    "abbr": "SC",
+    "zones": [
+      "Indian/Mahe"
+    ],
+    "currencyAbbr": "SCR",
+    "currencySymbol": "&#8360;"
+  },
+  {
+    "name": "Sudan",
+    "abbr": "SD",
+    "zones": [
+      "Africa/Khartoum"
+    ],
+    "currencyAbbr": "SDG"
+  },
+  {
+    "name": "Sweden",
+    "abbr": "SE",
+    "zones": [
+      "Europe/Stockholm"
+    ],
+    "currencyAbbr": "SEK",
+    "currencySymbol": "&#107;&#114;"
+  },
+  {
+    "name": "Singapore",
+    "abbr": "SG",
+    "zones": [
+      "Asia/Singapore"
+    ],
+    "currencyAbbr": "SGD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "St Helena",
+    "abbr": "SH",
+    "zones": [
+      "Africa/Abidjan"
+    ],
+    "currencyAbbr": "SHP",
+    "currencySymbol": "&#163;"
+  },
+  {
+    "name": "Slovenia",
+    "abbr": "SI",
+    "zones": [
+      "Europe/Belgrade"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Svalbard & Jan Mayen",
+    "abbr": "SJ",
+    "zones": [
+      "Europe/Oslo"
+    ],
+    "currencyAbbr": "NOK",
+    "currencySymbol": "&#107;&#114;"
+  },
+  {
+    "name": "Slovakia",
+    "abbr": "SK",
+    "zones": [
+      "Europe/Prague"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Sierra Leone",
+    "abbr": "SL",
+    "zones": [
+      "Africa/Abidjan"
+    ],
+    "currencyAbbr": "SLL"
+  },
+  {
+    "name": "San Marino",
+    "abbr": "SM",
+    "zones": [
+      "Europe/Rome"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Senegal",
+    "abbr": "SN",
+    "zones": [
+      "Africa/Abidjan"
+    ],
+    "currencyAbbr": "XOF"
+  },
+  {
+    "name": "Somalia",
+    "abbr": "SO",
+    "zones": [
+      "Africa/Nairobi"
+    ],
+    "currencyAbbr": "SOS",
+    "currencySymbol": "&#83;"
+  },
+  {
+    "name": "Suriname",
+    "abbr": "SR",
+    "zones": [
+      "America/Paramaribo"
+    ],
+    "currencyAbbr": "SRD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "South Sudan",
+    "abbr": "SS",
+    "zones": [
+      "Africa/Juba"
+    ],
+    "currencyAbbr": "SSP"
+  },
+  {
+    "name": "Sao Tome & Principe",
+    "abbr": "ST",
+    "zones": [
+      "Africa/Abidjan"
+    ],
+    "currencyAbbr": "STD"
+  },
+  {
+    "name": "El Salvador",
+    "abbr": "SV",
+    "zones": [
+      "America/El_Salvador"
+    ],
+    "currencyAbbr": "USD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "St Maarten (Dutch)",
+    "abbr": "SX",
+    "zones": [
+      "America/Curacao"
+    ],
+    "currencyAbbr": "ANG",
+    "currencySymbol": "&#402;"
+  },
+  {
+    "name": "Syria",
+    "abbr": "SY",
+    "zones": [
+      "Asia/Damascus"
+    ],
+    "currencyAbbr": "SYP",
+    "currencySymbol": "&#163;"
+  },
+  {
+    "name": "Swaziland",
+    "abbr": "SZ",
+    "zones": [
+      "Africa/Johannesburg"
+    ],
+    "currencyAbbr": "SZL"
+  },
+  {
+    "name": "Turks & Caicos Is",
+    "abbr": "TC",
+    "zones": [
+      "America/Grand_Turk"
+    ],
+    "currencyAbbr": "USD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Chad",
+    "abbr": "TD",
+    "zones": [
+      "Africa/Ndjamena"
+    ],
+    "currencyAbbr": "XAF"
+  },
+  {
+    "name": "French Southern & Antarctic Lands",
+    "abbr": "TF",
+    "zones": [
+      "Indian/Reunion",
+      "Indian/Kerguelen"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "Togo",
+    "abbr": "TG",
+    "zones": [
+      "Africa/Abidjan"
+    ],
+    "currencyAbbr": "XOF"
+  },
+  {
+    "name": "Thailand",
+    "abbr": "TH",
+    "zones": [
+      "Asia/Bangkok"
+    ],
+    "currencyAbbr": "THB",
+    "currencySymbol": "&#3647;"
+  },
+  {
+    "name": "Tajikistan",
+    "abbr": "TJ",
+    "zones": [
+      "Asia/Dushanbe"
+    ],
+    "currencyAbbr": "TJS"
+  },
+  {
+    "name": "Tokelau",
+    "abbr": "TK",
+    "zones": [
+      "Pacific/Fakaofo"
+    ],
+    "currencyAbbr": "NZD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "East Timor",
+    "abbr": "TL",
+    "zones": [
+      "Asia/Dili"
+    ],
+    "currencyAbbr": "USD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Turkmenistan",
+    "abbr": "TM",
+    "zones": [
+      "Asia/Ashgabat"
+    ],
+    "currencyAbbr": "TMT"
+  },
+  {
+    "name": "Tunisia",
+    "abbr": "TN",
+    "zones": [
+      "Africa/Tunis"
+    ],
+    "currencyAbbr": "TND"
+  },
+  {
+    "name": "Tonga",
+    "abbr": "TO",
+    "zones": [
+      "Pacific/Tongatapu"
+    ],
+    "currencyAbbr": "TOP"
+  },
+  {
+    "name": "Turkey",
+    "abbr": "TR",
+    "zones": [
+      "Europe/Istanbul"
+    ],
+    "currencyAbbr": "TRY",
+    "currencySymbol": null
+  },
+  {
+    "name": "Trinidad & Tobago",
+    "abbr": "TT",
+    "zones": [
+      "America/Port_of_Spain"
+    ],
+    "currencyAbbr": "TTD",
+    "currencySymbol": "&#84;&#84;&#36;"
+  },
+  {
+    "name": "Tuvalu",
+    "abbr": "TV",
+    "zones": [
+      "Pacific/Funafuti"
+    ],
+    "currencyAbbr": "AUD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Taiwan",
+    "abbr": "TW",
+    "zones": [
+      "Asia/Taipei"
+    ],
+    "currencyAbbr": "TWD",
+    "currencySymbol": "&#78;&#84;&#36;"
+  },
+  {
+    "name": "Tanzania",
+    "abbr": "TZ",
+    "zones": [
+      "Africa/Nairobi"
+    ],
+    "currencyAbbr": "TZS"
+  },
+  {
+    "name": "Ukraine",
+    "abbr": "UA",
+    "zones": [
+      "Europe/Kiev",
+      "Europe/Uzhgorod",
+      "Europe/Zaporozhye"
+    ],
+    "currencyAbbr": "UAH",
+    "currencySymbol": "&#8372;"
+  },
+  {
+    "name": "Uganda",
+    "abbr": "UG",
+    "zones": [
+      "Africa/Nairobi"
+    ],
+    "currencyAbbr": "UGX"
+  },
+  {
+    "name": "US minor outlying islands",
+    "abbr": "UM",
+    "zones": [
+      "Pacific/Pago_Pago",
+      "Pacific/Wake",
+      "Pacific/Honolulu"
+    ],
+    "currencyAbbr": "USD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "United States",
+    "abbr": "US",
+    "zones": [
+      "America/New_York",
+      "America/Detroit",
+      "America/Kentucky/Louisville",
+      "America/Kentucky/Monticello",
+      "America/Indiana/Indianapolis",
+      "America/Indiana/Vincennes",
+      "America/Indiana/Winamac",
+      "America/Indiana/Marengo",
+      "America/Indiana/Petersburg",
+      "America/Indiana/Vevay",
+      "America/Chicago",
+      "America/Indiana/Tell_City",
+      "America/Indiana/Knox",
+      "America/Menominee",
+      "America/North_Dakota/Center",
+      "America/North_Dakota/New_Salem",
+      "America/North_Dakota/Beulah",
+      "America/Denver",
+      "America/Boise",
+      "America/Phoenix",
+      "America/Los_Angeles",
+      "America/Anchorage",
+      "America/Juneau",
+      "America/Sitka",
+      "America/Metlakatla",
+      "America/Yakutat",
+      "America/Nome",
+      "America/Adak",
+      "Pacific/Honolulu"
+    ],
+    "currencyAbbr": "USD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "United Arab Emirates",
+    "abbr": "AE",
+    "zones": [
+      "Asia/Dubai"
+    ],
+    "currencyAbbr": "AED"
+  },
+  {
+    "name": "United Kingdom",
+    "abbr": "GB",
+    "zones": [
+      "Europe/London"
+    ],
+    "currencyAbbr": "GBP",
+    "currencySymbol": "&#163;"
+  },
+  {
+    "name": "Uruguay",
+    "abbr": "UY",
+    "zones": [
+      "America/Montevideo"
+    ],
+    "currencyAbbr": "UYU",
+    "currencySymbol": "&#36;&#85;"
+  },
+  {
+    "name": "Uzbekistan",
+    "abbr": "UZ",
+    "zones": [
+      "Asia/Samarkand",
+      "Asia/Tashkent"
+    ],
+    "currencyAbbr": "UZS",
+    "currencySymbol": "&#1083;&#1074;"
+  },
+  {
+    "name": "Vatican City",
+    "abbr": "VA",
+    "zones": [
+      "Europe/Rome"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "St Vincent",
+    "abbr": "VC",
+    "zones": [
+      "America/Port_of_Spain"
+    ],
+    "currencyAbbr": "XCD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Venezuela",
+    "abbr": "VE",
+    "zones": [
+      "America/Caracas"
+    ],
+    "currencyAbbr": "VEF",
+    "currencySymbol": "&#66;&#115;"
+  },
+  {
+    "name": "Virgin Islands (UK)",
+    "abbr": "VG",
+    "zones": [
+      "America/Port_of_Spain"
+    ],
+    "currencyAbbr": "USD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Virgin Islands (US)",
+    "abbr": "VI",
+    "zones": [
+      "America/Port_of_Spain"
+    ],
+    "currencyAbbr": "USD",
+    "currencySymbol": "&#36;"
+  },
+  {
+    "name": "Vietnam",
+    "abbr": "VN",
+    "zones": [
+      "Asia/Bangkok",
+      "Asia/Ho_Chi_Minh"
+    ],
+    "currencyAbbr": "VND",
+    "currencySymbol": "&#8363;"
+  },
+  {
+    "name": "Vanuatu",
+    "abbr": "VU",
+    "zones": [
+      "Pacific/Efate"
+    ],
+    "currencyAbbr": "VUV"
+  },
+  {
+    "name": "Wallis & Futuna",
+    "abbr": "WF",
+    "zones": [
+      "Pacific/Wallis"
+    ],
+    "currencyAbbr": "XPF"
+  },
+  {
+    "name": "Samoa (western)",
+    "abbr": "WS",
+    "zones": [
+      "Pacific/Apia"
+    ],
+    "currencyAbbr": "WST"
+  },
+  {
+    "name": "Yemen",
+    "abbr": "YE",
+    "zones": [
+      "Asia/Riyadh"
+    ],
+    "currencyAbbr": "YER",
+    "currencySymbol": "&#65020;"
+  },
+  {
+    "name": "Mayotte",
+    "abbr": "YT",
+    "zones": [
+      "Africa/Nairobi"
+    ],
+    "currencyAbbr": "EUR",
+    "currencySymbol": "&#8364;"
+  },
+  {
+    "name": "South Africa",
+    "abbr": "ZA",
+    "zones": [
+      "Africa/Johannesburg"
+    ],
+    "currencyAbbr": "ZAR",
+    "currencySymbol": "&#82;"
+  },
+  {
+    "name": "Zambia",
+    "abbr": "ZM",
+    "zones": [
+      "Africa/Maputo"
+    ],
+    "currencyAbbr": "ZMK"
+  },
+  {
+    "name": "Zimbabwe",
+    "abbr": "ZW",
+    "zones": [
+      "Africa/Maputo"
+    ],
+    "currencyAbbr": "ZWL"
+  }
+]

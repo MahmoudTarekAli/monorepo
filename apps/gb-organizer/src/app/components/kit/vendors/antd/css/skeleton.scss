@@ -1,0 +1,32 @@
+// Import mixins
+@import 'src/app/components/mixins.scss';
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+[data-kit-theme='dark'] {
+  .ant-skeleton {
+    opacity: 1;
+    width: 150px !important;
+
+    margin-bottom: 10px !important;
+    @media screen and (max-width: 767px) {
+      width: 100% !important;
+    }
+
+    .ant-skeleton-image {
+      height: 150px !important;
+      width: 100% !important;
+      @media screen and (max-width: 767px) {
+        height: 80px !important;
+        flex: 1;
+      }
+    }
+  }
+  .ant-skeleton-element .ant-skeleton-image{
+    @media screen and (max-width: 767px) {
+      width: 90px !important;
+
+    }
+  }
+
+}

@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { TournamentCardComponent } from './tournament-card.component';
+
+describe('GbCardComponent', () => {
+  let component: TournamentCardComponent;
+  let fixture: ComponentFixture<TournamentCardComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ TournamentCardComponent ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(TournamentCardComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

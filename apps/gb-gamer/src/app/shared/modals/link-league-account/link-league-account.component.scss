@@ -1,0 +1,19 @@
+
+@import 'src/app/styles/core/variables.scss';
+
+.league-logo{
+  margin: 10px 0;
+  overflow: hidden;
+  img{
+    border-radius: 100px;
+  }
+}
+
+::ng-deep{
+  .ant-select{
+    color: $white !important;
+    background-color: $gb-sec-bg !important;
+    border-radius: 8px !important;
+    outline: none;
+  }
+}

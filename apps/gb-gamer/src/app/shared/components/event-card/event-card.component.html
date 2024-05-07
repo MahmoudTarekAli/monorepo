@@ -1,0 +1,48 @@
+<div class="card">
+  <img (click)="routerToEvent(event.slug)" class="cover" width="500" height="300"
+       [src]="event?.cover_pictures?.s | defaultImage">
+  <div class="games-container" *ngIf="event.games.length > 0">
+    <div class="game-icon" *ngFor="let game of event.games | sliceArray: 3">
+      <img src="{{game?.data?.icon}}" alt="">
+    </div>
+    <div class="more-games" *ngIf="event.games.length > 3">
+      <p>+ {{event.games.length - 3}}</p>
+    </div>
+  </div>
+  <div class="card-type participants">
+    <img src="assets/svg-icons/users-icon.svg" alt="">
+    <p>  {{event.participants_count}}</p>
+  </div>
+  <div class="card-body">
+    <div class="card-info">
+      <div class="d-flex justify-content-between align-items-center">
+        <h6 class="text-gray">starts at<br>{{event.start_at  | date :  'MMM d, YYYY' }}</h6>
+
+        <div class="status-container">
+          <div class="match-status {{event?.status | lowercase | removeSpaces}}">
+            <div class="circle {{event?.status | lowercase | removeSpaces}}"></div>
+            {{'status.' + event?.status| lowercase | removeSpaces | translate}}
+          </div>
+        </div>
+      </div>
+
+      <!--      <h5 class="card-title"></h5>-->
+      <h3>
+        <app-marquee class="card-text" [text]="event.name"></app-marquee>
+      </h3>
+
+      <p>{{'event.hostedBy' | translate}}</p>
+      <div class="d-flex gap-2 align-items-center mb-3">
+        <nz-avatar nzSize="default" *ngFor="let arena of event.arenas" [nzSrc]="arena?.profile_picture">
+        </nz-avatar>
+      </div>
+      <div class="buttons-container">
+        <app-button (click)="routerToEvent(event.slug)" variant="two-tone-primary">
+          <img src="assets/svg-icons/eye-icon.svg" alt="">
+          <p>{{'event.viewEvent' | translate}}</p></app-button>
+      </div>
+
+
+    </div>
+  </div>
+</div>

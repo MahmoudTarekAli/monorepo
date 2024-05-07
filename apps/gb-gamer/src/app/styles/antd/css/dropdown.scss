@@ -1,0 +1,61 @@
+// Import mixins
+@import 'src/app/styles/core/variables.scss';
+
+.ant-dropdown {
+  color: $gray-6;
+  top: 15px;
+}
+
+.ant-dropdown-menu-item-group-list {
+  margin: 0;
+  list-style: none;
+  padding: 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+  .ant-dropdown-menu-item-group-title {
+    color: darken($dark-gray-3, 8%) !important;
+  }
+  .ant-select-dropdown {
+    &-menu-item-selected {
+      color: $text;
+      background: lighten($gray-6, 7%);
+    }
+  }
+
+
+.ant-dropdown {
+  .nav-drop-menu {
+    background: $gb-sec-bg;
+    box-shadow: 1px 2px 7px var(--gb-main-darker);
+    @include dynamic-m-v-property(border-radius, 10);
+    //@include dynamic-s-v-property(height, 500);
+
+    max-height: 500px;
+    @include dynamic-dimensions(width, 400);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    @include dynamic-m-v-property(border-width,2);
+    @include dynamic-m-v-property(margin, 0, -20, 0, 0);
+    //width: auto;
+    //@include dynamic-m-v-property(padding, 0, 10);
+    @include dynamic-m-v-property(border-width, 2);
+    border: solid $gb-fifth-color;
+    flex-flow: column;
+    padding-bottom: 40px;
+
+    .ant-page-header {
+      @include dynamic-m-v-property(padding, 16);
+    }
+  }
+}
+
+::ng-deep {
+  .ant-dropdown {
+    border: solid 1px red !important;
+    top: 20px;
+
+  }
+}

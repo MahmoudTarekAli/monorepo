@@ -1,0 +1,87 @@
+@import 'src/app/styles/core/variables';
+@import "src/app/styles/functions";
+
+.messanger-container {
+  position: absolute;
+  height: 80%; width: 100%;
+}
+
+.conversation-list {
+  padding: 10px 10px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow-y: scroll;
+
+}
+
+.user {
+  display: flex;
+  gap: 15px;
+  padding: 5px 10px;
+  align-items: center;
+  background: $gb-main-bg;
+  border-radius: 5px;
+  cursor: pointer;
+
+  .profile-img {
+    img {
+      height: 40px;
+      width: 40px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  .name-header {
+    font-size: 12px;
+    background: rgba(132, 41, 245, 0.2);
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .message-info {
+    color: $white;
+    width: 105px;
+
+    .name {
+      p {
+      font-size: 14px;
+      font-weight: bold;
+      }
+    }
+
+    .message {
+      font-size: 12px;
+      font-weight: lighter;
+    }
+  }
+
+
+}
+
+.conversation {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 2;
+  .conversation-header {
+    padding: 10px;
+  }
+}
+
+.input {
+  padding: 8px;
+  display: flex;
+  gap: 10px;
+  background: $gb-sec-bg;
+  .ant-input {
+    background: $gb-main-bg !important;
+    border-radius: 7px !important;
+  }
+
+  img {
+    width: 20px;
+  }
+}

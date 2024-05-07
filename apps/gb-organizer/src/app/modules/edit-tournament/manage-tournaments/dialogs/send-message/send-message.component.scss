@@ -1,0 +1,38 @@
+::ng-deep {
+  nz-tag {
+    background: #8429f5 !important;
+  }
+  .angular-editor-textarea {
+    min-height: 200px!important;
+  }
+  .message-selection {
+    .ant-select-selection-item{
+      display: none!important;
+    }
+  }
+  nz-select{
+    max-width: 500px;
+  }
+}
+.roundedImage{
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  display: flex;
+  justify-content:center ;
+  align-items: center;
+  overflow: hidden;
+  margin: 0 3px;
+  img{
+    width: 100%;
+    height: 100%;
+  }
+  &.text{
+    background: #fff;
+    h3{
+      color: #000;
+
+    }
+  }
+}

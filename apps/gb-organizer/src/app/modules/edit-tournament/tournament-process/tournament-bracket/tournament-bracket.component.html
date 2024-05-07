@@ -1,0 +1,59 @@
+<app-section-container [title]="'Tournament Bracket'">
+  <div class="row title">
+    <div class="col-12">
+      <div class="mb-4">
+        <h1 class="font-weight-bold">{{'first_stage'|translate}}</h1>
+        <p>{{'first_stage_text'|translate}}</p>
+      </div>
+    </div>
+    <ng-template #bracketTypesTemplate let-stageType="stageType" let-stage="stage">
+      <div class="bracket-type" [routerLink]="'bracketType/' + stageType.url"
+           [ngClass]="{'selected-bracket-type': stage === STAGES.FIRST_STAGE?  stageType.key === tournament?.tree?.data[0]?.type: stageType.key === tournament?.tree?.data[1]?.type} "
+           [queryParams]=" {stage: stage, stageType: stageType.key}">
+        <img srcset="assets/svg-icons/{{stageType.icon}}.svg" [@enter]="true">
+        <div class="d-flex flex-column gap-10">
+          <h2 class="bracket-title">{{stageType.title|translate}}</h2>
+          <p>{{stageType.text|translate}}</p>
+        </div>
+      </div>
+    </ng-template>
+    <div class="col-xl-3 col-lg-6 col-md-6 col-12" *ngFor="let type of bracketTypes">
+      <ng-container
+        *ngTemplateOutlet="bracketTypesTemplate context: {stageType:type,  stage: STAGES.FIRST_STAGE}"></ng-container>
+    </div>
+  </div>
+  <div class="row mt-5" *ngIf="hasSecondStage">
+    <div class="col-12">
+      <div class="d-flex flex-sm-wrap flex-md-nowrap align-items-center gap-20 flex-block">
+        <div>
+          <h1 class="font-weight-bold">{{'second_stage' | translate}}</h1>
+          <p>{{'first_stage_text' | translate}}</p>
+        </div>
+        <button nz-button nzType="default" (click)="addSecondStage = true" class="ml-auto"
+                *ngIf="tournament?.tree?.data?.length <= 1 ">
+          <span nz-icon nzType="plus"></span>{{'Add Second Stage'}}</button>
+        <button nz-button  class="remove" (click)="removeSecondStage()"
+                *ngIf="tournament?.tree?.data?.length > 1 ">
+          <img src="assets/svg-icons/trash-icon.svg" alt="">
+       <p>  {{'remove_second_stage' | translate}}</p>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="(hasSecondStage && addSecondStage) || tournament?.tree?.data?.length > 1">
+    <div class="row mt-5">
+      <div class="col-lg-3 col-md-6 col-12" *ngFor="let type of bracketTypes; let i = index" [@enter]="true">
+        <!--        remove round robin from second stage-->
+        <ng-container *ngIf="i != 3">
+          <ng-container
+            *ngTemplateOutlet="bracketTypesTemplate context: {stageType:type, stage: STAGES.SECOND_STAGE }"></ng-container>
+        </ng-container>
+
+      </div>
+    </div>
+
+  </div>
+</app-section-container>
+
+
+

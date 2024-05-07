@@ -1,0 +1,16 @@
+@import 'src/app/styles/core/variables';
+@import 'src/app/styles/functions';
+
+.arena-actions {
+  label {
+    width: 100%;
+    margin: 0 !important;
+    padding: 10px;
+    background: $gb-sec-bg !important;
+    border-radius: 10px;
+  }
+
+}
+
+
+

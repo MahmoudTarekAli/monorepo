@@ -1,0 +1,52 @@
+// Import mixins
+@import 'src/app/components/mixins.scss';
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+[data-kit-theme='dark'] {
+  .ant-table table {
+    tr:last-child {
+      border-radius: 10px !important;
+
+      td {
+        border-bottom: none !important;
+      }
+    }
+
+    background-color: $gb-main-bg
+
+  }
+
+  .ant-table-wrapper {
+    overflow: hidden !important;
+    border-radius: 10px;
+  }
+
+  .ant-table-column-has-sorters {
+    &:hover {
+      background: $gb-main-darker !important;
+    }
+  }
+
+  .ant-table-column-sort {
+    background: $gb-main-bg !important;
+  }
+
+  .ant-table-content {
+    background: $gb-main-bg !important;
+  }
+
+  .ant-table-thead {
+    tr {
+      th {
+        background: $gb-main-bg !important;
+      }
+    }
+
+  }
+
+  .ant-table-title {
+    background: $gb-main-bg !important;
+    border-bottom: 1px solid $dark-gray-3 !important;
+  }
+}

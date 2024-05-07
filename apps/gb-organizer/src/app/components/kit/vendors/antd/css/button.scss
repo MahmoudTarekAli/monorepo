@@ -1,0 +1,113 @@
+// Import mixins
+@import 'src/app/components/mixins.scss';
+
+.ant-btn {
+  &:hover,
+  &:active,
+  &:focus {
+    border-color: lighten($purple, 0%);
+    color: lighten($purple, 0%);
+  }
+  &-default-gb {
+    &:hover,
+    &:active,
+    &:focus {
+      background: #ddd !important;
+      border-color: black !important;
+      color: $black;
+
+    }
+  }
+
+  &-primary {
+    background: $primary !important;
+    border-color: $primary !important;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: lighten($purple, 0%) !important;
+      border-color: lighten($purple, 0%) !important;
+      color: $white;
+    }
+  }
+
+  &-danger {
+    &:hover,
+    &:active,
+    &:focus {
+      background: lighten($danger, 5%);
+      border-color: lighten($danger, 5%);
+      color: $white;
+    }
+  }
+
+  &-primary,
+  &-danger {
+    &[disabled],
+    &[disabled]:hover {
+      background: $gray-2 !important;
+      border-color: $gray-2 !important;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+[data-kit-theme='dark'] {
+  .ant-btn {
+    border-radius: 5px;
+    background: lighten($transparent, 10%);
+    border-color: lighten($purple, 10%);
+    color: $white;
+    &:hover,
+    &:active,
+    &:focus {
+      background: lighten($purple, 10%);
+      border-color: lighten($purple, 10%);
+      color: white
+    }
+    &-primary {
+      &:hover,
+      &:active,
+      &:focus {
+        //background: lighten($gb-main-bg, 0%) !important;
+        border-color: lighten($purple, 0%) !important;
+        color: $white;
+
+      }
+    }
+    &-default-gb {
+      &:hover,
+      &:active,
+      &:focus {
+        background: #ddd !important;
+        border-color: black !important;
+        color: $black;
+
+      }
+    }
+
+    &-danger {
+      &:hover,
+      &:active,
+      &:focus {
+        background: lighten($danger, 10%);
+        border-color: lighten($danger, 10%);
+        color: $white;
+      }
+    }
+
+    &-primary,
+    &-danger {
+      &[disabled],
+      &[disabled]:hover {
+        background: $gray-6 !important;
+        border-color: $gray-6 !important;
+      }
+    }
+  }
+}
+app-button button {
+  width: 100%;
+}

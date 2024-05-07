@@ -1,0 +1,39 @@
+<ng-container *ngIf="(team$ | async) as team">
+  <app-participant-card
+    [isArena]="true"
+    [cover]="team.cover"
+    [profile]="team.avatar"
+    [name]="team.participant_name"
+    [routeTo]="'/teams/' + team.id"
+    [autoHeight]="true"
+    [isTeam]="true"
+    [bgColor]="'#280659'">
+    <ng-container ngProjectAs="team-member">
+      <h3 style="  margin: 2px 15px;">{{'common.teamMembers'|translate}}</h3>
+      <ng-container *ngFor="let member of members">
+        <app-user-card class="user-card" [avatar]="member.avatar" *ngIf="member?.is_joined"
+                       [username]="member.username"
+                       [reference_number]="member.reference_number" [slug]="member.slug"
+                       [ngClass]="{'selected' : member?.is_joined}">
+          <ng-container ngProjectAs="roles" *ngIf="member?.roles && member?.roles.length > 0">
+            <span *ngFor="let role of member.roles" class="badge {{role | lowercase}}">{{role}}</span>
+          </ng-container>
+          <div class="d-flex flex-wrap gap-1">
+            <app-button variant="primary" (click)="modal.closeAll()" routerLink="/gamer/{{member?.slug}}">View Profile
+            </app-button>
+          </div>
+
+        </app-user-card>
+
+      </ng-container>
+    </ng-container>
+
+    <ng-container ngProjectAs="arena-action-buttons">
+      <app-button (click)="modal.closeAll()" variant="primary" routerLink="/teams/{{team?.participant_id}}">
+        View Team Profile
+      </app-button>
+    </ng-container>
+  </app-participant-card>
+
+</ng-container>
+

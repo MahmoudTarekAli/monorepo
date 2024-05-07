@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="site-page-header-ghost-wrapper">
+    <nz-page-header *ngIf="title || customButtons">
+      <nz-page-header-title>{{title}}</nz-page-header-title>
+      <nz-page-header-extra>
+        <nz-space>
+          <ng-template #defaultTabButtons></ng-template>
+          <ng-container *ngTemplateOutlet="customButtons ? customButtons: defaultTabButtons"></ng-container>
+        </nz-space>
+      </nz-page-header-extra>
+    </nz-page-header>
+  </div>
+  <ng-container *ngTemplateOutlet="customTemplate"></ng-container>
+
+  <div class="inner-content">
+    <h4 class="mb-3" *ngIf="sectionTitle">- {{sectionTitle}}</h4>
+    <ng-content></ng-content>
+    <div class="text-right mt-5">
+      <ng-container *ngTemplateOutlet="createButton"></ng-container>
+    </div>
+  </div>
+</div>
+
+

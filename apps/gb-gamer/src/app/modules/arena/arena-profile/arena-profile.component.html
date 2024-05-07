@@ -1,0 +1,97 @@
+<ng-container *ngIf="(Arena$ | async) as arena">
+  <app-banner-card [inner]="false" [banner]="arena.cover_picture" [profile]="arena.profile_picture">
+    <div class="info" ngProjectAs="tournament-description">
+      <h1>{{arena.name}}</h1>
+      <div class="d-flex flex-row gap-2 align-items-center my-2">
+        <h5><img src="assets/svg-icons/battle-icon.svg" alt="" style="width: 18px"><span
+          class="mx-2">{{arena.no_of_tournaments}}</span> {{'common.tournaments' | translate}}</h5>
+        <h5  *ngIf="arena.no_of_challenges"><img src="assets/svg-icons/warrior-helmet.svg" alt=""> <span
+          class="mx-2">{{arena.no_of_challenges}}</span> {{'common.challenges' | translate}}</h5>
+        <h5><img src="assets/svg-icons/users-icon.svg" alt=""> <span
+          class="mx-2">{{arena.followers}}</span> {{'common.followers' | translate}}</h5>
+      </div>
+      <div class="d-flex flex-row gap-2 align-items-center">
+        <ng-container *ngFor="let socialMedia of arena.social_media | keyvalue">
+          <a *ngIf="socialMedia.value && socialMedia.value !== ''" href="{{socialMedia.value}}"> <img
+            style="width: 24px" src="assets/social-media/{{socialMedia.key}}.svg" alt=""></a>
+        </ng-container>
+      </div>
+    </div>
+
+    <ng-container ngProjectAs="tournament-buttons">
+      <app-button (click)="followUnfollowArena(arena.slug , arena.is_following ? 'unfollow' : 'follow')"
+                  variant="two-tone-primary" class="w-100">
+        <img src="assets/svg-icons/{{arena.is_following ? 'minus-icon' : 'plus-icon'}}.svg" alt="">
+        {{arena.is_following ? ('common.unfollow' | translate) : 'common.follow' | translate}}</app-button>
+      <app-button *ngIf="arena.authority !== 'Moderator' && arena.authority !== 'None'"
+                  routerLink="./manage" variant="white" class="w-100">
+        {{'arena.manageArena' | translate}}
+      </app-button>
+      <app-button *ngIf="authService.isSuperAdmin" (click)="openArenaActions(arena)" variant="white" class="w-100">
+        {{'arena.arenaActions' | translate}}
+
+      </app-button>
+    </ng-container>
+
+
+  </app-banner-card>
+  <app-section [title]="'event.events' | translate | uppercase" *ngIf="(arenaEvents$ | async).length > 0">
+    <div class="row gy-2 gx-2">
+      <div class="col-md-6  col-12" *ngFor="let event of arenaEvents$ | async">
+        <app-event-card [event]="event">
+        </app-event-card>
+
+      </div>
+    </div>
+
+  </app-section>
+  <!-- Challenges-->
+  <ng-container *ngIf="(challenges$ |async) as challenges ">
+    <app-section *ngIf="challenges?.data?.length > 0 " [title]="'common.challenges' | translate | uppercase"
+                 [customButtons]="filterChallengeButton">
+      <ng-container *ngIf="!isLoadChallenges ; else loadingIndicator">
+
+        <app-card-list (changePage)="changeChallengePage(currentChallengePage + 1)" [cardType]="'challenges'"
+                       [cards]="challenges.data" [flexWrap]="false"></app-card-list>
+      </ng-container>
+    </app-section>
+    <ng-template #filterChallengeButton>
+      <app-filter-popover (statusFiltration)="changeChallengePage(1 , $event)"
+                          [type]="'challenge'"></app-filter-popover>
+    </ng-template>
+  </ng-container>
+
+
+  <!--  Tournaments-->
+  <app-section [title]="'common.tournaments' | translate | uppercase" [customButtons]="filterButton">
+    <ng-container *ngIf="!(getTournamentArenaExecuting$ | async) ; else loadingIndicator">
+      <ng-container *ngIf="Tournaments$ |async as tournaments ">
+
+        <app-card-list *ngIf="tournaments.data.length ; else noData" [total]="tournaments?.meta?.total"
+                       [page]="tournaments?.meta?.current_page"
+                       [pageSize]="tournaments?.meta?.per_page"
+                       [isPaginated]="true" (changePage)="changeTournamentPage($event)" [cardType]="'tournaments'"
+                       [cards]="tournaments.data"></app-card-list>
+      </ng-container>
+    </ng-container>
+  </app-section>
+  <ng-template #filterButton>
+    <app-filter-popover (statusFiltration)="changeTournamentPage(1 ,  $event)"></app-filter-popover>
+  </ng-template>
+
+
+</ng-container>
+
+<ng-template #loadingIndicator>
+  <div class="row">
+    <div class="col-12">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #noData>
+  <div class="second-container d-flex align-items-center justify-content-center py-5 my-4">
+    <h5>  {{ 'common.placeholders.noItemsFound' | translate: {itemName: 'common.tournament' | translate} }}</h5>
+  </div>
+</ng-template>

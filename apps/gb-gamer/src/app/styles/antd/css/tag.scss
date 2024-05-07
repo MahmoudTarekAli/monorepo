@@ -1,0 +1,8 @@
+// Import mixins
+@import 'src/app/styles/core/variables.scss';
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+  .ant-tag {
+    border-color: transparent;
+  }

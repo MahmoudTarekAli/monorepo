@@ -1,0 +1,21 @@
+<ng-container *ngIf="!loading; else loadingIndicator">
+<ng-container *ngIf="blockedUsers$ | async as blockedUsers">
+<ng-container *ngIf="blockedUsers.length > 0 ; else noBlockedUsers">
+  <div class="col-lg-3" *ngFor="let user of blockedUsers$ | async">
+    <app-participant-card [cover]="user.cover_picture" [profile]="user.avatar" [name]="user.username" >
+      <ng-container ngProjectAs="tournament-buttons">
+        <app-button  type="default" variant="primary fit-content" (click)="unblockUser(user.id)">Unblock</app-button>
+      </ng-container>
+    </app-participant-card>
+    </div>
+</ng-container>
+</ng-container>
+<ng-template #noBlockedUsers>
+  <div class="no-blocked-users">
+    <p>There are no blocked users</p>
+  </div>
+  </ng-template>
+</ng-container>
+<ng-template #loadingIndicator>
+ <app-loading-indicator></app-loading-indicator>
+</ng-template>

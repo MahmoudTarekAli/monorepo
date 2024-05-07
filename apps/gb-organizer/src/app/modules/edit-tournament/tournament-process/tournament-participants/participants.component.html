@@ -1,0 +1,145 @@
+<app-section-container [createButton]="createButton" [title]="'participants'|translate"
+                       [sectionTitle]="'participants_type'|translate">
+
+  <div [formGroup]="participantForm" nz-form nzLayout="vertical" class="mt-4">
+    <div class="row mb-4 row-gap-15">
+      <div class="col-12">
+        <nz-radio-group>
+          <div class="participants-type">
+            <label nz-radio-button [nzValue]="tournament?.participants_type" [(ngModel)]="tournament.participants_type"
+                   [disabled]="true"
+                   [ngModelOptions]="{standalone: true}"><p>{{tournament?.participants_type | uppercase}}</p></label>
+          </div>
+        </nz-radio-group>
+      </div>
+      <div class="col-12 mb-3 mt-3 p-2 border-radius-10" style="border: solid 1px #24215a;">
+        <label nz-checkbox [(ngModel)]="accept_particpant " [ngModelOptions]="{standalone: true}">
+          <p>{{'confirmation_list' | translate}}</p>
+          <div class="checkbox_content">
+            <span class="label_placeholder">{{'confirmation_list_text' | translate}}</span>
+          </div>
+        </label>
+        <div class="row m-4" *ngIf="accept_particpant">
+          <div class="col-sm-12 ">
+            <nz-form-item>
+              <nz-form-label nzFor="no_pending_message">
+                <div class="d-flex flex-column">
+                  <p>{{'pending_message'|translate}}</p>
+                  <span class="label_placeholder">{{'Pending_message_text' | translate}}</span>
+                </div>
+              </nz-form-label>
+
+
+              <nz-form-control [nzErrorTip]="no_pending_message">
+                <input type="text" nz-input placeholder="{{'pending_message_placeholder' | translate}}."
+                       formControlName="pending_message"/>
+              </nz-form-control>
+              <ng-template #no_pending_message let-control>
+                <ng-container>
+                  {{'please_enter_pending_message'|translate}}
+                </ng-container>
+              </ng-template>
+            </nz-form-item>
+
+          </div>
+          <div class="col-sm-12 d-flex align-items-center mt-2">
+            <label nz-checkbox formControlName="show_pending">
+              <p>{{'show_pending_participants'|translate}}</p>
+              <div class="checkbox_content">
+                <span class="label_placeholder">{{'show_pending_participants_text'|translate}}</span>
+              </div>
+            </label>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 mb-3 p-2 border-radius-10" style="border: solid 1px #24215a;">
+        <label nz-checkbox [(ngModel)]="isCheckin " [ngModelOptions]="{standalone: true}">
+          <div class="checkbox_content">
+            <span>{{'checkin' | translate}}</span>
+            <span class="label_placeholder">
+              {{'checkin_settings_text' | translate}}
+            </span>
+          </div>
+        </label>
+
+        <ng-container *ngIf="isCheckin">
+          <input class="mt-2" type="number" nz-input placeholder="{{'minutes'|translate}}"
+                 formControlName="check_in_margin"/>
+        </ng-container>
+
+
+      </div>
+
+      <div class="col-12 mb-3">
+        <label nz-checkbox formControlName="show_rules">
+          <div class="checkbox_content">
+            <p> {{'accept_rules'|translate}}</p>
+            <span class="label_placeholder">
+              {{'accept_rules_text' | translate}}
+            </span>
+          </div>
+        </label>
+      </div>
+
+      <div class="col-12 mb-3">
+        <label nz-checkbox formControlName="team_edit_open">
+          <div class="checkbox_content">
+            <p> {{'team_edit_open'|translate}}</p>
+          </div>
+        </label>
+      </div>
+
+      <div class="col-md-12">
+        <p>{{'required_info'|translate}}</p>
+        <div>
+          <span class="label_placeholder"> {{'required_info_text' | translate}} </span>
+        </div>
+      </div>
+      <ng-container *ngIf="!loadingRequiredInfo ; else loading">
+        <ng-container formArrayName="supportedRequiredInputsKeys"
+                      *ngFor="let input of this.participantForm.get('supportedRequiredInputsKeys')['controls'];let i=index">
+          <div class='col-md-3' [formGroupName]="i">
+            {{control.key}}
+            <label nz-checkbox formControlName="is_selected" (nzCheckedChange)="getRequiredValue()">
+              <div class="checkbox_content">
+                <span>{{input.value['placeholder']}}</span>
+              </div>
+            </label>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="(getTournament|async).participants_type === 'teams'">
+          <nz-divider></nz-divider>
+          <div class="col-md-12">
+            <h3>{{'team_member_required_inputs' | translate}}</h3>
+
+          </div>
+          <ng-container formArrayName="team_member_supported_required_inputs_keys"
+                        *ngFor="let input of this.participantForm.get('team_member_supported_required_inputs_keys')['controls'];let i=index">
+            <div class='col-md-3' [formGroupName]="i">
+              {{control.key}}
+              <label nz-checkbox formControlName="is_team_selected" (nzCheckedChange)="getRequiredTeamValue()">
+                <div class="checkbox_content">
+                  <span>{{input.value['placeholder']}}</span>
+                </div>
+              </label>
+            </div>
+          </ng-container>
+        </ng-container>
+
+      </ng-container>
+    </div>
+  </div>
+
+
+</app-section-container>
+
+<ng-template #createButton>
+  <button (click)="create()" nz-button nzType="primary">{{'save'|translate}}</button>
+</ng-template>
+<ng-template #loading>
+  <div class="col-12">
+    <app-loading-indicator></app-loading-indicator>
+  </div>
+</ng-template>

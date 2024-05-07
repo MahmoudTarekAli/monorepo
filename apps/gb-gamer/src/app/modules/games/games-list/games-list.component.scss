@@ -1,0 +1,29 @@
+@import '../../../styles/core/variables';
+
+.ant-select{
+  min-width: 200px;
+  color: $white!important;
+}
+
+::ng-deep{
+  .ant-select-selector{
+    border:none!important;
+  }
+  .ant-select-arrow{
+    color: $white!important;
+  }
+  .ant-select-selector{
+    background-color: $gb-sec-bg!important; ;
+  }
+  .ant-input-affix-wrapper {
+    border: none;
+    background-color: $gb-sec-bg!important; ;
+    border-radius: 8px;
+    color: $white!important;
+
+  .ant-input{
+    color: $white!important;
+
+  }
+  }
+}

@@ -1,0 +1,24 @@
+<div  class="{{container}}" >
+  <div class="site-page-header-ghost-wrapper {{margin}}">
+    <nz-page-header *ngIf="title">
+
+      <nz-page-header-title>
+        <ng-container *ngIf="icon">
+        <div class="icon">
+          <img src="{{icon}}" alt="">
+        </div>
+        </ng-container>
+        <h2>{{title}}</h2>
+      </nz-page-header-title>
+      <nz-page-header-extra *ngIf="customButtons">
+        <nz-space>
+          <div class="flex-buttons d-flex align-items-center gap-2">
+            <ng-container *ngTemplateOutlet="customButtons"></ng-container>
+          </div>
+        </nz-space>
+      </nz-page-header-extra>
+    </nz-page-header>
+  </div>
+  <ng-content></ng-content>
+
+</div>

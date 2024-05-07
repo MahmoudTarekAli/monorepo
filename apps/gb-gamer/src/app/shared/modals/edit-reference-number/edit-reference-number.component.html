@@ -1,0 +1,19 @@
+
+<div class="p-5">
+  <div class="text-center">
+    <h2>Change Reference number</h2>
+<!--    <h4 class="my-3 center">Kindly verify your current GBarena username</h4>-->
+  </div>
+  <nz-form-item class="my-2">
+      <nz-form-label>{{'Reference Number' | translate}}</nz-form-label>
+    <input class="" type="text" [(ngModel)]="referenceNumber" nz-input [placeholder]="'Reference Number here ... '"/>
+  </nz-form-item>
+  <!--  <p>Only Prime members can edit their reference number, upgrade to have best experience on the platform, <span routerLink="/premium">Become Premium</span></p>-->
+  <p class="text-danger" *ngIf="isAlertVisible" >Reference number must be at least 5 characters</p>
+
+  <div class=" mt-5 d-flex gap-4">
+<!--    <app-button variant="white " class="flex-grow-1" (click)="closeModal()">Not now</app-button>-->
+    <app-button  variant="two-tone-primary" class="flex-grow-1" (click)="editReferenceNumber()">Save</app-button>
+
+  </div>
+</div>

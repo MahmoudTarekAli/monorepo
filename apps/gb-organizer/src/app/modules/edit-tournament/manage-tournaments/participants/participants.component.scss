@@ -1,0 +1,407 @@
+@import '../../../../components/kit/core/mixins';
+
+
+::ng-deep {
+  .ant-tabs-tab {
+    background: none !important;
+    border: none !important;
+  }
+
+  .ant-tabs-nav .ant-tabs-tab-active {
+    border-bottom: 3px solid #8429F5 !important;
+
+  }
+
+  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #fff !important;
+  }
+
+  .ant-steps-item-icon {
+    background-color: transparent !important;
+    color: #000 !important;
+  }
+
+  .ant-steps-item-subtitle {
+    color: #fff !important;
+  }
+
+  .ant-table-header {
+    overflow: hidden !important;
+    //@media screen and (max-width: 767px) {
+    //  overflow: hidden scroll !important;
+    //}
+
+  }
+
+  .participants {
+    table {
+      table-layout: auto !important;
+
+      td, th {
+        //width: 205px;
+        max-width: 180px;
+      }
+    }
+
+    td:nth-child(1), th:nth-child(1) {
+      width: 100px !important;
+    }
+
+    td:nth-child(2), th:nth-child(2) {
+      width: 250px !important;
+    }
+    .reference-number{
+      color: $success;
+      margin: 0 32px;
+    }
+  }
+
+
+  .image-container {
+    width: 45px;
+  }
+
+  table tr th.ant-table-selection-column, table tr td.ant-table-selection-column {
+    text-align: left !important;
+
+  }
+
+  td, th {
+    img {
+      cursor: pointer;
+    }
+  }
+
+
+  .popover-class {
+    background-color: white !important;
+    padding-top: 0 !important;
+
+    .ant-popover-inner {
+      background-color: #ffffff !important;
+      color: $dark-gray-9;
+    }
+
+    .ant-popover-title {
+      color: $dark-gray-9;
+    }
+
+    .ant-popover-inner-content {
+      display: flex;
+      flex-flow: column;
+      color: $dark-gray-9;
+
+      a {
+        color: $dark-gray-9;
+      }
+    }
+
+    .ant-popover-arrow {
+      display: none;
+    }
+
+    .ant-radio-checked .ant-radio-inner {
+      background: none !important;
+      background-color: transparent;
+    }
+
+    .ant-radio-inner {
+      background: none;
+    }
+
+    span {
+      color: #000000;
+    }
+  }
+}
+
+.label_placeholder {
+  font-size: 12px;
+  opacity: 0.6
+}
+
+
+::ng-deep {
+  nz-tag {
+    background: #8429f5 !important;
+  }
+
+  .ant-select-selector {
+    background: #8429f5 !important;
+  }
+
+  nz-select-item {
+    //display: none!important;
+  }
+
+  .ant-list-item-meta-description {
+    color: #fff !important;
+  }
+
+  .ant-drawer-body, .ant-drawer-footer {
+    background: $dark-gray-9;
+  }
+
+  .title-avatar {
+    .ant-avatar {
+      width: 50px !important;
+      height: 50px !important;
+    }
+  }
+
+  .ant-drawer-header {
+    background-image: url("src/assets/images/team-bg.jpg") !important;
+    background-size: cover;
+
+    .overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #341671 0% 0% no-repeat padding-box;
+      opacity: 0.7;
+    }
+  }
+
+}
+
+.ant-input-affix-wrapper > input.ant-input {
+  background: $dark-gray-6 !important;
+}
+
+.checkin-label {
+  border: 1px solid $purple;
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+.country {
+  width: 18px;
+  height: 18px;
+}
+
+::ng-deep {
+  .popover-select {
+    .ant-select-dropdown {
+      background: $dark-gray-1 !important;
+      color: $dark-gray-9;
+
+      .ant-select-item-option-content {
+        color: $dark-gray-9 !important;
+      }
+    }
+
+    .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+      .ant-select-item-option-content {
+        color: $dark-gray-1 !important;
+      }
+
+      color: $dark-gray-1 !important;
+    }
+
+    .date-icon {
+      width: 18px;
+    }
+  }
+
+  .filters-popover {
+    //background-color: white!important;
+    //padding-top: 0!important;
+    border-radius: 12px !important;
+    overflow: hidden;
+    width: 280px;
+
+    h5 {
+      font-size: 16px;
+      //margin-bottom: 0!important;
+      color: $dark-gray-9;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .ant-popover-inner {
+      background-color: $dark-gray-1 !important;
+      color: $dark-gray-9;
+    }
+
+    .ant-popover-title {
+      color: $dark-gray-9;
+    }
+
+    .ant-popover-inner-content {
+      display: flex;
+      flex-flow: column;
+      color: $dark-gray-9;
+
+      a {
+        color: $dark-gray-9;
+      }
+    }
+
+    .ant-popover-arrow-content {
+      background-color: $dark-gray-1 !important;
+    }
+
+    .ant-popover-content {
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .ant-radio-checked .ant-radio-inner {
+      background: none !important;
+      background-color: transparent;
+    }
+
+    .ant-radio-inner {
+      background: none;
+    }
+
+    span {
+      color: $dark-gray-9;
+    }
+
+    .ant-select {
+      color: $dark-gray-9 !important;
+      background-color: $dark-gray-1 !important;
+
+    }
+
+    .ant-select-selector {
+      background-color: $dark-gray-1 !important;
+      color: $dark-gray-9 !important;
+    }
+
+    .ant-select-selection-placeholder {
+      color: $dark-gray-9 !important;
+    }
+
+    [data-kit-theme="dark"] .ant-select-item {
+      background: #ffffff !important;
+      color: $dark-gray-9 !important;
+    }
+
+    .ant-select-arrow {
+      .anticon {
+        color: $dark-gray-9 !important;
+      }
+    }
+
+    .ant-select-selection-search-input {
+      color: $dark-gray-9 !important;
+    }
+
+    .apply-button {
+      span {
+        color: $dark-gray-1 !important;
+
+      }
+    }
+
+    .clear-button {
+      border: 1px solid $dark-gray-10 !important;
+
+      span {
+        color: $dark-gray-10 !important;
+      }
+
+      &:hover {
+        background: $dark-gray-10 !important;
+
+        span {
+          color: $dark-gray-1 !important;
+
+        }
+      }
+    }
+
+    .close-icon {
+      color: $dark-gray-9 !important;
+      position: absolute;
+      top: -4px;
+      right: 0;
+      cursor: pointer;
+    }
+
+    .ant-checkbox-group-item {
+      margin: 5px 0 !important;
+
+    }
+  }
+}
+
+.confirm-button {
+  background-color: $purple !important;
+  border: none !important;
+  font-size: 16px !important;
+  //height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.participant_search {
+  background-color: $dark-gray-6 !important;
+  display: flex;
+  flex-flow: row-reverse;
+  padding: 10px 11px;
+  border-radius: 5px;
+  border: none !important;
+
+  input {
+    background-color: #24215A !important;
+    color: $dark-gray-1;
+  }
+
+  .anticon {
+    width: 20px !important;
+
+    svg {
+      font-size: 18px !important;
+    }
+  }
+
+}
+
+.table-header-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media screen and (max-width: 567px) {
+    flex-flow: column;
+    gap: 15px;
+    align-items: start;
+  }
+}
+
+::ng-deep {
+  nz-divider {
+    margin: 15px 0 !important;
+  }
+}
+
+.drawer-footer {
+  img {
+    width: 25px;
+  }
+}
+
+.participant_header {
+  display: flex;
+  justify-content: center;
+  @media screen and (max-width: 576px) {
+    flex-wrap: wrap;
+  }
+
+  .header-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    @media screen and (max-width: 576px) {
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<h5>{{'friends' | translate}}</h5>
+<div class="content-container">
+
+<!--  <nz-tabset  nzType="card" nzLinkRouter nzLinkExact>-->
+<!--    <nz-tab >-->
+<!--      <a *nzTabLink nz-tab-link [routerLink]="['.']">Joined Tournament</a>-->
+
+<!--      <ng-container *ngIf="joinedTournaments$ | async as joinedTournaments ; else loadingIndicator">-->
+<!--      </ng-container>-->
+<!--    </nz-tab>-->
+<!--  </nz-tabset>-->
+</div>
+
+<ng-template #loadingIndicator>
+  <app-loading-indicator></app-loading-indicator>
+</ng-template>

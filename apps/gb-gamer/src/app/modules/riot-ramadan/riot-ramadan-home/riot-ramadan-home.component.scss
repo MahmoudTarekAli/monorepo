@@ -1,0 +1,181 @@
+@import "../../../styles/functions";
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../../../assets/fonts/montserrat/static/Montserrat-Regular.ttf') format('ttf');
+  font-weight: 300;
+  font-style: normal;
+}
+
+.menu-container {
+  background: #FFB55C;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 15px;
+  border-radius: 40px;
+
+  .items-container {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    gap: 20px;
+    padding: 10px 0;
+
+    .menu-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 30px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #1A1C31;
+      @media screen and (max-width: 767px) {
+        padding: 0px 5px;
+      }
+
+      &:hover {
+        background: #924C58;
+        color: #fff;
+      }
+
+      &.active {
+        background: #924C58;
+        color: #fff;
+      }
+
+      img {
+        width: 35px;
+      }
+
+      .menu-text {
+        font-weight: bold;
+      }
+    }
+  }
+
+}
+
+.quests-cover {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  margin: 15px 0;
+}
+
+.game-image {
+  width: 100%;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+h2 {
+  color: #FFB55C;
+  font-size: 30px !important;
+  margin: 10px 0;
+  font-weight: bold;
+  font-family: Montserrat, Tajawal, sans-serif;
+}
+
+:host ::ng-deep app-section {
+  h2 {
+    @extend h2;
+  }
+}
+
+:host ::ng-deep app-challenge-card {
+  /* Your styles here */
+
+  .card {
+    border-radius: 8px !important;
+
+    .status {
+      border-radius: 8px !important;
+      color: white !important;
+
+      &.finished, &.active {
+        h6 {
+          color: white !important;
+
+        }
+      }
+    }
+
+    .card-body {
+      background: #FFF5D1;
+      color: #000000;
+
+      h6 {
+        color: #000;
+      }
+
+      .marquee-container {
+        color: #000;
+        font-weight: bold;
+        font-size: 15px;
+      }
+    }
+
+    .card-footer {
+      background: #FFB55C;
+
+      p {
+        color: #000;
+      }
+    }
+  }
+
+}
+
+.active-game {
+  border: 1px solid #FFF4D1;
+  border-radius: 20px;
+}
+
+.login-riot {
+  display: flex;
+  align-items: center;
+  background: url("../../../../assets/riot-ramadan/login-riot.jpeg");
+  padding: 60px;
+  background-size: cover;
+  min-height: 350px;
+  border-radius: 8px;
+  @media screen and (max-width: 767px) {
+    background-position: center;
+  }
+
+  .info {
+    h1 {
+      font-size: 48px !important;
+      color: #FFB55C;
+    }
+
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.claim-button {
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
+
+  button {
+    @media screen and (max-width: 767px) {
+      width: 100%;
+    }
+    background: #FFB55C;
+    border-radius: 8px !important;
+    color: black;;
+    font-weight: bold;
+    padding: 10px 40px !important;
+  }
+}
+:host ::ng-deep {
+  .ant-page-header-heading {
+    align-items: center;
+  }
+}

@@ -1,0 +1,39 @@
+<h3 class="my-3">{{'common.prizes' | translate}}</h3>
+<div class="row mt-2">
+  <div class="col-md-9">
+    <ng-container *ngIf="(claims$ | async )as claims">
+      <!--      <ng-container *ngIf="!isLoading else loadingIndicator">-->
+      <ng-container *ngIf="claims?.data; else loadingIndicator">
+        <ng-container *ngIf="  claims?.data?.length ; else noClaims">
+
+          <div class="mb-3" *ngFor="let prize of claims.data ">
+            <app-gb-bar [card]="prize" [isPrize]="true" [type]="prize.claimable.type"></app-gb-bar>
+          </div>
+          <nz-pagination *ngIf="claims?.total > 8"
+                         [nzPageIndex]="claims.current_page"
+                         [nzPageSize]="8"
+                         [nzTotal]="claims?.total"
+                         (nzPageIndexChange)="changePage($event)"></nz-pagination>
+        </ng-container>
+      </ng-container>
+      <!--      </ng-container>-->
+    </ng-container>
+
+  </div>
+
+  <div class="col-md-3">
+    <div class="second-container prize-container">
+      <h5>{{'gamer.prizes.wallet' | translate}}</h5>
+      <img src="assets/svg-icons/wallet-icon.svg" alt="">
+      <h3 class="d-flex align-items-center">{{coins$|async | number}}
+        <img class="icon-style" src="assets/svg-icons/coins.svg" alt=""></h3>
+    </div>
+  </div>
+
+  <ng-template #noClaims>
+    <app-place-holder [text]="'gamer.prizes.noClaims' | translate" [className]="'second-container'"></app-place-holder>
+  </ng-template>
+
+  <ng-template #loadingIndicator>
+    <app-loading-indicator></app-loading-indicator>
+  </ng-template>

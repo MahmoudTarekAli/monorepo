@@ -1,0 +1,31 @@
+.server-alert {
+  position: fixed;
+  width: 100%;
+  top: 64px;
+  z-index: 100;
+
+  ::ng-deep {
+    .ant-alert-error {
+      background: red;
+      color: white;
+      border: none;
+      display: flex;
+      align-items: baseline;;
+      text-align: center;
+
+      .ant-alert-icon {
+        color: white;
+        font-size: 20px;
+      }
+
+      .ant-alert-message {
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+      }
+    }
+
+  }
+
+}
+

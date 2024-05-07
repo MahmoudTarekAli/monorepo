@@ -1,0 +1,12 @@
+.game-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  .card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 18px;
+  }
+}

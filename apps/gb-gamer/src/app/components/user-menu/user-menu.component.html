@@ -1,0 +1,174 @@
+<div *ngIf="menuViewName == ''" class="users" xmlns="http://www.w3.org/1999/html">
+
+  <ng-container *ngIf="userData | async  as user">
+
+    <div class="user-menu-container">
+      <ul>
+        <li routerLink="/gamer/{{user.slug}}" >
+          <img class="user-avatar" [ngClass]="{'premium-border' : user.is_premium}" [src]="user.avatar" alt="">
+
+          <div class="user-menu-info flex-1">
+            <div class="d-flex justify-content-between align-items-center">
+            <h3 class="d-flex flex-column"> {{user.username}}
+              <span class="ref_number" [ngClass]="{'premium-color' : user.is_premium}"> #{{user.reference_number}}</span>
+            </h3>
+              <div class="copy-user-icon" (click)="$event.stopPropagation()" nz-typography nzCopyable [nzCopyText]="user.slug"></div>
+
+            </div>
+
+            <h6 class="text-gray" routerLink="/gamer/{{user.slug}}">{{'navBar.userMenu.viewProfile' | translate}}</h6>
+          </div>
+        </li>
+      </ul>
+    </div>
+<!--    <ng-container *ngIf="!user.is_premium">-->
+<!--    <div class="user-menu-container limit" *ngIf="(monthlyJoinsCounts$ | async) as monthlyJoinsCounts">-->
+<!--        <div class="d-flex flex-row gap-1 align-items-center">-->
+<!--          <p class="flex-1">{{'navBar.userMenu.monthlyLimit' |translate}}</p>-->
+<!--          <h6 class="text-green">{{monthlyJoinsCounts.count + '/' + monthlyJoinsCounts.limit}}</h6>-->
+<!--        </div>-->
+<!--        <nz-progress [nzPercent]="monthlyJoinsCounts.percentage" [nzShowInfo]="false" [nzType]="'line'"></nz-progress>-->
+<!--        &lt;!&ndash;        <p class="mt-1 premium-paragraph">only premium members can access unlimited tournaments & challenges</p>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <span class="premium-paragraph gold" routerLink="/premium">Become Premium</span>&ndash;&gt;-->
+<!--    </div>-->
+<!--    </ng-container>-->
+    <div class="user-menu-container">
+      <ul>
+        <li routerLink="/gamer/{{user.slug}}/esports" [queryParams]="{tab:'matches'}"><img
+          src="assets/svg-icons/battle-icon.svg" alt="">{{'navBar.userMenu.upComingMatches' | translate}}
+        </li>
+        <li routerLink="/gamer/{{user.slug}}/esports"><img src="assets/svg-icons/trophy.svg" alt="">
+          {{'navBar.userMenu.joinedTournaments' | translate}}
+        </li>
+        <li routerLink="/gamer/{{user.slug}}/esports" [queryParams]="{tab:'joined-challenge'}"><img
+          src="assets/svg-icons/warrior-helmet.svg" alt="">{{'navBar.userMenu.joinedChallenges' | translate}}
+        </li>
+        <li routerLink="/gamer/{{user.slug}}/teams"><img src="assets/svg-icons/shield-icon.svg" alt="">{{'navBar.userMenu.myTeams' | translate}}</li>
+
+        <!--        <li routerLink="/gamer"></li>-->
+        <!--        <li (click)="changeMenuViewName('esports-settings')">-->
+        <!--          <img src="assets/svg-icons/settings-icon.svg" alt="">-->
+        <!--          eSports Settings-->
+        <!--          <img class="arrow-position" src="assets/svg-icons/arrow-right.svg" alt="">-->
+        <!--        </li>-->
+
+        <li routerLink="/gamer/{{user.slug}}/settings/connect-accounts">
+          <img src="assets/svg-icons/games-icon.svg" alt=""> {{'navBar.userMenu.linkedAccounts' | translate}}
+        </li>
+
+
+        <li *ngIf="(userData | async)  as user" (click)="changeMenuViewName('settings')"><img
+          src="assets/svg-icons/settings.svg" alt="">
+           {{'navBar.userMenu.accountSettings' | translate}}
+          <img class="arrow-position" src="assets/svg-icons/arrow-right.svg" alt="">
+        </li>
+      </ul>
+    </div>
+    <nz-divider class="my-0"></nz-divider>
+
+  </ng-container>
+  <ng-container *ngIf="isMobileView">
+    <div class="user-menu-container hub-info-card">
+      <a routerLink="/tournaments" class="card-holder">
+        <app-info-card [type]="'smaller'" [title]="'navBar.hub.join' | translate" [subTitle]="'navBar.tournaments' | translate"
+                       [icon]="'assets/svg-icons/battle-icon.svg'"></app-info-card>
+      </a>
+      <a routerLink="/games" class="card-holder">
+        <app-info-card [type]="'smaller'" [title]="'navBar.hub.play' | translate" [subTitle]="'navBar.games' | translate"
+                       [icon]="'assets/svg-icons/game_pad-icon.svg'"></app-info-card>
+      </a>
+
+      <a routerLink="/arenas" class="card-holder">
+        <app-info-card [type]="'smaller'" [title]="'navBar.hub.browse' | translate" [subTitle]="'navBar.arena'"
+                       [icon]="'assets/svg-icons/arena-icon.svg'"></app-info-card>
+      </a>
+      <a [href]="environment.organizerUrl" class="card-holder">
+        <app-info-card [type]="'smaller'" [title]="'common.create' | translate" [subTitle]="'navBar.tournaments' | translate"
+                       [icon]="'assets/svg-icons/game_pad-icon.svg'"></app-info-card>
+      </a>
+    </div>
+    <nz-divider class="my-0"></nz-divider>
+  </ng-container>
+
+  <ng-container *ngIf="(userData | async)">
+    <div class="user-menu-container">
+      <ul>
+        <a href="{{environment.storeUrl}}orders"><img src="assets/svg-icons/store.svg" alt="">{{'navBar.userMenu.orderHistory' | translate}}</a>
+        <a href="{{environment.storeUrl}}coins-logs"><img src="assets/svg-icons/coins-logs.svg" alt="">{{'navBar.userMenu.coinsLogs' | translate}}</a>
+      </ul>
+    </div>
+    <nz-divider class="my-0"></nz-divider>
+  </ng-container>
+  <div class="user-menu-container">
+    <ul>
+      <!--      Language-->
+            <li (click)="changeMenuViewName('language')"><img src="assets/svg-icons/language-icon.svg" alt="">{{'common.language' | translate}}
+              <img class="arrow-position" src="assets/svg-icons/arrow-right.svg" alt=""></li>
+      <a class="p-0" href="https://intercom.help/gbarenahelpcenter/en" target="_blank"><img src="assets/svg-icons/help-icon.svg" alt="">
+        {{'common.helpSupport' | translate}}
+      </a>
+      <!--      <li><img src="assets/svg-icons/feedback-icon.svg" alt="">Feedback</li>-->
+      <!--      <li class="refer-friend"><img src="assets/svg-icons/gift-green-icon.svg" alt="">Refer a friend</li>-->
+    </ul>
+  </div>
+  <div class="user-menu-container m-2" [ngClass]="{'bottom-drawer' : isDrawer}">
+    <app-button *ngIf="userData | async " (click)="authService.logout()" class="my-2 d-flex" variant="default-danger full-width">{{'navBar.userMenu.logOut' | translate}}
+    </app-button>
+    <h6 class="my-2 text-center">V3.0</h6>
+  </div>
+</div>
+<ng-container *ngIf="menuViewName === 'language'">
+  <div class="user-menu-container">
+    <ul>
+
+    <li class="title" (click)="changeMenuViewName('')">
+      <h4>
+        <img (click)="changeMenuViewName('')" src="assets/svg-icons/arrow-left.svg" class="me-2 back-image"> {{'navBar.userMenu.language' | translate}}
+      </h4>
+    </li>
+
+    <nz-radio-group [(ngModel)]="globalService.selectedLanguage" (ngModelChange)="changeLanguage($event)">
+      <label nz-radio nzValue="en-US">English</label>
+      <label nz-radio nzValue="ar-EG">Arabic</label>
+    </nz-radio-group>
+    </ul>
+
+  </div>
+</ng-container>
+<ng-container *ngIf="menuViewName === 'esports-settings'">
+  <div class="user-menu-container" *ngIf="(userData | async)  as user">
+    <h6 class="mb-2"><img (click)="changeMenuViewName('')" src="assets/svg-icons/arrow-left.svg"
+                          class="me-2 back-image"> {{'navBar.userMenu.esportsSettings' | translate}}
+    </h6>
+    <ul>
+
+      <li routerLink="/gamer/{{user.slug}}/esports"><img src="assets/svg-icons/trophy-icon.svg" alt="">
+        {{'navBar.userMenu.organizeTournaments' | translate}}
+      </li>
+    </ul>
+  </div>
+</ng-container>
+<ng-container *ngIf="menuViewName === 'settings'">
+  <div class="user-menu-container" *ngIf="(userData | async)  as user">
+    <ul>
+      <li class="title" (click)="changeMenuViewName('')">
+        <img src="assets/svg-icons/arrow-left.svg">
+        <h4>
+          {{'navBar.userMenu.accountSettings' | translate}}
+        </h4>
+      </li>
+
+      <li routerLink="/gamer/{{user.slug}}/settings/user-info"><img
+        src="assets/svg-icons/user-info-icon.svg" alt="">
+        {{'navBar.userMenu.userInfo' | translate}}
+      </li>
+      <li routerLink="/gamer/{{user.slug}}/settings/security-privacy"><img
+        src="assets/svg-icons/security-privacy-icon.svg" alt="">
+        {{'navBar.userMenu.securityPrivacy' | translate}}
+      </li>
+      <!--      <li routerLink="/gamer/{{user.slug}}/esports"><img src="assets/svg-icons/no" alt="">-->
+      <!--        Notifications-->
+      <!--      </li>-->
+    </ul>
+  </div>
+</ng-container>

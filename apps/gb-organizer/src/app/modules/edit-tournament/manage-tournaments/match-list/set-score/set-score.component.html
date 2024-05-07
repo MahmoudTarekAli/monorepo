@@ -1,0 +1,67 @@
+<div class="match">
+    <div class="match-versus">
+        <div class="match-versus-player">
+            <nz-avatar class="player" nzIcon="user" [nzSrc]="match?.home?.original?.avatar" nzSize="small"></nz-avatar>
+            <span>{{match?.home?.original?.participant_name | truncate: 15}}</span>
+        </div>
+        <div class="result" [formGroup]="setScoreForm">
+            <nz-input-number [nzMin]="0" formControlName="score_home"
+                             [nzStep]="1"></nz-input-number>
+            <nz-input-number [nzMin]="0" formControlName="score_away"
+                             [nzStep]="1"></nz-input-number>
+        </div>
+
+        <div class="match-versus-player">
+            <nz-avatar class="player" nzIcon="user" [nzSrc]="match?.away?.original?.avatar" nzSize="small"></nz-avatar>
+            <span>{{match?.away?.original?.participant_name | truncate: 15}}</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 ">
+        <nz-collapse [nzBordered]="false" [nzExpandIconPosition]="'right'" class="claims">
+            <nz-collapse-panel
+                    *ngFor="let claim of match.claims"
+                    [nzHeader]="header"
+            >
+                <ng-template #header>
+                    <div class="d-flex gap-2 align-items-center">
+                        <nz-avatar nzIcon="user" [nzSrc]="claim?.claimer?.avatar"></nz-avatar>
+                        <span>{{ claim?.claimer?.username}}</span>
+                        <span class="font-weight-bold">{{' : Claims score at'}}</span>
+                        <span class="text-white-50">{{claim?.created_at | date : 'EEEE, MMMM d, y, h:mm:ss a'}}</span>
+                    </div>
+                </ng-template>
+                <p>{{claim?.note}}</p>
+                <div class="uploadedImage" *ngIf="claim.screenshot">
+                    <img
+                            nz-image
+                            width="200px"
+                            height="200px"
+                            [nzSrc]="claim?.screenshot "
+                            alt=""
+                    />
+                </div>
+
+                <div class="claim-score">
+                    <div class="score" [ngClass]="match?.home?.is_winner === true ? 'winner' : 'loser'">
+                        <span> {{claim?.score_home}}</span>
+<!--                        <span> {{match?.home?.score}}</span>-->
+                    </div>
+                    <div class="score" [ngClass]="match?.away?.is_winner === true ? 'winner' : 'loser'">
+                        <span> {{claim?.score_away}}</span>
+<!--                        <span> {{match?.away?.score}}</span>-->
+                    </div>
+                </div>
+
+            </nz-collapse-panel>
+        </nz-collapse>
+
+
+    </div>
+</div>
+
+<div *nzModalFooter>
+    <button nz-button nzType="primary" (click)="submitScore()">Submit Score</button>
+    <button nz-button nzType="default" (click)="modal.destroy()">Cancel</button>
+</div>

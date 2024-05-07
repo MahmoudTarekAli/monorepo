@@ -1,0 +1,21 @@
+<h3>Joined Tournaments</h3>
+<div class="row">
+  <ng-container *ngIf="!(getJoinedTournamentsIsExecuting$ | async); else loadingIndicator">
+    <ng-container *ngIf="(JoinedTournaments | async)?.length > 0; else noTournaments">
+      <div class="col-md-3" *ngFor="let tournament of JoinedTournaments | async">
+        <app-tournament-card [tournament]="tournament"></app-tournament-card>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
+<ng-template #noTournaments>
+  <div class="second-container p-5">
+    <div class="d-flex flex-column align-items-center m-auto gap-10">
+      <h2>You don’t have any tournaments yet!</h2>
+    </div>
+
+  </div>
+</ng-template>
+<ng-template #loadingIndicator>
+  <app-loading-indicator></app-loading-indicator>
+</ng-template>

@@ -1,0 +1,15 @@
+
+<div class="p-3" *ngIf="!isUserSide; else userSide">
+  <h3 class="text-center my-3">Scan Qr Code</h3>
+
+<!--  <zxing-scanner class="mt-2" (scanSuccess)="claimAdminScore($event)" [formats]="allowedFormats"></zxing-scanner>-->
+</div>
+
+<ng-template #userSide>
+  <h3 class="text-center my-3">Claim Score</h3>
+<!--  nzIcon="assets/images/GBarena-type.svg"-->
+  <nz-qrcode class="qrcode-container" [nzValue]="this.authService.userAuth?.id.toString()"></nz-qrcode>
+
+  <h5 class="text-center">{{'ask_admin_qrcode' | translate}}</h5>
+  <app-button variant="primary fit-content" class="my-3 d-flex justify-content-center mx-auto" (click)="this.modal.close()">Done</app-button>
+</ng-template>

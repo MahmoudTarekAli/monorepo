@@ -1,0 +1,33 @@
+<router-outlet></router-outlet>
+
+
+<nz-divider></nz-divider>
+
+
+  <div class="container">
+    <div class="support-section">
+      <div class="item"  >
+        <h1>
+          Connect RIOT Account
+        </h1>
+        <div class="image red" (click)="hasAccount ? $event.stopPropagation() : linkRiotAccount()" [ngStyle]="{ 'cursor': hasAccount ? 'default' : 'pointer'}">
+          <img src="assets/images/riot-logo.png" alt="">
+
+          <div class="active" *ngIf="hasAccount" >
+            <img src="assets/svg-icons/ok-icon-green.svg" alt="">
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <h1>
+          Join our Community
+        </h1>
+        <a href="https://discord.com/invite/2SQh72GQ" class="image blue">
+          <img src="assets/svg-icons/discord.svg" alt="">
+        </a>
+      </div>
+
+    </div>
+  </div>
+

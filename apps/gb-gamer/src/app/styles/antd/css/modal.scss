@@ -1,0 +1,44 @@
+// Import mixins
+@import 'src/app/styles/core/variables.scss';
+
+.ant-modal {
+  color: $white;
+
+  &-mask {
+    background: rgba($black, 0.84);
+  }
+
+  &-close-x {
+    color: $white;
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    align-items: center;
+    padding-right: 15px;
+
+    &:hover {
+      color: $gray-3;
+    }
+  }
+
+  &-content {
+    background: $gb-main-bg;
+    border-radius: 8px;
+  }
+
+  &-header {
+    background: $gb-main-bg;
+    border-color: $gb-primary-color;
+    color: $white;
+    border-radius: 8px 8px 0 0;
+  }
+
+  &-footer {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.ant-modal-title {
+  color: $white;
+}

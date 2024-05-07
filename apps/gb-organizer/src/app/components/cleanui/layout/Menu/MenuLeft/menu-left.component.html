@@ -1,0 +1,167 @@
+<nz-sider nzCollapsible [nzWidth]="isMenuCollapsed ? 80 : leftMenuWidth" [nzCollapsible]="!isMobileView"
+          [nzTrigger]="sider_footer"
+          [nzCollapsed]="isMenuCollapsed && !isMobileView" (nzCollapsedChange)="onCollapse($event)" [ngClass]="{
+  menu: true,
+  white: menuColor === 'white',
+  gray: menuColor === 'gray',
+  dark: menuColor === 'dark',
+  unfixed: isMenuUnfixed,
+  shadow: isMenuShadow && !isMobileView
+}">
+  <div class="menuOuter" [ngStyle]="{
+    width: isMenuCollapsed && !isMobileView ? '80px' : leftMenuWidth + 'px',
+    height: isMobileView || isMenuUnfixed ? 'calc(100% - 183px)' : 'calc(100% - 318px)'
+  }">
+    <div class="logoContainer" *ngIf=" (!router.url.includes('my-tournaments'))">
+      <!--      <div class="logo">-->
+      <!--        <img routerLink="./" style="width: 40px; cursor: pointer" src="assets/GBarena-type.svg">-->
+      <!--      </div>-->
+
+      <div class="tournament-menu mt-5" *ngIf="router.url.includes('process') || router.url.includes('manage') ">
+        <nz-badge nzDot class="profile-badge {{(tournament | async)?.status | lowercase}}">
+          <nz-avatar
+            style="height: 90px !important; width: 90px !important; border: 2px solid {{statusColor[(tournament | async)?.status] }};"
+            nzIcon="user"
+            [nzSrc]="(tournament | async)?.profile_picture | defaultImage" nzSize="large"
+            [nzShape]="'circle'"></nz-avatar>
+        </nz-badge>
+
+        <app-marquee class="text-center text-white mb-1 mt-3" [text]="(tournament | async)?.name"></app-marquee>
+
+        <!--        <p class="text-center text-white title mb-1 mt-3"-->
+        <!--           style="padding: 0 10px 10px 10px"> {{(tournament | async)?.name}} </p>-->
+        <div class="d-flex flex-column">
+          <div class="d-flex w-100 justify-content-between gap-20" *ngIf="(tournament | async)?.is_published === true">
+            <button nz-button nzType="primary" class="mb-3 d-flex align-items-center flex-grow-2" (click)="gamerView()">
+              <img src="assets/svg-icons/eye-icon.svg"> &nbsp;
+              <p class="mb-0">Gamer View</p>
+            </button>
+
+
+            <button nz-button class="flex-grow-1 border-0 bg-white" (click)="openShareDialog()">
+              <img width="20" src="assets/svg-icons/share-icon.svg">
+            </button>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+    <!--    <perfect-scrollbar>-->
+
+    <ng-scrollbar>
+
+      <ul nz-menu class="navigation" [nzInlineIndent]="15" [nzMode]="'inline'" [nzSelectable]="true"
+          [nzInlineCollapsed]="isMenuCollapsed && !isMobileView">
+        <ng-container *ngTemplateOutlet="menuTpl; context: {$implicit: menuDataActivated, level: 0 }"></ng-container>
+        <ng-template #menuTpl let-menuDataActivated let-level="level" let-bottom="bottom">
+          <ng-container *ngFor="let item of menuDataActivated; trackBy: trackBy ; let index = index">
+            <ng-container>
+              <ng-template #tooltipTpl>{{ item.title | translate }}
+              </ng-template>
+              <!-- group title item -->
+              <li nz-menu-group [nzTitle]="item.category | translate" *ngIf="item.category"></li>
+              <!-- disabled item -->
+              <li nz-menu-item *ngIf="item.disabled" [nzSelected]="item.selected" [nzDisabled]="true"
+                  nz-tooltip
+                  nzTooltipPlacement="right"
+                  [nzTooltipTitle]="isMenuCollapsed && level === 0 ? tooltipTpl : ''">
+                <span [ngStyle]="{'padding-left.px': isMenuCollapsed ? '0' : level * 15}">
+                  <span class="title">
+                    <h2>{{item.title | translate}}</h2>
+                  </span>
+                  <span *ngIf="item.count" class="badge badge-success ml-2">{{ item.count }}</span>
+                  <!--                  <i *ngIf="item.icon" [ngClass]="[item.icon, 'icon']"></i>-->
+
+                </span>
+              </li>
+              <!-- main item -->
+              <li nz-menu-item *ngIf="!item.children && item.url" routerLink={{item.url}} (click)="toggleMobileMenu()"
+                  [ngClass]="(item.key === 'support' ? 'bottom' : '' || item.key === 'merchants' ? 'merchants' : '' || isMenuCollapsed === true ? 'ul-mob': '')"
+                  [nzSelected]="item.selected"
+                  [nzDisabled]="item.disabled" nz-tooltip nzTooltipPlacement="right"
+                  [nzTooltipTitle]="isMenuCollapsed && level === 0 ? tooltipTpl : ''">
+
+                <span [ngStyle]="{'padding-left.px': isMenuCollapsed ? '0' : level * 15}"
+                      class="w-100 justify-content-end flex-title-item">
+
+                  <ng-lottie nz-tooltip="true" [nzTooltipColor]="'#C28833'"
+                             nzTooltipPlacement="right"
+                             [nzTooltipTitle]="'Missing required info to publish tournament' | uppercase" width="40px"
+                             height="40px" style="margin-left: auto" *ngIf="item.missingFields === true"
+                             [options]="options"></ng-lottie>
+
+                  <!--                  <img nz-tooltip="true"-->
+                  <!--                       [nzTooltipColor]="'#7575a3'"-->
+                  <!--                       [nzTooltipTitle]="'Missing required info to publish tournament' | uppercase"-->
+                  <!--                       src="assets/svg-icons/Icon%20awesome-info.svg" *ngIf="item.missingFields === true"-->
+                  <!--                       class="ml-auto">-->
+                  <span class="title">
+                    <h2>{{item.title | translate}}</h2>
+                  </span>
+                  <span *ngIf="item.count" class="badge badge-success ml-2">{{ item.count }}</span>
+                  <!--                  <i [ngStyle]="{'top.px': isMenuCollapsed ? '11' : 0}" *ngIf="item.icon"-->
+                  <!--                     [ngClass]="[item.icon, 'icon']"></i>-->
+                  <img [ngStyle]="{'top.px': isMenuCollapsed ? '11' : 0, 'width.px': 20, 'height.px': 20}"
+                       *ngIf="item.img" src="{{item.img}}" alt="">
+                </span>
+              </li>
+              <!-- submenu item with recursive template -->
+              <li nz-submenu *ngIf="item.children" (nzOpenChange)="changeCollapse($event , index)"
+                  [nzOpen]="collapseArray?.[index] && !isMenuCollapsed">
+                <span title [ngStyle]="{'padding-left.px': isMenuCollapsed ? '33' : level * 15}">
+                  {{item.missingFields}}
+                  <span class="title">{{item.title | translate}}</span>
+                  <span *ngIf="item.count" class="badge badge-success ml-2">{{ item.count }}</span>
+
+                  <img [ngStyle]="{'top.px': isMenuCollapsed ? '11' : 0, 'width.px': 20, 'height.px': 20}"
+                       *ngIf="item.img" src="{{item.img}}" alt="">
+                </span>
+                <ul>
+                  <ng-container
+                    *ngTemplateOutlet="menuTpl; context: {$implicit: item.children, level: level + 1}">
+                  </ng-container>
+                </ul>
+              </li>
+            </ng-container>
+          </ng-container>
+        </ng-template>
+      </ul>
+      <!--    </perfect-scrollbar>-->
+    </ng-scrollbar>
+  </div>
+</nz-sider>
+
+<ng-template #sider_footer>
+  <div (click)="$event.stopPropagation()">
+    <ng-container *ngIf="getTournament$ | async as tournament">
+      <!--      Cancel tournament   -->
+      <!--      <div class="sider-action-button">-->
+      <!--        <ng-container-->
+      <!--          *ngIf="tournament?.status === 'Open' || tournament?.status === 'Live'">-->
+      <!--          <button nz-button nzType="default" class="cancel-tournament" nzSize="large" (click)="cancelTournament()"-->
+      <!--                  style="padding-left: 35px; padding-right: 35px"-->
+      <!--                  *ngIf="!isMenuCollapsed ">-->
+      <!--            {{'cancel_tournament' | translate}}-->
+      <!--          </button>-->
+      <!--          <span nz-tooltip="true" nzTooltipTitle="Cancel Tournament" nz-icon nzType="stop" nzTheme="outline"-->
+      <!--                *ngIf="isMenuCollapsed"></span>-->
+      <!--        </ng-container>-->
+
+      <!--        &lt;!&ndash;      publish tournament   &ndash;&gt;-->
+      <!--        <ng-container *ngIf="tournament?.status === null">-->
+      <!--          <button nz-button nzType="primary" nzSize="large" style="padding-left: 35px; padding-right: 35px"-->
+      <!--                  *ngIf="!isMenuCollapsed" (click)="publishTournament()">-->
+      <!--            {{'publish_tournament' | translate}}-->
+      <!--          </button>-->
+      <!--          <span nz-tooltip="true" nzTooltipTitle="Publish Tournament" nz-icon nzType="play-circle" nzTheme="outline"-->
+      <!--                *ngIf="isMenuCollapsed"></span>-->
+      <!--        </ng-container>-->
+      <!--      </div>-->
+      <nz-divider class="m-0"
+                  *ngIf="tournament?.status === 'Open' || tournament?.status === 'Live' || tournament?.status === null"></nz-divider>
+    </ng-container>
+  </div>
+</ng-template>
+

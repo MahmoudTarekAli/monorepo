@@ -1,0 +1,59 @@
+<nz-select [nzShowSearch]="true" nzPlaceHolder="{{'Select Winners From participants'|translate}}"
+           (ngModelChange)="pushToWinner($event)" [(ngModel)]="selectedWinner"
+           [nzShowArrow]="true">
+  <nz-option *ngFor="let participant of participants" [nzLabel]="participant.original.participant_name"
+             [nzValue]="participant.original.id">
+
+    <ng-template #templateUser>
+      <nz-avatar nzIcon='user' [nzSrc]='participant.original.avatar' nzSize='default'
+                 class='avatar mx-2'></nz-avatar>
+      {{participant.original.participant_name}}
+    </ng-template>
+  </nz-option>
+
+</nz-select>
+
+<!--  <nz-input-group nzSize='default' [nzSuffix]='suffixIcon'>-->
+<!--    <input #searchInput nz-input [(ngModel)]='selectedWinner' [nzAutocomplete]='auto'-->
+<!--           [ngModelOptions]='{standalone: true}' placeholder="{{'moderator_placeholder'|translate}}">-->
+<!--  </nz-input-group>-->
+<!--  <nz-autocomplete #auto>-->
+<!--    <nz-auto-option *ngFor='let user of participants' [nzValue]='user.original.id'>-->
+<!--      <nz-avatar nzIcon='user' [nzSrc]='user.original.avatar' nzSize='default'-->
+<!--                 class='avatar mx-2'></nz-avatar>-->
+<!--      {{user.original.participant_name}}</nz-auto-option>-->
+
+<!--  </nz-autocomplete>-->
+<div class="d-flex justify-content-center flex-column ">
+  <ng-container *ngIf="winners.length > 0 ; else noWinners">
+    <div class="winner-container " *ngFor="let winner of winners ; let index = index">
+      <div class="d-flex align-items-center">
+        <p>{{index + 1}}</p>
+      <nz-avatar *ngIf="winner?.avatar" nzIcon='user' [nzSrc]='winner.avatar' nzSize='small' class='avatar mx-4'></nz-avatar>
+      <nz-avatar *ngIf="winner?.participant_avatar" nzIcon='user' [nzSrc]='winner.participant_avatar' nzSize='small' class='avatar mx-4'></nz-avatar>
+        <p>{{winner.participant_name}}</p>
+      </div>
+      <div class="d-flex gap-2">
+<!--        <div class="svg-container" >-->
+<!--          <img src="../../../../../../assets/svg-icons/solid%20trophy.svg" alt="">-->
+<!--        </div>-->
+        <div class="svg-container" [nz-tooltip]="'remove participant'" (click)="removeParticipant(index)">
+          <img src="assets/svg-icons/trash-icon.svg" alt="">
+        </div>
+
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #noWinners>
+  <p class="text-center">{{'No Winners'|translate}}</p>
+</ng-template>
+<ng-template #suffixIcon>
+  <span nz-icon nzType='search'></span>
+</ng-template>
+<div *nzModalFooter>
+  <button nz-button class="d-flex m-auto" nzType="primary" (click)="finishTournament()" [nzLoading]="isConfirmLoading">Finish
+    Tournament
+  </button>
+</div>

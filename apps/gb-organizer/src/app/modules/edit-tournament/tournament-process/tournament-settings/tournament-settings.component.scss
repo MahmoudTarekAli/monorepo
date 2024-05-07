@@ -1,0 +1,79 @@
+@import '../../../../components/mixins';
+
+::ng-deep{
+  .ant-tabs-tab{
+    background: none!important;
+    border: none!important;
+  }
+  .ant-tabs-nav .ant-tabs-tab-active{
+    border-bottom: 3px solid #8429F5 !important;
+
+  }
+  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+    color: #fff !important;
+  }
+  ngx-intl-tel-input{
+    .search-container {
+      input {
+        &#country-search-box {
+          padding: 0.5em;
+          background: $gb-sec-bg!important;
+          border-bottom: #555186 1px solid;
+        }
+        &::placeholder{
+          color: $gray-4 !important;
+
+        }
+      }
+    }
+    input[type=tel]{
+      height: 32px;
+      background: $gb-sec-bg;
+      border-radius: 4px;
+      border: none;
+      display: flex;
+      width: 100% ;
+      &::placeholder{
+        color: $gray-4 !important;
+
+      }
+    }
+    .iti{
+      width: 100% !important;
+    }
+  }
+  .dropdown-menu {
+    //width: 300px !important;
+    font-size: 0.7em !important;
+    border-radius: 0.5em !important;
+    color: #fff !important;
+    height: 200px !important;
+    overflow: hidden;
+
+    ul {
+      background: #24215a;
+      min-width: 300px;
+      border-radius: 0 !important;
+    }
+  }
+
+}
+
+.moderators-list{
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  background: $gb-sec-bg;
+  border-radius: 8px;
+  margin: 5px 0;
+  align-items: center;
+}
+
+p{
+  margin: 10px 0;
+}
+.action-button:active{
+  background: none!important;
+}

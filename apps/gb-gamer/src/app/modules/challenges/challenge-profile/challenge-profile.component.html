@@ -1,0 +1,306 @@
+<ng-container *ngIf="!loading ;else loadingIndicator">
+  <ng-container *ngIf="(challenge$ | async) as challenge">
+    <div class="container">
+
+      <app-banner-card [inner]="true" [banner]="challenge.banner" [gameIcon]="challenge.game.icon">
+
+        <div class="info" ngProjectAs="tournament-description">
+          <h5 class="text-gray d-flex">{{ challenge.game.name }}
+            <p *ngIf="challenge.is_premium" class="pemium-text">{{ 'premium.gbPrimeSubscriber' | translate }}</p>
+          </h5>
+          <h2>{{ challenge.name }}</h2>
+          <p *ngIf="challenge?.arena?.name">{{ 'common.hostedBy' | translate }}
+            <a routerLink="/arenas/{{challenge?.arena?.slug}}" class=arena-name>{{ challenge?.arena?.name }}</a></p>
+          <div class="status-container">
+            <div class="status {{challenge.status | lowercase}}"><p>{{ challenge.status }}</p></div>
+            <h4 *ngIf="challenge.status === CHALLENGE_STATUS.OPEN">Starts
+              in {{ challenge.start_at | countdown | async }} </h4>
+            <h4 class="text-green" *ngIf="challenge.status === CHALLENGE_STATUS.LIVE"><b>Ends in</b>
+              ({{ challenge.end_date | countdown | async }})</h4>
+          </div>
+        </div>
+        <div class="buttons-container" *ngIf="(isUserJoined$ | async) as isJoined" ngProjectAs="tournament-buttons">
+
+
+          <ng-container *ngIf="!(isUserJoined$|async).isJoined  else JoinedChallenge">
+            <app-button
+              *ngIf="isJoined.isJoinable && (isLoggedIn | async)  && challenge?.status !== CHALLENGE_STATUS.FINISHED"
+              (click)="joinChallenge(challenge)"
+              variant="two-tone-primary"
+              class="flex-grow-1">{{ 'challenge.joinChallenge' | translate | uppercase }}
+            </app-button>
+            <app-button
+              *ngIf="!challenge.is_premium && this.monthlyJoinsCount >= this.monthlyJoinsLimit && (isLoggedIn | async) && !isJoined.isJoinable  && challenge?.status !== CHALLENGE_STATUS.FINISHED"
+              (click)="joinChallenge(challenge)"
+              variant="two-tone-primary"
+              class="flex-grow-1">{{ 'challenge.joinChallenge' | translate | uppercase }}
+            </app-button>
+
+            <!--          When logged out-->
+            <app-button
+              *ngIf="!challenge.is_premium && challenge?.status !== CHALLENGE_STATUS.FINISHED && !(isLoggedIn | async)"
+              (click)="routeLogin()"
+              variant="two-tone-primary"
+              class="flex-grow-1">{{ 'challenge.joinChallenge' | translate  | uppercase }}
+            </app-button>
+
+
+            <app-button class="flex-grow-1" *ngIf="challenge.is_premium && !isJoined.isJoinable" routerLink="/prime"
+                        variant="primary">
+              <img src="assets/svg-icons/pro-icon.svg" alt="">
+              {{ 'common.buttons.upgradeToPremium' | translate | uppercase }}
+            </app-button>
+            <ng-container *ngIf="challenge.authority !== 'None'  && challenge?.status !== CHALLENGE_STATUS.FINISHED
+&& this.challenge.password_type === 'qrcode'">
+              <div class="d-flex flex-row w-100">
+                <app-button class="flex-grow-1" (click)="openScanQrCodeDialog()" variant="white">
+                  <img src="assets/svg-icons/scanner.svg" alt="">
+                  {{ 'Scan QR' | uppercase }}
+                </app-button>
+              </div>
+            </ng-container>
+          </ng-container>
+          <ng-template #JoinedChallenge>
+            <ng-container *ngIf="(isLoggedIn | async) ">
+              <app-button *ngIf="challenge.status === CHALLENGE_STATUS.LIVE && !isClaim" (click)="claimScore(challenge)"
+                          class="flex-grow-1"
+                          [nz-tooltip]="isJoined?.restricted ? 'Your IP address is not allowed' : null"
+                          [disabled]="isJoined?.restricted "
+                          [nzTooltipColor]="'red'"
+                          variant="two-tone-primary">{{ 'challenge.claimScore'|translate | uppercase }}
+              </app-button>
+              <app-button *ngIf="challenge.status === CHALLENGE_STATUS.LIVE && isClaim" variant="two-tone-primary"
+                          class="flex-grow-1">
+                {{ isJoined.next_score_claim_date | countdown: false: true | async }}
+              </app-button>
+              <div class="d-flex gap-2 flex-row flex-grow-1">
+                <app-button *ngIf="challenge.authority !== 'None'  && challenge?.status !== CHALLENGE_STATUS.FINISHED
+                && this.challenge.password_type === 'qrcode' " class="flex-grow-1" (click)="openScanQrCodeDialog()"
+                            variant="green">
+                  <img src="assets/svg-icons/scanner.svg" alt="">
+                  <!--                  {{'Scan QR' | uppercase}}-->
+                </app-button>
+
+                <app-button *ngIf="challenge.status !== CHALLENGE_STATUS.FINISHED && challenge.allow_referrals"
+                            class="flex-grow-1" (click)="referFriend(isJoined, challenge)"
+                            variant="white">{{ 'challenge.referFriend' | translate | uppercase }}
+                </app-button>
+                <!--                <div class="scanner-container" *ngIf="challenge.authority !== 'None'  && challenge?.status !== CHALLENGE_STATUS.FINISHED && this.challenge.password_type === 'qrcode'">-->
+                <!--                <img  (click)="openScanQrCodeDialog()"  src="assets/svg-icons/scanner.svg" alt="">-->
+                <!--                </div>-->
+
+
+              </div>
+            </ng-container>
+          </ng-template>
+          <app-button class="w-100" variant="default" ngProjectAs="tournament-buttons"
+                      (click)="manageChallenge(challenge)"
+                      *ngIf="challenge.authority != 'None'">{{ 'challenge.manageChallenge' | translate }}
+          </app-button>
+        </div>
+      </app-banner-card>
+
+      <div class="location-container" *ngIf="challenge?.restrictions.length">
+        <div class="d-flex align-items-center">
+          <img src="assets/svg-icons/location-on.svg" alt="location">
+          <h4 class="mx-2"> This challenge is open to participants from specific locations only</h4>
+        </div>
+        <app-button variant="white" *ngIf="challenge.authority !== 'None'" (click)="openLocationModal(challenge)">
+          Click Here
+        </app-button>
+      </div>
+
+      <!--      Challenge Info-->
+      <app-section [title]="'challenge.challengeInfo'|translate">
+        <ng-scrollbar>
+          <div class="gap-2 d-flex flex-nowrap justify-content-between">
+            <!--            <app-info-card [icon]="'assets/svg-icons/arena-icon.svg'" [title]="challenge?.arena?.name"-->
+            <!--                           *ngIf="challenge?.arena"-->
+            <!--                           [type]="'challenge'">-->
+            <!--              <app-button (click)="followUnfollowArena(challenge?.arena,isFollowArena ? 'unfollow' : 'follow')"-->
+            <!--                          variant="secondary">-->
+            <!--                <img ngProjectAs="image" style="width: 25px;  height: 25px;  border-radius: 50%;"-->
+            <!--                     [src]="challenge?.arena?.profile_picture">-->
+            <!--                {{ (isArenaFollowed$| async) ? ('common.unfollow' | translate) : ('common.follow' | translate) }}-->
+            <!--                <img style="height: 15px" src="assets/svg-icons/{{isFollowArena? 'minus-icon' : 'plus-icon'}}.svg"-->
+            <!--                     alt="">-->
+            <!--              </app-button>-->
+
+            <!--            </app-info-card>-->
+            <app-info-card [icon]="'assets/svg-icons/game_pad-icon.svg'" [title]="'common.type' | translate"
+                           [type]="'challenge'"
+                           [subTitle]="challenge.type"></app-info-card>
+            <app-info-card [icon]="'assets/svg-icons/game-pad-arrow-icon.svg'" [title]="'common.mode' | translate"
+                           [type]="'challenge'"
+                           [subTitles]="challenge.settings.allowed_modes"></app-info-card>
+            <app-info-card [icon]="'assets/svg-icons/prizes-icon.svg'" [title]="'common.prize' | translate"
+                           [type]="'challenge'"
+                           [subTitle]=" challenge?.prize_pool | formatCoins">
+              <img class="mx-2" ngProjectAs="image" src="assets/svg-icons/coins.svg">
+            </app-info-card>
+            <app-info-card [icon]="'assets/svg-icons/users-icon.svg'" [title]="'common.participants'| translate"
+                           [type]="'challenge'"
+                           [subTitle]="challenge.total_participants_count">
+            </app-info-card>
+            <!--            Minimum Level-->
+            <app-info-card *ngIf="challenge?.settings?.minimum_level" [icon]="'assets/svg-icons/star.svg'"
+                           [title]="'challenge.minimumLevel'| translate"
+                           [type]="'challenge'"
+                           [subTitle]="challenge.settings?.minimum_level">
+            </app-info-card>
+              <!--              Allowed Ranks-->
+<!--              <app-info-card *ngIf="challenge?.settings?.minimum_level" [icon]="'assets/svg-icons/info.svg'"-->
+<!--                             [title]="'challenge.allowedRanks'| translate"-->
+<!--                             [type]="'challenge'"-->
+<!--                             [subTitle]="challenge.settings?.minimum_level">-->
+<!--              </app-info-card>-->
+
+              <app-info-card [icon]="'assets/svg-icons/rules-icon.svg'" [title]="'common.rules'| translate"
+                             [type]="'challenge'">
+                <app-button (click)="viewRules(challenge)"
+                            variant="secondary">{{ 'challenge.viewRules' | translate }}
+                </app-button>
+              </app-info-card>
+
+          </div>
+        </ng-scrollbar>
+
+
+      </app-section>
+      <div class="row row-gap-3">
+        <div class="col-md-5  col-12" *ngIf="challenge?.arena">
+          <app-section [title]="'common.organizer' | translate">
+            <app-arena-card [arena]="challenge.arena" [isChallenge]="true"
+                            [flexDirection]="'row'" [typeOfFollowArena]="isFollowArena">
+              <div class="d-flex flex-column gap-2">
+                <h3>{{ challenge.arena.name }} </h3>
+
+                <app-button (click)="followUnfollowArena(challenge?.arena, isFollowArena ? 'unfollow' : 'follow' )"
+                            variant="primary">
+                  {{ (isArenaFollowed$| async) ? ('common.unfollow' | translate) : ('common.follow' | translate) }}
+                </app-button>
+              </div>
+            </app-arena-card>
+          </app-section>
+        </div>
+        <div class=" col-md-7 col-12" *ngIf="challenge.event">
+          <app-section [title]="'common.event' | translate" [container]="'d-flex flex-column h-100'">
+            <div class=" event-container p-3 gap-2"
+                 [ngStyle]="{'background-image' : 'url(' + challenge.event.cover_picture + ')'}">
+              <h3>{{ challenge.event.name }}</h3>
+              <app-button variant="default border-white fit-content"
+                          routerLink="{{challenge.event.slug | appEventRouter}}">
+                {{ 'common.seeMore' | translate }}
+              </app-button>
+            </div>
+          </app-section>
+        </div>
+      </div>
+
+    </div>
+
+  </ng-container>
+
+  <div class="spacer"></div>
+  <ng-container *ngIf="(participants$ | async) as participants">
+    <ng-container *ngIf="!loadingParticipants ;else loadingIndicator">
+      <div class="container">
+        <app-section [title]="'challenge.leaderboard' | translate">
+          <ng-scrollbar>
+            <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger
+                      [nzFrontPagination]="false"
+                      [nzData]="(participants$ | async).data"
+                      [nzPageSize]="50"
+                      class="border-radius-10 overflow-hidden"
+                      [nzScroll]="isMobileView ? { x: '1100px' }  : {}">
+              <thead>
+              <tr>
+                <th *ngFor="let column of displayedColumns">{{ column | translate }}</th>
+
+
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let data of rowSelectionTable.data; let index = index"
+                  [ngClass]="{'owner-row' :data?.isOwner == true}">
+                <td>
+                  {{ data?.rank ? data?.rank : '_' }}
+                  <ng-container *ngIf="data?.score">
+                    <img class="icon-challenge" *ngIf="data.rank_offset < 0" src="assets/svg-icons/down.svg" alt="">
+                    <img class="icon-challenge" *ngIf="data.rank_offset > 0" src="assets/svg-icons/up.svg" alt="">
+                    <span class="icon-challenge" *ngIf="data.rank_offset === 0">__</span>
+                  </ng-container>
+                  <span *ngIf="!data.score" class="icon-challenge">__</span>
+
+                </td>
+
+                <td class="d-flex align-items-center">
+                  <nz-avatar routerLink="/gamer/{{data.slug}}" [nzSize]="'large'" [nzSrc]="data?.avatar"></nz-avatar>
+                  <app-marquee style="max-width: 100px; min-width: 70px; cursor: pointer" class="card-text mx-2"
+                               [text]="data.username"></app-marquee>
+                  <nz-avatar class="country" routerLink="/gamer/{{data.slug}}" [nzSize]="'small'"
+                             [nzSrc]="data?.country | countryImage"></nz-avatar>
+                </td>
+                <td>
+                  <img *ngIf="data?.game_rank?.image !== 'unranked' " [nz-tooltip]="data?.game_rank?.name"
+                       class="image-container" src="{{data?.game_rank?.image}}" alt="">
+                  <p *ngIf="data?.game_rank?.image === 'unranked'">{{ data?.game_rank?.image | uppercase }}</p>
+                </td>
+                <td>
+                  <div class="coins-container">
+                    <div>
+                      <span>{{ data?.prize ? (data.prize | number) : '_' }}</span>
+                      <span [nz-tooltip]="'From Referrals'" *ngIf="data?.ref_prize"
+                            style="color: #00cb7a"> +{{ data?.ref_prize | number }}</span>
+                    </div>
+                    <img *ngIf="data?.prize" class="mx-2" [nz-tooltip]="'gb_coins_redeemed' | translate"
+                         src="assets/svg-icons/GB_Coins.svg">
+                  </div>
+
+                </td>
+                <td>{{ data?.score ? data?.score : '_' }}</td>
+
+                <td>
+                  <ng-container *ngIf="data?.champion?.image; else noImage">
+                    <img class="image-container champion" [nz-tooltip]="data?.champion?.name"
+                         src="{{data?.champion?.image}}" alt="">
+                  </ng-container>
+                </td>
+                <td *ngIf="shownRequiredInputsNames && shownRequiredInputsNames.length > 0">
+                  <ng-container *ngFor="let requiredInput of shownRequiredInputsNames">
+                    <ng-container *ngIf="data?.required_inputs &&data?.required_inputs?.length > 0 ; else noInput ">
+                      <ng-container *ngFor="let req of data.required_inputs">
+                        <ng-container *ngIf=" req?.name === requiredInput ">
+                          {{ req.value }}
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                    <ng-template #noInput>
+                      __
+                    </ng-template>
+                  </ng-container>
+                </td>
+                <ng-template #noImage>
+                  <p>__</p>
+                </ng-template>
+              </tr>
+
+              </tbody>
+            </nz-table>
+          </ng-scrollbar>
+          <div class="col-12 d-flex justify-content-end" *ngIf="participants?.meta?.total > 50">
+            <nz-pagination [nzPageIndex]="participants.meta.current_page"
+                           [nzPageSize]="50"
+                           [nzTotal]="participants?.meta?.total"
+                           (nzPageIndexChange)="changePage($event)"></nz-pagination>
+          </div>
+
+        </app-section>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-template #loadingIndicator>
+  <app-loading-indicator></app-loading-indicator>
+</ng-template>

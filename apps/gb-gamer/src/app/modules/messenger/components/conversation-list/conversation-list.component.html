@@ -1,0 +1,47 @@
+<div class="conversation-list second-container" [ngStyle]="{height: link ?  '100%': '40vh'}">
+  <ng-container *ngIf="(messagesList$ | async).length > 0 else empty"></ng-container>
+  <div class="user gap-10" *ngFor="let messenger of (messagesList$ | async)" (click)="openChat(messenger)"
+       [ngStyle]="{background : messenger?.readBy?.indexOf(user?.id) ? 'transparent': '#2B0264'}"
+       [ngClass]="{'selected-chat':selectedChat?.id === messenger.id}">
+    <div class="left">
+      <div class="profile-img">
+        <img src="{{messenger.avatar ? messenger.avatar : 'assets/svg-icons/announcement-message.svg'}}">
+      </div>
+      <div class="message-info">
+
+        <div class="name">
+          <p nz-typography nzEllipsis>{{messenger.name | truncate: 20 }}</p>
+        </div>
+        <div class="message w-100">
+          <p nz-typography nzEllipsis [innerHTML]="messenger.last_message.body.slice(0,20)"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <ng-container *ngIf="messenger.last_message.created_at?.seconds; else noSeconds">
+        {{(messenger.last_message.created_at?.seconds * 1000) | date: 'yyyy/MM/dd, HH:mm' | timeAgo }}
+      </ng-container>
+
+      <ng-template #noSeconds>
+        {{(messenger.updated_at * 1000) | date: 'yyyy/MM/dd, HH:mm' | timeAgo }}
+      </ng-template>
+    </div>
+    <div class="dot" *ngIf="!messenger?.readBy?.indexOf(user.id)"></div>
+  </div>
+  <!--   </ng-container>-->
+  <ng-template #empty>
+    <div class="nodata-placeholder">
+      <img src="assets/svg-icons/no-messages-icon.svg" alt="">
+      <h3>{{'placeholder.noMessages' | translate}}</h3>
+      <p class="text-gray">{{'placeholder.noMessagesPlaceHolder' | translate}}</p>
+<!--      <h5>You have no messages yet!</h5>-->
+    </div>
+  </ng-template>
+</div>
+
+<!--<ng-template #empty>-->
+<!--  <img class="mt-3" src="assets/svg-icons/chat-placeholder.svg" width="50" height="50">-->
+<!--  <app-place-holder [text]="'It\'s nice to chat with someone'">-->
+<!--  </app-place-holder>-->
+<!--</ng-template>-->

@@ -1,0 +1,62 @@
+<app-production-server-alert></app-production-server-alert>
+<div [ngClass]="{
+
+  'cui__layout__grayBackground': isGrayBackground ,
+}">
+  <nz-layout [ngClass]="{
+  'cui__layout__contentMaxWidth': isContentMaxWidth,
+  'cui__layout__appMaxWidth': isAppMaxWidth,
+  'cui__layout__grayBackground': isGrayBackground,
+  'cui__layout__squaredBorders': isSquaredBorders,
+  'cui__layout__cardsShadow': isCardShadow,
+  'cui__layout__borderless': isBorderless
+}">
+    <nz-header [ngClass]="{
+        'cui__layout__header': true,
+        'cui__layout__fixedHeader': isTopbarFixed,
+        'cui__layout__headerGray': isGrayTopbar
+      }">
+      <cui-topbar></cui-topbar>
+    </nz-header>
+
+    <!--    <cui-sidebar></cui-sidebar>-->
+
+    <!-- left menu -->
+    <!-- FIX: nz-sider wrapper fix layout behaviour in case when cui-menu-left root tag breaks layout transformation -->
+
+    <!-- mobile menu with drawer -->
+    <!--    <cui-sidebar></cui-sidebar>-->
+
+
+    <!-- top menu -->
+    <nz-layout [ngClass]="{  'rtl' : lang == 'ar-EG'}">
+      <ng-container *ngIf=" !router.url.includes('create') && !router.url.includes('challenges')">
+        <nz-sider nzReverseArrow="true" *ngIf="!isMobileView && (!router.url.includes('my-tournaments'))" [nzWidth]="isMenuCollapsed ? 80 : leftMenuWidth" style="transition: none !important">
+          <cui-menu-left></cui-menu-left>
+        </nz-sider>
+      </ng-container>
+      <div *ngIf="isMobileView && (router.url.includes('/tournament') )" >
+        <nz-drawer [nzClosable]="true" [nzWrapClassName]="'mobileMenu'" [nzVisible]="isMobileMenuOpen"
+                   [nzPlacement]="'right'"
+                   (nzOnClose)="toggleMobileMenu()">
+          <ng-container *nzDrawerContent>
+            <cui-menu-left></cui-menu-left>
+
+          </ng-container>
+        </nz-drawer>
+      </div>
+      <nz-content style="height: 100%; position: relative; margin-bottom: 65px" *ngIf="(isLoggedIn|async)">
+        <div class="cui__utils__content" >
+            <ng-container>
+              <router-outlet #outlet="outlet"></router-outlet>
+            </ng-container>
+        </div>
+      </nz-content>
+      <nz-footer>
+        <cui-footer></cui-footer>
+      </nz-footer>
+    </nz-layout>
+
+  </nz-layout>
+</div>
+

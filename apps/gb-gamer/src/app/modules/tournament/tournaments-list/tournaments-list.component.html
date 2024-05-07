@@ -1,0 +1,63 @@
+<div class="container">
+
+  <div class="row my-2 row-gap-2">
+    <div class="col-lg-3 col-md-6 col-12 d-flex align-items-center h-100">
+      <nz-select [nzPlaceHolder]="'common.game'| translate" class="w-100" [(ngModel)]="gameId"
+                 (ngModelChange)="getTournaments()">
+        <nz-option [nzLabel]="'all'| translate" [nzValue]="null"></nz-option>
+        <nz-option *ngFor="let game of (Games$|async).games" [nzLabel]="game.name" [nzValue]="game.id"></nz-option>
+      </nz-select>
+    </div>
+    <div class="col-lg-3 col-md-6 col-12 d-flex align-items-center h-100">
+      <nz-select [nzPlaceHolder]="'common.status' |translate" class="w-100" [(ngModel)]="status"
+                 (ngModelChange)="getTournaments()">
+        <nz-option [nzLabel]="'common.open' |translate" [nzValue]="'Open'"></nz-option>
+        <nz-option [nzLabel]="'common.live'| translate" [nzValue]="'Live'"></nz-option>
+        <nz-option [nzLabel]="'common.finished' | translate" [nzValue]="'Finished'"></nz-option>
+      </nz-select>
+    </div>
+    <div class="col-lg-3 col-md-6 col-12 d-flex align-items-center h-100">
+      <nz-select [nzPlaceHolder]="'common.participantsType' | translate " class="w-100" [(ngModel)]="participantsType"
+                 (ngModelChange)="getTournaments()">
+        <nz-option [nzLabel]="'all'|translate" [nzValue]="null"></nz-option>
+        <nz-option [nzLabel]="'single'|translate" [nzValue]="'single'"></nz-option>
+        <nz-option [nzLabel]="'teams'|translate" [nzValue]="'teams'"></nz-option>
+      </nz-select>
+    </div>
+    <!--  <div class="col-lg-3 col-md-6 col-12 d-flex align-items-center h-100">-->
+    <!--    <nz-range-picker class="w-100"  [(ngModel)]="tournamentDate" (ngModelChange)="getTournaments()" [nzFormat]="'yyyy/MM/dd'"></nz-range-picker>-->
+    <!--  </div>-->
+
+    <div class="col-lg-3 col-md-6 col-12">
+      <app-button (click)="clearTournamentsFilters()" variant="green text-black">
+        X {{'common.clearFilter'| translate}}</app-button>
+    </div>
+  </div>
+  <!--[customButtons]="customButton"-->
+  <app-section [title]="'listedTournament' | translate | uppercase">
+    <ng-container *ngIf="(getTournamentsIsExecuting$ | async) === true; else tournamentSection">
+      <div class="row">
+        <div class="col-12">
+          <app-loading-indicator></app-loading-indicator>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #tournamentSection>
+      <div class="row gy-3 gx-2" *ngIf="(tournaments$ | async) as tournaments">
+        <div class="col-lg-3 col-md-6 col-12" *ngFor="let tournament of tournaments.data ; trackBy:trackBy">
+          <app-tournament-card [tournament]="tournament"></app-tournament-card>
+
+        </div>
+        <div class="col-12" *ngIf="tournaments.meta.total > tournaments?.meta?.per_page">
+          <nz-pagination [nzPageIndex]="tournaments?.meta?.current_page"
+                         [nzPageSize]="tournaments?.meta?.per_page"
+                         [nzTotal]="tournaments?.meta?.total"
+                         (nzPageIndexChange)="changeTournamentPage($event)"></nz-pagination>
+        </div>
+      </div>
+    </ng-template>
+    <!--  <ng-template #customButton>-->
+    <!--    <app-button variant=rounded-green routerLink="/tournaments"><p>View More</p></app-button>-->
+    <!--  </ng-template>-->
+  </app-section>
+</div>

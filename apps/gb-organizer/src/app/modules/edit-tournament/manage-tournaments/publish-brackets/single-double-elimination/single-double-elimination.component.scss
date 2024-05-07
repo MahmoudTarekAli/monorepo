@@ -1,0 +1,49 @@
+@import '../../../../../components/kit/core/mixins';
+
+.match-card {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.player-card {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background: $gb-main-bg;
+  align-items: center;
+}
+
+.floating-button {
+  position: fixed;
+  right: 32px;
+  bottom: 102px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.delete-floating-button {
+  position: fixed;
+  right: 32px;
+  bottom: 162px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+
+.purple {
+  background: $purple;
+}
+
+.white {
+  color: white;
+}
+
+::ng-deep .ant-checkbox-inner{
+  width: 20px !important;
+  height: 20px !important;
+}
+
+

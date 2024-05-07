@@ -1,0 +1,66 @@
+// Import mixins
+@import 'src/app/styles/core/variables.scss';
+
+.ant-select {
+  &-open {
+    .ant-select-selection {
+      border-color: $primary;
+    }
+  }
+
+  &-selection {
+    &:hover {
+      border-color: $primary;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+  .ant-select {
+    &-multiple {
+      .ant-select-selection-item {
+        color: $white;
+        background: $gb-sec-bg;
+
+        &-remove {
+          color: $dark-gray-1;
+        }
+      }
+    }
+
+    &-item-option-active:not(.ant-select-item-option-disabled),
+    &-item-option-selected:not(.ant-select-item-option-disabled) {
+      color: $dark-gray-1;
+      background: $primary;
+    }
+
+    // antd v3 styles
+    &-selection {
+      &--multiple {
+        .ant-select-selection__choice {
+          color: $dark-gray-1;
+          background: $primary;
+
+          &-remove {
+            color: $dark-gray-3;
+          }
+        }
+      }
+    }
+
+    &-dropdown-menu-item {
+      &-selected {
+        color: $dark-gray-1;
+        background: $primary;
+      }
+    }
+
+    &-tree-dropdown {
+      .ant-select-dropdown-search {
+        .ant-select-search__field {
+          background: $dark-gray-5;
+        }
+      }
+    }
+  }

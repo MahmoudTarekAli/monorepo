@@ -1,0 +1,32 @@
+@import 'src/app/styles/core/variables';
+h2{
+  margin: 15px 0 ;
+}
+.stats-container{
+  background-color: $gb-sec-bg;
+  padding: 15px 10px;
+  border-radius: 8px;
+}
+::ng-deep{
+  .ant-progress-inner{
+    background-color: $gb-blue!important;
+  }
+  .ant-progress-bg{
+    height: 20px!important;
+  }
+.ant-progress-text{
+    color: $white!important;
+  }
+  .win-progress{
+    margin-bottom: 15px;
+    .ant-progress-bg{
+      background-color: $gb-thirdly-color!important;
+    }
+  }
+  .lose-progress{
+    margin-bottom:  15px;
+    .ant-progress-bg{
+      background-color: $alert!important;
+    }
+  }
+}

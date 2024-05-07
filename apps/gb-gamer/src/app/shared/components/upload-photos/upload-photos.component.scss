@@ -1,0 +1,122 @@
+@import '../../../styles/core/variables';
+@import "src/app/styles/functions";
+input , textarea ,.ant-picker , {
+  background-color: $gb-blue!important;
+}
+::ng-deep{
+
+  .ant-form-item-label > label::after {
+    display: none;
+  }
+  .ant-col{
+    color: $white;
+  }
+}
+nz-form-control{
+  width: 100%;
+}
+.image{
+  icon{
+
+  }
+}
+
+.input-button-image {
+  display: flex;
+  align-items: center;
+  //height: 80px;
+  @include dynamic-dimensions(height, 80);
+  justify-content: flex-start;
+  cursor: pointer;
+  background-color: $gb-blue;
+  border: solid $purple;
+  @include dynamic-m-v-property(border-width, 1);
+  @include dynamic-m-v-property(padding, 7, 10);
+
+  input[type = "file"] {
+    cursor: pointer;
+  }
+
+  .image {
+    position: relative;
+    //margin: 0 5px;
+    @include dynamic-m-v-property(margin, 0, 5);
+
+    img {
+      //height: 60px;
+      //width: 60px;
+      @include dynamic-equal-dimensions(60);
+      //border-radius: 50px;
+      @include dynamic-m-v-property(border-radius, 50);
+      @include dynamic-m-v-property(margin, 0, 5);
+      object-fit: cover;
+
+      &.cover {
+        //width: 60px;
+        @include dynamic-dimensions(width, 60);
+        @include dynamic-dimensions(height, 30);
+        //height: 30px;
+        //border-radius: 5px;
+        @include dynamic-m-v-property(border-radius, 5);
+      }
+    }
+
+    .icon {
+      img {
+        position: absolute;
+        bottom: 0px;
+        right: -8px;
+        width: 23px;
+        min-height: 18px;
+        height: 20px;
+        margin: 0 5px;
+        object-fit: unset;
+      }
+    }
+  }
+
+  .info {
+    //border-left: 1px solid #555481;
+    //padding: 0 10px;
+    //margin: 0 15px;
+
+    p {
+      font-size: 14px;
+      margin: 0;
+      text-align: left;
+      span{
+        font-size: 13px;
+        opacity: 0.7;
+      }
+    }
+
+  }
+}
+
+.image-border{
+  display: flex;
+  margin: auto;
+
+  &.avatar{
+    border-radius: 50%;
+    width: 200px;
+  }
+  &.cover{
+    border-radius: 5px;
+    width: 100%;
+  }
+}
+.button-image{
+  position: relative;
+  cursor: pointer;
+  input[type = "file"]{
+    cursor: pointer;
+  }
+  input[type=file]::-webkit-file-upload-button {
+    cursor: pointer;
+  }
+  img{
+    width: 25px;
+    margin: 0 5px;
+  }
+}

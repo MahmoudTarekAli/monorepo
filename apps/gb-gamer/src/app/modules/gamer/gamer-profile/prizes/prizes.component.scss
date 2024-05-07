@@ -1,0 +1,25 @@
+.prize-container{
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  padding: 20px;
+  img{
+    width: 70px;
+    margin: 15px 0;
+  }
+  .icon-style{
+    width: 24px;
+    margin: 0 5px;
+  }
+}
+.second-container{
+  padding: 20px;
+}
+app-gb-bar:first-child {
+  margin-top: 0!important;
+}
+app-gb-bar{
+  .second-container{
+    margin: 0!important;
+  }
+}

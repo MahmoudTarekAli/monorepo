@@ -1,0 +1,74 @@
+<h4 style="cursor: pointer" *ngIf="isEdit" routerLink="../../"><img class="mx-1" src="assets/svg-icons/arrow-left.svg" alt="">{{'arenaProfile' | translate}}</h4>
+
+<div class="second-container p-4">
+  <div class="d-flex flex-column gap-2">
+  <h2>{{isEdit ?  ('arena.editArena' | translate) : ('arena.createArena' | translate)}} </h2>
+  <h5 class="text-gray" *ngIf="!isEdit"> {{'arena.createArenaDescription' | translate}}</h5>
+  </div>
+  <nz-divider></nz-divider>
+  <div class="row gap-2" [formGroup]="arenaForm">
+
+    <nz-form-item class="col-12">
+      <nz-form-label>{{'forms.labels.arenaName' | translate}}</nz-form-label>
+      <input class="small" formControlName="name" nz-input [placeholder]="'forms.placeholders.arenaName' | translate"/>
+    </nz-form-item>
+    <nz-form-item class="col-12">
+      <nz-form-label>{{'forms.labels.country' | translate}}</nz-form-label>
+      <nz-select class="w-100 border-radius-8" [nzShowSearch]="true" nzPlaceHolder="{{'forms.placeholders.country'|translate}}"
+                 formControlName="country"
+                 [nzShowArrow]="true">
+        <nz-option *ngFor="let country of Countries | async" [nzLabel]="country['name']"
+                   [nzValue]="country['abbr'] === 'Global' ? null : country['abbr'] "></nz-option>
+      </nz-select>
+    </nz-form-item>
+<!--    <nz-form-item class="  col-12">-->
+<!--      <nz-form-label>{{'choose_game' | translate}}</nz-form-label>-->
+<!--      <nz-select class="w-100 border-radius-8" [nzDisabled]="isEdit" [nzShowSearch]="true"-->
+<!--                 nzPlaceHolder="{{'select_game'|translate}}" formControlName="game_code"-->
+<!--                 [nzShowArrow]="true">-->
+<!--        <nz-option *ngFor="let game of (Games$ | async)?.games" [nzLabel]="game['name']"-->
+<!--                   [nzValue]="game['code']"></nz-option>-->
+<!--      </nz-select>-->
+
+<!--    </nz-form-item>-->
+
+    <nz-form-item class="  col-12">
+
+      <nz-form-label>{{'forms.labels.email' | translate}}</nz-form-label>
+      <nz-form-control nzErrorTip="Enter Valid Email">
+        <input class="small" formControlName="email" nz-input [placeholder]="'forms.placeholders.email' | translate"/>
+
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class=" col-12">
+
+      <nz-form-label>{{'forms.labels.phone' | translate}}</nz-form-label>
+      <nz-form-control class="w-100" nzErrorTip="{{'forms.validationMessages.invalidPhone' | translate}}">
+        <ngx-intl-tel-input
+          [customPlaceholder]="'forms.placeholders.phone' | translate"
+          [preferredCountries]="[CountryISO.Egypt]"
+          [enableAutoCountrySelect]="false"
+          [enablePlaceholder]="true"
+          [searchCountryFlag]="true"
+          [selectFirstCountry]="true"
+          [maxLength]="15"
+          [phoneValidation]="true"
+          formControlName="mobile"
+          class=" phonenumber small"
+        ></ngx-intl-tel-input>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class=" col-12">
+      <nz-form-label>{{'forms.labels.description' | translate}}</nz-form-label>
+      <textarea class="ant-input" [placeholder]="" formControlName="description"></textarea>
+    </nz-form-item>
+
+    <app-upload-photos  [cover]="cover" [avatar]="avatar"
+                       (fileSelected)="selectImages($event)"></app-upload-photos>
+
+
+    <app-button [disabled]="arenaForm.invalid || arenaForm.pristine" class="" style="margin-left: auto; width: fit-content" variant="two-tone-primary fit-content"
+                height="40"
+                (click)="submitArena()">{{isEdit ? ('common.buttons.updateArena' | translate) : ('common.buttons.createArena' | translate)}}</app-button>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+@font-face {
+  font-family: 'Anton';
+  src: url('../../../../assets/fonts/anton/Anton-Regular.eot');
+  src: url('../../../../assets/fonts/anton/Anton-Regular.eot?#iefix') format('embedded-opentype'),
+  url('../../../../assets/fonts/anton/Anton-Regular.woff2') format('woff2'),
+  url('../../../../assets/fonts/anton/Anton-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Anton';
+  src: url('../../../../assets/fonts/anton/Anton-Regular.ttf') format('ttf');
+  font-weight: 300;
+  font-style: normal;
+}
+
+
+.support-section {
+ display: flex; flex-flow: row; gap:20px;
+
+  @media screen and (max-width: 767px) {
+    flex-flow: column;
+  }
+
+  .item{
+    display: flex; flex-flow: column; gap:10px; flex:1;
+    h1 {
+      font-family: Anton;
+    }
+    .image {
+      display: flex; justify-content: center; border-radius: 20px;  padding:10px; height:150px;
+      background-size:cover !important;  position:relative; overflow: hidden;
+
+      &.red {
+        background:#D13639;
+        img {
+          object-fit: contain;
+          width: 120px;
+        }
+
+      }
+      .active {
+        background: white;
+        position: absolute;
+        z-index:1; display:flex;
+        justify-content: center;
+        align-items: center; width:50px; height:100%; right:0; top:0;
+        img{
+          width: 30px;
+        }
+      }
+      &.blue {
+        background: url("../../../../assets/images/playgrounds/wildrift-pattern.png") #7289da;
+        img {
+          object-fit: contain;
+          width: 70px;
+        }
+      }
+
+    }
+
+  }
+
+}
+
+//.background {
+//  background: #C5ACE5;
+//}

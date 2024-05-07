@@ -1,0 +1,748 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'app/components/kit/vendors/antd/style';
+@import 'app/components/kit/vendors/bootstrap/style';
+@import 'app/components/kit/vendors/nprogress/style';
+@import 'app/components/kit/vendors/perfect-scrollbar/style';
+@import 'app/components/kit/core/style';
+// Clean UI KIT core styles
+@import 'app/components/cleanui/styles/style';
+
+//@root-entry-name: default; // add this to your styles file
+// Clean UI styles
+//@import '~quill/dist/quill.core.css';
+//@import '~quill/dist/quill.bubble.css';
+//@import '~quill/dist/quill.snow.css';
+//@import "~intl-tel-input/build/css/intlTelInput.css";
+
+@import "app/styles/functions";
+
+
+:root {
+  // Gb-Colors
+  --gb-main-bg: #280659;
+  --gb-sec-bg: #341671;
+  --gb-main-darker: #24064f;
+  --gb-primary-color: #8429F5;
+  --gb-light-primary-color: #8429F5;
+  --gb-blue: #2B0264;
+  --gb-thirdly-color: #00DDBD;
+  --gb-fourth-color: #8429f559;
+  --gb-fifth-color: #501d9f;
+  --gb-green-blue-color: #918EF4;
+  --gb-blueberry: #5865F2;
+  --white: #fff;
+  --transparent: transparent;
+  --black: #141322;
+  --text: var(--white);
+  --alert: #E94444;
+  --premium-gold: #FFB133;
+  --gold: #FCC060;
+  --gb-main-light-border: #30056e;
+  --closed-status: rgba(228, 233, 240, 0.3);
+
+  // Colors
+  --two-tone: transparent linear-gradient(90deg, #00DDBD 0%, #8429F5 100%) 0% 0% no-repeat padding-box;
+  --blue: var(--kit-color-primary);
+  --blue-light: #42baf9;
+  --blue-dark: #2c60e4;
+  --gray-1: #f2f4f8;
+  --gray-2: #e4e9f0;
+  --gray-3: #d9dee9;
+  --gray-4: #c8c4db;
+  --gray-5: #a1a1c2;
+  --gray-6: #595c97;
+  --yellow: #ff0;
+  --orange: #faad15;
+  --red: #f5222e;
+  --pink: #fd3995;
+  --purple: #8429f5;
+  --green: #00DDBD;
+  --border: var(--gray-2);
+  --default: var(--gray-4);
+  --primary: var(--purple);
+  --second-primary: #FCC060;
+  --secondary: var(--gray-5);
+  --success: var(--green);
+  --info: var(--blue-light);
+  --warning: var(--orange);
+  --danger: var(--red);
+  --light: var(--gray-1);
+  --dark: var(--purple);
+  --dark-gray-1: #fff;
+  --dark-gray-2: #7575a3;
+  --dark-gray-3: #4f4f7a;
+  --dark-gray-4: #0c074a;
+  --dark-gray-5: #24215a;
+  --dark-gray-6: #0c074a;
+  --dark-gray-7: #3d396e;
+  --dark-gray-8: #341671;
+  --dark-gray-9: #280659;
+  --dark-gray-10: #AE2D68;
+  --v-line-color: #E5E5E529;
+  //
+
+  //status colors
+  --finished: #ae2e2d;
+  --open: #00CB7A;
+  --closed: #aaaaaa;
+  --cancelled: #aaaaaa;
+  --live: #E49134;
+  --unpublished: #d8c008;
+}
+
+
+/*Roboto*/
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('assets/fonts/roboto/Roboto-Regular.eot');
+  src: url('assets/fonts/roboto/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+  url('assets/fonts/roboto/Roboto-Regular.woff2') format('woff2'),
+  url('assets/fonts/roboto/Roboto-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --status-color: #E49134;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('assets/fonts/roboto/Roboto-Black.eot');
+  src: url('assets/fonts/roboto/Roboto-Black.eot?#iefix') format('embedded-opentype'),
+  url('assets/fonts/roboto/Roboto-Black.woff2') format('woff2'),
+  url('assets/fonts/roboto/Roboto-Black.woff') format('woff');
+  font-weight: Bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+li {
+  outline: 0;
+}
+
+
+.ant-form-item {
+  margin-bottom: 10px !important;
+}
+
+nz-select {
+  width: 100%;
+}
+
+nz-layout {
+}
+
+.ant-typography-edit {
+  color: $dark-gray-9 !important;
+}
+
+
+::ng-deep[data-kit-theme="default"] .ant-descriptions-item-label {
+  color: black !important;
+  font-weight: bold !important;
+  font-size: 14px;
+  line-height: 1.5715;
+  text-align: start;
+}
+
+
+::ng-deep.anticon {
+  font-size: 17px !important;
+}
+
+.ant-table-body::-webkit-scrollbar {
+  width: 6px !important;
+
+}
+
+.ant-table-body::-webkit-scrollbar-track {
+  border-radius: 10px !important;
+}
+
+.ant-table-body::-webkit-scrollbar-thumb {
+  background-color: #dcd1d1;
+  height: 50px;
+  border-radius: 10px;
+  //-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+.ant-drawer-body::-webkit-scrollbar {
+  width: 8px !important;
+
+}
+
+.ant-drawer-body::-webkit-scrollbar-track {
+  border-radius: 10px !important;
+}
+
+.ant-drawer-body::-webkit-scrollbar-thumb {
+  background-color: #dcd1d1;
+  height: 50px;
+  border-radius: 10px;
+  //-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+.gb-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%
+}
+
+///////
+
+.remove-button {
+  width: 30px !important;
+  height: 30px !important;
+  background: #f5222e;
+  border-color: #f5222e;
+
+  &:hover {
+    background: darkred !important;
+    border-color: darkred !important;
+  }
+}
+
+
+.divider-has-zero-margin {
+  margin: 0 !important;
+}
+
+.confirmation-modal {
+  top: 300px !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  padding-bottom: 0 !important;
+  border-radius: 10px !important;
+
+  .ant-modal-body {
+    background-color: #ffffff !important;
+    color: $dark-gray-9;
+    border-radius: 10px;
+  }
+}
+
+.ant-badge-dot {
+  background: #ae2e2d !important;
+  position: absolute;
+  top: -0px !important;
+  //bottom: -9px !important;
+  right: 10px !important;
+  transform: translate(50%, -50%);
+  transform-origin: 100% 0%;
+  width: 15px !important;
+  height: 15px !important;
+  box-shadow: none !important;
+}
+
+.profile-badge {
+  .ant-badge-dot {
+    background: #E49134 !important;
+    position: absolute;
+    top: unset !important;
+    bottom: -9px !important;
+    right: 17px !important;
+    transform: translate(50%, -50%);
+    transform-origin: 100% 0%;
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  &.live {
+    .ant-badge-dot {
+      background: $live !important;
+    }
+
+  }
+
+  &.finished {
+    .ant-badge-dot {
+      background: $finished !important;
+    }
+  }
+
+  &.cancelled {
+    .ant-badge-dot {
+      background: $cancelled !important;
+    }
+  }
+
+  &.open {
+    .ant-badge-dot {
+      background: $open !important;
+    }
+  }
+
+  &.closed {
+    .ant-badge-dot {
+      background: $closed !important;
+    }
+  }
+
+  &.unpublished {
+    .ant-badge-dot {
+      background: $unpublished !important;
+    }
+  }
+
+}
+
+
+.remove {
+  background: #AE2D68 !important;
+  border: none !important;
+  cursor: pointer;
+
+  :hover {
+    background: #AE2D68 !important;;
+  }
+}
+
+body {
+  @include dynamic-font(16);
+  color: #fff;
+}
+
+h1 {
+  font-size: 22px;
+}
+
+h2 {
+  font-size: 16px;
+  color: #fff;
+  margin: 0;
+  //color: initial;
+}
+
+h3 {
+  @include dynamic-font(18);
+  color: #fff;
+
+}
+
+h4 {
+  @include dynamic-font(14);
+  color: #fff;
+
+}
+
+h5 {
+  @include dynamic-font(12.8);
+  color: #fff;
+
+}
+
+h6 {
+  @include dynamic-font(11.2);
+  color: #fff;
+
+}
+
+.ant-scroll-number-only {
+  p {
+    display: flex;
+  }
+}
+
+p {
+  @include dynamic-font(12);
+  color: white;
+  display: inline-block;
+
+  &.gray {
+    color: #c8c4db !important;
+  }
+}
+
+small {
+  @include dynamic-font(8);
+  color: $gray-5;
+}
+
+
+.ant-form {
+  label {
+    font-size: 16px !important;
+  }
+}
+
+.zero-margin-padding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.ant-form label {
+  font-size: 15px !important;
+}
+
+.flex-buttons {
+  display: flex;
+  @media screen and (max-width: 567px) {
+    flex-flow: column;
+  }
+}
+
+.save-bracket {
+  background-color: $dark-gray-1 !important;
+  color: $purple !important;
+  display: flex !important;
+  align-items: center !important;
+
+  span {
+    color: $purple !important;
+  }
+}
+
+.share-modal {
+  .ant-modal-body {
+    border-radius: 10px !important;
+    margin-top: 150px !important;
+  }
+}
+
+
+.ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-tail::after {
+  background-color: #00cb7a !important;
+  width: 3px !important;
+}
+
+.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-tail::after {
+  background-color: #fff !important;
+  width: 1px !important;
+}
+
+.filters-popover {
+  //background-color: white!important;
+  //padding-top: 0!important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  width: 280px;
+
+  h5 {
+    font-size: 16px;
+    //margin-bottom: 0!important;
+    color: $dark-gray-9;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+
+  .ant-popover-inner {
+    background-color: $dark-gray-1 !important;
+    color: $dark-gray-9;
+  }
+
+  .ant-popover-title {
+    color: $dark-gray-9;
+  }
+
+  .ant-popover-inner-content {
+    display: flex;
+    flex-flow: column;
+    color: $dark-gray-9;
+
+    a {
+      color: $dark-gray-9;
+    }
+  }
+
+  .ant-popover-arrow-content {
+    background-color: $dark-gray-1 !important;
+  }
+
+  .ant-popover-content {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .ant-radio-checked .ant-radio-inner {
+    background: none !important;
+    background-color: transparent;
+  }
+
+  .ant-radio-inner {
+    background: none;
+  }
+
+  span {
+    color: $dark-gray-9;
+  }
+
+  .ant-select {
+    color: $dark-gray-9 !important;
+    background-color: $dark-gray-1 !important;
+
+  }
+
+  .ant-select-selector {
+    background-color: $dark-gray-1 !important;
+    color: $dark-gray-9 !important;
+  }
+
+  .ant-select-selection-placeholder {
+    color: $dark-gray-9 !important;
+  }
+
+  [data-kit-theme="dark"] .ant-select-item {
+    background: #ffffff !important;
+    color: $dark-gray-9 !important;
+  }
+
+  .ant-select-arrow {
+    .anticon {
+      color: $dark-gray-9 !important;
+    }
+  }
+
+  .apply-button {
+    span {
+      color: $dark-gray-1 !important;
+
+    }
+  }
+
+  .clear-button {
+    border: 1px solid $dark-gray-10 !important;
+
+    span {
+      color: $dark-gray-10 !important;
+    }
+
+    &:hover {
+      background: $dark-gray-10 !important;
+
+      span {
+        color: $dark-gray-1 !important;
+
+      }
+    }
+  }
+
+  .close-icon {
+    color: $dark-gray-9 !important;
+    position: absolute;
+    top: -4px;
+    right: 0;
+    cursor: pointer;
+  }
+
+  &.popover-profile {
+    width: 200px !important;
+
+    a {
+      font-size: 15px;
+      margin: 5px 0;
+
+      img {
+        width: 18px !important;
+      }
+    }
+  }
+}
+
+//.userDropdown {
+//  background-color: $dark-gray-1 !important;
+//  border-radius: 10px;
+//  padding: 15px !important;
+//  color: $dark-gray-9 !important;
+//
+//  a {
+//    color: $dark-gray-9 !important;
+//    margin: 5px 0;
+//  }
+//
+//  span {
+//    color: $dark-gray-9;
+//  }
+//
+//  //::ng-deep{
+//  .ant-radio-checked .ant-radio-inner {
+//    background: none !important;
+//    background-color: transparent;
+//  }
+//
+//  .ant-radio-inner {
+//    background-color: #ffffff !important;
+//  }
+//
+//  //}
+//
+//}
+
+.label_placeholder {
+  font-size: 12px;
+  opacity: 0.6;
+  max-width: 800px;
+}
+
+app-marquee {
+  width: 100%;
+}
+
+.angular-editor-toolbar .angular-editor-toolbar-set .angular-editor-button {
+  background: $dark-gray-9 !important;
+}
+
+.angular-editor-toolbar.angular-editor-toolbar-set.angular-editor-button.active {
+  background: $dark !important;
+
+}
+
+.tour-title {
+  font-size: 16px;
+  padding: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  //border-bottom: solid 1px #584185;
+  font-weight: normal;
+  text-transform: none;
+}
+
+.anticon .anticon-edit {
+  color: red !important;
+}
+
+nz-text-edit {
+  textarea {
+    background: white !important;
+    color: black !important;
+
+  }
+}
+
+.premium-border {
+  border: 2px solid $premium-gold !important;
+  position: relative;
+  border-radius: 50%;
+  display: flex;
+
+  .premium-crown {
+    position: absolute;
+    top: -10px;
+    right: -7px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: $premium-gold;
+    display: flex;
+    justify-content: center;
+
+    img {
+      width: 15px !important;
+      min-width: 15px !important;
+    }
+
+  }
+}
+
+.premium-color {
+  color: $gold !important;;
+}
+
+.notify-badge {
+  position: absolute;
+  //top: -10px;
+  @include dynamic-s-v-property(top, -10);
+  right: 15px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: $alert;
+  border: solid $gb-sec-bg;
+  @include dynamic-m-v-property(border-width, 2);
+  @include dynamic-equal-dimensions(25);
+
+}
+
+.nodata-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  @include dynamic-m-v-property(padding, 20);
+  @include dynamic-m-v-property(margin, 10, 0);
+  @include dynamic-m-v-property(border-radius, 8);
+  @include dynamic-s-v-property(gap, 10);
+  background: $gb-sec-bg;
+
+  img {
+    @include dynamic-dimensions(width, 80);
+  }
+}
+
+app-button button {
+  width: 100%;
+}
+
+.see-all-list {
+  background-color: $gb-blue;
+  text-align: center;
+  @include dynamic-m-v-property(padding, 10);
+  border-radius: 0 0 10px 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  &:hover {
+    background: $gb-fifth-color;
+  }
+}
+
+.default-modal {
+  min-height: 290px;
+
+  .ant-modal-close {
+    @include dynamic-equal-dimensions(35);
+    //border-radius: 50px;
+    @include dynamic-m-v-property(border-radius, 50);
+    overflow: hidden;
+    //padding: 5px;
+    @include dynamic-m-v-property(padding, 5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: $gb-sec-bg;
+    //top: 10px;
+    @include dynamic-s-v-property(top, 10);
+    //right: 10px;
+    @include dynamic-s-v-property(right, 10);
+
+    .ant-modal-close-x {
+      line-height: unset !important;
+      height: unset !important;
+      width: unset !important;
+      display: flex;
+      align-items: center;
+      padding: 0 !important;
+    }
+  }
+
+  //}
+  .ant-modal-body {
+    padding: 0 !important;
+    //border-radius: 8px !important;
+    @include dynamic-m-v-property(border-radius, 8);
+    overflow: hidden;
+    background-color: $gb-main-bg;
+    min-height: 290px;
+
+  }
+
+  &.h-auto {
+    .ant-modal-body {
+      min-height: auto !important;
+
+    }
+  }
+}
+

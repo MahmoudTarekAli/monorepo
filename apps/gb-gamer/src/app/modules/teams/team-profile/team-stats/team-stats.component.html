@@ -1,0 +1,17 @@
+<div class="col-md-3 col-12">
+  <h4>My Stats</h4>
+  <div class="stats-container" *ngIf="TeamStats$ | async as stats">
+    <div class="win-progress">
+      <h5>Win <span>{{stats?.win_rate}}%</span></h5>
+      <p>{{stats?.win}} Matches</p>
+      <nz-progress [nzPercent]="stats?.win_rate" [nzShowInfo]="false"></nz-progress>
+    </div>
+    <div class="lose-progress">
+      <h5>Lose <span>{{stats?.lose_rate}}%</span></h5>
+      <p>{{stats?.lose}} Matches</p>
+      <nz-progress [nzPercent]="stats?.lose_rate" [nzShowInfo]="false"></nz-progress>
+    </div>
+    <h5>Total Matches</h5>
+    <p>{{stats?.total_matches}} Matches</p>
+  </div>
+</div>

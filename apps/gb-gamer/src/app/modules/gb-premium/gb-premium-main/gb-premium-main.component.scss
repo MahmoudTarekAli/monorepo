@@ -1,0 +1,97 @@
+@import "src/app/styles/core/variables";
+@import 'src/app/styles/functions';
+
+h1{
+  text-align: center;
+  font-weight: bolder;
+  font-size: 30px;
+  margin: 20px auto;
+  max-width: 600px;
+}
+.premium-cover{
+  width: 100%;
+  //@include dynamic-dimensions(height, 600);
+  padding: 40px;
+  border-radius: 8px;
+  background-image: url("../../../../assets/images/premium/premium-banner.webp");
+  background-size: cover;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  .premium-content{
+    width: 50%;
+    margin-top: 20px;
+    text-align: center;
+    img{
+      width: 100px;
+    }
+    h1{
+      font-size: 70px!important;
+      margin: 0;
+      text-align: center;
+      max-width: 100%;
+    }
+    p{
+      font-size: 40px!important;
+      text-align: center;
+
+    }
+    a{
+      height: fit-content!important;
+      max-width: 300px;
+      margin: auto;
+      padding: 5px !important;
+    }
+
+  }
+ @media screen and (max-width: 768px) {
+   .premium-content{
+     width: 100%;
+     h1{
+       font-size: 40px!important;
+     }
+     p{
+       font-size: 20px!important;
+     }
+   }
+
+ }
+}
+
+
+.premium-card{
+  padding: 30px 20px;
+  background: $gb-sec-bg;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  flex: 1;
+  .flex-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .premium-content{
+    height: fit-content;
+    h2{
+      font-weight: bold;
+    }
+    p{
+      margin-top: 5px;
+    }
+  }
+  img{
+    max-width: 140px;
+  }
+}
+::ng-deep{
+  app-faq-playgrounds {
+    nz-collapse-panel{
+      background: $purple!important;
+    }
+    .ant-collapse-content{
+      border-radius: 0 0 10px 10px!important;
+
+    }
+  }
+}

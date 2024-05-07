@@ -1,0 +1,17 @@
+@import '../../../styles/core/variables';
+h5{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 3px;
+  span{
+    color: $green;
+  }
+}
+a{
+  color: $white;
+  text-decoration: none;
+}
+app-button{
+  width: 100%;
+}

@@ -1,0 +1,154 @@
+@import "swiper/swiper.min.css";
+@import "swiper/swiper-bundle.css";
+@import "swiper/swiper-bundle.min.css";
+@import "swiper/scss/a11y";
+@import "swiper/scss/effect-coverflow";
+@import "swiper/scss/lazy";
+@import "swiper/scss/navigation";
+@import "swiper/scss/autoplay";
+@import "swiper/scss/pagination";
+@import "src/app/styles/functions";
+
+
+.swiper {
+  //height: 450px !important;
+  height: auto !important;
+  //@include dynamic-s-v-property(max-height, 450);
+  //height:450px !important;
+  //padding: 20px 10px !important;
+  @include dynamic-m-v-property(padding, 20, 10);
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-button-next::after {
+  //background-image: url('~assets/icons/next.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: white;
+  @include dynamic-dimensions(width, 30);
+}
+
+.swiper-button-prev::after {
+  //background-image: url('~assets/icons/previous.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: white;
+  @include dynamic-dimensions(width, 30);
+}
+
+.swiper-button-prev {
+  //left: 2% !important;
+  @include dynamic-s-v-property(left, 30);
+  right: auto !important;
+}
+
+.swiper-button-next {
+  @include dynamic-s-v-property(right, 30);
+  left: auto !important;
+}
+
+/** Swiper styles **/
+.swiper {
+  user-select: none;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 100%;
+  height: 60%;
+  padding-top: 0;
+}
+
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 85%;
+  height: 100%;
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  background-color: rgba(51, 51, 51, 1);
+  @include dynamic-m-v-property(border-radius, 12);
+  @media screen and (max-width: 992px) {
+    width: 100%;
+    height: 100%;
+
+  }
+  //border: 2px solid rgba(192, 0, 250, 1);
+}
+
+.swiper-slide-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  @include dynamic-m-v-property(padding, 48);
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.swiper-slide-title {
+  font-size: 21px;
+  font-weight: bold;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 1);
+}
+
+.swiper-slide-text {
+  max-width: 640px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 1);
+}
+
+.swiper-slide-title + .swiper-slide-text {
+  margin-top: 8px;
+}
+
+.swiper-slide-image {
+  position: relative;
+  object-fit: fill;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+  z-index: 0;
+  cursor: pointer;
+  @media screen and (max-width: 992px) {
+    object-fit: cover;
+  }
+}
+
+:root {
+  --swiper-navigation-color: rgba(192, 0, 250, 1);
+
+  --swiper-pagination-color: rgba(192, 0, 250, 1);
+  --swiper-pagination-bullet-inactive-color: rgba(192, 0, 250, 1);
+}
+
+.swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal {
+  bottom: 30px !important;
+}
+.swiper-pagination-bullet {
+
+  background: white;
+}
+
+.swiper-3d .swiper-slide-shadow-left {
+  background-image: linear-gradient(to left, rgb(58 58 58 / 50%), rgba(0, 0, 0, 0))
+}
+
+.swiper-3d .swiper-slide-shadow-right {
+  background-image: linear-gradient(to right, rgb(58 58 58 / 50%), rgba(0, 0, 0, 0))
+}
+

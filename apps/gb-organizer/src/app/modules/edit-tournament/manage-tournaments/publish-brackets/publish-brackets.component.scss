@@ -1,0 +1,8 @@
+@import '../../../../components/kit/core/mixins';
+
+#fullscreen-container {
+  background: $gb-sec-bg !important;
+  min-height: 20em;
+  overflow: scroll;
+  position: relative
+}

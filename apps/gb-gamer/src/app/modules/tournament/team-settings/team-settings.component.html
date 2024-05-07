@@ -1,0 +1,134 @@
+<div class="row">
+  <ng-container *ngIf="(isTeamAuthority$ | async) ; else noAuthority">
+    <ng-container *ngIf="(team$ | async) as team">
+      <div class="col-lg-8 col-12 d-flex flex-column gap-2">
+        <h3>{{'common.teamMembers'| translate}}</h3>
+        <app-participant-card class="team-settings-container"
+                              [isArena]="true"
+                              [cover]="team.cover"
+                              [profile]="team.avatar"
+                              [name]="team.participant_name"
+                              [routeTo]="'/teams/' + team.id"
+                              [autoHeight]="true"
+                              [isTeam]="true">
+          <ng-container ngProjectAs="team-info">
+            <p class="no-teams">({{(isJoinedData$|async)?.members_count}}
+              /{{(tournament$|async)?.no_of_participants_per_team}})</p>
+          </ng-container>
+
+          <ng-container ngProjectAs="team-member">
+            <app-user-card *ngFor="let member of team.members['data']" [avatar]="member.avatar"
+                           [username]="member.username"
+                           [reference_number]="member.reference_number" [slug]="member.slug"
+                           [ngClass]="{'selected' : member?.is_joined}">
+              <ng-container ngProjectAs="roles" *ngIf="member?.roles && member?.roles.length > 0">
+                <span *ngFor="let role of member.roles" class="badge {{role | lowercase}}">{{role}}</span>
+              </ng-container>
+              <div class="d-flex flex-wrap gap-1" *ngIf="isTeamAuthority$|async">
+                <!--              <app-button *ngIf="member?.is_joined  && !member?.roles.includes('Leader')" variant="default" (click)="assignLeader(member.id)">Assign Leader</app-button>-->
+                <app-button *ngIf="member?.is_joined &&!member?.roles?.includes('Leader')" variant="default-danger"
+                            (click)="removeMember(member.id)">
+                  {{'common.deselect'| translate}}
+                </app-button>
+                <app-button *ngIf="!member.is_joined" variant="primary"
+                            (click)="selectMember(member)">{{'common.buttons.select'| translate}}</app-button>
+                <app-button
+                  *ngIf="member.is_joined && (teamMembersSupportedRequiredInputsKeys.length > 0 || tournament?.connected_accounts_required)"
+                  variant="white"
+                  (click)="editRequiredInputs(member)">{{'edit'|translate}} {{'info'| translate}}</app-button>
+
+                <!--              <app-button  *ngIf="member.is_joined && teamMembersSupportedRequiredInputsKeys.length" variant="white" (click)="editRequiredInputs(member)">Edit Required Inputs</app-button>-->
+                <!--              <app-button variant="white" nz-dropdown [nzDropdownMenu]="menu1" nzTrigger="click" nzPlacement="bottomRight">-->
+                <!--                <span nz-icon nzType="ellipsis"></span>-->
+                <!--              </app-button>-->
+                <!--              <nz-dropdown-menu #menu1="nzDropdownMenu">-->
+                <!--                <ul class="button-dropdown">-->
+                <!--                  <li *ngIf="member?.is_joined  && !member?.roles.includes('Leader')" nz-menu-item (click)="assignLeader(member.id)">Assign Leader</li>-->
+                <!--                  <li *ngIf="member?.is_joined  && !member?.roles.includes('Leader')" nz-menu-item (click)="removeMember(member.id)">Remove</li>-->
+                <!--                </ul>-->
+                <!--              </nz-dropdown-menu>-->
+              </div>
+
+            </app-user-card>
+          </ng-container>
+
+        </app-participant-card>
+      </div>
+      <div class="col-lg-4 col-12 d-flex flex-column gap-1">
+        <h3>{{'tournament.teamSettings.sendInvitation'| translate}}</h3>
+        <p class="text-green">{{'tournament.teamSettings.sendInvitationMessage' | translate}}</p>
+        <div class="d-flex">
+          <nz-select style="flex: 3;" nzShowSearch
+                     [nzPlaceHolder]="'tournament.teamSettings.inviteFriendList'| translate"
+                     [(ngModel)]="selectedUser">
+            <nz-option nzCustomContent *ngFor="let user of Friends$ |async" [nzCustomContent]="true"
+                       [nzLabel]="user.slug" [nzValue]="user.id">
+              <nz-avatar [nzSrc]="user.avatar" nzSize="small" class="mx-2"></nz-avatar>
+              <span>{{ user.slug }}</span>
+            </nz-option>
+          </nz-select>
+          <app-button variant="primary" height="40" [disabled]="!selectedUser" (click)="inviteMember()"
+                      class="copy-icon d-flex align-items-center overflow-hidden">
+            <img src="assets/svg-icons/send.svg" alt="">
+          </app-button>
+        </div>
+
+
+        <h3>{{'tournament.teamSettings.shareLink'| translate}}</h3>
+        <nz-form-control class="d-flex">
+          <input style=" border-radius: 8px 0 0 8px!important;" readonly class="ant-input mid-height"
+                 [(ngModel)]="team.short_link" type="text">
+          <div class="copy-icon" nz-typography nzCopyable [nzCopyText]="team.short_link"></div>
+        </nz-form-control>
+        <h3>{{'tournament.teamSettings.joinRequest'| translate}}</h3>
+        <div class="second-container">
+          <ng-container *ngIf="(Requests$ | async)?.incoming.length > 0 ; else noRequests">
+            <app-user-card *ngFor="let invitedMember of (Requests$ | async )?.incoming"
+                           [avatar]="invitedMember.sender.avatar" [username]="invitedMember.sender.username"
+                           [reference_number]="invitedMember.sender.reference_number">
+              <img [nz-tooltip]="'common.accept'| translate"
+                   (click)="teamService.acceptJoinRequest(invitedMember.id , 'incoming' , invitedMember.sender , tournament?.no_of_participants_per_team , invitedMember?.additional_data)"
+                   class="control-icon" src="assets/svg-icons/accept-icon.svg">
+              <img [nz-tooltip]="'common.decline'| translate"
+                   (click)="teamService.cancelInvitationRequest(invitedMember.id , 'incoming')"
+                   class="control-icon" src="assets/svg-icons/cancel-icon-colored.svg">
+            </app-user-card>
+          </ng-container>
+          <ng-template #noRequests>
+            <div class="d-flex flex-column align-items-center m-5 text-center gap-10">
+              <h5>{{'tournament.teamSettings.noRequests' | translate}}</h5>
+            </div>
+          </ng-template>
+        </div>
+
+        <h3>{{'tournament.teamSettings.invitationSent'| translate}}</h3>
+        <div class="second-container d-flex flex-column">
+          <ng-container *ngIf="(Requests$ | async)?.outgoing.length > 0 ; else noInvitationRequests">
+            <app-user-card *ngFor="let invitedMember of (Requests$ | async )?.outgoing"
+                           [avatar]="invitedMember.recipient.avatar" [username]="invitedMember.recipient.username"
+                           [reference_number]="invitedMember.recipient.reference_number">
+              <app-button variant="default"
+                          (click)="teamService.cancelInvitationRequest(invitedMember.id , 'outgoing')">{{'common.buttons.cancel'|translate}}
+              </app-button>
+            </app-user-card>
+          </ng-container>
+        </div>
+      </div>
+      <ng-template #noInvitationRequests>
+        <div class="nodata-placeholder">
+          <img src="assets/svg-icons/email.svg" alt="">
+          <h3>No Pending Invitations</h3>
+          <p class="text-gray">You have 0 pending Invitations</p>
+        </div>
+      </ng-template>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #noAuthority>
+    <app-place-holder [className]="'second-container'"
+                      [text]="'You don’t have any authority in team yet!'"></app-place-holder>
+
+  </ng-template>
+</div>
+
+

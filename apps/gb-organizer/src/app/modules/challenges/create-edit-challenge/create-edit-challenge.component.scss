@@ -1,0 +1,15 @@
+@import "src/app/modules/tournaments/create-tournament/create-tournament.component.scss";
+
+input , .ant-select ,.ant-select-selection-search-input, .ant-select-selector , .ant-picker{
+  height: 35px!important;
+}
+::ng-deep{
+  .ant-select-single:not(.ant-select-customize-input) .ant-select-selector , .ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector{
+    height: 100%!important;
+  }
+  .ant-table-tbody > tr.ant-table-row:hover > td {
+    background: $gb-main-darker !important;
+  }
+
+}
+

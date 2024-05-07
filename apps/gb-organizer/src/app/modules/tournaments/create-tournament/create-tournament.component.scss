@@ -1,0 +1,209 @@
+@import 'src/app/components/kit/core/mixins.scss';
+//@import "ng-pick-datetime/assets/style/picker.min.css";
+.tournament-info-container{
+
+nz-skeleton-element {
+  @media screen and (max-width: 767px) {
+    flex: 1;
+    height: 90px;
+  }
+}
+
+.game-container {
+  width: 100%;
+  max-width: 170px;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  position: relative;
+  text-overflow: ellipsis;
+  @media  screen and (max-width: 576px) {
+    &.imagMob {
+      max-width: 85px;
+    }
+  }
+  .cover {
+    position: absolute;
+    width:100%; height: 100%;
+    background: rgb(85,180,234);
+    background: linear-gradient(180deg, rgba(85,180,234,0) 0%, rgba(55,16,102,1) 100%);
+  }
+}
+
+::ng-deep.ant-list-items {
+  display: flex !important;
+  justify-content: space-between !important;
+}
+
+.ant-list-split .ant-list-item {
+  border-bottom: 0 !important;
+}
+
+nz-tag {
+  background-color: transparent !important;
+  border: 1px solid !important;
+  border-radius: 5px !important;
+  padding: 10px !important;
+
+  span {
+    font-size: 15px !important;
+
+  }
+}
+
+.ant-radio-wrapper {
+  margin-right: 0 !important;
+}
+
+.ant-radio-wrapper-checked.isImage {
+  border: 3px solid $purple !important;
+  background: $purple;
+}
+
+.ant-radio-button-wrapper {
+  min-width: 120px !important;
+  background: transparent !important;
+  border-color: white !important;
+  border-radius: 8px !important;
+  border-left-width: thin;
+  height: 40px;
+  display: flex; justify-content: center; align-items: center;
+}
+
+.ant-radio-button-wrapper::before {
+  display: none !important;
+}
+
+.ant-radio-button-wrapper-checked {
+  border: 0 solid $purple !important;
+  color: white !important;
+  background:$purple !important;
+}
+
+  .ant-radio-group {
+    .participants-type {
+      width: 300px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      border: solid 1px #ffffff38;
+      background: #0b0644;
+
+     .ant-radio {
+        display: none;
+      }
+
+      .ant-radio-button-wrapper:hover {
+        color: inherit;
+      }
+      .ant-radio-button-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        padding: 5px;
+        border-radius: 10px;
+        border:0;
+        height: 50px;
+        margin:0;
+      }
+
+      .ant-radio-wrapper-checked {
+        background: #8529f5;
+        padding: 5px;
+        margin: 0;
+        border-radius: 10px;
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+
+.selected-image {
+  position: relative;
+  max-width: 170px;
+  max-height: 200px;
+  width: 170px;
+
+  .selected-game-container {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    //margin-bottom: 10px;
+    border-radius: 5px;
+  }
+
+  .img-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px
+  }
+
+}
+
+
+input[type="file"] {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+.date-icon{
+  position: absolute;
+  top: 5px;
+  right: 10px;
+
+}
+
+
+.floating-button {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+label {
+  text-transform: none !important;
+&.participantsType {
+  margin:5px;
+  font-size:12px;
+}
+
+  img {
+    height: 15px;
+  }
+  p {
+    margin:0 10px;
+  }
+}
+
+
+::ng-deep{
+  .owl-dt-timer-content {
+    color: rgba(0,0,0,.8) !important;
+    input{
+      color: rgba(0,0,0,.8) !important;
+
+    }
+  }
+  .owl-dt-control-arrow-button svg{
+    color: rgba(0,0,0,.8) !important;
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "name": "gb-gamer",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/gb-gamer/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/gb-gamer",
+        "index": "apps/gb-gamer/src/index.html",
+        "browser": "apps/gb-gamer/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
+        "tsConfig": "apps/gb-gamer/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/gb-gamer/src/favicon.ico",
+          "apps/gb-gamer/src/assets"
+        ],
+        "styles": [
+          "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+          "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+          "./node_modules/intl-tel-input/build/css/intlTelInput.css",
+          "apps/gb-gamer/src/styles.scss"
+        ],
+        "scripts": [],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "apps/gb-gamer"
+          ]
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "gb-gamer:build:production"
+        },
+        "development": {
+          "buildTarget": "gb-gamer:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "gb-gamer:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "apps/gb-gamer/jest.config.ts"
+      }
+    }
+  }
+}

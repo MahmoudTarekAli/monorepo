@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="premium-cover ltr">
+    <div class="premium-content mt-3">
+      <h1>{{'premium.levelUp' | translate}}</h1>
+      <p>{{'premium.experienceDescription' | translate}}</p>
+      <img src="assets/images/premium/prime_logo.png" alt="">
+
+      <a  nz-button class="ant-btn primary mt-4" href="{{environment.storeUrl}}gb-prime-YZy3a">{{'premium.buyPrime' | translate | uppercase}}</a>
+    </div>
+<!--  <img src="assets/images/premium/cover-premium.jpg" alt="">-->
+  </div>
+  <h1>{{'premium.gbPrimeFeature' | translate}}</h1>
+  <div class="row gy-2">
+
+    <div class=" col-lg-6 col-md-6 col-12 gap-2 d-flex flex-column">
+      <div class="premium-card">
+        <div class="flex-row">
+
+          <div class="premium-content">
+            <h2> {{'premium.exclusiveEvents' | translate}}</h2>
+            <p> {{'premium.exclusiveEventsDesc' | translate}}</p>
+          </div>
+          <img src="assets/images/premium/premium-exclusive-event.png" class="img-fluid" alt="">
+        </div>
+      </div>
+      <div class="premium-card">
+        <div class="flex-row">
+
+          <div class="premium-content">
+            <h2> {{'premium.gbCoins' | translate}}</h2>
+            <p> {{'premium.gbCoinsDesc' | translate}}</p>
+          </div>
+          <img src="assets/images/premium/gb-coins-premium.png" class="img-fluid" alt="">
+
+        </div>
+      </div>
+
+    </div>
+    <div class=" col-lg-6 col-md-6 col-12 gap-2">
+      <div class="premium-card">
+        <div class="flex-row">
+          <div class="premium-content">
+            <h2> {{'premium.gif' | translate}}</h2>
+            <p> {{'premium.gifDesc' | translate}}</p>
+          </div>
+          <img src="assets/images/premium/gif-premium.png" class="img-fluid" alt="">
+        </div>
+        <div class="flex-row mt-5">
+
+          <div class="premium-content">
+            <h2>{{'premium.customUserTag' | translate}}</h2>
+            <p>{{'premium.customUserTagDesc' | translate}}</p>
+          </div>
+          <img src="assets/images/premium/userTag-prime.png" class="img-fluid" alt="">
+        </div>
+      </div>
+
+      <div class="premium-card">
+        <div class="flex-row">
+
+        <div class="premium-content">
+
+          <h2>{{'premium.primeAccess' | translate}}</h2>
+          <p>{{'premium.primeAccessDesc' | translate}}</p>
+        </div>
+        <img src="assets/images/premium/prime-access.png" class="img-fluid" alt="">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <h1>{{ 'premium.faq' | translate }}</h1>
+  <div class="mx-auto w-75">
+  <app-faq-playgrounds [isTitle]="false" [tournamentQuestion]="tournamentQuestion"></app-faq-playgrounds>
+  </div>
+
+</div>

@@ -1,0 +1,113 @@
+@import 'src/app/components/mixins.scss';
+.view-bracket{
+
+nz-collapse {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px !important;
+  border-radius: 10px !important;
+  margin: 10px 25px;
+  .child {
+    border-color: #ffffff57 !important;
+  }
+
+}
+
+
+::ng-deep.ant-collapse > .ant-collapse-item {
+  background: #3D396E  !important;
+  margin: 20px;
+  .purple {
+    background: $gb-sec-bg !important;
+  }
+}
+
+::ng-deep.ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content > .ant-collapse-content-box {
+  border-top: 1px gray solid;
+}
+
+::ng-deep.ant-collapse-borderless > .ant-collapse-item{
+  border-bottom: 1px solid $dark-gray-9 !important;
+  border-radius: 10px!important;
+
+}
+.item-child{
+  margin: 5px 20px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+
+::ng-deep.ant-collapse-item .ant-collapse-content {
+  border-radius: 10px!important;
+
+  background: #3D396E !important;
+}
+
+
+.remove-button {
+  width: 30px !important;
+  height: 30px !important;
+  background: #f5222e;
+  border-color: #f5222e;
+
+  &:hover {
+    background: darkred !important;
+    border-color: darkred !important;
+  }
+}
+::ng-deep{
+  [data-kit-theme="dark"] .ant-alert-warning{
+    background-color: #AE2D68 !important;
+    border: 1px solid #AE2D68;
+    border-radius: 4px;
+    margin-top: 5px;
+  }
+  .ant-radio-inner{
+    background-color: #fff !important;
+    width: 23px!important;
+    height: 23px!important;
+
+    //border-color: #3D396E !important;
+  }
+  .ant-radio-checked{
+    .ant-radio-inner{
+      background-color: $purple!important;
+
+    }
+
+  }
+  .ant-radio-inner::after{
+    //background-color: $purple!important;
+    top: 4px!important;
+    left: 4px!important;
+    display: block;
+    width: 12px!important;
+    height: 12px!important;
+  }
+  .ant-collapse-extra{
+    .remove-button{
+      z-index: 100;
+
+    }
+  }
+}
+  @media screen and (max-width: 768px) {
+    nz-collapse{
+      padding: 15px 0!important;
+      margin: 10px 5px;
+
+  }
+    ::ng-deep.ant-collapse > .ant-collapse-item{
+        margin: 0;
+      }
+    .item-child{
+      margin: 5px;
+    }
+
+  }
+
+}
+

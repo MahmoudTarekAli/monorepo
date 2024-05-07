@@ -1,0 +1,237 @@
+// Import mixins
+@import 'src/app/styles/core/variables.scss';
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+//.ant-card {
+//  color: $dark-gray-1;
+//  border: none !important;
+//
+//  .ant-card-body {
+//    background: $gb-sec-bg;
+//    color: $white !important;
+//  }
+//
+//  .ant-card-cover img {
+//    height: 200px;
+//    object-fit: cover;
+//  }
+//
+//  &-meta {
+//    color: $white !important;
+//
+//    &-description {
+//      color: $white !important;
+//    }
+//
+//    &-title {
+//      color: $white !important;
+//    }
+//  }
+//
+//  &-actions {
+//    background: $dark-gray-6;
+//
+//    > li {
+//      .anticon {
+//        color: $dark-gray-1;
+//      }
+//    }
+//  }
+//}
+
+@import 'src/app/styles/functions';
+@import 'src/app/styles/core/variables';
+
+.marquee-container {
+  align-items: center;
+  line-height: normal;
+}
+
+.card {
+  background: $gb-sec-bg;
+  color: $white;
+  @include dynamic-m-v-property(border-radius, 10);
+  overflow: hidden;
+  position: relative;
+  //@include dynamic-s-v-property(max-width, 350);
+  direction: ltr;
+  text-align: left !important;
+
+  .game-icon {
+    position: absolute;
+    z-index: 1;
+    top: 2%;
+    left: 2%;
+
+    img {
+      object-fit: contain;
+      @include dynamic-dimensions(width, 30);
+    }
+  }
+
+
+  .card-type {
+    @include dynamic-m-v-property(padding, 10);
+    @include dynamic-m-v-property(border-radius, 0, 0, 0, 10);
+    @include dynamic-s-v-property(gap, 10);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+
+    &.participants {
+      background: $purple;
+    }
+
+    &.tournament {
+      background: $two-tone;
+    }
+
+    &.challenge {
+      background: transparent linear-gradient(119deg, #00DDBD 0, #faad14 100%) 0 0 no-repeat padding-box;
+    }
+
+    &.featured-challenge {
+      background: #D13639 !important;
+    }
+
+    img {
+      @include dynamic-equal-dimensions(15);
+    }
+  }
+
+  .featured-challenge {
+    background: orange !important;
+  }
+
+  .guaranteed-container {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    width: 100%;
+    //background: $gold;
+    @include dynamic-m-v-property(padding, 5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include dynamic-s-v-property(gap, 5);
+
+    img {
+      width: 20px;
+    }
+  }
+
+  .prime-container {
+    position: absolute;
+    z-index: 1;
+    bottom: 5%;
+    right: 2%;
+    @include dynamic-m-v-property(padding, 5, 15);
+    @include dynamic-m-v-property(border-radius, 20);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include dynamic-s-v-property(gap, 5);
+    @include dynamic-s-v-property(gap, 5);
+    background-color: #8429f56b;
+    text-transform: capitalize;
+
+    img {
+      object-fit: contain;
+      @include dynamic-dimensions(width, 30);
+    }
+
+    &.guaranteed {
+      background-color: rgba(252, 192, 96, 0.74);
+    }
+  }
+
+  .prime-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 212, 255, 0) 100%);
+  }
+
+  a {
+    &.top-container {
+      position: relative;
+      display: flex;
+      color: inherit;
+    }
+  }
+
+
+  .cover {
+    width: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    @include dynamic-m-v-property(border-radius, 8, 8, 0, 0);
+    @include dynamic-dimensions(height, 140);
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    @include dynamic-m-v-property(padding, 0);
+    @include dynamic-s-v-property(gap, 5);
+
+    .card-info {
+      display: flex;
+      flex-flow: column;
+      @include dynamic-m-v-property(padding, 15, 15, 0, 15);
+      @include dynamic-s-v-property(gap, 5);
+    }
+
+    .card-title {
+      margin: 0;
+    }
+
+
+    .card-footer {
+      background: $gb-fourth-color;
+      justify-content: space-between;
+      @include dynamic-m-v-property(padding, 10, 15);
+      display: flex;
+      align-items: center;
+      flex-basis: 0;
+      @include dynamic-s-v-property(gap, 10);
+
+      nz-avatar {
+        @include dynamic-equal-dimensions(30);
+      }
+
+      img {
+        &.icon {
+          @include dynamic-equal-dimensions(20);
+        }
+
+        &.badge-img {
+          @include dynamic-equal-dimensions(15);
+        }
+      }
+
+      .card-details {
+        display: flex;
+        @include dynamic-s-v-property(gap, 10);
+        align-items: center;
+        max-width: 50%;
+
+        h6, h5 {
+          flex: 1;
+        }
+
+      }
+    }
+  }
+
+}
+
+

@@ -1,0 +1,128 @@
+// Import mixins
+@import 'src/app/styles/core/variables.scss';
+@import "src/app/styles/functions";
+
+
+.ant-tabs-nav .ant-tabs-tab {
+  padding-left: 0;
+  padding-right: 0;
+  //margin-right: rem(20) !important;
+  @include dynamic-s-v-property(gap, 10);
+  border-radius: 8px !important;
+  background: $transparent !important;
+  color: $white !important;
+  border: none !important;
+  //border:red solid 1px;
+
+  &.ant-tabs-tab-active {
+    background: $gb-fifth-color !important;
+
+    .ant-tabs-tab-btn {
+      color: $white !important;
+      font-size: 14px;
+      font-family: Roboto;
+
+    }
+  }
+
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.ant-tabs {
+  overflow: visible;
+}
+
+.ant-tabs-top-bar {
+  margin-bottom: 0;
+  border-bottom: none;
+  height: 100%;
+}
+
+.ant-tabs-nav-wrap {
+  border-bottom: 0px;
+
+}
+
+.ant-tabs-nav-container,
+.ant-tabs-nav-wrap,
+.ant-tabs-nav-scroll {
+  height: 100%;
+  overflow: visible;
+}
+
+.ant-tabs-nav {
+  height: 100%;
+  background: $gb-main-darker;
+  border: solid $gb-sec-bg;
+  border-width: 1px 0 1px 0;
+  padding: 10px;
+
+  & > div {
+    height: 100%;
+  }
+
+  .ant-tabs-ink-bar {
+    height: 1px;
+    bottom: -1px;
+
+    &[style*='width: 0px;'] {
+      width: 100% !important;
+    }
+  }
+
+  .ant-tabs-tab {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 0;
+  }
+}
+
+.ant-tabs-tab-active {
+  .nav-link {
+    background-color: $gb-fifth-color;
+    color: $white;
+    border-radius: 0.25rem;
+  }
+}
+
+.ant-tabs-nav {
+  .ant-tabs-ink-bar {
+    height: 7px;
+    bottom: -4px;
+    border-radius: 7px;
+  }
+
+  &::before {
+    border:0 !important;
+  }
+}
+
+.ant-tabs-ink-bar {
+  display: none !important;
+}
+
+.ant-tabs-nav {
+  .ant-tabs-tab {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.ant-tabs-nav-container,
+.ant-tabs-tabpane {
+  //padding-left: rem(24);
+  //padding-right: rem(24);
+}
+
+.ant-tabs-top-bar {
+  //border-bottom: 1px solid $border;
+}
+.ant-tabs-nav-more {
+  background: $gb-fifth-color !important;
+  border-radius: 5px;
+  display: flex; justify-content: center; align-items: center;
+  font-size: 20px; color: white;
+}

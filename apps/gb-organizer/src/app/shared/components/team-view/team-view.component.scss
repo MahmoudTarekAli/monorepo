@@ -1,0 +1,109 @@
+@import '../../../components/kit/core/mixins';
+
+.required-account {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  gap: 5px;
+
+  .id {
+    color: lightgray;
+  }
+}
+
+::ng-deep {
+.ant-list-item-meta {
+  align-items: center !important;
+}
+  .ant-list-item-meta-content {
+    display: flex;
+    flex-flow: row;
+    gap: 10px;
+  }
+
+  .team-view-collapse {
+    .ant-collapse-item {
+      background: $gb-sec-bg !important;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid;
+      color: $gb-sec-bg;
+      margin: 10px 0;
+      display: flex;
+      flex-flow: column;
+    }
+
+    .ant-collapse-content {
+      border: 0;
+      border-radius: 0 0 10px 10px;
+      background-color: $dark-gray-9 !important;
+
+      .ant-collapse-content-box {
+        padding:10px !important; background:$gb-blue;
+        border-top: solid 1px $gb-sec-bg;
+        p {
+          font-size:12px; margin:0;
+        }
+      }
+    }
+
+    .ant-collapse-header {
+      background: $gb-sec-bg !important;
+      //margin: 10px 0;
+      display: flex;
+      flex-flow: column;
+      border-radius: 10px;
+      max-height: fit-content;
+      border-bottom: 0;
+      padding: 0 !important;
+
+      .ant-list {
+        flex: 1 !important;
+        padding: 5px 10px;
+
+      }
+
+      .ant-list-item {
+        padding: 0 !important;
+      }
+    }
+  }
+
+  .ant-collapse-extra {
+    background: $gb-blue;
+    padding: 5px 10px;
+  }
+
+  .ant-collapse-arrow {
+    top: 20% !important;
+    transform: unset !important;
+  }
+}
+
+.country {
+  width: 18px;
+  height: 18px;
+}
+
+.leader {
+  background: #918ef4;
+  padding: 0 5px;
+  font-size: 10px;
+  border-radius: 5px;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+
+.image-container {
+  width: 25px;
+
+  &.champion {
+    border-radius: 50px;
+    width: 30px;
+    height: 30px;
+  }
+}

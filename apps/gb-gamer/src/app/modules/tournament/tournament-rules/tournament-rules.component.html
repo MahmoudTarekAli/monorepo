@@ -1,0 +1,9 @@
+<ng-container *ngIf="(tournament$ | async) as tournament">
+
+  <app-section [title]="'tournament.tournamentRules' | translate">
+    <div class="inner-content description">
+      <quill-view-html  style="color: white" [content]="tournament.general_rules"></quill-view-html>
+<!--      <pre [innerHTML]="tournament.description | safeHtml"></pre>-->
+    </div>
+  </app-section>
+</ng-container>

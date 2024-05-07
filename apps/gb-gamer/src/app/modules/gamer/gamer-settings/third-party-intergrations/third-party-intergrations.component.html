@@ -1,0 +1,29 @@
+
+<h2>{{'gamer.thirdPartyAccounts' | translate}}</h2>
+<p>Verify your phone number to use the platform or log in with them</p>
+
+<div class="row">
+  <ng-container *ngIf="(getThirdParties$ | async)?.data?.length > 0; else noThirdParty">
+
+    <div class="col-12 col-lg-3 col-md-6 my-2" *ngFor="let thirdParty of (getThirdParties$ | async).data">
+
+      <div class="connected-accounts flex-column">
+
+        <div class="cover-container ">
+          <img src="assets/third-party/korek.png" alt="">
+        </div>
+        <div class="content-body d-flex flex-column justify-content-center gap-1 flex-grow-1">
+          <h5 class="mx-2" *ngIf="thirdParty?.phone_number">Phone: {{thirdParty?.phone_number}}</h5>
+<!--          <h6 class="text-gray">{{thirdParty?.created_at | date : 'MMMM dd, yyyy - h:mm a'}}</h6>-->
+        </div>
+
+        <app-button variant="default-danger h-auto" class="m-3 d-flex align-items-center"  (click)="disconnectThirdParty(thirdParty?.phone_number)">{{'common.buttons.disconnect' | translate}}</app-button>
+
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #noThirdParty>
+  <app-place-holder class="mt-3" [className]="'dark'" [text]="'No Connected third parties yet!' | translate"></app-place-holder>
+</ng-template>

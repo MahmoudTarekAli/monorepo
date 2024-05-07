@@ -1,0 +1,37 @@
+@import "../../../components/mixins";
+::ng-deep{
+.copy-icon{
+  background-color: $purple;
+  padding: 5px 15px;
+  border-radius: 8px;
+  height: 32px;
+  margin-left: 10px;
+  margin-bottom: 0!important;
+  nz-text-copy{
+    svg{
+      width: 18px!important;
+      height: 18px!important;
+    }
+
+    img{
+    width: 18px;
+  }
+}
+  }
+}
+.social-buttons-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  .social-button{
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 5px 15px;
+    margin: 15px;
+    border: none;
+    img{
+      width: 22px;
+    }
+  }
+}

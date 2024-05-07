@@ -1,0 +1,14 @@
+// Import mixins
+@import 'src/app/styles/core/variables.scss';
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+  .ant-cascader {
+    &-menu-item-active {
+      background: $primary;
+
+      &:hover {
+        background: $primary;
+      }
+    }
+  }

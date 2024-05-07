@@ -1,0 +1,126 @@
+
+  <app-banner-card *ngIf="componentName === 'matchProfile'"
+                   [banner]="match.cover || 'https://gbarena-development.s3.amazonaws.com/users/covers/default.webp'"
+                   [profile]="match.avatar" [bannerHeight]="true">
+    <div class="tournament-description d-flex flex-column justify-content-around" ngProjectAs="tournament-description">
+      <h5>{{match?.username}}
+      </h5>
+      <div class="d-flex flex-row gap-10 align-items-center">
+        <h5><span>{{match?.bio}}</span></h5>
+      </div>
+    </div>
+
+    <ng-container ngProjectAs="tournament-buttons">
+      <app-button (click)="modal.close()" routerLink="/teams/{{match?.original?.id}}" variant="primary">
+        <span>View Team</span>
+      </app-button>
+      <!--      <app-button    variant="white">-->
+      <!--        Complete Profile-->
+      <!--      </app-button>-->
+    </ng-container>
+  </app-banner-card>
+  <ng-scrollbar style="height: 400px ">
+  <nz-collapse  [nzBordered]="false" [nzExpandIconPosition]="'right'" class="team-view-collapse">
+    <ng-container *ngFor="let  member of data; let isFirst = first">
+      <nz-collapse-panel [nzDisabled]="member?.supported_required_inputs?.length < 1"
+                         [nzShowArrow]="member?.supported_required_inputs?.length > 0"
+                         [nzHeader]="headerCollapse"
+                         [nzExtra]="description"
+                         [nzActive]="member.active">
+
+        <div class="row">
+          <div class="col-6" *ngFor="let req of member?.supported_required_inputs">
+            <p><b>{{req.placeholder}}:</b> {{req.value}}</p>
+          </div>
+        </div>
+      </nz-collapse-panel>
+      <ng-template #headerCollapse>
+        <nz-list nzItemLayout="horizontal">
+          <nz-list-item *ngIf="componentName === 'match-list'">
+            <nz-list-item-meta style="color: #fff!important"
+                               nzAvatar="{{member?.avatar}}"
+                               [nzDescription]="teamDescription">
+              <nz-list-item-meta-title>
+
+              </nz-list-item-meta-title>
+
+              <ng-template #teamDescription>
+                <div class="d-flex gap-2">
+                  {{member?.username}}
+                  <nz-avatar [nz-tooltip]="member?.country" [nzSize]="'default'" class="country me-2"
+                             [nzSrc]="member?.country  | countryImage"></nz-avatar>
+                  <div class="leader mx-2" *ngIf="member?.original?.username === leader?.username">
+                    leader
+                  </div>
+                </div>
+              </ng-template>
+            </nz-list-item-meta>
+          </nz-list-item>
+          <nz-list-item>
+            <nz-list-item-meta style="color: #fff!important"
+                               nzAvatar="{{member?.original?.avatar}}"
+                               [nzDescription]="teamDescription">
+              <nz-list-item-meta-title>
+                <nz-avatar [nz-tooltip]="member?.original?.country" [nzSize]="'default'" class="country me-2"
+                           [nzSrc]="member?.original?.country  | countryImage"></nz-avatar>
+
+                <!--              <p class="m-0">{{ member?.original?.country}}</p>-->
+              </nz-list-item-meta-title>
+              <ng-template #teamDescription>
+                <div class="d-flex">
+                  {{member?.original?.username}}
+                  <div class="leader mx-2" *ngIf="member.original?.username === leader?.username">
+                    leader
+                  </div>
+                </div>
+              </ng-template>
+            </nz-list-item-meta>
+          </nz-list-item>
+          <!--        <nz-list-empty *ngIf="data.length === 0"></nz-list-empty>-->
+        </nz-list>
+
+      </ng-template>
+      <ng-template #description>
+
+        <div class="d-flex flex-row justify-content-between align-items-center">
+          <div class="required-account" *ngIf="tournament?.connected_accounts_required &&
+member?.required_accounts[0]?.publisher_account; else noConnectedAccount">
+
+            <div>
+              <img *ngIf="member?.required_accounts[0]?.publisher_account?.rank?.image !== 'unranked'"
+                   [nz-tooltip]="member?.required_accounts[0]?.publisher_account?.rank?.name"
+                   class="image-container" src="{{member?.required_accounts[0]?.publisher_account?.rank?.image}}"
+                   alt="">
+              <p
+                *ngIf="member?.required_accounts[0]?.publisher_account?.rank?.image === 'unranked'">{{member?.required_accounts[0]?.publisher_account?.rank?.image | uppercase}}</p>
+
+            </div>
+
+            <div class="id">
+              {{member?.required_accounts[0]?.publisher_account?.game_username}}
+            </div>
+
+            <img width="15" src="assets/svg-icons/ok-icon-green.svg" alt="">
+
+          </div>
+
+          <ng-template #noConnectedAccount>
+            <p style="margin:0; font-size: 12px; color:gray;">"No Connected Account"</p>
+          </ng-template>
+
+          <div class="d-flex flex-row align-items-center" style="margin-left:auto; gap:10px;">
+            <p class="m-0">IP </p>
+            <nz-avatar
+              [nz-tooltip]="componentName === 'participants' ? member?.original?.ip_conflict_country : member?.ip_conflict_country "
+              [nzSize]="'default'" class="country me-2"
+              [nzSrc]="componentName === 'participants' ? (member?.original?.ip_conflict_country | countryImage) : member?.ip_conflict_country  | countryImage"></nz-avatar>
+            <!--      <p class="text-white">{{member?.original?.ip_conflict_country}}</p>-->
+
+          </div>
+        </div>
+
+      </ng-template>
+
+    </ng-container>
+  </nz-collapse>
+</ng-scrollbar>

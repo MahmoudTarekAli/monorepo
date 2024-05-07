@@ -1,0 +1,292 @@
+<ng-container *ngIf="getTournament | async as tournament">
+  <app-section-container [title]="'tournament_progress' | translate" [customButtons]="progress_header">
+
+    <div class="container">
+      <nz-steps [nzCurrent]="index" nzDirection="vertical">
+        <nz-step [nzIcon]="publishTournamentImg" [nzTitle]="'publish_tournament' | translate"
+                 [nzDescription]="publish_tournament"
+                 [nzDisabled]="tournament.is_published"
+                 [@enter]="true"></nz-step>
+        <ng-template #publishTournamentImg>
+          <ng-container *ngTemplateOutlet="iconPlaceHolder context:{i: 0}"></ng-container>
+        </ng-template>
+        <nz-step [nzIcon]="checkInRegistration"
+                 [nzTitle]="'registration_and_checkin' | translate"
+                 [nzDescription]="players_to_join"
+                 [nzDisabled]="!tournament?.is_published || tournament?.tree?.data[0]?.is_published === 1"
+                 [@enter]="true"></nz-step>
+        <ng-template #checkInRegistration>
+          <ng-container *ngTemplateOutlet="iconPlaceHolder context:{i: 1}"></ng-container>
+        </ng-template>
+        <nz-step [nzIcon]="firstStageImg" [nzTitle]="'seed_first_stage' | translate"
+                 [nzDescription]="first_stage_confirm_tournament"
+                 [nzDisabled]="!tournament?.is_published || isNextStageReady || tournament?.tree?.data[1]?.is_published === 1"
+                 [@enter]="true"></nz-step>
+        <ng-template #firstStageImg>
+          <ng-container *ngTemplateOutlet="iconPlaceHolder context:{i: 2}"></ng-container>
+        </ng-template>
+        <nz-step [nzIcon]="secondStage" [nzTitle]="'seed_second_stage' | translate"
+                 [nzDescription]="Second_stage_confirm_tournament"
+                 [nzDisabled]="(tournament?.tree?.data[0]?.is_published === 0 &&  isFinishable) || tournament.status === 'Finished'  "
+                 *ngIf="tournament?.tree?.data[1]"
+                 [@enter]="true"></nz-step>
+        <ng-template #secondStage>
+          <ng-container *ngTemplateOutlet="iconPlaceHolder context:{i: 3}"></ng-container>
+        </ng-template>
+        <nz-step [nzIcon]="finishTournamentImg" [nzTitle]="'finish_tournament' | translate"
+                 [nzDisabled]="!tournament.is_published  || !isFinishable || tournament?.status === 'Finished'"
+                 [nzDescription]="finish_tournament" [@enter]="true"></nz-step>
+        <ng-template #finishTournamentImg>
+          <ng-container
+            *ngTemplateOutlet="iconPlaceHolder context:{i: tournament?.tree?.data[1] ? 4 : 3}"></ng-container>
+        </ng-template>
+      </nz-steps>
+    </div>
+  </app-section-container>
+
+  <ng-template #publish_tournament>
+    <div class="d-flex flex-column">
+      <p>
+        {{'publish_tournament_text' | translate}}
+      </p>
+      <div class="d-flex align-items-center gap-2 mb-3 font-size-16"
+           *ngIf="(tournament?.is_publishable !== true && tournament?.is_published != true)">
+      <span nz-icon nzType="warning"
+            theme="fill"
+            style="color: orange !important;">
+                </span>
+        <a [routerLink]="['/tournament/' + tournament['code'] +'/process/tournament-bracket']"
+           style="text-decoration: underline"
+           class="text-danger"> {{'Missing Bracket Settings'}} </a>
+      </div>
+
+      <div class="button-container">
+        <div>
+          <button class="tournament-progress-actions" nz-button nzType="primary"
+                  [nzLoading]="!!(getTournamentIsExecuting$ | async)"
+                  (click)="publishTournament()"
+                  [disabled]="tournament?.is_publishable === false">
+            <!--            <img src="assets/svg-icons/rocket-lunch-icon.svg">-->
+            <span>{{'publish_tournament' | translate}}</span>
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+
+  </ng-template>
+  <ng-template #players_to_join>
+    <div class="registration_checkIn-container">
+      <div class="registration_checkIn">
+        <nz-switch [(ngModel)]="tournamentRegistration" (ngModelChange)="TournamentRegistration($event)"></nz-switch>
+
+        <div class="info">
+          <h6>{{'registration' | translate}}</h6>
+          <p>{{'registration_text' | translate}} </p></div>
+
+      </div>
+      <div class="registration_checkIn">
+        <nz-switch [(ngModel)]="tournamentCheckIn" (ngModelChange)="checkInTournament($event)"></nz-switch>
+        <div class="info">
+          <h6>{{'checkin' | translate}}</h6>
+          <p>{{'checkin_text' | translate}}</p>
+        </div>
+      </div>
+      <div *ngIf="!environment.production"
+      >
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
+          <input [(ngModel)]="seedParticipantsSize" [ngModelOptions]="{standalone: true}"
+                 style="border-radius: 0 !important;" type="text" nz-input
+                 [placeholder]="'number_of_participants' | translate"/>
+        </nz-input-group>
+        <ng-template #suffixButton>
+          <button nz-button nzType="primary" (click)="seedParticipant()"
+                  [disabled]="seedParticipantsSize < 1 || seedParticipantsSize === undefined">
+            {{'seed_participants' | translate}}
+          </button>
+
+        </ng-template>
+      </div>
+    </div>
+
+  </ng-template>
+
+  <ng-template #first_stage_confirm_tournament>
+    <div class="d-flex flex-column">
+      <p>
+        {{'seed_bracket_text' | translate}}
+      </p>
+      <div class="d-flex gap-2">
+        <div class="flex-buttons gap-2">
+          <ng-container nz-tooltip="true" [nzTooltipColor]="'#7575a3'"
+                        [nzTooltipTitle]="participants?.length < 3?
+             'You need to have at least 2 participants to publish Bracket' : tournament?.has_started !== true ? 'You Can View Your Bracket But Tournament Has To Be Started To Publish Your Bracket' : tournament?.tree?.data[0]?.is_published === 1 ? 'Bracket Already Published': 'Publish First Stage'">
+            <button class="tournament-progress-actions" nz-button nzType="primary" (click)="publishFirstStageBracket()"
+                    [disabled]="(tournament?.tree?.data[0]?.is_published === 1 && tournament?.tree?.data[0]?.type && tournament?.is_published) "
+                    [nzLoading]="!!(getTournamentAllParticipantsIsExecuting$ | async)">
+              <!--          <span nz-icon nzType="warning"-->
+              <!--                *ngIf="(participants?.length < 3 || tournament?.has_started !== true)"-->
+              <!--                theme="fill"-->
+              <!--                style="color: orange !important;">-->
+              <!--          </span>-->
+              <!--              <img src="assets/svg-icons/tournament-bracket-icon.svg">-->
+              {{ 'seed_and_publish' | translate}}
+            </button>
+          </ng-container>
+          <div>
+            <button class="tournament-progress-actions" nz-button nzType="primary" routerLink="../../manage/match-list"
+                    style="background: #ddd !important; color: black"
+                    [queryParams]="{stage: 1}"
+                    [disabled]="tournament?.tree?.data[0]?.is_published === 0">
+              <!--              <img src="assets/svg-icons/battle-icon-black.svg">-->
+              <span>{{'set_score' | translate}}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </ng-template>
+
+  <ng-template #seed_participants>
+    <div class="d-flex flex-column">
+      <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea r
+      </p>
+
+    </div>
+
+  </ng-template>
+
+  <ng-template #Second_stage_confirm_tournament>
+    <div class="d-flex flex-column">
+      <p>
+        {{'seed_bracket_text' | translate}}
+      </p>
+      <div class="flex-buttons gap-2">
+        <button class="tournament-progress-actions" nz-button nzType="primary"
+                [nzLoading]="!!(getTournamentAllParticipantsIsExecuting$ | async)"
+                (click)="publishSecondStageBracket()"
+                [disabled]="tournament?.tree?.data[1]?.is_published === 1 || tournament?.tree?.data[0]?.is_published === 0">
+          <!--          <img src="assets/svg-icons/tournament-bracket-icon.svg">-->
+          {{ 'seed_and_publish' | translate}}
+        </button>
+        <div>
+          <button class="tournament-progress-actions" nz-button nzType="primary" routerLink="../../manage/match-list"
+                  [queryParams]="{stage: 2}" style="background: #ddd !important; color: black"
+                  [disabled]="tournament?.tree?.data[1]?.is_published === 0">
+            <!--            <img src="assets/svg-icons/tournament-bracket-icon.svg">-->
+            <span>{{'set_score' | translate}}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </ng-template>
+
+  <ng-template #set_score>
+    <div class="d-flex flex-column">
+      <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+        dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea r
+      </p>
+      <div>
+        <button nz-button nzType="primary" routerLink="../../manage/match-list"
+                [disabled]="tournament?.tree?.data[0]?.is_published === 0">
+          {{'set_score' | translate}}
+        </button>
+      </div>
+    </div>
+
+  </ng-template>
+
+  <ng-template #finish_tournament>
+    <div class="d-flex flex-column">
+      <p>
+        {{'finish_text' | translate}}
+      </p>
+      <div>
+        <button class="tournament-progress-actions" nz-button nzType="primary" (click)="finishTournament()"
+                [disabled]="!isFinishable || tournament?.status === 'Finished'">
+          <!--          <img src="assets/svg-icons/finish-flag-icon.svg">-->
+          <span>{{'finish_tournament' | translate}}</span>
+        </button>
+      </div>
+    </div>
+
+  </ng-template>
+
+  <ng-template #reset_bracket>
+    <div class="d-flex flex-column">
+      <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+        dolore magna aliquyam erat, sed diam voluptua. Please type <span
+        class="text-danger font-weight-bold font-size-16">"{{tournament?.name ? tournament?.name : ''}}"</span>
+        to reset Tournament
+      </p>
+      <div>
+        <nz-input-group nzSearch [nzAddOnAfter]="reset_Tournament">
+          <input (input)="validateTournamentNameSpelling($event)" [(ngModel)]="resetTournamentTextValidation"
+                 style="border-radius: 0 !important;" type="text" nz-input
+                 [placeholder]="('please_type_tournament' | translate) + (tournament?.name ? tournament?.name : '')"/>
+        </nz-input-group>
+        <ng-template #reset_Tournament>
+          <button nz-popconfirm="true"
+                  [nzPopconfirmTitle]="'Are you sure you want to reset ( ' + (tournament?.name) + ' ) tournament ? note that this will delete all stages , brackets , matches and scores'"
+                  (nzOnConfirm)="resetTournament()"
+                  nzPopconfirmPlacement="bottom" nz-button nzType="primary" nzDanger="true"
+                  [disabled]="isCorrectTournamentName === false">
+            {{'reset_tournament' | translate}}
+          </button>
+        </ng-template>
+      </div>
+    </div>
+
+  </ng-template>
+</ng-container>
+
+<ng-template #stepperImg>
+  <span nz-icon nzType="close-circle" nzTwotoneColor="#f5222e" nzTheme="twotone"></span>
+</ng-template>
+
+<ng-template #iconPlaceHolder let-i='i'>
+  <div class="tournament-progress-bar">
+
+<!--    {{index}} {{i}}-->
+    <ng-container *ngIf="index + 1 > i + 1;">
+      <div class="finished">
+        <img src="assets/svg-icons/check-icon-white.svg">
+      </div>
+    </ng-container>
+    <ng-container *ngIf="(index + 1 === i + 1);">
+      <div class="current" *ngIf="tournament?.status !== 'Finished'">
+        <span>{{i + 1}}</span>
+      </div>
+      <div class="finished" *ngIf="tournament?.status === 'Finished'">
+        <img src="assets/svg-icons/check-icon-white.svg">
+      </div>
+    </ng-container>
+    <ng-container *ngIf="index + 1 < i + 1;">
+      <div class="next">
+        <span>{{i + 1}}</span>
+      </div>
+    </ng-container>
+
+  </div>
+
+</ng-template>
+
+<ng-template #progress_header>
+  <div class="d-flex flex-column">
+    <div class="d-flex flex-row justify-content-between mb-2" style="gap: 15px">
+      <label class="tag-label" *ngIf="authorityType">
+        <img src="assets/svg-icons/participants_setting-icon.svg" alt="">{{authorityType}}</label>
+      <label class="tag-label" [ngStyle]="{'background-color': statusColor[tournament.status]}"
+             *ngIf="tournament?.status">
+        <img src="assets/svg-icons/flag-icon.svg" alt="">{{tournament?.status}}</label>
+    </div>
+  </div>
+
+</ng-template>

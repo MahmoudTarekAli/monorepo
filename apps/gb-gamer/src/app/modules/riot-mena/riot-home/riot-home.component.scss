@@ -1,0 +1,50 @@
+@import "src/app/styles/core/variables";
+@import "src/app/styles/functions";
+
+
+.achievement-card{
+  display: flex;
+  justify-content: start;
+  padding: 25px ;
+  background: transparent linear-gradient(270deg, #8429F6 0%, #6AC3FF 100%) 0% 0% no-repeat padding-box;
+  border-radius: 8px;
+  gap: 15px;
+  img{
+    width: 35px;
+    // height: 100%;
+  }
+  .achievement-number{
+    font-weight: bold;
+  }
+}
+
+::ng-deep{
+  .riot-collapse{
+    border: none;
+    background: transparent linear-gradient(270deg, #8429F6 0%, #6AC3FF 100%) 0% 0% no-repeat padding-box;
+    max-width: 800px;
+    border-radius: 12px;
+    margin: auto;
+  .ant-collapse-content-box {
+    background: transparent linear-gradient(270deg, #8429F6 0%, #6AC3FF 100%) 0% 0% no-repeat padding-box;
+    p{
+      border-radius: 4px;
+      background: transparent linear-gradient(270deg, #8429F6 0%, #6AC3FF 100%) 0% 0% no-repeat padding-box;
+      padding: 5px 10px;
+    }
+  }
+
+  .ant-collapse-header{
+    //@include dynamic-font(16);
+    font-size: 16px;
+
+  }
+  nz-collapse-panel:last-child{
+    border-bottom: none!important;
+  }
+  .ant-collapse-header .ant-collapse-arrow{
+    font-size: 16px!important;
+    font-weight: bolder;
+  }
+  }
+}

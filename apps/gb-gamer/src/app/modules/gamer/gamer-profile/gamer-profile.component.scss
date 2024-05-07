@@ -1,0 +1,66 @@
+@import '../../../styles/core/variables';
+a{
+  color: $gray-5;
+  text-decoration: none
+}
+h1{
+  font-size: 20px;
+  span{
+    color:$gb-thirdly-color ;
+  }
+  .ref-number{
+    font-size: 18px;
+    margin-bottom: 5px;
+    img{
+      //margin: 0 5px;
+      cursor: pointer;
+    }
+  }
+}
+.nav-container{
+  border-bottom: 1px solid $gray-2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  ::ng-deep{
+    .ant-tabs-tab-active{
+      a{
+        color: $white;
+      }
+
+    }
+    .ant-tabs-nav::before{
+      border-bottom: none!important;
+    }
+    .ant-tabs-nav-wrap{
+      border: none!important;
+    }
+    .ant-tabs-top > .ant-tabs-nav{
+      margin: 0!important;
+    }
+  }
+
+}
+.tabbest{
+  height: 100%;
+  background: $gb-main-darker;
+  border: solid $gb-sec-bg;
+  border-width: 1px 0 1px 0;
+  padding: 10px;
+  display: flex;
+  gap: 15px;
+  p{
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  .active{
+    background-color: $purple;
+    border-radius: 8px;
+
+
+  }
+}
+app-button{
+  width: 100%;
+}

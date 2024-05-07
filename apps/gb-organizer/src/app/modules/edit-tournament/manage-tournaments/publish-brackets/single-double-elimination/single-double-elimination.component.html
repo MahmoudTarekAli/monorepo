@@ -1,0 +1,52 @@
+<button class="floating-button" nz-button nzType="primary" nzSize="large" nzShape="circle"
+        *ngIf="selectedIndexes.length === 2" (click)="applySwap()" nzTooltipTitle="Swap Players"
+        [nzTooltipPlacement]="['bottom']" nz-tooltip="true">
+  <span nz-icon nzType="sync" nzTheme="outline"></span>
+</button>
+<button class="delete-floating-button" nz-button nzType="primary" nzSize="large" nzShape="circle"
+        nzTooltipTitle="Reset Swap"
+        [nzTooltipPlacement]="['top']" nz-tooltip="true"
+        *ngIf="selectedIndexes.length === 2" (click)="resetSwap()">
+  <span nz-icon nzType="delete" nzTheme="outline"></span>
+</button>
+<div class="d-flex flex-column gap-20">
+
+  <ng-container *ngIf="(isGetTournamentAllParticipants$ | async) === true; else templateRef">
+    <div class="col-12">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+  </ng-container>
+  <ng-template #templateRef>
+    <ng-container *ngIf="bracket?.length > 0">
+      <ng-container *ngFor="let participant of bracket; let i = index">
+        <div class="row">
+          <div class="col-lg-3 col-md-4 col-12">
+            <div class="match-card">
+              <div class="player-card" [ngClass]="homeCheckbox.nzChecked === true  ? 'purple' : ''"
+              >
+                <label nz-checkbox #homeCheckbox
+                       (nzCheckedChange)="pushSelectedIndex($event, i, 'home', participant?.home, '')"
+                       [nzDisabled]="selectedIndexes.length === 2"
+                ></label>
+                <nz-avatar nzSize="small" [nzSrc]="participant?.home?.original?.avatar"></nz-avatar>
+                <span>{{participant?.home?.original?.participant_name}}</span>
+              </div>
+              <div class="player-card"
+                   [ngClass]="awayCheckboxes.nzChecked ? 'purple' : ''"
+              >
+                <label nz-checkbox #awayCheckboxes
+                       (nzCheckedChange)="pushSelectedIndex($event, i, 'away','', participant?.away)"
+                       [nzDisabled]="selectedIndexes.length === 2"></label>
+                <nz-avatar nzSize="small" [nzSrc]="participant?.away?.original?.avatar"></nz-avatar>
+                <span>{{participant?.away?.original?.participant_name}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nz-divider *ngIf="(i+1)==(bracket.length/2)"></nz-divider>
+
+      </ng-container>
+    </ng-container>
+  </ng-template>
+</div>
+

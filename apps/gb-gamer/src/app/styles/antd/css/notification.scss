@@ -1,0 +1,19 @@
+// Import mixins
+@import 'src/app/styles/core/variables.scss';
+
+.ant-notification {
+  max-width: calc(100vw - 48px);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+  .ant-notification {
+    &-notice-message {
+      color: $white;
+    }
+    &-close-icon {
+      svg {
+        fill: $white;
+      }
+    }
+  }

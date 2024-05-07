@@ -1,0 +1,29 @@
+
+<!--<ng-scrollbar *ngIf="!flexWrap" class="scroll-parent" (psXReachEnd)=" changePages($event)" >-->
+<!--  <div class="gap-2 w-100 px-md-0 d-flex flex-nowrap justify-content-start">-->
+<!--  <ng-container *ngTemplateOutlet="cardList"></ng-container>-->
+<!--  </div>-->
+<!--</ng-scrollbar>-->
+
+<ng-container *ngIf="flexWrap">
+  <ng-container  *ngTemplateOutlet="cardList"></ng-container>
+</ng-container>
+
+
+<ng-template #cardList>
+  <div class="row mt-2 w-100" [ngStyle]="{'flex-wrap' : flexWrap ? 'wrap' : 'nowrap'}">
+    <div class="col-lg-3 col-md-4 col-11 mb-2 card-container" [ngClass]="{'col-12' : flexWrap}" *ngFor="let card of cards">
+
+      <app-tournament-card *ngIf="cardType === 'tournaments'" [tournament]="card"></app-tournament-card>
+      <app-game-card routerLink="/games/{{card.game_code}}" *ngIf="cardType === 'games'" [game]="card"></app-game-card>
+      <app-challenge-card *ngIf="cardType === 'challenges'" [challengeQueryParam]="challengeQueryParam" [isFeatured]="isFeatured" [challenge]="card"></app-challenge-card>
+    </div>
+    <div class="col-12" *ngIf="isPaginated && total > pageSize ">
+      <nz-pagination [nzPageIndex]="page"
+                     [nzPageSize]="pageSize"
+                     [nzTotal]="total"
+                     (nzPageIndexChange)="changePages($event)"></nz-pagination>
+    </div>
+
+  </div>
+</ng-template>

@@ -1,0 +1,112 @@
+@import '../../../../components/mixins';
+
+.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-icon {
+  background: $purple !important;
+  border-color: $gb-main-bg !important;
+  width: 40px;
+  height:40px;
+}
+::ng-deep {
+  .ant-steps-item-container {
+
+  .ant-steps-item-icon {
+    width: 40px;
+  }
+    .ant-steps-item-tail {
+      padding:46px 0 6px !important;
+      left:20px !important;
+    }
+  }
+.ant-steps-icon {
+  line-height: 40px !important;
+}
+
+}
+
+
+
+.button-container {
+  // using this for tooltip position to make div fit child button width
+  max-width: fit-content;
+}
+
+.tournament-progress-bar {
+  font-size: 15px;
+
+  .finished {
+    background: #00cb7a;
+    border-radius: 50%;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+
+  }
+
+  .current {
+    background: orange;
+    color: white;
+    border-radius: 50%;
+  }
+
+  .next {
+    background: #ddd;
+    border-radius: 50%;
+    color: gray;
+  }
+}
+
+.tournament-progress-actions {
+  display: flex !important;
+  justify-content: flex-start;
+  gap: 10px;
+  align-items: center;
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.registration_checkIn-container {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  margin-top: 10px;
+
+  .registration_checkIn {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      h6 {
+        font-weight: 500;
+      }
+
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.tag-label{
+  border-radius: 5px;
+  background: #918ef4;
+  padding: 2px 15px;
+  color: white;
+  font-size: 12px;
+  display: flex;
+
+  img  {
+    width: 12px;
+    margin:0 5px;
+  }
+
+}

@@ -1,0 +1,106 @@
+@import 'src/app/styles/core/variables';
+
+.scrollable-container {
+  overflow-x: auto;
+  //white-space: nowrap;
+}
+
+
+.team-container {
+  .ant-radio-button-wrapper-checked:focus-within {
+    box-shadow: none;
+  }
+
+  .ant-radio-button-wrapper-checked {
+    background: $gb-primary-color;
+    padding: 10px 30px;
+
+  }
+
+  .ant-radio-button-wrapper {
+    border-radius: 10px;
+    border: none;
+    height: unset;
+    padding: 15px;
+    color: $white;
+  }
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  label {
+    background: $gb-sec-bg;
+  }
+
+  .team {
+    display: flex;
+    gap: 15px;
+
+    .team-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+  }
+}
+
+::ng-deep {
+  .ant-select-selector {
+    background-color: $gb-blue !important;
+  }
+
+  .phonenumber {
+    .iti input {
+      background-color: $gb-blue !important;
+      height: 40px;
+      width: 100%;
+    }
+  }
+
+}
+
+.team-selection {
+  display: flex;
+  gap: 10px;
+  justify-content: space-around;
+  .ant-radio-button-wrapper {
+    border-color: $gb-primary-color !important;
+    border-radius: 5px !important;
+    //background-color: transparent !important;
+    color: $white !important;
+    border-top-width: unset !important;
+    border-left-width: unset !important;
+  }
+
+  .ant-radio-button-wrapper-checked {
+    background-color: $gb-primary-color !important;
+  }
+
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):focus-within {
+    box-shadow: unset !important;
+  }
+
+  .ant-radio-button-wrapper:not(:first-child)::before {
+    display: none !important;;
+  }
+
+  label {
+    background: $gb-sec-bg;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    text-align: center;
+    span {
+      &:focus {
+        border: none;
+      }
+    }
+  }
+}
+

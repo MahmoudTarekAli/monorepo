@@ -1,0 +1,121 @@
+@import '../../styles/core/variables';
+@import 'src/app/styles/functions';
+
+.tournament-description {
+  @include dynamic-s-v-property(gap, 10);
+  display: flex;
+  flex-flow: column;
+
+  h1 {
+    //font-size: 30px;
+  }
+
+  h5 {
+    //font-size: 16px;
+
+    a {
+      color: $gb-thirdly-color;
+    }
+  }
+
+  //h4 {
+  //  font-size: 16px;
+  //  color: $gray-1;
+  //  font-weight: lighter;
+  //  margin: 0;
+  //}
+
+  //p {
+  //  font-size: 12px;
+  //  color: $gray-1;
+  //}
+}
+
+
+.nav-container {
+  background: red;
+
+}
+
+.buttons-container {
+  display: flex;
+  flex-flow: column;
+  @include dynamic-s-v-property(gap, 10);
+  @include dynamic-m-v-property(padding, 10);
+
+  @media screen and (max-width: 767px) {
+    background: $gb-main-darker;
+    flex-flow: row;
+    position: fixed;
+    bottom: 65px;
+    border-bottom: solid $gb-sec-bg;
+    @include dynamic-m-v-property(border-width, 2);
+    z-index: 2;
+    width: 100%;
+  }
+}
+
+//::ng-deep {
+//  app-button {
+//    width:100%;
+//  }
+//}
+
+.info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-flow: column;
+  @include dynamic-s-v-property(gap, 10);
+  width: 100%;
+
+  h5 {
+
+    a {
+      color: $gb-thirdly-color;
+      font-weight: bold;
+    }
+    .pemium-text{
+      color: $premium-gold;
+      border: 1px solid $premium-gold;
+      border-radius: 12px;
+      width: fit-content;
+      padding: 0 3px;
+      margin: 0 5px;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.tournament-actions {
+  ::ng-deep nz-checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    ::ng-deep .ant-checkbox-group-item {
+      margin-right: 0 !important;
+    }
+
+    ::ng-deep.ant-checkbox-wrapper {
+      padding: 10px;
+      background: $gb-sec-bg !important;
+      border-radius: 10px;
+    }
+
+  }
+
+  ::ng-deep.ant-checkbox-wrapper {
+    padding: 10px;
+    background: white !important;
+    border-radius: 10px;
+  }
+
+}
+
+

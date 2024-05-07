@@ -1,0 +1,273 @@
+<div class="container">
+  <nz-page-header>
+    <nz-page-header-title>{{'Match Profile'}}</nz-page-header-title>
+    <nz-page-header-extra>
+      <nz-space>
+        <button *ngIf="isMatchVisible" nz-button nzType="primary" nzSize="large"
+                routerLink="/tournament/{{tournamentCode}}/manage/match-list">
+          <span nz-icon nzType="arrow-left" nzTheme="outline"></span>{{'Match List'}}</button>
+      </nz-space>
+    </nz-page-header-extra>
+  </nz-page-header>
+</div>
+
+
+
+<div class="d-flex flex-column gap-15" *ngIf="(getMatchIsExecuting$ | async) !== true ; else loadingIndicator">
+  <ng-container *ngIf="isMatchVisible ;else noMatchVisible">
+    <app-section-container>
+      <div class="match">
+        <div class="match-info"><span>#{{match.match_no}}</span></div>
+        <div class="match-info" *ngIf="match?.start_at">
+          <div>{{match?.start_at + 'Z' | date:'MMM d, h:mm a'}}</div>
+        </div>
+        <div class="match-versus">
+          <div class="match-versus-player">
+            <nz-avatar class="player" (click)="openTeamDrawer(match.home)" nzIcon="user" [nzSrc]="match?.home?.original?.avatar" nzSize="small"></nz-avatar>
+            <span
+              class="text-center">{{(match?.home?.original?.participant_name | truncate : 10) }}</span>
+            <nz-avatar class="country" [nzSrc]="match?.home?.original?.country | countryImage" nzSize="small"></nz-avatar>
+
+          </div>
+          <div class="match-status">
+            <div class="match-versus-score">
+              <div style="padding: 4px">
+                {{match?.home?.score ? (match?.home?.score + ' : ' + match?.away?.score) : 'VS'}}
+              </div>
+              <nz-divider class="divider-has-zero-margin"></nz-divider>
+              <div style="display: flex; gap: 3px">
+                <ng-container *ngIf="match?.status === 'Finished'; else live">
+                  <ng-container *ngTemplateOutlet="finished"></ng-container>
+                </ng-container>
+                {{match?.status | translate}}
+                <ng-template #live>
+                  <img src="assets/icons/live.svg">
+                </ng-template>
+                <ng-template #finished>
+                  <img src="assets/icons/finished.svg">
+                </ng-template>
+              </div>
+
+            </div>
+
+          </div>
+          <div class="match-versus-player away">
+            <nz-avatar class="player" nzIcon="user"  (click)="openTeamDrawer(match.away)"
+                       [nzSrc]="match?.away?.original?.avatar" nzSize="small"></nz-avatar>
+            <span
+              class="text-center">{{isMobileView ? (match?.away?.original?.participant_name | truncate : 7) : (match?.away?.original?.participant_name | truncate : 10)}}</span>
+            <nz-avatar class="country" nzIcon="user" *ngIf="!isMobileView"
+                       [nzSrc]="match?.away?.original?.country | countryImage" nzSize="small">
+
+            </nz-avatar>
+
+          </div>
+        </div>
+        <div class="match-action">
+          <nz-divider *ngIf="isMobileView" class="divider-has-zero-margin"></nz-divider>
+          <div class="match-action-wrapper">
+              <button nz-button nzType="primary" class="flex-grow-1" style="background: #ddd !important; color: black; border: none" *ngIf="tournament?.status !== 'Finished'"
+                      (click)="openSetScoreModal(match)">
+                <img src="assets/svg-icons/black-match-icon.svg" alt="">
+
+                Set Score
+              </button>
+              <button nz-button nzType="primary" class="flex-grow-1" (click)="resolveIssue()"
+                      *ngIf="match.status === 'Live'">
+                <img src="assets/svg-icons/resolve.svg" alt="">
+                Resolve Issue
+              </button>
+          </div>
+        </div>
+      </div>
+    </app-section-container>
+    <app-section-container  *ngIf="match?.publisher_match_code">
+      <div class="league-container">
+        <div class="d-flex gap-10 align-items-center " style="flex: 2;">
+          <img src="assets/images/league-icon.webp" style="width: 40px; height: 40px" alt="league-of-legend">
+          <div class=" d-flex flex-column">
+            <span>Match Code</span>
+            <p>Copy the code and paste in your client so you can participate in this tournament</p>
+          </div>
+
+        </div>
+        <div class="d-flex align-items-center" style="flex: 1" >
+        <nz-form-control class="d-flex">
+          <input style=" border-radius: 8px 0 0 8px!important;" nz-input readonly id="English Name" [(ngModel)]="match.publisher_match_code" />
+          <div class="copy-icon" nz-typography nzCopyable  [nzCopyText]="match.publisher_match_code">        </div>
+
+        </nz-form-control>
+      </div>
+
+      </div>
+    </app-section-container>
+
+
+    <app-section-container>
+      <div class="messenger" #messenger>
+        <div class="messenger-header mb-3">
+          <nz-avatar-group>
+            <nz-avatar nzIcon="user" [nzSrc]="match?.home?.avatar"></nz-avatar>
+            <nz-avatar nzIcon="user" [nzSrc]="match?.away?.avatar"></nz-avatar>
+          </nz-avatar-group>
+          <div class="messenger-header-title">
+            {{match?.home?.username}} , {{match?.away?.username}}
+          </div>
+        </div>
+        <virtual-scroller #scroll [items]="conversations" (vsStart)="getMoreMessages($event, match)"
+                          [bufferAmount]="100">
+
+          <main class="messenger-chat" *ngFor="let messages of scroll.viewPortItems; let i = index">
+
+            <div class="msg left-msg" *ngIf="(getUser | async)?.id !== messages?.sender">
+              <div class="message-container left">
+                <div>
+                  <div class="msg-info">
+                    <ng-container *ngIf=" messages?.sender === 1">
+                      <div class="msg-info-name">BOT</div>
+                    </ng-container>
+                    <ng-container *ngIf=" message?.sender !== 1">
+                      <div class="msg-info-name">{{messages?.username}}</div>
+                    </ng-container>
+                    <div class="msg-info-time">{{(messages?.created_at.seconds * 1000) | date : 'M/d/yy, h:mm a'}}</div>
+                  </div>
+                  <div class="msg-bubble">
+                    <div class="msg-text">
+                      {{messages?.body}}
+                    </div>
+                    <div *ngIf="messages?.screen_shot" class="mt-3">
+                      <ng-container *ngFor="let image of messages?.screen_shot">
+                        <img width="150" height="150" class="border-radius-10" nz-image [nzSrc]="image">
+                      </ng-container>
+                    </div>
+                  </div>
+
+
+                </div>
+
+                <nz-avatar [nzSrc]="messages?.sender === 1  ? 'assets/svg-icons/robot.svg' : messages?.avatar"
+                           nzShape="circle" nzSize="default"></nz-avatar>
+              </div>
+            </div>
+
+            <div class="msg right-msg" *ngIf="(getUser | async)?.id === messages?.sender">
+              <div class="message-container">
+                <div>
+                  <div class="msg-info">
+                    <div class="msg-info-name">{{(getUser | async)?.username}} ,</div>
+                    <div class="msg-info-time">{{(messages?.created_at.seconds * 1000) | date : 'M/d/yy, h:mm a'}}</div>
+                  </div>
+                  <div class="msg-bubble">
+                    <div class="msg-text">
+                      {{messages?.body}}
+                    </div>
+                    <div *ngIf="messages?.screen_shot" class="mt-3">
+                      <ng-container *ngFor="let image of messages?.screen_shot">
+                        <img width="150" height="150" class="border-radius-10" nz-image [nzSrc]="image">
+                      </ng-container>
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <nz-avatar [nzSrc]="(getUser| async)?.avatar" nzShape="circle" nzSize="default"></nz-avatar>
+
+              </div>
+
+            </div>
+          </main>
+        </virtual-scroller>
+
+        <nz-divider></nz-divider>
+        <nz-input-group class="send-message-input-group"
+                        [nzSuffix]="suffixIconSearch">
+          <input
+            [(ngModel)]="message"
+            (keydown.enter)="sendMessage(message)" type="text" nz-input
+            placeholder="input search text"/>
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <span class="pr-5" nz-icon nzType="send" nzTheme="outline" (click)="sendMessage(message)"></span>
+        </ng-template>
+      </div>
+    </app-section-container>
+  </ng-container>
+</div>
+
+<ng-template #noMatchVisible>
+  <app-section-container>
+
+    <nz-result nzStatus="warning" nzTitle="There is no participants in this match yet.">
+      <div nz-result-extra>
+        <button nz-button nzType="primary"
+                routerLink="/tournament/{{(this.getErrorMatch|async)?.tournament_code}}/manage/match-list">Go To
+          Tournament MatchList
+        </button>
+      </div>
+    </nz-result>
+  </app-section-container>
+</ng-template>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Report Issue" (nzOnCancel)="handleCancel()">
+  <div *nzModalContent>
+    <div class="row">
+      <div class="col-md-12">
+        <button nz-button nzType="default" class="w-100 mt-3 input-button-image">
+          <div>
+            <span nz-icon nzType="plus"></span>{{'upload_or_drag' | translate}} & {{'drag_ur_cover_photo' | translate}}
+            <input #file1Input type="file" multiple (change)="previewImages($event)"/>
+          </div>
+        </button>
+      </div>
+
+      <ng-container *ngIf="imageSrcs.length > 0">
+      </ng-container>
+      <div class="col-md-12">
+
+        <textarea [(ngModel)]="issueDescription" class="mt-3" type="text" nz-input
+                  [nzAutosize]="{ minRows: 3, maxRows: 5 }" [placeholder]="'Describe your issue '">
+        </textarea>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 " *ngFor="let img of imageSrcs ; let index = index">
+        <div class="uploadedImage">
+          <span (click)="deleteImage(index)" nz-icon nzType="close-circle" nzTheme="outline"></span>
+          <img [src]="img">
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="primary" (click)="reportIssue()" [disabled]="issueDescription.length === 0"> Submit
+    </button>
+  </div>
+</nz-modal>
+
+<ng-template #loadingIndicator>
+  <app-loading-indicator></app-loading-indicator>
+</ng-template>
+<ng-template #drawerTitle>
+  <div class="overlay">
+
+  </div>
+  <nz-list nzItemLayout="horizontal" [nzLoading]="loading">
+    <nz-list-item class="title-avatar">
+      <nz-list-item-meta style="color: #fff!important"
+                         nzAvatar="{{matchDrawer?.original?.avatar}}"
+                         nzDescription="{{matchDrawer?.original.participant_name}}"
+
+      >
+        <nz-list-item-meta-title>
+          <p>{{ matchDrawer?.original.country}}</p>
+        </nz-list-item-meta-title>
+      </nz-list-item-meta>
+    </nz-list-item>
+    <!--        <nz-list-empty *ngIf="data.length === 0"></nz-list-empty>-->
+  </nz-list>
+</ng-template>

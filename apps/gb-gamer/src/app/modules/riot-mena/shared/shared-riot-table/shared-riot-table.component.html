@@ -1,0 +1,52 @@
+<app-section class="my-3" [title]="'Top Partners'" [customButtons]="customTournamentButton">
+  <ng-container *ngIf="!(getEventArenasIsExecuting$ | async) ; else loadingIndicator">
+
+  <nz-table [className]="'riot-table'" #rowSelectionTable nzShowPagination nzShowSizeChanger
+            [nzFrontPagination]="false"
+            [nzPageSize]="50"
+            [nzData]="(eventArenas$| async)?.data | sliceArray : sliceNumber"
+            class="border-radius-10 overflow-hidden"
+            [nzScroll]="{ x: '1400px' }"
+  >
+
+    <thead>
+    <tr>
+      <th *ngFor="let column of displayedColumns" >{{column | translate}}</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let cafe of rowSelectionTable.data ">
+<!--      <td>{{cafe.rank}}</td>-->
+      <td>{{cafe.name | uppercase}} </td>
+      <td><img  class="country" src="{{'EG' | countryImage}}" alt="">Egypt</td>
+<!--      <td>{{cafe.tier}}</td>-->
+<!--      <td>100k</td>-->
+      <td><app-button variant="primary fit-content" class="d-flex justify-content-end">View Location</app-button> </td>
+    </tr>
+
+
+    <div class="col-12 d-flex justify-content-end" *ngIf="(eventArenas$| async)?.meta?.total > 20">
+      <nz-pagination [nzPageIndex]="(eventArenas$| async)?.meta.current_page"
+                     [nzPageSize]="(eventArenas$| async)?.meta?.per_page"
+                     [nzTotal]="(eventArenas$| async)?.meta?.total"
+                     (nzPageIndexChange)="changePage($event)"></nz-pagination>
+    </div>
+    </tbody>
+  </nz-table>
+
+
+  </ng-container>
+  <ng-template #customTournamentButton>
+    <app-button *ngIf="showButton" variant="baby-blue" borderRadius="50" routerLink="../cafes">Browse All</app-button>
+  </ng-template>
+</app-section>
+
+
+<ng-template #loadingIndicator>
+  <div class="row">
+    <div class="col-12">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+  </div>
+</ng-template>

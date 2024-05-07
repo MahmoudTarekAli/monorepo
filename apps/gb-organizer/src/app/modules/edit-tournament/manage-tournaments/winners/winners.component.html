@@ -1,0 +1,185 @@
+<app-section-container [title]="'winners'|translate" [customTemplate]="participantsHeader">
+  <div class="w-100 d-flex justify-content-end p-3">
+    <img *ngIf="isChecked" class="action-button" src="../../../../../assets/svg-icons/Icon%20material-mail.svg"
+         (click)="sendMessage()" [nz-tooltip]="'Send Message'">
+  </div>
+
+  <nz-table #basicTable [nzData]="winners?.data | participantSort " [nzShowPagination]="true"
+            nzShowSizeChanger
+            [nzScroll]="{ y: '500px' , x: '2000px' }"
+            [nzLoading]="loading"
+            (nzPageIndexChange)="onPageChange($event)"
+            [nzPageSize]="20"
+  >
+    <thead>
+    <tr>
+      <th>
+        <label (nzCheckedChange)="selectAllParticipantPage($event , winners.data)" nz-checkbox [nzChecked]="checked">
+        </label>
+      </th>
+
+      <th>Rank</th>
+      <ng-container *ngFor='let column of displayedColumns'>
+        <th
+          *ngIf="column === 'participant_name' else anotherColumn">{{((getTournament$ |async)?.participants_type === 'single' ? 'participant_name' : 'team_name')| translate}}</th>
+        <ng-template #anotherColumn>
+          <th>{{column | translate}}</th>
+        </ng-template>
+      </ng-container>
+      <th>Email</th>
+      <th>Phone</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of basicTable.data; let i = index">
+      <td>
+        <label nz-checkbox [nzChecked]="data?.checked" (nzCheckedChange)='onItemChecked( $event , i , winners.data)'></label>
+<!--        <span class="mx-2">{{i + 1}}</span>-->
+      </td>
+      <td>{{data?.rank}}</td>
+      <ng-container *ngFor='let column of displayedColumns;let index = index'>
+
+        <td
+          *ngIf="column === 'participant_name' || column === 'country' || column === 'ip_conflict_country' ; else anotherColumn">
+          <div class="d-flex align-items-center">
+            <img *ngIf="column === 'participant_name'" class="gb-avatar me-2" loading="lazy"
+                 src="{{data?.original?.avatar}}">
+            <nz-avatar *ngIf="column !== 'participant_name' && data?.original?.[column]" class="country me-2"
+                       loading="lazy" [nzSrc]="data?.original?.[column]  | countryImage"></nz-avatar>
+            <span
+              style="width: 100px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">{{ data?.original?.[column]  }}</span>
+          </div>
+        </td>
+
+
+        <ng-template #anotherColumn>
+          <td *ngIf="column === 'players' ;else requiredInputsCol">
+            {{(getTournament$ |async)?.no_of_participants_per_team}}/{{data?.tournamentMembers?.length}}
+            <button nz-button nzType="primary" class="mx-2"
+                    style="padding:7px; display: inline-flex; align-items: center;" (click)="openTeamDrawer(data)">
+              <img style="width: 15px" src="assets/svg-icons/eye-icon.svg" alt=''>
+            </button>
+          </td>
+
+          <ng-template #requiredInputsCol>
+            <ng-container *ngIf="data?.supported_required_inputs?.length > 0; else noSupported">
+              <ng-container *ngFor="let req of data?.supported_required_inputs">
+                <ng-container *ngIf="column === req.placeholder">
+                  <td>{{ req?.value}} </td>
+
+                </ng-container>
+              </ng-container>
+            </ng-container>
+            <ng-template #noSupported>
+              <td></td>
+            </ng-template>
+          </ng-template>
+        </ng-template>
+
+      </ng-container>
+      <td>{{data.original?.contact?.email}}</td>
+      <td>{{data.original?.contact?.phone}}</td>
+
+    </tr>
+    </tbody>
+  </nz-table>
+
+</app-section-container>
+<ng-template #participantsHeader>
+  <div class="row mb-3 row-gap-2">
+    <div class="col-lg-3 col-md-6  col-sm-12">
+<!--      <nz-input-group class="  participant_search mb-3" [nzSuffix]="suffixIconSearch">-->
+<!--        <input type="text" nz-input #searchInput-->
+<!--               [placeholder]="'search_for_participants' | translate"/>-->
+<!--      </nz-input-group>-->
+<!--      <ng-template #suffixIconSearch>-->
+<!--        <span nz-icon nzType="search"></span>-->
+<!--      </ng-template>-->
+    </div>
+
+
+    <div class='col-lg-9 col-md-4 col-sm-12 d-flex justify-content-end'>
+      <nz-badge [nzDot]="filterBadge" class="filter-badge">
+        <button nz-button class="confirm-button mx-2  border-radius-8"
+                nz-popover [nzPopoverOverlayClassName]="'filters-popover'"
+                [nzPopoverPlacement]="'bottom'"
+                [nzPopoverBackdrop]="true"
+                [(nzPopoverVisible)]="popoverFilterVisible"
+                nzPopoverTrigger="click"
+                [nzPopoverContent]="popoverFilterTemplate" [nzPopoverArrowPointAtCenter]="true">
+          <img src="assets/svg-icons/filter-icon.svg" class="me-2" alt="">
+
+          {{'filters'|translate}}</button>
+      </nz-badge>
+
+      <button nz-button nzType="primary" class=" border-radius-8  transparent d-flex align-items-center"
+              (click)="exportAsExcelFile()">
+        <img src="assets/svg-icons/download-icon.svg" class="me-2" alt="">
+
+        {{'download_file' | translate}}
+      </button>
+
+    </div>
+    <!--      <div class="col-6 mb-2">-->
+
+    <!--        <nz-tag nzMode="closeable" (nzOnClose)="onClose(column)" *ngFor="let column of displayedColumns">{{column}}</nz-tag>-->
+
+    <!--      </div>-->
+  </div>
+
+</ng-template>
+<ng-template #popoverFilterTemplate>
+  <ng-container>
+    <div class="position-relative">
+      <h5>Table Columns</h5>
+      <img src="assets/svg-icons/close-x-icon.svg" class="close-icon" (click)="popoverFilterVisible = false" alt="">
+    </div>
+
+    <nz-checkbox-group class="d-flex flex-column mx-2" [(ngModel)]="showDisplayedColumns"></nz-checkbox-group>
+
+    <h5>Country</h5>
+    <nz-select [nzShowSearch]="true" nzPlaceHolder="{{'select_country'|translate}}"
+               [nzDropdownClassName]="'popover-select'"
+               (ngModelChange)="filterCountryValue($event)" [(ngModel)]="selectedCountry"
+               [nzShowArrow]="true">
+      <nz-option *ngFor="let country of Countries | async" [nzLabel]="country['name']"
+                 [nzValue]="country['abbr']"></nz-option>
+
+    </nz-select>
+    <div class="d-flex justify-content-end w-100  mt-5 mb-2">
+      <button nz-button nzType="primary" class="apply-button mx-2  border-radius-8" (click)="updateDisplayedColumns()">
+        {{'apply_filters'|translate}}
+      </button>
+      <button nz-button class="clear-button border-radius-8" (click)="clearFilters()">
+        {{'clear'|translate}}
+      </button>
+    </div>
+
+  </ng-container>
+
+</ng-template>
+<ng-template #drawerTitle>
+  <div class="overlay">
+
+  </div>
+  <nz-list nzItemLayout="horizontal" [nzLoading]="loading">
+    <nz-list-item class="title-avatar">
+      <nz-list-item-meta style="color: #fff!important"
+                         nzAvatar="{{teamMember?.original?.avatar}}"
+                         nzDescription="{{teamMember?.original.participant_name}}"
+
+      >
+        <nz-list-item-meta-title>
+          <p>{{ teamMember?.original.country}}</p>
+        </nz-list-item-meta-title>
+      </nz-list-item-meta>
+    </nz-list-item>
+    <!--        <nz-list-empty *ngIf="data.length === 0"></nz-list-empty>-->
+  </nz-list>
+</ng-template>
+<ng-template #drawerFooter let-drawerRef="drawerRef">
+  <!--  <nz-divider></nz-divider>-->
+  <div class="d-flex justify-content-between mx-3 py-2">
+    <a nz-button class="ml-auto" nzType="primary" style="border-radius: 20px" href="{{gbUrl}}/teams/{{teamMember.participant_id}}" target="_blank">{{'view_team' | translate}}</a>
+  </div>
+</ng-template>

@@ -1,0 +1,39 @@
+@import 'src/app/styles/core/variables.scss';
+
+.search-button-wrapper {
+  overflow: scroll hidden;
+
+  .ant-radio-group {
+    display: flex;
+    gap: 20px;
+  }
+
+  .ant-radio-group-solid .ant-radio-button-wrapper-checked {
+    background: $gb-primary-color;
+  }
+
+  .ant-radio-group-solid .ant-radio-button-wrapper-checked:focus-within {
+    box-shadow: none;
+  }
+
+  .ant-radio-button-wrapper {
+    background: $gb-sec-bg;
+    border-width: 1px;
+    border-color: #341671;
+    border-radius: 6px;
+    font-size: 16px;
+    gap: 20px;
+    height: 40px;
+    line-height: 40px;
+
+    .label-text {
+      padding: 50px;
+    }
+  }
+
+  .ant-radio-button-wrapper:not(:first-child)::before {
+    display: none;
+  }
+}
+
+

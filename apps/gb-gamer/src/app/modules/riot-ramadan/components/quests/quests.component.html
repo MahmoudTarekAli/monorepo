@@ -1,0 +1,83 @@
+<div class="quest-container" *ngIf="!isRefer">
+  <div class="quest-list">
+    <div class="quest-item" *ngFor="let quest of quests">
+      <div class="quest-info">
+        <div class="quest-percentage">
+          <nz-progress nzType="circle" nzStrokeColor="#FFB55C" nzStrokeWidth="15"
+                       [nzPercent]="percent(quest?.user?.attempts, quest?.attempts_required)"
+                       [nzFormat]="format === 100 ?  oneHundredPercent :  nzFormat.bind(this,  quest?.user?.attempts, quest?.attempts_required)"></nz-progress>
+
+        </div>
+        <div class="quest-data">
+          <span>{{ quest?.description | uppercase }}</span>
+          <div class="coins">
+            <img src="assets/svg-icons/coins.svg">
+            <p>{{ quest?.prize?.amount | number }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="claim-button">
+        <button nz-button nzType="default" [disabled]="!quest?.user?.can_claim || quest.user?.prize_claimed"
+                (click)="claimPrize(quest?.id)">{{ quest.user?.prize_claimed ? ('riotRamadan.claimed' | translate) : 'riotRamadan.claim' | translate }}
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="quest-container mt-3" style="background: #FFF5D1" *ngIf="isRefer">
+  <div class="quest-list">
+    <div class="quest-item" *ngFor="let quest of quests">
+      <div class="quest-info">
+        <div class="quest-percentage">
+          <nz-progress nzType="circle" nzStrokeColor="#FFB55C" nzStrokeWidth="15"
+                       [nzPercent]="percent(quest?.user?.attempts, quest?.attempts_required)"
+                       [nzFormat]="format === 100 ?  oneHundredPercent :  nzFormat.bind(this,  quest?.user?.attempts, quest?.attempts_required)"></nz-progress>
+        </div>
+        <div class="quest-data">
+          <span>{{ quest?.description | uppercase }}</span>
+          <div class="coins">
+            <img src="assets/svg-icons/coins.svg">
+            <p>{{ quest?.prize?.amount | number }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="buttons-container">
+
+        <div class="claim-button">
+          <button [disabled]="!quest?.user?.can_claim || quest.user?.prize_claimed" nz-button nzType="default"
+                  style="background: #FFF5D1"
+                  (click)="claimPrize(quest?.id)">{{ quest.user?.prize_claimed ? ('riotRamadan.claimed' | translate) : 'riotRamadan.claim' | translate }}
+          </button>
+
+        </div>
+        <app-button variant="default" (click)="referFriend()">{{ 'riotRamadan.howToRefer' | translate }}
+        </app-button>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<ng-template #referralModal>
+  <div class="background-container"></div>
+  <div class="px-4">
+    <app-section>
+      <h2>{{ 'riotRamadan.howToReferFriend' | translate }}</h2>
+      <ol class="mb-3">
+        <li>- {{ 'riotRamadan.referlist.one' | translate }}</li>
+        <li>- {{ 'riotRamadan.referlist.two' | translate }}</li>
+        <li>- {{ 'riotRamadan.referlist.three' | translate }}</li>
+        <li>- {{ 'riotRamadan.referlist.four' | translate }}</li>
+        <li>- {{ 'riotRamadan.referlist.five' | translate }}</li>
+      </ol>
+
+    </app-section>
+  </div>
+
+  <app-button variant="orange fit-content mx-auto mb-4" (click)="modalService.closeAll()">
+    {{ 'Close' | uppercase }}
+  </app-button>
+
+</ng-template>

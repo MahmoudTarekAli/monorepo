@@ -1,0 +1,162 @@
+@import '../../../../components/kit/core/mixins';
+
+.match {
+  display: flex;
+  justify-content: space-between;
+  background: $gb-sec-bg;
+  border-radius: 10px;
+  align-items: center;
+  padding: 20px 20px;
+  @media screen and (max-width: 992px) {
+    flex-direction: column !important;
+    padding: 10px 10px !important;
+    gap: 15px !important;
+  }
+
+  .match-info {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-basis: 200px;
+
+    @media screen and (max-width: 992px) {
+      width: 100% !important;
+      flex-basis: 0 !important;
+
+      justify-content: flex-start;
+    }
+  }
+
+  .match-versus {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    @media screen and (max-width: 992px) {
+      gap: 10px !important;
+      justify-content: space-between;
+    }
+
+    .away {
+      flex-direction: row-reverse !important;
+    }
+
+    .match-versus-player {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      .player {
+        width: 30px;
+        height: 30px;
+        @media screen and (max-width: 992px) {
+          width: 25px !important;
+          height: 25px !important;
+        }
+      }
+
+      .country {
+        width: 18px;
+        height: 18px;
+      }
+
+      span {
+        width: 100px;
+        white-space: nowrap;
+        @media screen and (max-width: 992px) {
+          width: unset !important;
+        }
+      }
+    }
+
+    .match-versus-score {
+      background: $gb-main-bg;
+      border-radius: 12px;
+      align-items: center;
+      width: 85px;
+      display: flex;
+      height: 60px;
+      justify-content: center;
+      flex-direction: column;
+      @media screen and (max-width: 992px) {
+        width: 65px !important;
+      }
+    }
+  }
+
+  .match-action {
+    display: flex;
+    //gap: 20px;
+    flex-basis: 200px;
+    @media screen and (max-width: 992px) {
+      flex-basis: 0 !important;
+
+    }
+    .ant-divider-horizontal {
+      margin: 5px 0;
+    }
+
+    .match-action-wrapper {
+      width: 100% !important;
+      display: flex !important;
+      gap: 40px;
+      justify-content: space-between !important;
+
+      .action-button {
+        &:hover {
+          background: $purple;
+          border-radius: 10px;
+        }
+
+        padding: 6px;
+        cursor: pointer;
+      }
+    }
+
+
+    @media screen and (max-width: 992px) {
+      gap: 10px !important;
+      width: 100% !important;
+      flex-direction: column !important;
+      .match-action-wrapper {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+      }
+    }
+
+    .match-action-icon {
+      width: 70px;
+      font-size: 20px;
+    }
+  }
+}
+
+
+.match_list {
+  background-color: $gb-main-bg;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.match-status {
+  font-size: 14px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+
+nz-divider {
+  margin: 0 !important;
+}
+
+::ng-deep .ant-input-number-handler-wrap {
+  opacity: 1 !important;
+}
+
+::ng-deep.ant-modal-header, ::ng-deep.ant-modal-footer, ::ng-deep.ant-modal-body {
+  background-color: $gb-sec-bg !important;
+  border: none !important;
+  text-align: center !important;
+}

@@ -17,7 +17,8 @@
     "paths": {
       "@gbarena-nx/gb-navbar": ["lib/gb-navbar/src/index.ts"],
       "@gbarena-nx/libName": ["libName/src/index.ts"],
-      "@gbarena-nx/navbar": ["navbar/src/index.ts"]
+      "@gbarena-nx/navbar": ["navbar/src/index.ts"],
+      "ui": ["lib/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

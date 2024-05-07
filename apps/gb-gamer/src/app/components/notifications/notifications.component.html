@@ -1,0 +1,29 @@
+<div class="notify-container">
+<h5 (click)="readAllNotification()">{{'navBar.markAllAsRead' | translate}}</h5>
+<div class="notification-scope">
+
+  <nz-radio-group class=" d-flex justify-content-evenly py-3"  [(ngModel)]="type" (ngModelChange)="filterByNotification($event)" >
+    <label class=" mb-2 " style="margin-left: 0!important" nz-radio-button [nzValue]="''">
+      <h5>{{'navBar.notifications' | translate}}</h5>
+      <ng-container  *ngTemplateOutlet="badge context: {count:(NotificationsCount$ | async) }"></ng-container>
+    </label>
+    <label class=" mb-2" nz-radio-button [nzValue]="'requests'">
+      <h5>{{'navBar.requests' | translate}}</h5>
+      <ng-container  *ngTemplateOutlet="badge context: {count:(RequestsCount$ | async) }"></ng-container>
+    </label>
+  </nz-radio-group>
+
+  <app-notifications-list [type]="type"  [isComponent]="true"></app-notifications-list>
+
+</div>
+</div>
+
+<ng-template #badge let-count='count'>
+  <div class="notify-badge" *ngIf="count > 0">
+    <p>{{count}}</p></div>
+<!--  <nz-badge class="notify-icon-badge"-->
+<!--            [nzCount]="count">-->
+<!--  </nz-badge>-->
+</ng-template>
+
+

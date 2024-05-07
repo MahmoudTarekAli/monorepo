@@ -1,0 +1,16 @@
+.qrcode-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px auto;
+  width: 200px;
+  border-radius: 8px;
+
+}
+::ng-deep{
+  .qrcode{
+    canvas{
+      border-radius: 12px!important;
+    }
+  }
+}

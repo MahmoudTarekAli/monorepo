@@ -1,0 +1,19 @@
+<div class="row">
+  <ng-container *ngIf="Team$ | async as team">
+  <app-participant-card class="col-lg-3 my-2" *ngFor="let member of team.members.data" [reference_number]="member.reference_number" [country]="member.country"
+                        [cover]="member.cover" [profile]="member.avatar" [name]="member.username" [roles]="member.roles" [isTeam]="true">
+    <ng-container ngProjectAs="tournament-buttons">
+      <app-button class="flex-grow-1"  variant="primary full-width" routerLink="/gamer/{{member.slug}}">{{'common.buttons.viewProfile' | translate}}</app-button>
+    </ng-container>
+    <ng-container ngProjectAs="buttons-bottom" *ngIf="teamService.isTeamOwner">
+<!--      <app-button   class="flex-grow-1"  variant="default full-width" (click)="selectRole(member)">Select Role</app-button>-->
+      <app-button *ngIf="!gamerService.isOwner(member.id)"   class="flex-grow-1"  variant="default-danger full-width" (click)="removeMember(member)">
+        {{'common.buttons.remove' | translate}}
+      </app-button>
+
+    </ng-container>
+
+  </app-participant-card>
+
+  </ng-container>
+</div>

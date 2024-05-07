@@ -1,0 +1,83 @@
+
+<h4  class="my-3 " *ngIf="isEdit"><img  class="arrow-icon" routerLink="../" src="assets/svg-icons/arrow-left.svg" alt="">Team Profile</h4>
+
+<div class="second-container p-4">
+  <h3>{{isEdit  ? ('common.buttons.editTeam' | translate) : ('common.buttons.createTeam' | translate)}} </h3>
+  <div class="row " [formGroup]="teamForm">
+  <nz-form-item class="col-lg-6 col-12">
+    <nz-form-label>{{'forms.labels.teamName' | translate}}</nz-form-label>
+    <input class="small" formControlName="name" nz-input [placeholder]="'forms.placeholders.teamName' | translate"/>
+  </nz-form-item>
+    <nz-form-item class="col-lg-6 col-12">
+    <nz-form-label>{{'forms.labels.country' | translate}}</nz-form-label>
+        <nz-select class="w-100 border-radius-8" [nzShowSearch]="true" nzPlaceHolder="{{'forms.placeholders.country' | translate}}" formControlName="country"
+                   [nzShowArrow]="true">
+          <nz-option *ngFor="let country of Countries | async" [nzLabel]="country['name']"
+                     [nzValue]="country['abbr']"></nz-option>
+        </nz-select>
+
+    </nz-form-item>
+    <nz-form-item class="col-lg-6 col-12">
+    <nz-form-label>{{'forms.labels.game' | translate}}</nz-form-label>
+        <nz-select class="w-100 border-radius-8" [nzDisabled]="isEdit" [nzShowSearch]="true" nzPlaceHolder="{{'forms.placeholders.game' | translate}}" formControlName="game_code"
+                   [nzShowArrow]="true">
+          <nz-option *ngFor="let game of (Games$ | async)?.games" [nzLabel]="game['name']"
+                     [nzValue]="game['code']"></nz-option>
+        </nz-select>
+
+    </nz-form-item>
+    <nz-form-item   class="col-lg-6 col-12">
+      <nz-form-label>{{'forms.labels.description' | translate}}</nz-form-label>
+      <textarea class="ant-input" formControlName="{{'forms.placeholders.description' | translate}}"></textarea>
+    </nz-form-item>
+    <ng-container formGroupName="contact">
+    <nz-form-item  class="col-lg-6 col-12">
+
+      <nz-form-label>{{'forms.labels.email' | translate}}</nz-form-label>
+      <nz-form-control nzErrorTip="Enter Valid Email">
+        <input class="small" formControlName="email" nz-input [placeholder]="'forms.placeholders.email' | translate"/>
+
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item  class="col-lg-6 col-12">
+
+      <nz-form-label>{{'forms.labels.phone' | translate}}</nz-form-label>
+      <nz-form-control class="w-100" nzErrorTip="{{'forms.validationMessages.invalidPhone' | translate}}">
+        <ngx-intl-tel-input
+          [customPlaceholder]="'forms.placeholders.phone' | translate"
+          [preferredCountries]="[CountryISO.Egypt]"
+          [enableAutoCountrySelect]="false"
+          [enablePlaceholder]="true"
+          [searchCountryFlag]="true"
+          [selectFirstCountry]="true"
+          [maxLength]="15"
+          [phoneValidation]="true"
+          formControlName="phone"
+          class=" phonenumber small"
+        ></ngx-intl-tel-input>
+      </nz-form-control>
+    </nz-form-item>
+    </ng-container>
+
+    <app-upload-photos [avatar]="avatar" [cover]="cover" (fileSelected)="selectImages($event)"> </app-upload-photos>
+
+
+    <ng-container *ngIf="isEdit" formGroupName="social">
+<!--      <nz-divider class="my-2"></nz-divider>-->
+      <h3 class="my-2">{{'social_links' | translate}}</h3>
+
+      <nz-form-item *ngFor="let social of socialMedia" class="col-lg-6 col-12">
+        <nz-form-label>{{social.name | translate}}</nz-form-label>
+        <input class="small" formControlName="{{social.formName}}" nz-input [placeholder]="social.placeholder"/>
+      </nz-form-item>
+
+      <h5 class="my-2">Team Removal</h5>
+      <p>By deleting this team all members will be removed and you will not be able to control the team.</p>
+      <app-button class="my-2" variant="danger fit-content" (click)="deleteTeam()">{{'common.buttons.deleteTeam' | translate}}</app-button>
+    </ng-container>
+
+    <app-button [disabled]="teamForm.invalid" class="d-flex justify-content-end"  variant="two-tone-primary fit-content mt-3" height="40"
+                 (click)="submitTeam()">{{isEdit ? ('common.buttons.updateTeam' | translate) : ('common.buttons.createTeam' | translate)}}</app-button>
+
+  </div>
+</div>

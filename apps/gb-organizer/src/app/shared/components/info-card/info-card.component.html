@@ -1,0 +1,25 @@
+<div class="info-card {{type}}">
+  <div class="curve">
+<!--    <div class="blended-color"></div>-->
+    <div *ngIf="icon" class="icon">
+      <img [src]="icon">
+    </div>
+  </div>
+  <div class="text">
+    <h3 *ngIf="title" class="title">
+      {{title | uppercase}}
+    </h3>
+    <h4 *ngIf="subTitle === 0 || subTitle" class="sub-title d-flex">{{subTitle}}
+      <ng-content select="image"></ng-content>
+
+    </h4>
+    <h4 *ngIf="subTitles" class="sub-title">
+      <ng-container *ngFor="let sub of subTitles; let index = index">
+        <ng-container *ngIf="index > 0">/</ng-container>
+        {{sub | uppercase}}
+      </ng-container>
+    </h4>
+
+  <ng-content></ng-content>
+  </div>
+</div>

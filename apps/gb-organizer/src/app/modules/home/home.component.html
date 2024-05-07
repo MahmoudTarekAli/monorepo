@@ -1,0 +1,200 @@
+<div class="container home-container">
+  <div class="flex-container">
+    <div class='create-cover'>
+      <div class="cover-content">
+        <h3>{{'create_new_tournament' | translate}}</h3>
+        <p class="my-4">Ready to kick off your ultimate tournament? Create your competition now with your favorite game
+          and customize it with any type of bracket you need!</p>
+        <div>
+          <button class='new_button m-auto' routerLink='/create'>
+          <span class="icon-container">
+          <img src="assets/svg-icons/add-icon.svg" alt="">
+          </span>
+            <p>  {{'create_now'|translate}}</p>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class='create-cover' *appIsSuperAdmin>
+      <div class="cover-content">
+        <h3>{{'create_new_challenge' | translate}}</h3>
+        <p class="my-4">Ready to kick off your ultimate tournament? Create your competition now with your favorite game
+          and customize it with any type of bracket you need!</p>
+        <div>
+          <button class='new_button m-auto' routerLink='/challenges/create'>
+          <span class="icon-container">
+          <img src="assets/svg-icons/add-icon.svg" alt="">
+          </span>
+            <p>  {{'create_challenge'|translate}}</p>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row {{isMobileView ? 'flex-column-reverse'  : ''}} ">
+    <div class="col-lg-6 col-md-6 col-sm-12 mt-4 ">
+<!--      <nz-tabset nzLinkRouter (nzSelectedIndexChange)="changeType($event)">-->
+<!--        <nz-tab>-->
+<!--          <a *nzTabLink nz-tab-link [routerLink]="['my-tournaments']" [queryParams]="queryParams" queryParamsHandling="merge" routerLinkActive="active">-->
+<!--            My Tournaments-->
+<!--          </a>-->
+<!--        </nz-tab>-->
+<!--        <nz-tab>-->
+<!--          <a *nzTabLink nz-tab-link [routerLink]="['my-challenges']" [queryParams]="queryParams" queryParamsHandling="merge" routerLinkActive="active">-->
+<!--            My Challenges-->
+<!--          </a>-->
+<!--        </nz-tab>-->
+<!--      </nz-tabset>-->
+      <nz-radio-group [(ngModel)]="type" (ngModelChange)="changeType($event)" nzButtonStyle="solid"
+                      class="buttons-container">
+        <label nz-radio-button nzValue="my-tournaments" routerLinkActive="active" >My Tournaments</label>
+        <label *appIsSuperAdmin nz-radio-button nzValue="my-challenges" routerLinkActive="active" >My Challenges</label>
+
+      </nz-radio-group>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-end mt-4">
+      <nz-badge [nzDot]="sortBadge" class="filter-badge">
+
+        <button nz-button class="confirm-button  border-radius-8"
+                nz-popover [nzPopoverOverlayClassName]="'filters-popover'"
+                [nzPopoverPlacement]="'bottom'"
+                [nzPopoverBackdrop]="true"
+                [(nzPopoverVisible)]="popoverSortVisible"
+                nzPopoverTrigger="click"
+                [nzPopoverContent]="popoverSortTemplate" [nzPopoverArrowPointAtCenter]="true">
+          <img src="assets/svg-icons/sort-icon.svg" class="me-2" alt="">
+
+          {{'sorts'|translate}}</button>
+      </nz-badge>
+      <nz-badge [nzDot]="filterBadge" class="filter-badge">
+        <button nz-button class="confirm-button mx-2  border-radius-8"
+                nz-popover [nzPopoverOverlayClassName]="'filters-popover'"
+                [nzPopoverPlacement]="'bottom'"
+                [nzPopoverBackdrop]="true"
+                [(nzPopoverVisible)]="popoverFilterVisible"
+                nzPopoverTrigger="click"
+                [nzPopoverContent]="popoverFilterTemplate" [nzPopoverArrowPointAtCenter]="true">
+          <img src="assets/svg-icons/filter-icon.svg" class="me-2" alt="">
+
+          {{'filters'|translate}}</button>
+      </nz-badge>
+
+    </div>
+  </div>
+
+</div>
+<app-section-container>
+  <div class='container'>
+    <router-outlet></router-outlet>
+
+  </div>
+</app-section-container>
+
+<!--Filters-->
+<ng-template #popoverFilterTemplate>
+  <ng-container [formGroup]="FiltersForm">
+    <div class="position-relative">
+      <h5>Status</h5>
+      <img src="assets/svg-icons/close-x-icon.svg" class="close-icon" (click)="popoverFilterVisible = false" alt="">
+    </div>
+    <nz-radio-group class="d-flex flex-column mx-2" formControlName="filters">
+      <ng-container *ngFor="let filter of (type === 'my-tournaments' ? filters :challengesFilters)">
+        <label nz-radio class="my-1" [nzValue]="filter.value">
+          <span>{{filter.name}}</span>
+        </label>
+      </ng-container>
+    </nz-radio-group>
+    <ng-container *ngIf="type === 'my-challenges'">
+      <h5>Games</h5>
+      <nz-select class="mb-3" [nzShowSearch]="true" nzPlaceHolder="{{'game'|translate}}" formControlName="game_code"
+                 [nzDropdownClassName]="'popover-select'"
+                 [nzShowArrow]="true">
+        <nz-option [nzLabel]="'None'" [nzValue]="null"></nz-option>
+        <nz-option *ngFor="let game of (ChallengeGames$ | async)" [nzLabel]="game.name" [nzValue]="game.code"></nz-option>
+
+      </nz-select>
+    </ng-container>
+    <ng-container *ngIf="type === 'my-tournaments'">
+
+      <h5>Organized By</h5>
+      <nz-select [nzShowSearch]="true" nzPlaceHolder="Select Organizer" formControlName="arena_id"
+                 class="border-radius-12"
+                 [nzDropdownClassName]="'popover-select'"
+                 [nzShowArrow]="true">
+        <nz-option [nzLabel]="'None'" [nzValue]="null"></nz-option>
+        <nz-option *ngFor="let arena of getArenas$ | async"
+                   [nzLabel]="arena?.name + ' -Arena'"
+                   [nzValue]="arena?.id"></nz-option>
+      </nz-select>
+      <h5>Games</h5>
+      <nz-select [nzShowSearch]="true" nzPlaceHolder="{{'game'|translate}}" formControlName="game_code"
+                 [nzDropdownClassName]="'popover-select'"
+                 [nzShowArrow]="true">
+        <nz-option [nzLabel]="'None'" [nzValue]="null"></nz-option>
+        <nz-option *ngFor="let game of (getGames$ |async)" [nzLabel]="game.name" [nzValue]="game.code"></nz-option>
+
+      </nz-select>
+      <h5>Participants Type</h5>
+
+      <nz-radio-group class="d-flex flex-column mx-2 mb-3" formControlName="participants_type">
+        <label nz-radio class="my-1" [nzValue]="null">
+          <span>All</span>
+        </label>
+        <label nz-radio class="my-1" [nzValue]="'single'">
+          <span>Single</span>
+        </label>
+        <label nz-radio class="my-1" [nzValue]="'teams'">
+          <span>Teams</span>
+        </label>
+      </nz-radio-group>
+    </ng-container>
+    <div class="d-flex justify-content-end w-100">
+      <button nz-button nzType="primary" class="apply-button mx-2  border-radius-8" (click)="filterTournament(1)">
+        {{'apply_filters'|translate}}
+      </button>
+      <button nz-button class="clear-button border-radius-8" (click)="clearFilters('filter')">
+        {{'clear'|translate}}
+      </button>
+    </div>
+
+  </ng-container>
+
+</ng-template>
+
+<!--Sorting-->
+<ng-template #popoverSortTemplate>
+  <div class="d-flex justify-content-between align-items-center position-relative">
+    <h5 class="d-flex justify-content-between align-items-center"><img class="mx-1 date-icon"
+                                                                       src="assets/svg-icons/black-calender-icon.svg"
+                                                                       alt="">Tournament Date</h5>
+    <img src="assets/svg-icons/close-x-icon.svg" class="close-icon" (click)="popoverSortVisible = false" alt="">
+  </div>
+
+  <nz-radio-group class="d-flex flex-column mx-2" [(ngModel)]="startAt"
+                  (ngModelChange)="filterTournament(1 , 'start_at')">
+    <label nz-radio class="my-1" [nzValue]="'desc'">
+      <span>New to Old</span>
+    </label>
+    <label nz-radio class="my-1" [nzValue]="'asc'">
+      <span>Old to New</span>
+    </label>
+  </nz-radio-group>
+
+  <h5 class="d-flex align-items-center"><img class="mx-1 date-icon" src="assets/svg-icons/black-calender-icon.svg"
+                                             alt="">Creation Date</h5>
+  <nz-radio-group class="d-flex flex-column mx-2" [(ngModel)]="createdAt"
+                  (ngModelChange)="filterTournament(1,'created_at')">
+    <label nz-radio class="my-1" [nzValue]="'desc'">
+      <span>New to Old</span>
+    </label>
+    <label nz-radio class="my-1" [nzValue]="'asc'">
+      <span>Old to New</span>
+    </label>
+  </nz-radio-group>
+  <div class="d-flex justify-content-end w-100">
+    <button nz-button class="clear-button mx-2 border-radius-8" (click)="clearFilters('sort')">
+      {{'clear'|translate}}
+    </button>
+  </div>
+</ng-template>

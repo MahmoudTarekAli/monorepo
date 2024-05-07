@@ -1,0 +1,15 @@
+// Import mixins
+@import 'src/app/styles/core/variables.scss';
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+  .ant-collapse {
+    background: transparent;
+    padding: 0 !important;
+
+    &-header {
+      //background: $dark-gray-6;
+      color: $dark-gray-1 !important;
+
+    }
+  }

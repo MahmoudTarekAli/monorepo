@@ -1,0 +1,12 @@
+<div class="background-container" ></div>
+
+
+<div class="p-5">
+  <h1 class="text-center fw-bold">{{'premium.exceedLimit' | translate}} </h1>
+  <p class="mt-4">{{'premium.reachedLimit' | translate}}  </p>
+  <p class=" mt-2" >{{'premium.upgradePrimeContent' | translate}}</p>
+  <p></p>
+  <app-button   routerLink="/prime" variant="primary fit-content m-auto mt-5" (click)="this.modal.close()">
+    <img src="assets/svg-icons/pro-icon.svg" alt="">
+    {{'common.buttons.upgradeToPremium' | translate | uppercase}}</app-button>
+</div>

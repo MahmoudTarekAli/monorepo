@@ -1,0 +1,75 @@
+
+<div class="etisalat-arena">
+  <img class="cover-image" src="../../../../../assets/images/etisalat-gaming/etisalat-banner2.jpg" *ngIf="!isMobileView"
+       alt="">
+  <img *ngIf="isMobileView" class="cover-image" src="../../../../../assets/images/etisalat-gaming/etisalat-banner-mobile2.jpg">
+  <ng-container *ngIf="!(getArenaIsExecuting$|async) else loadingIndicator">
+
+  <div class="cover-etisalat" >
+  <div class="container" *ngIf="(Arena$ | async) as arena">
+
+    <div class="d-flex justify-content-center">
+    <div class="etisalat-middle-container">
+      <img src="assets/images/etisalat-gaming/etisalat-logo-black.png" alt="etisalat-logo">
+      <div class="d-flex w-100 justify-content-around gap-2">
+        <div>{{arena.no_of_tournaments}} Tournaments</div>
+        <div>{{arena.followers}} Followers</div>
+      </div>
+      <div class="d-flex w-100 justify-content-around gap-2">
+          <app-button class="flex-grow-1"  (click)="followUnfollowArena('etisalat-gaming-eg', arena.is_following ? 'unfollow' : 'follow')"  variant="two-tone-primary" >
+            {{arena.is_following ? 'Unfollow' : 'Follow'}} Etisalat</app-button>
+        <app-button variant="white" (click)="openFaqModal()">FAQS</app-button>
+      </div>
+
+    </div>
+    </div>
+
+
+  <app-section [title]="'Games'">
+    <div class="row gy-3 gx-2">
+      <div class="col-md-2 col-6  " *ngFor="let game of arenaGames$|async" >
+          <img [ngClass]="{'active':activeGame ===game?.code}" (click)="setActiveGame(game?.code)" class="img-fluid game" src="assets/images/etisalat-gaming/{{game.code}}-etisalat.jpg">
+
+
+      </div>
+    </div>
+  </app-section>
+    <div class="cover-ad">
+      <ng-container *ngIf="!isMobileView ; else mobView">
+        <img src="assets/images/etisalat-gaming/{{activeGame}}-web.jpg" alt="">
+
+      </ng-container>
+      <ng-template #mobView>
+        <img  src="assets/images/etisalat-gaming/{{activeGame}}-mob.jpg" alt="">
+
+      </ng-template>
+    </div>
+<!--  </app-section>-->
+
+  <app-section [title]="'Upcoming Tournaments'">
+    <div class="row gy-3 gx-2">
+      <div class="col-lg-3 col-md-4  col-12" *ngFor="let tournament of (arenaTournaments$ | async).upcomingTournaments?.data">
+        <app-tournament-card
+          [tournament]="tournament"
+        ></app-tournament-card>
+
+      </div>
+    </div>
+  </app-section>
+    <app-section [title]="'Past Tournaments'" *ngIf="(arenaTournaments$ | async).pastTournaments?.data?.length > 0">
+    <div class="row gy-3 gx-2">
+      <div class="col-lg-3 col-md-4  col-12" *ngFor="let tournament of (arenaTournaments$ | async).pastTournaments?.data">
+        <app-tournament-card
+          [tournament]="tournament"
+        ></app-tournament-card>
+
+      </div>
+    </div>
+  </app-section>
+  </div>
+  </div>
+  </ng-container>
+<ng-template #loadingIndicator>
+  <app-loading-indicator></app-loading-indicator>
+</ng-template>
+</div>

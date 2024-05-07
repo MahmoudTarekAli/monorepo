@@ -1,0 +1,25 @@
+@import '../../../../styles/core/variables';
+
+.content-container{
+  ::ng-deep{
+    .ant-tabs-tab-active{
+      background:transparent!important;
+      border-bottom: 3px solid $gb-primary-color!important;
+    }
+    .ant-tabs-nav-wrap{
+      border: none!important;
+    }
+    .ant-tabs-content-holder{
+      padding: 0 15px!important;
+    }
+    .ant-tabs-nav .ant-tabs-tab{
+      border-radius: 0!important;
+    }
+
+
+  }
+  a{
+    color: $white;
+    text-decoration: none
+  }
+}

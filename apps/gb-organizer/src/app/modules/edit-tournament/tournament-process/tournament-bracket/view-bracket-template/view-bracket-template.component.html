@@ -1,0 +1,87 @@
+<app-section-container [customButtons]="customButton" [title]="'View Bracket Settings'">
+  <div class="row">
+    <div class="col-md-10 col-12">
+      <h5>Public Bracket Settings</h5>
+      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore</p>
+    </div>
+    <div class="col-md-2 col-6">
+      <nz-select class="w-100 font-weight-bold" [(ngModel)]="statusSelected"
+                 [ngModelOptions]="{standalone: true}"
+                 (ngModelChange)="changeStatus($event)">
+        <nz-option [nzValue]="''" [nzLabel]="'All'"></nz-option>
+
+        <nz-option [nzValue]="'public'" [nzLabel]="'public'"></nz-option>
+        <nz-option [nzValue]="'private'" [nzLabel]="'private'"></nz-option>
+      </nz-select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 view-bracket">
+      <nz-collapse  *ngIf="bracketTemplates.length > 0 else noBracketTemplate"  nzBordered="false" [nzAccordion]="true"  [nzExpandIconPosition]="'right'">
+<!--        [nzExpandedIcon]="expandedIcon"-->
+        <nz-collapse-panel click-stop-propagation [nzHeader]="header" [nzActive]="isFirst" class='row prize-container'  [nzExtra]="extraButtons"
+                           *ngFor='let template of bracketTemplates; let index =index; let isFirst = first'>
+
+        <ng-template #expandedIcon>
+          <button nz-button nzType="primary" class="height-20"
+                           nzSize="large"> Show More</button>
+        </ng-template>
+          <ng-template #extraButtons>
+
+            <button class="remove-button" nzSize="small" nzShape="circle" nzDanger="true" nz-button
+                    (click)="removeTemplate(index , template.id)">
+              <span nz-icon nzType="delete" nzTheme="fill"></span>
+            </button>
+          </ng-template>
+          <ng-template #header>
+            <nz-radio-group [(ngModel)]="choosenTemplate">
+              <label  class="font-size-14 font-weight-bold" nz-radio [nzValue]="index">{{template.name}}</label>
+            </nz-radio-group>
+<!--            <span class="font-size-14 font-weight-bold">{{template.name}}</span>-->
+          </ng-template>
+          <div class="item-child">
+            <p>number of qualified participants  :</p>
+            <p>{{template.settings.no_of_qualified_participants}}</p>
+          </div>
+          <div class="item-child">
+            <p>number of participants per group :</p>
+            <p>{{template.settings.no_of_participants_in_group}}</p>
+          </div>
+          <div class="item-child">
+            <p>{{'points_per_kill'|translate}}</p>
+            <p>{{template.settings.points_per_kill}}</p>
+          </div>
+          <div class="item-child">
+            <p>{{'date_time' | translate}}:</p>
+            <p>{{template.created_at  | date : 'M/d/y '}}</p>
+          </div>
+          <div class="item-child" *ngIf=" template.settings?.rank_points?.length > 0">
+            <p>{{'ranking_points' | translate}}:</p>
+            <div class="d-flex flex-column" >
+              <p *ngFor="let ranking of template.settings.rank_points ">{{'from ' + ranking.fromRank + ' to ' + ranking.toRank  + '/' + ranking.points + ' points'}}</p>
+
+            </div>
+          </div>
+        </nz-collapse-panel>
+      </nz-collapse>
+    <ng-template #noBracketTemplate>
+      <app-no-result [message]="'No templates found'" class="d-flex justify-content-center"></app-no-result>
+
+    </ng-template>
+    </div>
+    </div>
+
+
+</app-section-container>
+
+
+<ng-template #customButton>
+  <button class="mx-2" nz-button nzType="primary"
+          nz-popconfirm="true"
+          [nzPopconfirmTitle]="'Are you sure you want to save ( ' + (bracketTemplates[choosenTemplate]?.name) + ' )'"
+          (nzOnConfirm)="saveTemplate()"
+          [disabled]="choosenTemplate === ''" nzSize="large" >
+    {{'select_template' | translate}}</button>
+
+</ng-template>

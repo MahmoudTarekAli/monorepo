@@ -1,0 +1,126 @@
+// Gb-Colors
+$gb-main-bg: var(--gb-main-bg);
+$gb-sec-bg: var(--gb-sec-bg);
+$gb-main-darker: var(--gb-main-darker);
+$gb-primary-color: var(--gb-primary-color);
+$gb-light-primary-color: var(--gb-light-primary-color);
+$gb-blue: var(--gb-blue);
+$gb-blue: #ec5353;
+$gb-thirdly-color: var(--gb-thirdly-color);
+$gb-fourth-color: var(--gb-fourth-color);
+$gb-fifth-color: var(--gb-fifth-color);
+$gb-green-blue-color: var(--gb-green-blue-color);
+$gb-blueberry: var(--gb-blueberry);
+$white:  var(--white);
+$transparent:  var(--transparent);
+$black:  var(--black);
+$text:  var(--text);
+$alert: var(--alert);
+$gold:  var(--gold);
+$premium-gold: var(--premium-gold);
+$gb-main-light-border: var(--gb-main-light-border);
+$closed-status: var(--closed-status);
+
+// Colors
+$two-tone: var(--two-tone);
+$blue: var(--blue);
+$blue-light: var(--blue-light);
+$blue-dark: var(--blue-dark);
+$gray-1: var(--gray-1);
+$gray-2: var(--gray-2);
+$gray-3: var(--gray-3);
+$gray-4: var(--gray-4);
+$gray-5: var(--gray-5);
+$gray-6: #595c97;
+$yellow: var(--yellow);
+$orange: var(--orange);
+$red: var(--red);
+$pink: var(--pink);
+$purple: var(--purple);
+$green: var(--green);
+$text: var(--text);
+$border: var(--border);
+$default: var(--default);
+$primary: var(--primary);
+$second-primary: var(--second-primary);
+$secondary: var(--secondary);
+$success: var(--success);
+$info: var(--info);
+$warning: var(--warning);
+$danger: var(--danger);
+$light: var(--light);
+$dark: var(--dark);
+$dark-gray-1: var(--dark-gray-1);
+$dark-gray-2: var(--dark-gray-2);
+$dark-gray-3: #4f4f7a;
+$dark-gray-4: var(--dark-gray-4);
+$dark-gray-5: var(--dark-gray-5);
+$dark-gray-6: var(--dark-gray-6);
+$dark-gray-7: var(--dark-gray-7);
+$dark-gray-8: var(--dark-gray-8);
+$dark-gray-9: var(--dark-gray-9);
+$dark-gray-10: var(--dark-gray-10);
+$v-line-color: var(--v-line-color);
+//
+
+//status colors
+$finished: var(--finished);
+$open: var(--open);
+$closed: var(--closed);
+$cancelled: var(--cancelled);
+$live: var(--live);
+$unpublished: var(--unpublished);
+
+// Font Size
+$base-font-size: 15 !default;
+
+// Shadows
+$shadow: 0 0 40px -10px rgba($black, 0.2);
+$shadow-2: 0 4px 38px 0 rgba($black, 0.11), 0 0 21px 0 rgba($black, 0.05);
+$shadow-3: 0 0 100px -30px rgba(57, 55, 73, 0.3);
+$shadow-4: 0 4px 10px 0 rgba($black, 0.03), 0 0 10px 0 rgba($black, 0.02);
+$shadow-5: 0 0 40px -10px rgba($black, 0.4);
+$shadow-ant: 0 10px 35px -5px rgba(0, 0, 0, 0.15);
+//
+
+// Font Family
+$base-font-family: var(--kit-font-family);
+// Font Size
+$base-font-size: 15 !default;
+// Convert value of rem() sass mixin function
+@function rem($px, $base: $base-font-size) {
+  @return #{(($px/$base) * 100) / 100}rem; // to REMs
+  // @return #{$px}px; // to PX's
+}
+
+// Transitions
+@mixin transition-bg() {
+  transition: background 0.2s ease-in-out;
+}
+
+@mixin transition-color() {
+  transition: color 0.2s ease-in-out;
+}
+
+@mixin transition-fast() {
+  transition: all 0.05s ease-in-out;
+}
+
+@mixin transition-middle() {
+  transition: all 0.1s ease-in-out;
+}
+
+@mixin transition-slow() {
+  transition: all 0.2s ease-in-out;
+}
+// Responsive utils
+$xxl-min-width: 1600px;
+$xxl-max-width: 1599px;
+$xl-min-width: 1200px;
+$xl-max-width: 1199px;
+$lg-min-width: 992px;
+$lg-max-width: 991px;
+$md-min-width: 768px;
+$md-max-width: 767px;
+$sm-min-width: 576px;
+$sm-max-width: 575px;

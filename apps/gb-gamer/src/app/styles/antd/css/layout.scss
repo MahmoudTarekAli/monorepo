@@ -1,0 +1,36 @@
+// Import mixins
+@import 'src/app/styles/core/variables.scss';
+@import "src/app/styles/functions";
+
+.ant-layout {
+  min-height: 100vh !important;
+  min-width: 0;
+  background: $gb-main-bg !important;
+  @media screen and (max-width:767px) {
+    @include dynamic-s-v-property(padding-bottom, 57);
+
+  }
+  &.ant-layout-screen{
+    @media screen and (max-width:767px) {
+      @include dynamic-s-v-property(padding-bottom, 120);
+
+    }
+  }
+}
+
+.ant-layout-header {
+  padding: 0 !important;
+  line-height: normal;
+  height: auto;
+  background: $gb-main-bg !important;
+}
+
+.ant-layout-footer {
+  padding: 0 !important;
+  background: transparent;
+}
+
+.ant-layout.ant-layout-has-sider > .ant-layout,
+.ant-layout.ant-layout-has-sider > .ant-layout-content {
+  overflow-x: initial !important;
+}

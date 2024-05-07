@@ -1,0 +1,86 @@
+<ng-container *ngIf="!(getTeamIsExecuting$ | async) ; else loadingIndicator">
+  <h3>Add Members</h3>
+  <p>You have the option to invite individuals from your friends list, or alternatively, share an invitation link
+    directly with the members.</p>
+  <div class="row my-4">
+    <div class="col-lg-6 col-12">
+      <h4>Send invitation</h4>
+      <nz-form-control class="d-flex" *ngIf="Team$ | async as team">
+        <nz-select style="width: 100%;" nzShowSearch nzPlaceHolder="Select a person" [(ngModel)]="selectedUser">
+          <!--      <nz-option [nzLabel]="''" [nzValue]="null"></nz-option>-->
+          <nz-option nzCustomContent *ngFor="let user of Friends$ |async" [nzCustomContent]="true"
+                     [nzLabel]="user.slug" [nzValue]="user.id">
+            <nz-avatar [nzSrc]="user.avatar" nzSize="small" class="mx-2"></nz-avatar>
+            <span>{{ user.slug }}</span>
+          </nz-option>
+        </nz-select>
+        <app-button variant="primary" height="40" [disabled]="!selectedUser" (click)="inviteMember()"
+                    class="copy-icon d-flex align-items-center overflow-hidden">
+          Invite
+        </app-button>
+
+      </nz-form-control>
+
+    </div>
+    <div class="col-lg-6 col-12">
+      <h4>Share Link</h4>
+      <nz-form-control class="d-flex" *ngIf="Team$ | async as team">
+        <input style=" border-radius: 8px 0 0 8px!important;" readonly class="ant-input mid-height"
+               [(ngModel)]="team.short_link" type="text">
+        <div class="copy-icon" nz-typography nzCopyable [nzCopyText]="team.short_link"></div>
+      </nz-form-control>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 col-12">
+      <h4>Join Requests</h4>
+      <div class="second-container">
+        <ng-container *ngIf="(Requests$ | async )?.incoming?.length; else noInvitationRequests">
+
+          <ng-container *ngFor="let invitedMember of (Requests$ | async )?.incoming">
+            <app-user-card [avatar]="invitedMember.sender.avatar" [username]="invitedMember.sender.username"
+                           [reference_number]="invitedMember.sender.reference_number">
+              <img [nz-tooltip]="'Accept'"
+                   (click)="teamService.acceptJoinRequest(invitedMember.id , 'incoming' , invitedMember.sender)"
+                   class="control-icon" src="assets/svg-icons/accept-icon.svg">
+              <img [nz-tooltip]="'Decline'" (click)="teamService.cancelInvitationRequest(invitedMember.id , 'incoming')"
+                   class="control-icon" src="assets/svg-icons/cancel-icon-colored.svg">
+
+            </app-user-card>
+          </ng-container>
+        </ng-container>
+        <ng-template #noRequests>
+          <div class="d-flex flex-column align-items-center m-5 text-center gap-10">
+            <h5>You don’t have any join request yet!</h5>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-12">
+      <h4>Invitations Sent</h4>
+      <div class="second-container d-flex flex-column">
+        <ng-container *ngIf="(Requests$ | async )?.outgoing?.length > 0; else noInvitationRequests">
+
+          <ng-container *ngFor="let invitedMember of (Requests$ | async )?.outgoing">
+            <app-user-card [avatar]="invitedMember.recipient.avatar" [username]="invitedMember.recipient.username"
+                           [reference_number]="invitedMember.recipient.reference_number">
+              <app-button variant="default"
+                          (click)="teamService.cancelInvitationRequest(invitedMember.id , 'outgoing')">Cancel
+              </app-button>
+            </app-user-card>
+          </ng-container>
+        </ng-container>
+        <ng-template #noInvitationRequests>
+          <div class="d-flex flex-column align-items-center m-5 text-center gap-10">
+            <h5>You don’t have any invitation sent yet!</h5>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-template #loadingIndicator>
+  <app-loading-indicator></app-loading-indicator>
+</ng-template>

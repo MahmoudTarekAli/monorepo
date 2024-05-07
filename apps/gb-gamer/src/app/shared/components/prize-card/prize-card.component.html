@@ -1,0 +1,43 @@
+<div class="prize-card">
+  <div class="rank">
+    <img src="assets/svg-icons/trophy.svg">
+    <span class="rank-position" [ngStyle]="{'width': ((prize.from|order).length + (prize.to|order).length > 5) ? '60px' : ''}"
+          *ngIf="prize.from !== prize.to">{{prize.from | order}} - {{prize.to|order}}</span>
+    <span class="rank-position" *ngIf="prize.from == prize.to">{{prize.from | order}}</span>
+  </div>
+  <div class="prize-container">
+    <ng-container *ngFor="let prize of prize.prizes">
+
+      <div class="prizes">
+        <div class="prize" *ngIf="prize.type === 'coins'">
+          <div class="prize-icon">
+            <img width="25" height="25" src="assets/svg-icons/GB_Coins.svg">
+          </div>
+          <div class="prize-number">{{prize.value | number}}</div>
+
+        </div>
+        <div class="prize" *ngIf="prize.type === 'cash'">
+
+          <div class="prize-number">{{prize.value }} / {{prize.currency}}</div>
+
+        </div>
+        <div class="prize" *ngIf="prize.type === 'custom'">
+          <div class="prize-number">{{prize.value}}</div>
+
+        </div>
+
+      </div>
+
+
+    </ng-container>
+    <ng-template #prizes>
+      <div class="prize">
+        <div class="prize-number">300</div>
+        <div class="prize-icon">
+          <img width="25" height="25" src="assets/svg-icons/GB_Coins.svg">
+
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

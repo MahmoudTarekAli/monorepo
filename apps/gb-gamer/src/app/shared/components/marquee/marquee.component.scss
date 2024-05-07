@@ -1,0 +1,35 @@
+
+h4 {
+  font-weight: bold;
+}
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+  //display: flex;x
+}
+
+.marquee-text {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  //text-overflow: ellipsis;
+  width: 90%;
+}
+
+.marquee {
+  animation: marquee 3s linear infinite;
+  animation-direction: alternate;
+  text-overflow: unset;
+  width: unset !important;
+  //padding-left: 6px;
+  //padding-right: 6px;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

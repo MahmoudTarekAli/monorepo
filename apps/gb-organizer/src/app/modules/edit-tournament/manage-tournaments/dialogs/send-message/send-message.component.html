@@ -1,0 +1,38 @@
+<div class="row">
+
+  <div class="col-12 d-flex justify-content-center flex-column align-items-center w-100">
+    <p class="text-center">You have selected {{copyParticipantList.length}} participants in this tournament</p>
+    <div class="d-flex flex-row my-3">
+      <ng-container *ngFor="let participant of copyParticipantList ; let index = index">
+        <div *ngIf="index < 5" class="roundedImage">
+          <img class="participant-image" [src]="participant?.original?.avatar" alt="">
+        </div>
+        <div *ngIf="index === 5" class="roundedImage text">
+          <h3>+{{copyParticipantList.length - 5}}</h3>
+        </div>
+      </ng-container>
+
+    </div>
+
+    <nz-select class="message-selection my-2" [nzShowSearch]="true" [nzMenuItemSelectedIcon]="iconTemplate" [nzPlaceHolder]="'search for participants ...'"
+               [nzShowArrow]="true" [(ngModel)]="participantIdList" nzMode="multiple" (ngModelChange)="changeSelect($event)" >
+      <nz-option  *ngFor="let participant of participants"  [nzLabel]="participant?.original?.participant_name"
+                 [nzValue]="participant?.participant_id"></nz-option>
+    </nz-select>
+    <ng-template #iconTemplate>
+      <img style="width: 12px" src="assets/svg-icons/close-icon.svg" alt="">
+    </ng-template>
+  </div>
+  <div class='col-12 mb-3 mt-5'>
+
+    <!--<textarea nz-input placeholder="Write Message Here" [(ngModel)]="message" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>-->
+<!--    <ckeditor [editor]="Editor" [(ngModel)]="message"-->
+<!--              (ready)="onReady($event)"></ckeditor>-->
+
+<!--    <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="message"></angular-editor>-->
+
+  </div>
+</div>
+<button nz-button nzType="primary" [disabled]="message === ''" nzSize="large" class="d-flex mx-auto mt-2"
+        (click)="sendMessage(message)">Send Message
+</button>

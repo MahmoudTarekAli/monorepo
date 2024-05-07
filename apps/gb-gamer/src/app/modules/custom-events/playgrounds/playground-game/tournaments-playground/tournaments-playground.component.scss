@@ -1,0 +1,45 @@
+@import "../../playground-home/playground-home.component.scss";
+
+.tournament-card-container {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  border-radius:20px;
+  overflow: hidden;
+
+  .cover {
+    object-fit: cover;
+
+  }
+
+  .card-info {
+    display: flex;
+    flex-flow: column;
+    gap: 20px; padding:10px;
+    background: white;
+
+
+    h4 {
+      color:black;
+      font-weight: bold;
+    }
+    h6 {
+      color: black; font-weight: lighter;
+    }
+
+    .rank {
+      display: flex;
+      flex-flow: row;
+      gap: 10px; color:black;
+
+      img {
+      width: 18px;
+      }
+    }
+
+    .button {
+      padding: 10px;  border-radius: 50px; display: flex; justify-content: center; align-items: center;
+      font-size: 14px; color: black; background: transparent linear-gradient(270deg, #91ABDC 0%, #CCACE7 100%) 0% 0% no-repeat padding-box;
+    }
+  }
+}

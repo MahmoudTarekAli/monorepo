@@ -1,0 +1,22 @@
+
+.scroll-parent{
+  ::ng-deep{
+    .ps-content{
+      width: 100%;
+    }
+  }
+}
+@media screen and (max-width: 767px) {
+:host ::ng-deep {
+    perfect-scrollbar {
+      .card-container {
+        width: unset!important;
+        max-width: unset!important;
+      }
+
+      .card-img-container {
+        max-width: unset!important;
+      }
+    }
+  }
+}

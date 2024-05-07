@@ -1,0 +1,16 @@
+<div class="p-5">
+
+  <h3 class="text-center">Manage Arena Actions</h3>
+
+  <div class="row arena-actions" [formGroup]="arenaButtonForm">
+    <div class="col-12 my-3 d-flex flex-column align-items-center gap-2">
+        <label nz-checkbox  formControlName="is_verified">Verified</label>
+        <label nz-checkbox  formControlName="homepage_highlighted">Home Page Highlighted</label>
+        <label nz-checkbox  formControlName="is_trusted">Trusted</label>
+        <label nz-checkbox  formControlName="is_listed">Listed</label>
+    </div>
+    <app-button class="d-flex justify-content-center" variant="primary"
+                (click)="submitForm()">Submit
+    </app-button>
+  </div>
+</div>

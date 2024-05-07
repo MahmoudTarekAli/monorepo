@@ -1,0 +1,18 @@
+// Import mixins
+@import 'src/app/styles/core/variables.scss';
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+.ant-time-picker {
+  &-panel-input {
+    background: transparent;
+  }
+
+  &-panel-select-option-selected {
+    background: $primary;
+
+    &:hover {
+      background: $primary;
+    }
+  }
+}

@@ -1,0 +1,617 @@
+@import 'src/app/components/mixins.scss';
+
+:host {
+  height: 100%;
+  width: 100%;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/* MENU COMPONENT */
+.menu {
+  background: $white !important;
+  color: $text;
+  transition: none;
+  display: block;
+  min-height: 100%;
+  font-size: rem(16);
+
+  .menuOuter {
+    position: fixed;
+    height: 100%;
+    width: inherit;
+    max-width: inherit;
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////
+  /* LOGO */
+  .logoContainer {
+    height: auto;
+    align-items: center;
+    flex-grow: 1;
+    //padding: 0 rem(15) 0 rem(28);
+    //border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+
+    .logo {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: rem(24);
+      white-space: nowrap;
+      width: 100%;
+    }
+
+    .name {
+      font-size: rem(20);
+      font-weight: 700;
+      color: $black;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 90%;
+      display: block;
+    }
+
+    .descr {
+      margin-left: rem(11);
+      padding-left: rem(11);
+      height: rem(38);
+      line-height: rem(38);
+      border-left: 1px solid $gray-2;
+      font-size: rem(14);
+    }
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////
+  /* ICON */
+  .icon {
+    text-align: center;
+    position: relative;
+    width: 16px;
+    margin: 0 !important;
+    line-height: 1 !important;
+    color: $gray-5;
+    font-size: rem(17);
+    transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////
+  /* COLLAPSE TRIGGER BUTTON */
+  ::ng-deep {
+    .ant-layout-sider-trigger {
+      background: $gray-1;
+      height: auto;
+      color: $text;
+      transition: none;
+    }
+
+    .ant-menu-inline-collapsed + .banner {
+      //display: none;
+    }
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////
+  /* ANTD MENU CUSTOMIZATION */
+  .navigation {
+    padding: rem(10) rem(15);
+    transition: background 0s, width 0.0001s !important; // collapsed state ant-menu fix
+    background: transparent;
+    border-right: none;
+    color: $text;
+
+    .title {
+      color: $dark-gray-3;
+      font-size: 16px;
+    }
+
+    ::ng-deep {
+      .ant-menu-submenu > .ant-menu {
+        background: transparent;
+      }
+
+      .ant-menu-submenu {
+
+        .ant-menu-submenu-arrow {
+          &::after {
+            display: none;
+          }
+
+          &::before {
+            width: 13px;
+            height: 8px;
+            background: url('src/assets/svg-icons/arrow-dropdown-icon.png');
+            background-size: cover;
+            content: '';
+            transform: rotate(0deg);
+            display: block;
+            margin-top:5px;
+          }
+        }
+
+        &.ant-menu-submenu-open {
+          .ant-menu-submenu-arrow {
+
+            &::after {
+              width: 13px;
+              height: 8px;
+              background: url('src/assets/svg-icons/arrow-dropdown-icon.png');
+              background-size: cover;
+              content: '';
+              display: block;
+              transform: rotate(180deg);
+              margin-top:5px;
+            }
+
+            &::before {
+              display: none;
+            }
+          }
+        }
+      }
+
+
+      .ant-menu-inline .ant-menu-item,
+      .ant-menu-inline .ant-menu-submenu-title {
+        width: 100%;
+
+        h3 {
+          font-size: 14px;
+        }
+
+        h2 {
+          //border:solid red;
+          font-size: 14px;
+          color:#9e9cb7;
+        }
+
+        img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      .ant-menu-submenu-inline > .ant-menu-submenu-title .ant-menu-submenu-arrow {
+        //right: 40px;
+      }
+
+      .ant-menu-item-group-title {
+        color: $white !important;
+        font-weight: bold;
+        font-size: rem(12);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: none;
+      }
+
+      .ant-menu-submenu-title {
+        margin-bottom: 0 !important;
+        transition: none !important;
+        background: transparent !important;
+        color: $text;
+
+        &:hover {
+          color: $primary;
+        }
+      }
+
+      .ant-menu-submenu {
+        border-radius: 5px;
+        will-change: transform;
+      }
+
+      .ant-menu-item {
+        margin-bottom: 4px;
+        border-radius: 5px;
+        outline: none;
+        transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
+
+        > span , .flex-title-item{
+
+          color: $text;
+          display: flex;
+          flex-direction: row-reverse;
+          align-items: center;
+          gap: 10px;
+
+        }
+
+        > a {
+          color: $text;
+
+          &:hover {
+            color: $primary;
+
+            .icon {
+              color: $primary;
+            }
+          }
+        }
+      }
+
+      .ant-menu-submenu-selected {
+        :global(.ant-menu-submenu-title),
+        .icon {
+          color: $primary;
+        }
+      }
+
+      .ant-menu-submenu-active {
+        .icon {
+          color: $primary;
+        }
+      }
+
+      .ant-menu-submenu-open,
+      .ant-menu-submenu-active,
+      .ant-menu-item-active {
+        background: $gray-2 !important;
+      }
+
+      .ant-menu-item-selected {
+        background: $blue !important;
+
+        > a,
+        > span {
+          color: $white !important;
+
+          .icon {
+            color: $white !important;
+          }
+        }
+
+        &:after {
+          //display: none;
+        }
+      }
+
+      .ant-menu-item-active {
+        > span {
+          color: $primary;
+        }
+      }
+
+      .ant-menu-item-disabled {
+        > span {
+          color: $gray-4;
+        }
+      }
+    }
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////
+  /* COLLAPSED STYLES */
+  &.ant-layout-sider-collapsed {
+    ::ng-deep {
+      @at-root {
+        .ant-menu-inline-collapsed-tooltip .icon {
+          display: none;
+        }
+      }
+
+      .badge {
+        position: absolute;
+        z-index: 1;
+        top: 3px;
+        right: 3px;
+      }
+
+      ::ng-deep.ant-avatar-lg {
+        width: 40px !important;
+        height: 40px !important;
+      }
+
+      .title,
+      .name,
+      .line,
+      .descr {
+        display: none !important;
+      }
+
+      //.title{
+      //  display: flex!important;
+      //}
+      .togglebuttonsContainer {
+        margin-left: 0 !important;
+        flex-flow: column;
+      }
+
+      .ant-menu-item-group {
+        position: relative;
+
+        &:after {
+          content: '';
+          display: block;
+          width: 100%;
+          height: 1px;
+          position: absolute;
+          left: 0;
+          top: 50%;
+          background: $border;
+        }
+      }
+
+      .ant-menu-item-group-title {
+        visibility: hidden;
+      }
+
+      .ant-menu-inline-collapsed-tooltip .icon {
+        display: none;
+      }
+
+      .ant-menu-item,
+      .ant-menu-submenu-title {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+
+        .icon {
+          right: rem(15);
+        }
+      }
+    }
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////
+  /* BANNER COMPONENT */
+  .banner {
+    padding: rem(20);
+    background: $gray-1;
+    border-radius: 3px;
+    margin: rem(20);
+    overflow: hidden;
+    border: 1px solid $border;
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/* SETTINGS */
+.unfixed {
+  .menuOuter {
+    position: relative;
+  }
+}
+
+.shadow {
+  box-shadow: 0 0 100px -30px rgba(57, 55, 73, 0.3);
+  z-index: 1;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/* GRAY THEME */
+.gray {
+  background: $gray-1 !important;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/* DARK THEME */
+.dark {
+  color: $dark-gray-2;
+  background: $gb-main-darker !important;
+  border-right: $gb-sec-bg solid 1px;
+
+  .icon {
+    color: $dark-gray-2;
+  }
+
+  .logoContainer {
+    .name {
+      color: $white;
+    }
+
+    .descr {
+      color: $dark-gray-2;
+      border-left: 1px solid $gb-main-bg;
+    }
+  }
+
+  .banner {
+    background: $gb-main-bg;
+    border: 1px solid $gb-main-bg;
+  }
+
+  ::ng-deep {
+    .ant-layout-sider-trigger {
+      background: lighten($dark-gray-6, 5%);
+    }
+  }
+
+  .navigation {
+    ::ng-deep {
+      .ant-menu-item-group-title {
+        //color: darken($dark-gray-3, 10%) !important;
+      }
+
+      .ant-menu-submenu-title {
+        color: $dark-gray-2;
+
+        &:hover {
+          color: $primary;
+        }
+      }
+
+      .ant-menu-item {
+        > span {
+          color: $dark-gray-2;
+        }
+
+        > a,
+        > span {
+          color: $dark-gray-2;
+
+          &:hover {
+            color: $primary;
+
+            .icon {
+              color: $primary;
+            }
+          }
+        }
+      }
+
+      .ant-menu-submenu-open,
+      .ant-menu-submenu-active,
+      .ant-menu-item-active {
+        background: $gb-main-darker !important;
+      }
+
+      .ant-menu-item-active {
+        > span {
+          color: $primary;
+        }
+
+        .ant-menu-item-selected {
+          background: $primary !important;
+        }
+      }
+
+      .ant-menu-item-selected {
+        background: $purple !important;
+        .title  {
+          h2 {
+            color:#fff;
+          }
+        }
+
+        > a,
+        > span {
+          color: $white !important;
+
+          .icon {
+            color: $white !important;
+          }
+        }
+
+        &:after {
+          //display: none;
+        }
+      }
+
+
+      .ant-menu-item-disabled {
+        > span {
+          color: $dark-gray-3;
+        }
+      }
+    }
+
+    .title {
+      color: $text;
+      font-size: 16px;
+    }
+
+  }
+
+  &.ant-layout-sider-collapsed {
+    ::ng-deep {
+      .ant-menu-item-group {
+        &:after {
+          background: $gb-main-bg;
+        }
+      }
+    }
+  }
+}
+
+.tournament-menu {
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  justify-content: center;
+  border-bottom: 1px solid rgb(36 33 90);
+  flex-grow: 1;
+
+  h3 {
+    font-size: 16px;
+  }
+}
+
+
+.active {
+  background: #8429f5 !important;
+}
+
+.navigation > li.bottom {
+  margin-top: auto;
+}
+
+.navigation > li.merchants {
+  margin-bottom: 20% !important;
+}
+
+::ng-deep .ant-menu-inline.ant-menu-root .ant-menu-submenu-title > * {
+  display: flex !important;
+  flex-direction: row-reverse !important;
+  align-items: center !important;
+  gap: 10px;
+}
+
+//::ng-deep.ant-avatar-lg {
+//  width: 60px !important;
+//  height: 60px !important;
+//}
+
+
+.cancel-tournament {
+  border-color: #CB3066 !important;
+  color: #CB3066 !important;
+  font-weight: bold;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  &:hover {
+    background: transparent !important;
+    color: #CB3066 !important;
+    border-color: #CB3066 !important;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+}
+
+.sider-action-button {
+  padding: 10px
+}
+
+.toggle_button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.ul-mob {
+  &.ant-menu-item-selected {
+    background: $purple !important;
+    color: #fff !important;
+
+  }
+
+  &:active {
+    background: $purple !important;
+    color: #fff !important;
+  }
+
+  span {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 5px;
+  }
+
+}
+
+::ng-deep {
+  [data-kit-theme="dark"] .ant-menu-inline .ant-menu-item::after {
+    border-right: none !important;
+  }
+}
+.tag-label{
+  border-radius: 12px;
+  background: #918ef4;
+  padding: 2px 15px;
+  color: white;
+  font-size: 12px;
+  display: flex;
+
+  img  {
+    width: 12px;
+    margin:0 5px;
+  }
+
+}

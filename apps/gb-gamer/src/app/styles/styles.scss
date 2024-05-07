@@ -1,0 +1,163 @@
+@import './antd/style';
+@import './core/core.scss';
+@import './core/measurements.scss';
+@import './core/colors.scss';
+@import './core/variables.scss';
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+//@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+@import "./antd/css/webkit-scrollbar";
+
+:root{
+  // Gb-Colors
+  --gb-main-bg: #280659;
+  --gb-sec-bg: #341671;
+  --gb-main-darker: #24064f;
+  --gb-primary-color: #8429F5;
+  --gb-light-primary-color: #8429F5;
+  --gb-blue: #2B0264;
+  --gb-thirdly-color: #00DDBD;
+  --gb-fourth-color: #8429f559;
+  --gb-fifth-color: #501d9f;
+  --gb-green-blue-color: #918EF4;
+  --gb-blueberry: #5865F2;
+  --white: #fff;
+  --transparent: transparent;
+  --black: #141322;
+  --text: var(--white);
+  --alert: #E94444;
+  --gold: #FCC060;
+  --premium-gold:#FFB133;
+  --gb-main-light-border: #30056e;
+  --closed-status: rgba(228, 233, 240, 0.3);
+
+  // Colors
+  --two-tone: transparent linear-gradient(90deg, #00DDBD 0%, #8429F5 100%) 0% 0% no-repeat padding-box;
+  --blue: var(--kit-color-primary);
+  --blue-light: #42baf9;
+  --blue-dark: #2c60e4;
+  --gray-1: #f2f4f8;
+  --gray-2: #e4e9f0;
+  --gray-3: #d9dee9;
+  --gray-4: #c8c4db;
+  --gray-5: #a1a1c2;
+  --gray-6: #595c97;
+  --yellow: #ff0;
+  --orange: #faad15;
+  --red: #f5222e;
+  --pink: #fd3995;
+  --purple: #8429f5;
+  --green: #00DDBD;
+  --border: var(--gray-2);
+  --default: var(--gray-4);
+  --primary: var(--purple);
+  --second-primary: #FCC060;
+  --secondary: var(--gray-5);
+  --success: var(--green);
+  --info: var(--blue-light);
+  --warning: var(--orange);
+  --danger: var(--red);
+  --light: var(--gray-1);
+  --dark: var(--purple);
+  --dark-gray-1: #fff;
+  --dark-gray-2: #7575a3;
+  --dark-gray-3: #4f4f7a;
+  --dark-gray-4: #0c074a;
+  --dark-gray-5: #24215a;
+  --dark-gray-6: #0c074a;
+  --dark-gray-7: #3d396e;
+  --dark-gray-8: #341671;
+  --dark-gray-9: #280659;
+  --dark-gray-10: #AE2D68;
+  --v-line-color: #E5E5E529;
+  //
+
+  //status colors
+  --finished: #ae2e2d;
+  --open: #00CB7A;
+  --closed: #aaaaaa;
+  --cancelled: #aaaaaa;
+  --live: #E49134;
+  --unpublished: #d8c008;
+}
+
+
+.owl-prev, .owl-next {
+  width: 15px;
+  height: 100px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block !important;
+  border: 0px solid black;
+}
+
+.owl-prev {
+  left: -20px;
+}
+
+.owl-next {
+  right: -20px;
+}
+
+.owl-prev i, .owl-next i {
+  transform: scale(2, 2);
+  color: #ccc;
+}
+
+.owl-theme .owl-nav [class*=owl-] {
+  color: #FFF;
+  font-size: 14px;
+  margin: 0 38px 30px 25px;
+  cursor: pointer;
+  background: none;
+  border-radius: 3px;
+}
+
+.owl-theme .owl-nav [class*=owl-]:hover {
+  background: none;
+  color: #FFF;
+  text-decoration: none;
+}
+
+
+.arrow-img {
+  width: 30px;
+}
+.intercom-lightweight-app-launcher{
+  bottom: 9vh!important;
+}
+
+.rtl {
+  direction: rtl;
+  text-align: right !important;
+  font-family: Tajawal !important;
+}
+.ltr{
+  direction: ltr;
+  text-align: left !important;
+}
+.premium-border{
+  border: 2px solid $premium-gold!important;
+  position: relative;
+  border-radius: 50%;
+  .premium-crown{
+    position: absolute;
+    top: -10px;
+    right: -7px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: $premium-gold;
+    display: flex;
+    justify-content: center;
+    img{
+      width: 15px!important;
+      min-width: 15px!important;
+    }
+
+  }
+}
+.premium-color{
+  color: $gold!important; ;
+}

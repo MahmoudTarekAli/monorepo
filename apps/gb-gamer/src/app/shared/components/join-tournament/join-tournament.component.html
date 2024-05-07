@@ -1,0 +1,220 @@
+<ng-container *ngIf="tournament$ |async as tournament">
+
+  <div style="overflow: hidden scroll" *ngIf="!isMobileView">
+    <!--   -->
+
+    <nz-steps nzSize="small" [nzCurrent]="currentIndex" (nzIndexChange)="setStepTemplate($event, steps[$event])">
+      <nz-step *ngFor="let step of steps; let i = index" [nzTitle]="step.label"
+               [nzDisabled]="i > currentIndex">
+      </nz-step>
+    </nz-steps>
+    <div style="max-height: 350px;">
+      <ng-container [ngTemplateOutlet]="currentTemplate"></ng-container>
+    </div>
+  </div>
+  <!--///////////MobileView////////////-->
+  <ng-scrollbar class="scrollable-container" *ngIf="isMobileView">
+    <nz-steps nzSize="small" [nzCurrent]="currentIndex" (nzIndexChange)="setStepTemplate($event, steps[$event])"
+              nzDirection="vertical">
+      <nz-step *ngFor="let step of steps; let i = index" [nzTitle]="step.label"
+               [nzDescription]="i === currentIndex ? templateRef: ''" [nzDisabled]="i > currentIndex">
+      </nz-step>
+    </nz-steps>
+  </ng-scrollbar>
+  <ng-template #templateRef>
+    <div style="max-height: 250px;" [ngStyle]="{'overflow-x': isMobileView ? 'hidden': 'auto'}">
+      <ng-container [ngTemplateOutlet]="currentTemplate"></ng-container>
+    </div>
+  </ng-template>
+  <!--///////////MobileView////////////-->
+
+
+  <!--/////Templates////-->
+  <ng-template #rules>
+    <quill-view-html [content]="tournament.general_rules"></quill-view-html>
+  </ng-template>
+  <ng-template #teams>
+    <div class="p-1">
+      <div class="mb-2">
+        <nz-radio-group class="team-selection" [(ngModel)]="isSelectOrCreateTeam" nzButtonStyle="solid"
+                        (ngModelChange)="change($event)">
+          <label nz-radio-button nzValue="select">My Teams</label>
+          <h3 class="m-auto">or</h3>
+          <label nz-radio-button nzValue="create">Create Team</label>
+        </nz-radio-group>
+      </div>
+
+      <nz-divider></nz-divider>
+      <ng-container *ngIf="!loadingTeams; else loadingTeamsTemplate">
+        <ng-container *ngIf="teamsList.length > 0   else noTeamList">
+          <nz-radio-group class="team-container" [(ngModel)]="selectedTeam"
+                          *ngIf="isSelectOrCreateTeam === 'select'" (ngModelChange)="onSelectTeam($event)">
+            <label *ngFor="let team of teamsList" nz-radio-button [nzValue]="team.id">
+              <div class="team">
+                <img class="avatar" width="30" [src]="team.avatar">
+                <div class="team-info">
+                  <span>{{team.name}}</span>
+                  <span>{{team.reference_number}}</span>
+                </div>
+              </div>
+            </label>
+
+          </nz-radio-group>
+        </ng-container>
+        <ng-template #noTeamList>
+          <app-no-result *ngIf="isSelectOrCreateTeam === 'select'"
+                         [message]="'You have no teams please create a new team'"></app-no-result>
+        </ng-template>
+      </ng-container>
+      <ng-template #loadingTeamsTemplate>
+        <app-loading-indicator></app-loading-indicator>
+      </ng-template>
+      <form pa nz-form class="row" [formGroup]="teamForm" [nzLayout]="isMobileView ? 'horizontal': 'vertical'"
+            *ngIf="isSelectOrCreateTeam === 'create'">
+        <nz-form-item class="col-lg-6 col-12">
+          <nz-form-label>{{'team_name' | translate}}</nz-form-label>
+          <nz-form-control nzErrorTip="Enter team ">
+
+            <input class="small" formControlName="name" nz-input [placeholder]="'Team Name '"/>
+          </nz-form-control>
+        </nz-form-item>
+        <ng-container formGroupName="contact">
+          <nz-form-item class="col-lg-6 col-12">
+            <nz-form-label>{{'email' | translate}}</nz-form-label>
+            <nz-form-control nzErrorTip="Enter Valid Email">
+              <input class="small" formControlName="email" nz-input [placeholder]="'email_placeholder' | translate"/>
+
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="col-lg-6 col-12">
+
+            <nz-form-label>Phone</nz-form-label>
+            <nz-form-control class="w-100" nzErrorTip="Enter Valid Number">
+              <ngx-intl-tel-input
+                [customPlaceholder]="'phone_placeholder' | translate"
+                [preferredCountries]="[CountryISO.Egypt]"
+                [enableAutoCountrySelect]="false"
+                [enablePlaceholder]="true"
+                [searchCountryFlag]="true"
+                [selectFirstCountry]="true"
+                [maxLength]="15"
+                [phoneValidation]="true"
+                formControlName="phone"
+                class=" phonenumber small"
+              ></ngx-intl-tel-input>
+            </nz-form-control>
+          </nz-form-item>
+        </ng-container>
+      </form>
+
+    </div>
+
+  </ng-template>
+  <ng-template #accounts>
+    <app-league-accounts [accountId]="tournament?.game?.data?.id" [tournamentCode]="tournament.code"
+                         (setSelectedAccount)="onSetSelectedAccount($event)"
+                         (accountLength)="accountsLength = $event" [isTournament]="true"></app-league-accounts>
+  </ng-template>
+  <ng-template #inputs>
+    <form nz-form [formGroup]="profileForm" [nzLayout]="'vertical'">
+      <div class="d-flex flex-column gap-2">
+
+        <nz-form-item *ngIf="profileForm.get('birthdate')">
+          <nz-form-label>Birth Date</nz-form-label>
+          <nz-form-control nzErrorTip="The input is not valid E-mail!">
+            <nz-date-picker formControlName="birthdate"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item *ngIf="profileForm.get('phone')">
+          <nz-form-label>Phone</nz-form-label>
+          <nz-form-control nzErrorTip="Enter Valid Number">
+            <ngx-intl-tel-input
+              [preferredCountries]="[CountryISO.Egypt]"
+              [enableAutoCountrySelect]="false"
+              [enablePlaceholder]="true"
+              [searchCountryFlag]="true"
+              [selectFirstCountry]="true"
+              [maxLength]="15"
+              [phoneValidation]="true"
+              formControlName="phone"
+            ></ngx-intl-tel-input>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item *ngIf="profileForm.get('gender')">
+          <nz-form-label>Gender</nz-form-label>
+          <nz-radio-group formControlName="gender">
+            <label nz-radio nzValue="male">Male</label>
+            <label nz-radio nzValue="female">Female</label>
+          </nz-radio-group>
+        </nz-form-item>
+      </div>
+    </form>
+    <form nz-form [formGroup]="requiredInputsForm" [nzLayout]="'vertical'">
+      <div class="d-flex flex-column gap-2">
+        <div formArrayName="userSupportedRequiredInputsKey">
+          <div *ngFor="let input of RequiredInputs().controls; let i = index">
+            <div [formGroupName]="i">
+              <nz-form-item>
+                <nz-form-control [nzErrorTip]="error">
+                  <nz-form-label nzRequired>{{input.value.placeholder}}</nz-form-label>
+                  <input nz-input required [formControlName]="'value'" [placeholder]="input.value.placeholder"/>
+                </nz-form-control>
+                <ng-template #error>
+                  <span class="error-message">Please enter valid {{input.value.placeholder}}</span>
+                </ng-template>
+              </nz-form-item>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </form>
+  </ng-template>
+
+  <div class="nz-step-footer text-center pt-3 pb-2">
+    <div class="d-flex justify-content-between gap-2 ">
+      <!--      *ngIf="!(steps[currentIndex]?.key === 'accounts' && accountsLength < 1)"-->
+
+      <app-button class="flex-1" variant="two-tone-primary"
+                  [disabled]="teamForm.invalid"
+                  *ngIf="(steps[currentIndex]?.key === 'teams' && isCreateTeam === true)"
+                  (click)=" nextStep(steps[currentIndex], currentIndex + 1>=steps.length, true )"
+      >{{currentIndex + 1 < steps.length ? 'Create Team' : 'Join' }}</app-button>
+
+      <app-button class="flex-1" variant="two-tone-primary"
+                  [disabled]="steps[currentIndex]?.disabled"
+                  *ngIf="(!(steps[currentIndex]?.key === 'accounts' && accountsLength < 1)) && (!(steps[currentIndex]?.key === 'teams' && isCreateTeam === true))"
+                  (click)=" nextStep(steps[currentIndex], currentIndex + 1>=steps.length )"
+      >{{currentIndex + 1 < steps.length ? 'Next' : 'Join' }}</app-button>
+
+    </div>
+
+  </div>
+
+</ng-container>
+
+<nz-modal [(nzVisible)]="isSubscription" [nzFooter]="null" (nzOnCancel)="isSubscription = false">
+  <div *nzModalContent>
+    <img class="w-100 mt-3" src="assets/images/etisalat-gaming/third-party-etisalat.png">
+    <div class="pt-3">
+      <p class="text-center fw-bold">
+        FOR ETISALAT GAMING SUBSCRIBERS ONLY</p>
+      <p class="text-center"> YOUR ETISALAT PHONE NUMBER MUST BE LINKED TO YOUR ACCOUNT AND MUST BE SUBSCRIBED TO
+        ETISALAT GAMING SERVICE
+      </p>
+
+      <div class="mt-3">
+        <app-button variant="danger">
+          <a href="https://www.etisalat.eg/etisalatgames/#/play/plans/esports">
+            {{'Check Plans' | uppercase}}
+          </a>
+        </app-button>
+      </div>
+
+    </div>
+
+  </div>
+
+</nz-modal>

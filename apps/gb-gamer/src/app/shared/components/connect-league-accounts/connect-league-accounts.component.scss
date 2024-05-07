@@ -1,0 +1,59 @@
+@import 'src/app/styles/core/variables';
+
+.background-container{
+  //background-image: url("../../../../assets/images/top-banner-temp.jpg");
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+}
+ul{
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  color: white;
+  li{
+    margin: 5px 0;
+  }
+}
+a{
+  &.ant-btn{
+    height: 40px; text-decoration: none
+
+  }
+}
+.lol-account-card{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $gb-sec-bg;
+  margin: 10px 0;
+  border-radius: 8px;
+  padding: 10px;
+  img{
+    width: 55px;
+  }
+  span{
+    color: $gb-thirdly-color;
+  }
+}
+
+.no-accounts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column wrap;
+  margin: auto;
+  h5 {
+    margin: 15px auto;
+  }
+  img {
+    width: 30px;
+  }
+}
+a{
+  &.ant-btn{
+    width: fit-content;
+    margin: 20px auto;
+
+  }
+}

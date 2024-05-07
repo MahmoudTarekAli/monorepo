@@ -1,0 +1,112 @@
+<app-section-container [title]="'tournament_logs'|translate">
+  <div class="container">
+
+    <nz-tabset nzType='card' [nzSize]="'large'" (nzSelectChange)="resetPagination()">
+      <nz-tab [nzTitle]="'all'|translate ">
+      <ng-container *ngTemplateOutlet="tab "></ng-container>
+      </nz-tab>
+      <nz-tab [nzTitle]="'participants' |translate">
+      <ng-container *ngTemplateOutlet="tab ; context: { categoryType:'participants' }"></ng-container>
+      </nz-tab>
+      <nz-tab [nzTitle]="'tournaments'|translate ">
+      <ng-container *ngTemplateOutlet="tab ; context: { categoryType:'tournament' }"></ng-container>
+      </nz-tab>
+      <nz-tab [nzTitle]="'message'|translate ">
+        <ng-container *ngIf="!isMessageLoading; else loading">
+          <nz-steps [nzCurrent]="index"  [nzStartIndex]="20 * (messagePage - 1)" nzDirection="vertical"  *ngIf="messageLogs?.data?.length > 0 ; else no_result">
+            <ng-container *ngFor="let message of messageLogs?.data">
+
+                <nz-step  [nzTitle]="'message'" [nzDescription]="messageDesc" [nzSubtitle]="countDownTemplate"  ></nz-step>
+<!--                <ng-template #stepperImg>-->
+
+<!--                  <nz-avatar  [nzSrc]="log.category_image" nzSize="default"-->
+<!--                              class="avatar"></nz-avatar>-->
+<!--                </ng-template>-->
+                <ng-template #countDownTemplate>
+                  <span>{{message?.created_at |date : 'EEEEEE, MMMM d, h:mm a'}}</span>
+                </ng-template>
+              <ng-template #messageDesc>
+                <div class="d-flex flex-column">
+                  <span [innerHTML]="message.message"></span>
+                  <span>Recievers: {{message?.receivers?.length}}
+                    <button nz-button nzType="primary" class="mx-2"
+                            style="padding:7px; display: inline-flex; align-items: center;" (click)="openParticipantsModal(message?.receivers)">
+              <img style="width: 15px" src="assets/svg-icons/eye-icon.svg" alt=''>
+            </button>
+                  </span>
+
+                </div>
+                </ng-template>
+            </ng-container>
+          </nz-steps>
+          <div class='row'>
+            <div class="col-12 d-flex justify-content-end">
+              <nz-pagination [nzPageIndex]="messagePage" [nzPageSize]="20"
+                             [nzTotal]="messageLogs?.meta_data?.total"
+                             (nzPageIndexChange)="changeMessageLogsPage($event)"></nz-pagination>
+            </div>
+          </div>
+
+        </ng-container>
+      </nz-tab>
+
+
+
+    </nz-tabset>
+
+  </div>
+
+</app-section-container>
+<ng-template #tab let-categoryType="categoryType" >
+  <ng-container *ngIf="(getManageIsExecuting$ | async) === false; else loading">
+    <nz-steps [nzCurrent]="index"  nzDirection="vertical"  *ngIf="(logs|async)?.data?.length > 0 ; else no_result">
+      <ng-container *ngFor="let log of (logs|async)?.data">
+        <ng-container *ngIf="categoryType ? log.category=== categoryType : true">
+
+          <nz-step [nzIcon]="stepperImg" [nzTitle]="log.category" [nzDescription]="log.message" [nzSubtitle]="countDownTemplate"  ></nz-step>
+          <ng-template #stepperImg>
+
+            <nz-avatar  [nzSrc]="log.category_image" nzSize="default"
+                       class="avatar"></nz-avatar>
+          </ng-template>
+          <ng-template #countDownTemplate>
+<!--            <span>{{log?.date | daysAgo}}</span>-->
+            <span>{{log?.date |date : 'EEEEEE, MMMM d, h:mm a'}}</span>
+          </ng-template>
+        </ng-container>
+      </ng-container>
+    </nz-steps>
+    <div class='row'>
+      <div class="col-12 d-flex justify-content-end">
+        <nz-pagination [nzPageIndex]="currentPage" [nzPageSize]="(logs | async).meta?.per_page"
+                       [nzTotal]="(logs | async).meta?.total"
+                       (nzPageIndexChange)="ChangeLogsPage($event)"></nz-pagination>
+      </div>
+    </div>
+
+  </ng-container>
+
+</ng-template>
+<ng-template #loading>
+  <div class="col-12">
+    <app-loading-indicator></app-loading-indicator>
+  </div>
+</ng-template>
+
+
+<ng-template #no_result>
+  <app-no-result class=" w-100 d-flex justify-content-center"></app-no-result>
+</ng-template>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Message Logs " (nzOnCancel)="handleCancel()" [nzFooter]="null">
+  <div *nzModalContent class="d-flex flex-wrap gap-10">
+       <div class="item-container" *ngFor="let participant of participantsLogs">
+         <nz-avatar [nzSrc]="participant.avatar" nzSize="default"
+                    class="avatar mx-2"></nz-avatar>
+         <p>  {{participant.username}}</p>
+       </div>
+
+
+  </div>
+
+
+</nz-modal>

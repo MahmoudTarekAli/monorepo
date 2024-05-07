@@ -1,0 +1,24 @@
+// Import mixins
+@import 'src/app/styles/core/variables.scss';
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+  .ant-checkbox {
+    &-inner {
+      background-color: $white;
+      border-radius: 4px;
+    }
+
+    &-checked {
+      .ant-checkbox-inner {
+        background: $primary;
+      }
+    }
+
+    &-disabled {
+      .ant-checkbox-inner {
+        border-color: $dark-gray-4 !important;
+        opacity: 0.3;
+      }
+    }
+}

@@ -1,0 +1,169 @@
+<h2>Security and Privacy</h2>
+
+
+<app-section>
+  <form [formGroup]="changePasswordForm" class="d-flex flex-column gap-10">
+    <span class="title mt-3 fw-bold">Change Password</span>
+    <nz-form-item *ngIf="hasPassword">
+      <nz-form-label>{{'Current password' | translate}}</nz-form-label>
+      <input class="small" formControlName="current_password" placeholder="currentPassword" type="password" nz-input
+             [placeholder]="'Current Password'"/>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label>{{'password' | translate}}</nz-form-label>
+<!--      <input class="small" formControlName="password" placeholder="password" type="password" nz-input-->
+<!--             [placeholder]="'password'"               [NgPasswordValidator]="options"/>-->
+    </nz-form-item>
+
+    <app-button variant="primary" class="w-25 m-auto" [disabled]="changePasswordForm.invalid" (click)="changeUserPassword()">Confirm Change Password
+    </app-button>
+  </form>
+
+  <nz-divider></nz-divider>
+</app-section>
+
+
+<app-section>
+  <span class="title mt-3 fw-bold">Enable Two Factor Authentication</span>
+
+  <nz-steps class="mt-3" [nzCurrent]="currentIndex" nzDirection="vertical" *ngIf="!is2faEnabled">
+    <nz-step [nzTitle]="enable2faTitleTemplate" [nzDescription]="enable2faTemplate"></nz-step>
+    <nz-step [nzTitle]="verify2faTitleTemplate" [nzDescription]="verify2faTemplate"></nz-step>
+    <nz-step [nzTitle]="recoveryCodesTitleTemplate" [nzDescription]="recoveryCodesTemplate"></nz-step>
+    <nz-step [nzTitle]="activatedTitleTemplate" [nzDescription]="activatedTemplate"></nz-step>
+  </nz-steps>
+</app-section>
+
+
+<!-------------------------//Enable2faForm------------------------->
+<ng-template #enable2faTitleTemplate>
+  <span class="title" (click)="moveToIndex(0)">
+    Two-factor authentication
+  </span>
+</ng-template>
+<ng-template #enable2faTemplate>
+  <ng-container *ngIf="currentIndex === 0">
+
+    <form [formGroup]="enable2fa" class="d-flex flex-column gap-10 p-2">
+      <p>
+        Two-factor authentication (2FA) is an extra layer of security used when logging into websites or apps.
+        Learn more
+      </p>
+      <nz-radio-group formControlName="otp_method" class="d-flex flex-column gap-1 text-white">
+        <label nz-radio nzValue="app">Setup using an app authenticator app (Google Auth, Authy, ...) </label>
+        <label nz-radio nzValue="email">Setup using an email</label>
+      </nz-radio-group>
+      <nz-form-item>
+        <nz-form-label>{{'password' | translate}}</nz-form-label>
+        <input class="small" formControlName="password" placeholder="password" type="password" nz-input
+               [placeholder]="'password'"/>
+      </nz-form-item>
+      <app-button variant="two-tone-primary" [disabled]="enable2fa.invalid" (click)="enableUser2fa()"> Next</app-button>
+    </form>
+  </ng-container>
+
+</ng-template>
+<!-------------------------//Enable2faForm------------------------->
+
+<!-------------------------//verify2faForm------------------------->
+<ng-template #verify2faTitleTemplate>
+  <span class="title" (click)="moveToIndex(1)">
+    Authentication verification
+  </span>
+</ng-template>
+<ng-template #verify2faTemplate>
+  <ng-container *ngIf="currentIndex === 1">
+    <ng-container *ngIf="enable2fa.value['otp_method'] === 'app'">
+      <h6>
+        Scan the image below with the two-factor authentication app on your phone. If you can’t use a QR code,
+        enter this code <span style="color: deeppink">{{secretKey}}</span> instead in your authenticator app.
+      </h6>
+
+      <img class="mt-3 mb-3" width="150" [src]="qrImage">
+
+    </ng-container>
+    <form [formGroup]="verify2fa">
+      <nz-form-item>
+        <nz-form-label>{{'code' | translate}}</nz-form-label>
+        <input class="small" formControlName="code" placeholder="code" type="text" nz-input
+               [placeholder]="'code'"/>
+      </nz-form-item>
+      <app-button variant="two-tone-primary" [disabled]="verify2fa.invalid" (click)="verifyUser2fa()"> Next</app-button>
+    </form>
+  </ng-container>
+
+</ng-template>
+<!-------------------------//verify2faForm------------------------->
+
+<!-------------------------//RecoveryCodes------------------------->
+<ng-template #recoveryCodesTitleTemplate>
+  <span class="title" (click)="moveToIndex(2)">
+    Authentication verification
+  </span>
+</ng-template>
+<ng-template #recoveryCodesTemplate>
+  <ng-container *ngIf="currentIndex === 2">
+    <ng-container>
+      <nz-list nzBordered nzGrid>
+        <div nz-row [nzGutter]="16">
+          <div nz-col [nzSpan]="12" *ngFor="let code of backup_codes">
+            <nz-list-item>
+              <nz-card>{{code}}</nz-card>
+            </nz-list-item>
+          </div>
+        </div>
+      </nz-list>
+    </ng-container>
+    <div class="d-flex gap-10 p-2">
+      <app-button variant="two-tone-primary" [disabled]="enable2fa.invalid" (click)="downloadKeys()"> Download
+      </app-button>
+      <app-button variant="two-tone-primary" [disabled]="!isKeyDownloaded" (click)="nextStep()"> I have saved my
+        recovery codes
+      </app-button>
+    </div>
+    <p>
+      Why is saving your recovery codes important?
+      If you lose access to your phone, you can
+      authenticate to GitHub using your recovery codes.
+      We recommend saving them with a secure password manager.
+    </p>
+  </ng-container>
+
+</ng-template>
+<!-------------------------//RecoveryCodes------------------------->
+<ng-template #activatedTitleTemplate>
+  <span class="title" (click)="moveToIndex(3)">
+    Two-factor authentication activated
+  </span>
+</ng-template>
+
+<ng-template #activatedTemplate>
+  <ng-container *ngIf="currentIndex === 3">
+
+    <div style="display: flex; flex-direction: column; margin-bottom: 10px">
+      <h6 class="text-center">
+        Two-factor authentication activated
+      </h6>
+      <p class="text-center mt-3">
+        The next time you login from an unrecognized browser or device, you will need to provide a two-factor
+        authentication code.
+      </p>
+      <app-button variant="rounded-green" class="w-100" (click)="is2faEnabled = true"> Done
+      </app-button>
+    </div>
+  </ng-container>
+
+</ng-template>
+<!-------------------------//RecoveryCodes------------------------->
+
+
+<div class="disabled2fa" *ngIf="is2faEnabled">
+  <h6 class="text-center">
+    Two-factor authentication is currently <span class="text-success">enabled</span>
+  </h6>
+  <app-button variant="danger" (click)="disabled2fa()">
+    Disable Two-Factor Authentication
+  </app-button>
+</div>
+
+

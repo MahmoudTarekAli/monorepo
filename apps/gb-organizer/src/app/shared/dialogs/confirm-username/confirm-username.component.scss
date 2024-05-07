@@ -1,0 +1,17 @@
+@import '../../../components/kit/core/mixins';
+
+span{
+  color: $gold;
+  cursor: pointer;
+}
+nz-form-item{
+  position: relative;
+}
+.reference-number{
+  position: absolute;
+  right: 10px;
+  top: 18px;
+}
+.text-green {
+  color: $green;
+}

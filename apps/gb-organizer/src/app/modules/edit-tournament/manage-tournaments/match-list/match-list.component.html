@@ -1,0 +1,328 @@
+<ng-container *ngIf="getTournament$ | async as tournament">
+  <app-match-list-container [title]="'Match List'" [customTemplate]="match_list_header">
+    <ng-container *ngIf="isGetMatches$ | async ; else matchListRef">
+      <div class="row">
+        <div class="col-12">
+          <app-loading-indicator></app-loading-indicator>
+        </div>
+      </div>
+
+    </ng-container>
+    <ng-template #matchListRef>
+      <ng-container *ngIf="tournament?.tree?.data[0]?.is_published else noBracket">
+        <div class="row mb-3">
+          <div class="col-12">
+            <nz-radio-group nzButtonStyle="solid" class="d-flex gap-20" [(ngModel)]="selectedStage"
+                            *ngIf="tournament?.tree?.data?.length > 1"
+                            (ngModelChange)="selectStage($event)">
+              <label *ngFor="let stage of tournament?.tree?.data; let i = index" class="w-100 " nz-radio-button
+                     [nzDisabled]="stage?.is_published === 0"
+                     [nzValue]="i">{{string(i + 1) | translate}}</label>
+
+            </nz-radio-group>
+          </div>
+          <div class="col-12 mt-4" *ngIf="isStageDoubleElimination">
+            <nz-radio-group nzButtonStyle="solid" class="d-flex gap-20" [(ngModel)]="selectedBracketMatchType"
+                            (ngModelChange)="selectUpperOrLowerBracketMatches($event)">
+              <label class="w-100 " nz-radio-button
+                     [nzValue]="BRACKET_MATCHES_TYPES.UPPER">{{'Upper_Matches' | translate}}</label>
+              <label class="w-100" nz-radio-button
+                     [nzValue]="BRACKET_MATCHES_TYPES.LOWER">{{'Lower_Matches' | translate}}</label>
+            </nz-radio-group>
+          </div>
+
+        </div>
+        <nz-divider *ngIf="tournament?.tree?.data?.length > 1"></nz-divider>
+
+        <ng-container *ngIf="isStageFreeForAll === false">
+          <ng-container *ngIf="isGetMatches$ | async ; else templateRef">
+            <div class="row">
+              <div class="col-12">
+                <app-loading-indicator></app-loading-indicator>
+              </div>
+            </div>
+
+          </ng-container>
+          <ng-template #templateRef>
+
+            <div class="match_list mt-3">
+              <div class="d-flex justify-content-between">
+                <label nz-checkbox [(nzChecked)]="allMatchesCheckbox"
+                       (nzCheckedChange)="selectAllMatchesInGroup($event)"></label>
+                <div class="header-actions">
+                  <img class="action-button" src="../../../../../assets/svg-icons/Icon%20material-mail.svg"
+                       (click)="sendMessage()">
+                  <ng-container *ngIf="tournament?.status !== 'Finished'">
+                  <img class="action-button" src="../../../../../assets/svg-icons/solid%20calendar-alt.svg"
+                       (click)="openSetMatchDateDialog()">
+                  <img class="action-button" src="../../../../../assets/svg-icons/solid%20redo-alt.svg"
+                       (click)="resetMatches()">
+                  <img class="action-button" src="../../../../../assets/svg-icons/live-icon.svg"
+                       (click)="setRoundLive('Live')">
+                  </ng-container>
+
+                </div>
+              </div>
+              <nz-tabset (nzSelectChange)="setSelectedTabName($event)"
+                         *ngIf="(stages[selectedStage]?.['type'] !== BRACKET_TYPES.FREE_FOR_ALL)">
+                <nz-tab
+                  *ngFor="let group of stages[selectedStage]?.['groups'] | showHideRounds : selectedBracketMatchType; let i = index"
+
+                  [nzTitle]="(group?.group_name ? ('group' | translate) + group?.group_name : group?.name ? group?.name : ('round' | translate) + group?.order)">
+                  <div class="d-flex gap-15 flex-column m-auto">
+                    <ng-container
+                      *ngIf='(group?.[selectedBracketMatchType] | appFilter : searchText : "groupStage" | matches).length > 0 && (group?.[selectedBracketMatchType] | matches).length > 0; else no_result'>
+                      <ng-container
+                        *ngFor='let match of group?.[selectedBracketMatchType] | appFilter: searchText : "groupStage" | matches | slice: (pageIndex-1)*pageSize : pageIndex*pageSize  ; let i = index; trackBy: trackByFn'>
+                        <ng-container *ngTemplateOutlet="matchView; context: {match : match, index: i}"></ng-container>
+                      </ng-container>
+                      <nz-pagination [nzShowSizeChanger]="true" (nzPageSizeChange)="pageSize = $event"
+                                     [nzPageIndex]="pageIndex" [nzPageSize]="pageSize"
+                                     [nzTotal]="(group?.[selectedBracketMatchType] | matches).length "
+                                     (nzPageIndexChange)="pageIndex = $event"></nz-pagination>
+
+                    </ng-container>
+                  </div>
+                </nz-tab>
+              </nz-tabset>
+            </div>
+
+          </ng-template>
+        </ng-container>
+
+        <app-free-for-all *ngIf="isStageFreeForAll"></app-free-for-all>
+      </ng-container>
+    </ng-template>
+  </app-match-list-container>
+
+  <ng-template #matchView let-match='match' let-index="index">
+
+    <ng-container>
+      <div class="match">
+        <div class="match-info">
+          <label nz-checkbox [nzChecked]="match.checked" (nzCheckedChange)="selectMatch($event, match.code)"></label>
+          <div>{{'# ' + (match?.match_no)}}</div>
+          <div>{{match?.start_at | date : 'MMM d, y : h:mm'  }}</div>
+        </div>
+        <div class="match-versus">
+          <div class="match-versus-player">
+            <nz-avatar
+              (click)="tournament?.participants_type === 'single' ? $event.stopPropagation() : openTeamDrawer(match?.home)"
+              class="player" nzIcon="user" [nzSrc]="match?.home?.original?.avatar" nzSize="small"></nz-avatar>
+            <app-marquee style="width: 120px;" class="text-center text-white mb-1 mt-3"
+                         [text]="match?.home?.original?.participant_name"></app-marquee>
+
+            <!--            <div class="marquee-container">-->
+            <!--                          <span-->
+            <!--                            class="text-center marquee-text mt-1" nz-tooltip="true" appMarquee-->
+            <!--                            [nzTooltipTitle]="match?.home?.original?.participant_name">{{isMobileView ? (match?.home?.original?.participant_name) : (match?.home?.original?.participant_name) }}</span>-->
+
+            <!--          </div>-->
+            <nz-avatar class="country" nzIcon="user" *ngIf="!isMobileView"
+                       [nzSrc]="match?.home?.original?.country | countryImage" nzSize="small"></nz-avatar>
+
+          </div>
+          <div class="match-status">
+            <div class="match-versus-score">
+              <div style="padding: 4px">
+                {{match?.home?.score || (match?.home?.score === 0 || match?.home?.score === 0) ? (match?.home?.score + ' : ' + match?.away?.score) : 'VS'}}
+              </div>
+              <nz-divider></nz-divider>
+              <div style="display: flex; gap: 3px">
+                <ng-container *ngIf="match?.status === 'Finished'; else live">
+                  <ng-container *ngTemplateOutlet="finished"></ng-container>
+                </ng-container>
+                {{match?.status | translate}}
+                <ng-template #live>
+                  <img src="assets/icons/live.svg">
+                </ng-template>
+                <ng-template #finished>
+                  <img src="assets/icons/finished.svg">
+                </ng-template>
+              </div>
+            </div>
+
+          </div>
+          <div class="match-versus-player away">
+            <nz-avatar
+              (click)="tournament?.participants_type === 'single' ? $event.stopPropagation() : openTeamDrawer(match?.away)"
+              class="player" nzIcon="user"
+              [nzSrc]="match?.away?.original?.avatar" nzSize="small"></nz-avatar>
+            <app-marquee style="width: 120px;" class="text-center text-white mb-1 mt-3"
+                         [text]="match?.away?.original?.participant_name"></app-marquee>
+
+            <!--          <div class="marquee-container">-->
+            <!--            <span-->
+            <!--              class="text-center marquee-text mt-1" nz-tooltip="true" appMarquee-->
+            <!--              [nzTooltipTitle]="match?.away?.original?.participant_name">{{isMobileView ? (match?.away?.original?.participant_name) : (match?.away?.original?.participant_name)}}</span>-->
+            <!--          </div>-->
+            <nz-avatar class="country" nzIcon="user" *ngIf="!isMobileView"
+                       [nzSrc]="match?.away?.original?.country | countryImage" nzSize="small"></nz-avatar>
+
+          </div>
+        </div>
+        <div class="match-action">
+          <nz-divider *ngIf="isMobileView"></nz-divider>
+          <div class="match-action-wrapper">
+            <img class="action-button" src="assets/svg-icons/battle-icon.svg" *ngIf="tournament?.status !== 'Finished'"
+                 nz-tooltip
+                 [nzTooltipTitle]="(match.away && match?.home) ? 'set score' :
+               'Can not set the score for this match as it has a bye participant'"
+                 [ngStyle]="{'opacity': (match.away && match?.home) ? 1 : 0.5 }"
+                 (click)="(match.away.original?.participant_id === 1 || match.home.original?.participant_id === 1) ?  $event.stopPropagation() : openSetScoreModal(match)"
+            >
+            <a routerLink="/match/{{match.code}}">
+            <img class="action-button" src="assets/svg-icons/vs.svg"
+                 nz-tooltip [nzTooltipTitle]="'match profile'"
+                 >
+            </a>
+            <div nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click" nzPlacement="bottomRight" *ngIf="tournament?.status !== 'Finished'"
+                 class="action-button" href="javascript:;">
+              <img src="assets/svg-icons/solid_ellipsis-v.svg">
+            </div>
+            <nz-dropdown-menu #menu="nzDropdownMenu" >
+              <ul nz-menu>
+
+                <li nz-menu-item>
+                  <a class="menu-items" (click)="updateMatchStatus(match, 'Live')">
+                    <img width="15" src="assets/svg-icons/live-icon.svg">
+                    <span>Set Match Live</span>
+                  </a>
+                </li>
+                <li nz-menu-divider></li>
+                <li nz-menu-item *appIsSuperAdmin>
+                  <a class="menu-items" (click)="replacePlayer(match)">
+                    <img width="15" src="assets/svg-icons/replace-icon.svg">
+                    <span>Replace Player</span>
+                  </a>
+                </li>
+                <li nz-menu-divider></li>
+
+                <li nz-menu-item>
+                  <a class="menu-items" (click)="openRequiredInputs(match)">
+                    <img width="15" src="assets/svg-icons/info-rounded-icon.svg">
+                    <span>Requried Inputs</span>
+                  </a>
+                </li>
+
+              </ul>
+            </nz-dropdown-menu>
+
+          </div>
+
+        </div>
+      </div>
+    </ng-container>
+  </ng-template>
+
+  <ng-template #match_list_header>
+
+    <ng-container *ngIf="stages.length > 0 && tournament?.tree?.data[0]?.is_published ">
+      <div class="d-flex justify-content-between mb-4" *ngIf="!isStageFreeForAll">
+        <nz-input-group class="w-25 border-radius-12 match_list_search" [ngClass]="{ 'w-75': isMobileView }"
+                        [nzSuffix]="suffixIconSearch">
+          <input type="text" nz-input [(ngModel)]="searchText" style="background: none"
+                 [placeholder]="'search_for_participants' | translate"/>
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <span nz-icon nzType="search"></span>
+        </ng-template>
+      </div>
+    </ng-container>
+  </ng-template>
+
+</ng-container>
+
+<nz-modal [(nzVisible)]="showRequiredInputs"
+          nzCentered="true"
+          nzTitle="Required Inputs" (nzOnCancel)="closeRequiredInputs()" [nzCancelText]="null" [nzOkText]="null">
+  <ng-container *nzModalContent>
+    <nz-collapse nzExpandIconPosition="right" nzBordered="false" class=" collapse-container d-flex flex-column gap-20">
+      <nz-collapse-panel
+        *ngFor="let input of requiredInputs"
+        [nzHeader]="user"
+        [nzActive]="true">
+        <ng-container *ngFor="let required of input?.requiredInputs ">
+          <div class="d-flex gap-2">
+            <span
+              class="font-weight-bold font-size-16"> {{required?.category ? required?.category : required.key}}</span>
+            <span class="font-size-16"> : {{required?.value}}</span>
+          </div>
+        </ng-container>
+        <ng-template #user>
+          <div class="d-flex gap-20 align-items-center">
+            <nz-avatar nzIcon="user" [nzSrc]="input?.participant?.original?.avatar" nzSize="default"
+                       class="avatar"></nz-avatar>
+            <span>{{input?.participant?.original?.participant_name}}</span>
+          </div>
+        </ng-template>
+      </nz-collapse-panel>
+    </nz-collapse>
+  </ng-container>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="showMatchDate"
+          nzCentered="true"
+          nzTitle="Match Schedule" (nzOnCancel)="showMatchDate = false"
+          nzOkText="Update Schedule"
+          (nzOnOk)="setMatchDate(selectedMatchDate)">
+  <ng-container *nzModalContent>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-date-picker
+          [nzPlaceHolder]="'date'|translate"
+          nzFormat="yyyy-MM-dd HH:mm"
+          [(ngModel)]="selectedMatchDate"
+          [ngModelOptions]="{standalone: true}"
+          [nzShowTime]="{ nzFormat: 'HH:mm' }"
+        ></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+    <p *ngIf="selectedMatchDate">
+      <span class="font-weight-bold" style="font-size: medium">Match Date</span>
+      : {{selectedMatchDate | date : 'EEEE, MMMM d, y, h:mm:ss a zzzz'}}
+    </p>
+
+  </ng-container>
+
+</nz-modal>
+
+
+<ng-template #no_result>
+  <app-no-result class="m-auto"></app-no-result>
+
+</ng-template>
+<ng-template #drawerTitle>
+  <div class="overlay">
+  </div>
+  <nz-list nzItemLayout="horizontal" [nzLoading]="loading">
+    <nz-list-item class="title-avatar">
+      <nz-list-item-meta style="color: #fff!important"
+                         nzAvatar="{{teamMember?.original?.avatar}}"
+                         nzDescription="{{teamMember?.original.participant_name}}"
+
+      >
+        <nz-list-item-meta-title>
+          <p>{{ teamMember?.original.country}}</p>
+        </nz-list-item-meta-title>
+      </nz-list-item-meta>
+    </nz-list-item>
+    <!--        <nz-list-empty *ngIf="data.length === 0"></nz-list-empty>-->
+  </nz-list>
+</ng-template>
+
+<ng-template #drawerFooter let-drawerRef="drawerRef">
+  <!--  <nz-divider></nz-divider>-->
+
+  <a nz-button class="ml-auto" nzType="primary" style="border-radius: 20px" href="">View Team</a>
+
+</ng-template>
+<ng-template #noBracket>
+  <div class="match_list ">
+    <!--    <div class="m-auto w-100">-->
+    <app-no-result class="m-auto" [image]="'assets/svg-icons/bracket-icon.svg'"
+                   [message]="'No bracket created yet'"></app-no-result>
+
+    <!--    </div>-->
+  </div>
+</ng-template>

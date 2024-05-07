@@ -1,0 +1,15 @@
+@import '../../../../../components/kit/core/mixins';
+
+.ant-page-header {
+  background: $gb-main-bg;
+  border-radius: 10px !important;
+
+}
+
+::ng-deep .ant-page-header-heading {
+  padding: 10px 10px !important;
+}
+
+.anticon {
+  font-size: 30px !important;
+}

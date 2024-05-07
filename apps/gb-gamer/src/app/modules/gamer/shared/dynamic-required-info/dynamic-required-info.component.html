@@ -1,0 +1,31 @@
+
+<ng-container [formGroup]="gameAccountsForm">
+  <ng-container formArrayName="user_accounts">
+  <ng-container *ngFor="let requiredInput of user_accounts.controls ; let index = index">
+    <div class="row mt-3 required-info" [formGroupName]='index'>
+      <div class='col-md-4 col-6'>
+        <nz-select class="w-100 border-radius-8" formControlName="key"   nzShowSearch nzPlaceHolder="{{'from_placeholder' | translate}}" >
+          <ng-container *ngFor="let inputKey of gamerRequiredInputs">
+            <nz-option [nzLabel]='inputKey.placeholder' [nzValue]='inputKey.key'>
+            </nz-option>
+          </ng-container>
+        </nz-select>
+
+      </div>
+      <div class='col-md-4 col-6'>
+        <nz-form-item class="col-12">
+          <input class="small" formControlName="value" nz-input  [placeholder]="user_accounts.value[index].placeholder + ' here ...'"/>
+        </nz-form-item>
+
+      </div>
+      <div class="col-md-4 col-6">
+        <app-button (click)="deleteItem(index)" variant="danger fit-content" >Remove</app-button>
+      </div>
+
+    </div>
+  </ng-container>
+</ng-container>
+  <app-button class="d-flex justify-content-center" (click)="addGameAccount()" variant="primary fit-content" >Add New</app-button>
+  <app-button (click)="saveRequiredInfo()" class="d-flex justify-content-center mt-2" variant="purple fit-content" >Save</app-button>
+
+</ng-container>

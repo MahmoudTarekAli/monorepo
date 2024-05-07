@@ -1,0 +1,15 @@
+.required-input{
+  ::ng-deep{
+    .ant-alert-error {
+      background-color: #f03737!important;
+      color: #fff !important;
+      border-radius: 0 0 10px 10px;
+      border: unset!important;
+      .ant-alert-message{
+        color: #fff !important;
+      }
+    }
+
+  }
+}
+

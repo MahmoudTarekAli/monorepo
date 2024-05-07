@@ -1,0 +1,56 @@
+@import "src/app/styles/functions";
+@import "src/app/styles/core/variables";
+
+
+h2 {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+
+ul {
+  li {
+    @include dynamic-font(13);
+  }
+}
+
+
+.connected-accounts {
+  display: flex; flex-flow: column;
+  @include dynamic-s-v-property(gap, 10);
+  background: var(--gb-fifth-color); @include dynamic-m-v-property(border-radius, 10);
+
+  .cover-container {
+    @include dynamic-dimensions(height, 100);
+    @include dynamic-m-v-property(border-radius, 10);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  @media screen and ( max-width: 767px) {
+    flex-flow: column;
+    overflow: hidden;
+    padding-bottom: 10px;
+    .content-body{
+      padding: 0 10px;
+    }
+    >.cover-container {
+      @include dynamic-dimensions(height, 100);
+      @include dynamic-m-v-property(border-radius, 10, 10, 0, 0);
+
+      width: 100%;
+    }
+
+  }
+
+  h3 {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}

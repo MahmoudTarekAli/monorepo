@@ -1,0 +1,32 @@
+<div class="container gap-2 d-flex flex-column">
+  <div class="d-flex gap-2 my-4">
+    <img src="assets/svg-icons/home-icon.svg" width="15" alt="">
+    <a routerLink="../">
+    <h5 class="text-uppercase text-decoration-underline">home</h5>
+    </a>
+    <img src="assets/svg-icons/right-arrow-icon-2.svg" width="15" alt="">
+    <h5 class="text-uppercase">{{selectedGame.replaceAll('-' , ' ')}}</h5>
+  </div>
+  <div class="info-container">
+    <div class="media">
+      <img class="img-fluid" src="assets/images/playgrounds/{{selectedGame}}-game.webp" alt="">
+    </div>
+    <div class="info">
+      <img src="assets/images/playgrounds/pg-{{selectedGame}}-logo.svg" alt="">
+      <p>{{gamesDescription | translate}}</p>
+
+      <div class="menu">
+          <a class="items"  routerLink="./tournaments"  routerLinkActive="active {{selectedGame}}">
+            <h5>Tournaments</h5></a>
+          <a class="items"  routerLink="./prizes"  routerLinkActive="active {{selectedGame}}"><h5>Prizes</h5></a>
+          <a class="items"  routerLink="./faq"  routerLinkActive="active {{selectedGame}}"><h5>FAQ</h5></a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <router-outlet></router-outlet>
+
+
+</div>

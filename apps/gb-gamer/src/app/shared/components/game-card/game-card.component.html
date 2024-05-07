@@ -1,0 +1,36 @@
+<a class="card-container" *ngIf="!isHorizontal else horizontal ">
+  <div class="card-img-container">
+    <img [srcset]="game.aw | defaultImage"  routerLink="/games/{{game.code}}" loading="lazy" alt="Photo">
+    <div class="img-favourite" (click)="addToFavourite(game.code , game.is_favorite)">
+      <img *ngIf="!game.is_favorite && isFavourite" src="assets/svg-icons/favourite-icon.svg" alt="">
+      <img *ngIf="game.is_favorite && isFavourite" src="assets/svg-icons/favourite-fill-icon.svg" alt="">
+    </div>
+  </div>
+  <h4>{{game.name}}</h4>
+  <p *ngIf="type === 'trending'">{{game.recent_participants_count}}  {{'common.participants' | translate}}</p>
+  <p *ngIf="type === 'all'">{{game.tournaments_count}} {{'common.tournaments' | translate}}</p>
+</a>
+
+<ng-template #horizontal>
+  <div class="card-img-container-event">
+    <!-- Background Image -->
+    <div class="background-image" [style.background-image]="'url(' + game.cover + ')'">
+      <div class="overlay"></div>
+    </div>
+
+    <!-- Favourite Icon -->
+    <div class="img-favourite" (click)="addToFavourite(game.code, game.is_favorite)">
+      <img *ngIf="!game.is_favorite && isFavourite" src="assets/svg-icons/favourite-icon.svg" alt="">
+      <img *ngIf="game.is_favorite && isFavourite" src="assets/svg-icons/favourite-fill-icon.svg" alt="">
+    </div>
+
+    <!-- Game Logo -->
+    <div class="game-logo-container">
+      <img class="game-logo" [src]="game.icon" alt="Game Logo">
+    </div>
+  </div>
+
+  <!-- Participants or Tournaments Count -->
+  <p *ngIf="type === 'trending'">{{game.recent_participants_count}} {{'common.participants' | translate}}</p>
+  <p *ngIf="type === 'all'">{{game.tournaments_count}} {{'common.tournaments' | translate}}</p>
+</ng-template>

@@ -1,0 +1,98 @@
+@import 'src/app/styles/antd/style';
+@import 'src/app/styles/core/core.scss';
+@import 'src/app/styles/core/measurements.scss';
+@import 'src/app/styles/core/colors.scss';
+@import 'src/app/styles/core/variables.scss';
+
+:root{
+  // Gb-Colors
+
+  --gb-main-bg: #242424 ;
+  --gb-sec-bg: #1a1b32 ;
+  --gb-main-darker:  #0d0e20 ;
+  --gb-primary-color: #924C58;
+  --gb-main-light-border: #924C58;
+  --gb-light-primary-color: #DF0901;
+  --gb-fourth-color: #343131;
+  --gb-blue: #00000;
+  --gb-thirdly-color: #00DDBD;
+  --gb-green-blue-color: #918EF4;
+  --gb-blueberry: #5865F2;
+  --white: #fff;
+  --transparent: transparent;
+  --black: #141322;
+  --text: --white;
+  --alert: #E94444;
+  --gold: #FCC060;
+  --closed-status: rgba(228, 233, 240, 0.3);
+
+  // Colors
+
+  --two-tone: #DF0901;
+  --blue: var(--kit-color-primary);
+  --blue-light: #42baf9;
+  --blue-dark: #2c60e4;
+  --gray-1: #f2f4f8;
+  --gray-2: #e4e9f0;
+  --gray-3: #d9dee9;
+  --gray-4: #c8c4db;
+  --gray-5: #a1a1c2;
+  --gray-6: #595c97;
+  --yellow: #ff0;
+  --orange: #faad15;
+  --red: #f5222e;
+  --pink: #fd3995;
+  --purple: #8429f5;
+  --green: #00DDBD;
+  --text: --white;
+  --border: --gray-2;
+  --default: --gray-4;
+  --primary: --purple;
+  --second-primary: #FCC060;
+  --secondary: --gray-5;
+  --success: --green;
+  --info: --blue-light;
+  --warning: --orange;
+  --danger: --red;
+  --light: --gray-1;
+  --dark: --purple;
+  --dark-gray-1: #fff;
+  --dark-gray-2: #7575a3;
+  --dark-gray-3: #4f4f7a;
+  --dark-gray-4: #0c074a;
+  --dark-gray-5: #24215a;
+  --dark-gray-6: #0c074a;
+  --dark-gray-7: #3d396e;
+  --dark-gray-8: #1a1b32;
+  --dark-gray-9: #280659;
+  --dark-gray-10: #AE2D68;
+  --v-line-color: #E5E5E529;
+  --gb-fifth-color: #924C58;
+  //
+
+  //status colors
+  --finished: #ae2e2d;
+  --open: #00CB7A;
+  --closed: #aaaaaa;
+  --cancelled: #aaaaaa;
+  --live: #E49134;
+  --unpublished: #d8c008;
+}
+
+@media (min-width: 1920px) {
+  .container {
+    max-width: 1780px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .container {
+    max-width: 2380px;
+  }
+}
+
+@media (min-width: 3840px) {
+  .container {
+    max-width: 3680px;
+  }
+}

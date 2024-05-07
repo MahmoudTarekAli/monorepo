@@ -1,0 +1,26 @@
+// Import mixins
+@import 'src/app/styles/core/variables.scss';
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+.ant-menu {
+  &-item {
+
+    padding: 0 12px !important;;
+    //
+    //&:hover,
+    //&:active,
+    //&:focus {
+    //  background: $gb-main-bg;
+    //  color: $gb-primary-color;
+    //}
+
+    &-group-title {
+      color: $dark-gray-2;
+    }
+
+    &-disabled {
+      color: $dark-gray-3 !important;
+    }
+  }
+}

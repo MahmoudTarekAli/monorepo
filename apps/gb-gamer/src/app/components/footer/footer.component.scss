@@ -1,0 +1,40 @@
+@import '../../styles/core/variables';
+
+.footer-container {
+  background: $gb-main-darker;
+  width: 100%;
+  padding: 10px 0;
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    ul {
+      display: flex;
+      align-items: center;
+      flex-flow: row nowrap;
+      list-style-type: none;
+      margin: 0;
+
+      li {
+        margin: 10px;
+        text-align: left;
+        cursor: pointer;
+        font-size: 18px;
+        &.social {
+          margin: 10px;
+          flex: 0;
+        }
+
+      }
+    }
+    @media screen and (max-width: 767px) {
+      flex-flow: column; justify-content: center; align-items: center;
+      margin-bottom: 65px;
+
+    }
+
+
+  }
+}

@@ -1,0 +1,149 @@
+// Colors
+$white: #fff;
+$transparent: transparent;
+$black: #141322;
+$blue: var(--kit-color-primary);
+$blue-light: #42baf9;
+$blue-dark: #2c60e4;
+$gray-1: #f2f4f8;
+$gray-2: #e4e9f0;
+$gray-3: #d9dee9;
+$gray-4: #c8c4db;
+$gray-5: #a1a1c2;
+$gray-6: #595c97;
+$yellow: #ff0;
+$orange: #faad15;
+$red: #f5222e;
+$pink: #fd3995;
+$purple: #8429f5;
+$green: #41b883;
+
+$text: $white;
+$border: $gray-2;
+
+// Accent colors
+$default: $gray-4;
+$primary: $purple;
+$second-primary: #FCC060;
+$secondary: $gray-5;
+$success: $green;
+$info: $blue-light;
+$warning: $orange;
+$danger: $red;
+$light: $gray-1;
+$dark: $purple;
+$premium-gold: var(--premium-gold);
+// dark theme
+$dark-gray-1: #fff;
+$dark-gray-2: #7575a3;
+$dark-gray-3: #4f4f7a;
+$dark-gray-4: #0c074a;
+$dark-gray-5: #24215a;
+$dark-gray-6: #280659;
+$dark-gray-7: #3d396e;
+$dark-gray-9: #280659;
+$dark-gray-10: #AE2D68;
+
+//GBarena Theme
+$gb-main-bg: #341671;
+$gb-sec-bg: #280659;
+$gb-main-darker: #24064f;
+$gb-primary-color: #8429F5;
+$gb-light-primary-color: #8429F5;
+$gb-blue: #2B0264;
+$gb-thirdly-color: #00DDBD;
+$gb-fourth-color: #8429f559;
+$gb-fifth-color: #501d9f;
+$gb-green-blue-color: #918EF4;
+$gb-blueberry: #5865F2;
+$gb-main-light-border: #30056e;
+$gold: #FCC060;
+$alert: #E94444;
+$two-tone: transparent linear-gradient(90deg, #00DDBD 0%, #8429F5 100%) 0% 0% no-repeat padding-box;
+//status colors
+$finished:#ae2e2d;
+$open:#00CB7A;
+$closed:#aaaaaa;
+$cancelled : #aaaaaa;
+$live:#E49134;
+$unpublished:#d8c008;
+$premium-gold: #FFB133;
+
+// Font Family
+$base-font-family: var(--kit-font-family);
+
+// Font Size
+$base-font-size: 15 !default;
+
+// Shadows
+$shadow: 0 0 40px -10px rgba($black, 0.2);
+$shadow-2: 0 4px 38px 0 rgba($black, 0.11), 0 0 21px 0 rgba($black, 0.05);
+$shadow-3: 0 0 100px -30px rgba(57, 55, 73, 0.3);
+$shadow-4: 0 4px 10px 0 rgba($black, 0.03), 0 0 10px 0 rgba($black, 0.02);
+$shadow-5: 0 0 40px -10px rgba($black, 0.4);
+$shadow-ant: 0 10px 35px -5px rgba(0, 0, 0, 0.15);
+
+// Convert value of rem() sass mixin function
+@function rem($px, $base: $base-font-size) {
+  @return #{(($px/$base) * 100) / 100}rem; // to REMs
+  // @return #{$px}px; // to PX's
+}
+@function get-color-for-status($status) {
+  @if ($status == 'InProgress') {
+    @return green!important;
+  } @else if ($status == 'Finished') {
+    @return red!important;
+  } @else if ($status == 'error') {
+    @return red!important;
+  } @else {
+    @return black!important;
+  }
+}
+// Transitions
+@mixin transition-bg() {
+  transition: background 0.2s ease-in-out;
+}
+
+@mixin transition-color() {
+  transition: color 0.2s ease-in-out;
+}
+
+@mixin transition-fast() {
+  transition: all 0.05s ease-in-out;
+}
+
+@mixin transition-middle() {
+  transition: all 0.1s ease-in-out;
+}
+
+@mixin transition-slow() {
+  transition: all 0.2s ease-in-out;
+}
+
+// Responsive utils
+$xxl-min-width: 1600px;
+$xxl-max-width: 1599px;
+$xl-min-width: 1200px;
+$xl-max-width: 1199px;
+$lg-min-width: 992px;
+$lg-max-width: 991px;
+$md-min-width: 768px;
+$md-max-width: 767px;
+$sm-min-width: 576px;
+$sm-max-width: 575px;
+
+
+
+//GBarena Colors
+
+$gb-main-bg: var(--gb-main-bg);
+$gb-sec-bg: var(--gb-sec-bg);
+$gb-main-darker: var(--gb-main-darker);
+$gb-primary-color: var(--gb-primary-color);
+$gb-light-primary-color: var(--gb-light-primary-color);
+$gb-blue: var(--gb-blue);
+$gb-thirdly-color: var(--gb-thirdly-color);
+$gb-fourth-color: var(--gb-fourth-color);
+$gb-fifth-color: var(--gb-fifth-color);
+$gb-green-blue-color: var(--gb-green-blue-color);
+$gb-blueberry: var(--gb-blueberry);

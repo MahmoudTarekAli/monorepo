@@ -1,0 +1,113 @@
+<app-section-container [title]="'round_robin_settings' | translate"
+                       [saveBracket]="saveBracket" [createButton]="createButton" [customButtons]="customButton"
+                       [isTournamentBracket]="true">
+
+
+  <div [formGroup]="roundRobinForm" nz-form nzLayout="vertical" class="mt-4">
+    <div class="row mb-4 row-gap-15" [formGroupName]="getFormGroupName()">
+<!--      <div class="col-12 mb-3">-->
+<!--        <div class="third">-->
+<!--          <label nz-checkbox formControlName="has_away_match">-->
+<!--            {{'has_third_and_fourth_match'|translate}}-->
+<!--          </label>-->
+<!--        </div>-->
+<!--      </div>-->
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzFor="no_of_participants_in_group"
+                         nzRequired>{{'no_of_participants_in_group' | translate}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="no_of_participants_in_group">
+            <nz-input-number nzPlaceHolder="{{'no_of_participants_in_group' | translate}}" [nzMin]="1" id="no_of_participants_in_group"
+                             formControlName="no_of_participants_in_group"></nz-input-number>
+
+          </nz-form-control>
+          <ng-template #no_of_participants_in_group let-control>
+            <ng-container>
+              {{'no_of_participants_in_group_error' | translate}}
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzFor="no_of_qualified_participants"
+                         nzRequired>{{'no_of_qualified_participants' | translate}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="no_of_qualified_participants">
+            <nz-input-number nzPlaceHolder="{{'no_of_qualified_participants' | translate}}" [nzMin]="1" id="no_of_qualified_participants"
+                             formControlName="no_of_qualified_participants"></nz-input-number>
+
+          </nz-form-control>
+          <ng-template #no_of_qualified_participants let-control>
+            <ng-container>
+              {{'no_of_qualified_participants_error' | translate}}
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzFor="points_per_draw"
+                         nzRequired>{{'points_per_draw' | translate}}</nz-form-label>
+          <nz-form-control>
+            <nz-input-number nzPlaceHolder="{{'points_per_draw' | translate}}" [nzMin]="1" id="points_per_draw"
+                             formControlName="points_per_draw"></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzFor="points_per_win"
+                         nzRequired>{{'points_per_win' | translate}}</nz-form-label>
+          <nz-form-control>
+            <nz-input-number nzPlaceHolder="{{'points_per_win' | translate}}" [nzMin]="1" id="points_per_win"
+                             formControlName="points_per_win"></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+  </div>
+
+</app-section-container>
+
+<ng-template #saveBracket>
+  <button class="mx-2 my-1 save-bracket" nz-button nzType="default" nzSize="large" (click)="openDialogBracket()">
+    <img class="mx-1" src="assets/svg-icons/save-icon-colored.svg" alt="">
+    <p>{{'save_bracket_settings' | translate}}</p>
+  </button>
+
+
+</ng-template>
+<ng-template #createButton>
+  <!--  <nz-affix [nzOffsetTop]="20">-->
+
+  <button class="mx-2 my-1" nz-button nzType="primary" nzSize="large" (click)="updateBracket()">
+    <img src="assets/svg-icons/save-icon.svg">
+    <p>{{'save' | translate}}</p>
+  </button>
+  <!--  </nz-affix>-->
+
+</ng-template>
+<ng-template #customButton>
+  <button class="mx-2 my-1" nz-button nzType="primary" nzSize="large"
+          routerLink="/tournament/{{tournamentCode }}/process/tournament-bracket/view-bracket/round-robin"
+          [queryParams]="{stage , stageType }">
+    <img class="mx-1" src="assets/svg-icons/bracket-icon.svg" alt="">
+    <p>{{'view_bracket_template' | translate}}</p>
+  </button>
+
+</ng-template>
+<nz-modal [(nzVisible)]="tournamentBracketService.isVisible" nzTitle="Bracket Template" (nzOnCancel)="handleCancel()">
+  <div *nzModalContent>
+    <p>Template Name</p>
+    <nz-input-group>
+      <input [(ngModel)]="templateName" style="border-radius: 0 !important;" type="text" nz-input
+             [placeholder]="'Please type template name '"/>
+
+    </nz-input-group>
+  </div>
+  <div *nzModalFooter>
+    <button nz-button nzType="primary" (click)="saveBracketSettings()" [disabled]="templateName.length === 0"> Submit
+    </button>
+  </div>
+</nz-modal>

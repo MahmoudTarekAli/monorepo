@@ -1,0 +1,104 @@
+<div class="p-5">
+  <!--  check if steps length > 1 remove stepper-->
+  <ng-container *ngIf="this.steps.length > 1 else noAdditionalData">
+    <nz-steps class="my-3" nzSize="small" [nzCurrent]="currentStep">
+      <nz-step *ngFor="let step of steps">
+      </nz-step>
+    </nz-steps>
+    <ng-container *ngTemplateOutlet="stepTemplate"></ng-container>
+  </ng-container>
+
+
+  <ng-template #noAdditionalData>
+    <ng-container *ngTemplateOutlet="stepTemplate"></ng-container>
+  </ng-template>
+</div>
+
+  <ng-template #stepTemplate>
+<!--    <ng-scrollbar >-->
+<!--    style="max-height: 600px"-->
+    <div  [ngSwitch]="currentStep" class="my-4">
+      <div *ngSwitchCase="0">
+        <form nz-form [formGroup]="profileForm" *ngSwitchCase="0" [nzLayout]="'vertical'">
+          <div class="d-flex flex-column gap-2">
+
+            <nz-form-item *ngIf="profileForm.get('birthdate')">
+              <nz-form-label>Birth Date</nz-form-label>
+              <nz-form-control nzErrorTip="The input is not valid E-mail!">
+                <nz-date-picker formControlName="birthdate"></nz-date-picker>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item *ngIf="profileForm.get('phone')">
+              <nz-form-label>Phone</nz-form-label>
+              <nz-form-control>
+                <ngx-intl-tel-input
+                  [preferredCountries]="[CountryISO.Egypt]"
+                  [enableAutoCountrySelect]="false"
+                  [enablePlaceholder]="true"
+                  [searchCountryFlag]="true"
+                  [selectFirstCountry]="true"
+                  [maxLength]="15"
+                  [phoneValidation]="true"
+                  formControlName="phone"
+                ></ngx-intl-tel-input>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <app-button *ngIf="this.currentStep !== this.steps[this.steps.length - 1 ]" [disabled]="profileForm.invalid"
+                      class="my-5 " variant="primary" (click)="updateProfile()">Next
+          </app-button>
+          <app-button *ngIf="this.currentStep === this.steps[this.steps.length - 1 ]" class="my-5 " variant="primary"
+                      (click)="updateProfile()">Submit
+          </app-button>
+
+        </form>
+      </div>
+      <div *ngSwitchCase="1">
+
+        <app-league-accounts  (setSelectedAccount)="selectAccount($event)" [userSlug]="userSlug" [selectedAccount]="selectedAccount" [isTournament]="isTournament"
+                             [tournamentCode]="tournament?.code"></app-league-accounts>
+        <div class="buttons-container d-flex justify-content-between gap-2 mt-3">
+        <app-button *ngIf="this.currentStep !== this.steps[this.steps.length - 1 ]"
+                    [disabled]="!selectedAccount" variant="primary" class="flex-1" (click)="nextStep()">Next
+        </app-button>
+        <app-button *ngIf="this.currentStep === this.steps[this.steps.length - 1 ]"
+                    class="flex-1" variant="primary" [disabled]="!selectedAccount"
+                    (click)="submit()">Submit
+        </app-button>
+        <ng-container *ngIf="!tournament?.members_connected_accounts_required">
+          <app-button
+            class="flex-1" variant="white"
+                      (click)="this.currentStep === this.steps[this.steps.length - 1 ] ? submit() : nextStep(true)" >Skip
+          </app-button>
+        </ng-container>
+        </div>
+      </div>
+      <div *ngSwitchCase="2">
+        <h3 class="text-center"> Required Inputs</h3>
+        <form nz-form [formGroup]="requiredInputsForm" [nzLayout]="'vertical'">
+          <div class="d-flex flex-column gap-2">
+            <div formArrayName="userSupportedRequiredInputsKey">
+              <div class="required-input" *ngFor="let input of RequiredInputs().controls; let i = index">
+                <div [formGroupName]="i">
+                  <nz-form-item>
+                    <nz-form-label nzRequired>{{input.value.placeholder}}</nz-form-label>
+                    <input nz-input [nzStatus]="requiredInputsForm.controls?.['userSupportedRequiredInputsKey'].value[i].value ? null: 'error'" formControlName="value" [placeholder]="input.value.placeholder"/>
+                    <nz-alert *ngIf="!requiredInputsForm.controls['userSupportedRequiredInputsKey'].value[i].value"
+                              nzType="error" nzMessage="{{input.value.placeholder}} is Required"></nz-alert>
+                  </nz-form-item>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <app-button class="d-flex justify-content-center" variant="primary" [disabled]="requiredInputsForm.invalid"
+                      (click)="submitRequiredInputs()">Submit
+          </app-button>
+        </form>
+      </div>
+
+    </div>
+<!--    </ng-scrollbar>-->
+
+  </ng-template>

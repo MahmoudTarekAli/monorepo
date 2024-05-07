@@ -1,0 +1,129 @@
+<div>
+  <div nz-dropdown nzTrigger="click" class="dropdown" [nzDropdownMenu]="menu" [nzOverlayClassName]="'userDropdown'">
+    <nz-avatar nzIcon="user" [nzSrc]="(userData| async)?.avatar" nzSize="default"
+               class="avatar"></nz-avatar>
+
+  </div>
+
+  <nz-dropdown-menu #menu="nzDropdownMenu" >
+    <ng-container *ngIf="!isShowLanguage">
+      <ng-container *ngIf="userData | async  as user">
+      <div class="w-100 d-flex">
+        <img  width="30" height="30" [src]="(userData| async)?.avatar"
+                   class="border-radius-20">
+        <div class="d-flex flex-column justify-content-around mx-2">
+          <p class="font-weight-bold mb-0">{{(userData| async)?.username}}
+            <nz-avatar class="country" [nzSrc]="(userData| async)?.country|countryImage" alt=""></nz-avatar>
+          </p>
+          <div class="d-flex flex-row">
+<!--            <p>#{{(userData | async)?.reference_number}}</p>-->
+            <p nz-typography nzCopyable style="color: #0b074a" [nzCopyTooltips]="null"  nzContent="{{user?.reference_number}}"></p>
+<!--            <button nz-button nzType="primary">-->
+<!--              <img   src="assets/svg-icons/copy-icon.svg" alt="">-->
+<!--            </button>-->
+          </div>
+        </div>
+
+      </div>
+      </ng-container>
+      <nz-divider class="my-2" ></nz-divider>
+    <div class="d-flex flex-column">
+      <a href="https://www.gbarena.com/gamer/{{(userData| async)?.slug}}/summary">
+        <img src="assets/svg-icons/profile-icon.svg" class="me-2">
+        {{ 'view_profile' | translate }}
+      </a>
+      <a (click)="isShowLanguage = true" class="d-flex justify-content-between align-items-center">
+        <div>
+          <img src="assets/svg-icons/language-icon.svg" class="me-2">
+          {{ 'language' | translate }}</div>
+
+        <img style="width: 6px!important;" src="assets/svg-icons/forward-icon.svg" alt="">
+      </a>
+      <a href="https://intercom.help/gbarenahelpcenter/en/collections/3552494-organizers-help-articles">
+        <img src="assets/svg-icons/support-icon.svg" class="me-2">
+        {{ 'support' | translate }}
+      </a>
+      <a *ngIf="(isLoggedIn|async)" (click)="authService.logout()">
+        <img src="assets/svg-icons/logout-icon.svg" class="me-2">
+        {{ 'topBar.profileMenu.logout' | translate }}
+      </a>
+      <a nz-menu-item *ngIf="!(isLoggedIn|async)" href="https://login.staging.gbarena.com/">
+        <i class="fe fe-log-out me-2"></i>
+        {{ 'topBar.profileMenu.login' | translate }}
+      </a>
+    </div>
+    </ng-container>
+
+    <ng-container *ngIf="isShowLanguage">
+
+      <p>        <img (click)="isShowLanguage = false" style="width: 8px!important;" src="assets/svg-icons/back-icon.svg" alt="">
+        Language</p>
+
+      <nz-radio-group class="d-flex flex-column mx-2" [(ngModel)]="language" (ngModelChange)="changeLanguage($event)" >
+        <label nz-radio class="my-1" [nzValue]="'en-US'">
+          <span>English</span>
+        </label>
+        <label nz-radio class="my-1" [nzValue]="'ar-EG'">
+          <span>Arabic</span>
+        </label>
+      </nz-radio-group>
+    </ng-container>
+  </nz-dropdown-menu>
+
+<!--  <ng-template #popOverProfileTemplate>-->
+<!--    <ng-container *ngIf="!isShowLanguage">-->
+<!--      <div class="w-100 d-flex">-->
+<!--        <nz-avatar nzIcon="user" [nzSrc]="(userData| async)?.avatar" nzSize="large"-->
+<!--                   class="avatar"></nz-avatar>-->
+<!--        <div class="d-flex flex-column justify-content-around mx-2">-->
+<!--          <p class="font-weight-bold mb-0">{{(userData| async)?.username}}-->
+<!--            <nz-avatar class="country" [nzSrc]="(userData| async)?.country|countryImage" alt=""></nz-avatar>-->
+<!--          </p>-->
+<!--          <span class="font-weight-bold">#{{(userData | async)?.reference_number}}</span>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--      <nz-divider class="my-2" styl></nz-divider>-->
+
+<!--      <a href="https://www.gbarena.com/gamer/{{(userData| async)?.slug}}/summary">-->
+<!--        <img src="assets/svg-icons/profile-icon.svg" class="me-2">-->
+<!--        {{ 'view_profile' | translate }}-->
+<!--      </a>-->
+<!--      <a (click)="isShowLanguage = true" class="d-flex justify-content-between align-items-center">-->
+<!--        <div>-->
+<!--          <img src="assets/svg-icons/language-icon.svg" class="me-2">-->
+<!--          {{ 'language' | translate }}</div>-->
+
+<!--        <img style="width: 8px!important;" src="assets/svg-icons/forward-icon.svg" alt="">-->
+<!--      </a>-->
+<!--      <a href="https://www.gbarena.com/gamer/{{(userData| async)?.slug}}/settings/general_settings">-->
+<!--        <img src="assets/svg-icons/support-icon.svg" class="me-2">-->
+<!--        {{ 'support' | translate }}-->
+<!--      </a>-->
+<!--      <a *ngIf="(isLoggedIn|async)" (click)="authService.logout()">-->
+<!--        <img src="assets/svg-icons/logout-icon.svg" class="me-2">-->
+<!--        {{ 'topBar.profileMenu.logout' | translate }}-->
+<!--      </a>-->
+<!--      <a nz-menu-item *ngIf="!(isLoggedIn|async)" href="https://login.staging.gbarena.com/">-->
+<!--        <i class="fe fe-log-out me-2"></i>-->
+<!--        {{ 'topBar.profileMenu.login' | translate }}-->
+<!--      </a>-->
+<!--    </ng-container>-->
+
+<!--    <ng-container *ngIf="isShowLanguage">-->
+
+<!--      <p>        <img (click)="isShowLanguage = false" style="width: 8px!important;" src="assets/svg-icons/forward-icon.svg" alt="">-->
+<!--         Language</p>-->
+
+<!--      <nz-radio-group class="d-flex flex-column mx-2" [(ngModel)]="language" (ngModelChange)="changeLanguage($event)" >-->
+<!--        <label nz-radio class="my-1" [nzValue]="'en-US'">-->
+<!--          <span>English</span>-->
+<!--        </label>-->
+<!--        <label nz-radio class="my-1" [nzValue]="'ar-EG'">-->
+<!--          <span>Arabic</span>-->
+<!--        </label>-->
+<!--      </nz-radio-group>-->
+<!--    </ng-container>-->
+
+<!--  </ng-template>-->
+</div>

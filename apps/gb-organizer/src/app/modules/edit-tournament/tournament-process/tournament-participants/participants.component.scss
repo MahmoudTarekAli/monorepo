@@ -1,0 +1,59 @@
+.checkbox_content{
+  display: flex;
+  flex-flow: column;
+
+
+}
+
+
+.ant-radio-group {
+  .participants-type {
+    width: 150px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    border: solid 1px #ffffff38;
+    background: #0b0644;
+    height: 50px;
+
+    .ant-radio {
+      display: none;
+    }
+
+    .ant-radio-button-wrapper:hover {
+      color: inherit;
+    }
+
+    .ant-radio-button-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 5px;
+      border-radius: 10px;
+      border: 0;
+      height: 50px;
+      margin: 0;
+      gap: 5px;
+      img {
+        width: 12px;
+      }
+    }
+
+    .ant-radio-button-wrapper-checked, .ant-radio-button-wrapper-disable {
+      background: #8529f5 !important;
+      padding: 5px;
+      margin: 0;
+      border-radius: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff !important;
+    }
+  }
+}
+
+p  {
+  margin:0;
+}

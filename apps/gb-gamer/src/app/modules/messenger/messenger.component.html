@@ -1,0 +1,71 @@
+<div class="container-fluid" *ngIf="(activeChat$ | async )as chat else empty">
+
+  <ng-container *ngIf="isMobileView else desktopView">
+    <div class="col-12">
+
+      <app-conversation-list [selectedChat]="chat" [chatId]="chatId"></app-conversation-list>
+    </div>
+  </ng-container>
+  <ng-template #desktopView>
+    <div class="d-flex gap-2" style="height: calc(100vh - 160px);">
+      <app-conversation-list [selectedChat]="chat" [chatId]="chatId" ></app-conversation-list>
+      <div class="d-flex flex-column flex-1">
+        <div class="conversation second-container bord" style="border-radius: 8px 0px;">
+          <div class="d-flex flex-column">
+            <div class="conversation-header">
+              <div class="user">
+                <div class="profile-img">
+                  <img style="width: 40px;height: 40px; object-fit: cover" [src]="chat.avatar ? chat.avatar : 'assets/svg-icons/announcement-message.svg'">
+                </div>
+                <div class="name-header">
+                  <p>{{chat.name}}</p>
+                </div>
+              </div>
+            </div>
+            <app-chat-list [chat]="chat" (chatCreated)="chatCreated()"></app-chat-list>
+          </div>
+        </div>
+        <div class="input" *ngIf="chat.type !== 'tournament_message' && chat.type !== 'marketing' ">
+          <input #myInput (keydown.enter)="sendMessage()" [(ngModel)]="messageSent" class="small" nz-input
+                 [placeholder]="'Send Message ... '"/>
+          <img src="assets/svg-icons/send.svg" (click)="sendMessage()">
+
+        </div>
+      </div>
+
+
+    </div>
+    <!--    <div class="row mt-3">-->
+    <!--      <div class="col-3">-->
+    <!--        <app-conversation-list [selectedChat]="chat" [chatId]="chatId"></app-conversation-list>-->
+    <!--      </div>-->
+    <!--      <div class="col-9">-->
+    <!--        <div class="conversation second-container">-->
+    <!--          <div class="conversation-header">-->
+    <!--            <div class="user">-->
+    <!--              <div class="profile-img">-->
+    <!--                <img style="width: 40px;height: 40px; object-fit: cover" [src]="chat.avatar">-->
+    <!--              </div>-->
+    <!--              <div class="name-header">-->
+    <!--                <p>{{chat.name}}</p>-->
+    <!--              </div>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--          <nz-divider></nz-divider>-->
+
+    <!--          <app-chat-list [chat]="chat"></app-chat-list>-->
+    <!--          <div *ngIf="chat.type !== 'tournament_message'" class="p-3">-->
+    <!--            <input (keydown.enter)="sendMessage($event)" type="text" class="small" nz-input placeholder="Send Message"-->
+    <!--                   style="background: #280659 !important;"/>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
+  </ng-template>
+</div>
+
+<ng-template #empty>
+  <app-place-holder [text]="'placeholder.noConversationsPlaceHolder' | translate">
+    <img class="mt-3" src="assets/svg-icons/chat-placeholder.svg" width="50" height="50">
+  </app-place-holder>
+</ng-template>

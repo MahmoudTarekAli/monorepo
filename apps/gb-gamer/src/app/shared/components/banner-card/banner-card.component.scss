@@ -1,0 +1,121 @@
+@import '../../../styles/core/variables';
+@import "src/app/styles/functions";
+
+.top-section {
+  margin: 30px 0;
+
+  .top-banner {
+    width: 100%;
+    //@include dynamic-dimensions(height, 380);
+    background-size: cover !important;
+    @include dynamic-m-v-property(border-radius, 10);
+    background-position: center center !important;
+    position: relative;
+    display: flex; flex-flow: column;
+    overflow: hidden;
+  &.low-height{
+    @include dynamic-dimensions(height, 200);
+
+  }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      &.cover-image{
+        max-height: 450px;
+        object-fit: cover;
+      }
+    }
+
+    .game-icon {
+      &.outer {
+        position: absolute;
+        top:5%; left:2%;
+      }
+      z-index: 1;
+      img {
+        @include dynamic-dimensions(width,40);
+      }
+    }
+  }
+
+  .info-container {
+    background: $transparent;
+    width: 100%;
+    min-width: 150px;
+    display: flex;
+    margin-top:auto;
+    flex-flow: row wrap;
+    @include dynamic-m-v-property(padding, 20);
+    @include dynamic-s-v-property(gap, 10);
+    position: relative;
+
+
+    .cover {
+      background: rgb(0,0,0);
+      background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(11,11,11,0) 100%);
+      width:100%; height: 100%;
+      position: absolute; left:0; top:0;
+    }
+    .inner-info {
+      display: flex;
+      flex: 1;
+      position:relative;
+      @include dynamic-s-v-property(gap, 10);
+      z-index: 1;
+      justify-content: flex-start;
+      align-items: center;
+      img {
+        @include dynamic-equal-dimensions(150);
+        border-radius: 100%;
+
+        &.uplift {
+          margin-top: -30px;
+          border: solid $gb-main-bg;
+          @include dynamic-m-v-property(border-width, 7);
+        }
+      }
+      @media screen and (max-width: 767px) {
+        justify-content: center; align-items: center; flex-flow: column; padding-top:120px;
+      }
+
+      .info {
+        display:flex; justify-content: center; align-items: center;
+      }
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      @include dynamic-s-v-property(gap, 10);
+
+
+    flex-flow: column;
+      @include dynamic-s-v-property(gap, 10);
+      @include dynamic-m-v-property(padding, 10);
+
+      @media screen and (max-width: 767px) {
+        background:$gb-main-darker; flex-flow: row; position: fixed; bottom: 57px; left:0;
+        border-bottom: solid $gb-sec-bg;
+        @include dynamic-m-v-property(border-width, 2);
+        z-index: 2; width:100%;
+      }
+    }
+    .button-container:empty{
+      display: none;
+    }
+
+    @media screen and (max-width: 767px) {
+      justify-content: center; flex-flow: column;
+    }
+  }
+}
+
+//::ng-deep {
+//
+//  app-button {
+//    width: 100%;
+//  }
+//
+//}

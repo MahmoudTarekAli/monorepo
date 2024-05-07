@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col-lg-6 col-12 px-4" *ngIf="isShowProfile">
+  <nz-form-item >
+    <nz-form-label class="mb-2">{{'profile_photo' | translate}}</nz-form-label>
+
+    <button nz-button nzType="default" class="w-100  input-button-image">
+      <div class="image">
+        <img [src]="avatar | defaultImage" >
+
+        <div class="icon">
+          <img src="assets/svg-icons/upload-icon.svg">
+        </div>
+      </div>
+
+      <div class="info">
+        <!--            - {{'upload_or_drag' | translate}}-->
+        <p>{{'profile_photo'|translate}}
+          <em>{{'dimensions' | translate}}: 700H *700W</em>
+        </p>
+      </div>
+      <input #file1Input accept="image/*" type="file" (change)="fileChangeEvent($event, 'avatar')"/>
+    </button>
+  </nz-form-item>
+  </div>
+  <div class="col-lg-6 col-12 px-4" *ngIf="isShowCover">
+
+  <nz-form-item >
+    <nz-form-label class="mb-2">{{'cover_photo' | translate}}</nz-form-label>
+
+    <button nz-button nzType="default" class="w-100  input-button-image">
+      <div class="image">
+        <img [src]="cover | defaultImage" >
+        <div class="icon">
+          <img src="assets/svg-icons/upload-icon.svg">
+        </div>
+      </div>
+
+      <div class="info">
+        <!--            - {{'upload_or_drag' | translate}}-->
+        <p>{{'cover_photo'|translate}}
+          <em>{{'dimensions' | translate}}: {{ coverResizeToWidth }} * {{coverResizeToHeight}}</em>
+        </p>
+      </div>
+      <input #file1Input accept="image/*" type="file" (change)="fileChangeEvent($event, 'cover')"/>
+    </button>
+  </nz-form-item>
+  </div>
+</div>
+<nz-modal [(nzVisible)]="openImageCropper" nzTitle="{{'upload_images'| translate}}"
+          (nzOnCancel)="openImageCropper = false"
+          (nzOnOk)="onModalOk(ImageType)">
+  <ng-container *nzModalContent>
+    <image-cropper
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="cropRatio"
+      [resizeToWidth]="resizeToWidth"
+      [resizeToHeight]="resizeToHeight"
+      (imageCropped)="imageCropped($event, ImageType)"
+    ></image-cropper>
+
+  </ng-container>
+</nz-modal>

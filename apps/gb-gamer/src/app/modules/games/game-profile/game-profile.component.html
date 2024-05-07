@@ -1,0 +1,88 @@
+<ng-container *ngIf="(Game$ | async) as game">
+
+    <app-banner-card [banner]="game.covers | responsiveImage" *ngIf="(Game$ | async) as game"
+                     [profile]="game.profile_images| responsiveImage">
+      <div class="tournament-description d-flex flex-column justify-content-around"
+           ngProjectAs="tournament-description">
+        <h1>{{game.name}}
+        </h1>
+        <div class="d-flex flex-row gap-2 align-items-center">
+          <h5><span>{{game.participants_count}}</span> <nz-space></nz-space> {{'common.participants' | translate}}</h5>
+          <h5><span>{{game.tournaments_count}}</span>  <nz-space></nz-space> {{'common.tournaments' | translate}}</h5>
+        </div>
+      </div>
+      <app-button (click)="followGame(game.code , game.is_favorite)" variant="two-tone-primary"
+                  ngProjectAs="tournament-buttons" class="w-100">
+        <img src="assets/svg-icons/{{game.is_favorite ? 'minus-icon' : 'plus-icon'}}.svg" alt="">
+        {{game.is_favorite ? ('common.unfollow' | translate ): ('common.follow' | translate)}}</app-button>
+
+    </app-banner-card>
+<!--  <nz-tabset nzType="card" nzLinkRouter>-->
+<!--    <nz-tab>-->
+
+<!--      <div class="container">-->
+<!--        <a *nzTabLink nz-tab-link [routerLink]="['.']">-->
+<!--          Tournaments-->
+<!--        </a>-->
+
+<!--      </div>-->
+
+<!--    </nz-tab>-->
+<!--    <nz-tab *ngIf="game.has_leaderboards">-->
+<!--      <a *nzTabLink nz-tab-link [routerLink]="['.']" [queryParams]="{ type: 'leaderboards' }">-->
+<!--        Leaderboard-->
+<!--      </a>-->
+<!--      <app-leaderboard [leaderBoardCode]="gameCode" [leaderBoardType]="'games'"></app-leaderboard>-->
+
+<!--    </nz-tab>-->
+<!--  </nz-tabset>-->
+  <!--      Challenges Section-->
+  <ng-container *ngIf="challenges$ |async as challenges ">
+  <div  *ngIf="challenges.data.length">
+    <!--      <div class="section-color">-->
+    <app-section [title]="'common.challenges' | translate| uppercase" [customButtons]="filterChallengeButton">
+      <ng-container *ngIf="!isLoadChallenges; else loadingIndicator">
+
+          <app-card-list (changePage)="changeChallengePage(currentChallengePage + 1)" [cardType]="'challenges'"
+                         [cards]="challenges.data" [flexWrap]="false"></app-card-list>
+      </ng-container>
+    </app-section>
+    <ng-template #filterChallengeButton>
+      <app-filter-popover (statusFiltration)="changeChallengePage(1 , $event)"
+                          [type]="'challenge'"></app-filter-popover>
+    </ng-template>
+  </div>
+  </ng-container>
+  <!--      </div>-->
+
+
+    <app-section [title]="'common.tournaments' | translate | uppercase" [customButtons]="filterButton">
+      <ng-container *ngIf="!(getTournamentGameExecuting$ | async) ; else loadingIndicator">
+        <ng-container *ngIf="Tournaments$ |async as tournaments ">
+
+          <app-card-list *ngIf="tournaments.data.length > 0 ; else noData" [total]="tournaments?.meta?.total" [pageSize]="tournaments?.meta?.per_page"
+                         [page]="tournaments?.meta?.current_page" [isPaginated]="true"
+                         (changePage)="changeTournamentPage($event)" [cardType]="'tournaments'"
+                         [cards]="tournaments.data"></app-card-list>
+
+        </ng-container>
+      </ng-container>
+    </app-section>
+    <ng-template #filterButton>
+      <app-filter-popover (statusFiltration)="changeTournamentPage(1 ,  $event)"></app-filter-popover>
+    </ng-template>
+</ng-container>
+<ng-template #loadingIndicator>
+  <div class="row">
+    <div class="col-12">
+      <app-loading-indicator></app-loading-indicator>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #noData>
+  <div class="second-container d-flex align-items-center justify-content-center py-5 my-4">
+    <h5>  {{ 'common.placeholders.noItemsFound' | translate: {itemName: 'common.tournament' | translate} }}</h5>
+
+  </div>
+</ng-template>

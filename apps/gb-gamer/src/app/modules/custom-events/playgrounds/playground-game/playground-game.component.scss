@@ -1,0 +1,55 @@
+@import "../playground-home/playground-home.component.scss";
+
+.info-container {
+background: #1D242F4D;
+  width: 100%; display: flex; justify-content: center; flex-flow: row-reverse; border-radius:20px; overflow: hidden;
+
+  .info {
+    flex:1; display: flex; flex-flow: column;   background: $gb-main-darker;
+    p {
+      padding:20px;
+      font-size: 14px !important;
+    }
+    img {
+      width:180px;
+      padding: 20px;
+    }
+    .menu {
+      display: flex;
+      flex-flow: row;
+      justify-content: space-between;
+     gap:20px;
+      margin-top:auto; border-top:1px solid $gb-sec-bg;
+
+      .items {
+        flex:1;padding:20px; display: flex;
+        justify-content: center; align-items: center;
+        &.active {
+          border-bottom: solid 5px ;
+          &.league-of-legends {
+            color:#2dc1f8;
+          }
+          &.valorant {
+            color: #df724e;
+          }
+          &.wild-rift{
+            color: #8274ed
+          }
+        }
+
+      }
+    }
+  }
+  .media {
+    flex: 1;
+    display: flex; justify-content: center; align-items: center; margin:10px;
+    img {
+      width: 100%;
+      border-radius: 20px;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    flex-flow: column;
+  }
+}

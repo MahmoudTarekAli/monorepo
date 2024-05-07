@@ -1,21 +1,16 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
-    "production": [
-      "default",
-      "!{projectRoot}/.eslintrc.json",
-      "!{projectRoot}/eslint.config.js",
-      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
-      "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/jest.config.[jt]s",
-      "!{projectRoot}/src/test-setup.[jt]s",
-      "!{projectRoot}/test-setup.[jt]s"
-    ],
-    "sharedGlobals": []
-  },
   "targetDefaults": {
-    "@angular-devkit/build-angular:browser": {
+    "build": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
+    "test": {
+      "cache": true,
+      "inputs": ["default", "^production"]
+    },
+    "@angular-devkit/build-angular:application": {
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
@@ -41,8 +36,30 @@
           "codeCoverage": true
         }
       }
+    },
+    "@angular-devkit/build-angular:browser": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
+  "defaultBase": "main",
+  "namedInputs": {
+    "sharedGlobals": [],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "production": [
+      "default",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/**/*.spec.[jt]s",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/eslint.config.js",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/src/test-setup.[jt]s",
+      "!{projectRoot}/test-setup.[jt]s"
+    ]
+  },
+  "nxCloudAccessToken": "ZWFkNjJiNmUtNzFlNi00NDU0LWFiOTUtNzgxZDQyZmFiYTJlfHJlYWQtd3JpdGU=",
   "generators": {
     "@nx/angular:application": {
       "e2eTestRunner": "none",
@@ -57,6 +74,5 @@
     "@nx/angular:component": {
       "style": "css"
     }
-  },
-  "nxCloudAccessToken": "MDMzYjY2ODgtM2E5ZS00Mjk0LTg1N2MtY2U3Y2I0Yzg5NDFifHJlYWQtd3JpdGU="
+  }
 }

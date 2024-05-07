@@ -1,0 +1,121 @@
+<ng-container *ngIf="isMobileView else chatList">
+  <div class="conversation second-container">
+    <div class="conversation-header">
+      <div class="user">
+        <div class="profile-img">
+          <img style="width: 40px;height: 40px; object-fit: cover"
+               [src]="chat?.avatar ? chat?.avatar : 'assets/svg-icons/announcement-message.svg'"/>
+        </div>
+        <div class="name-header">
+          <p>{{chat?.name}}</p>
+        </div>
+      </div>
+    </div>
+    <nz-divider></nz-divider>
+    <ng-container *ngTemplateOutlet="chatList"></ng-container>
+    <!--    <div *ngIf="chat.type !== 'tournament_message'" class="p-3">-->
+    <!--      <input (keydown.enter)="sendMessage($event)" type="text" class="small" nz-input placeholder="Send Message"-->
+    <!--             style="background: #280659 !important;"/>-->
+    <!--    </div>-->
+    <div class="input" *ngIf="chat?.type !== 'tournament_message' && chat?.type !== 'marketing'">
+      <input (keydown.enter)="sendMessage()" [(ngModel)]="messageSent" class="small" nz-input
+             [placeholder]="'Send Message ... '"/>
+      <img src="assets/svg-icons/send.svg" (click)="sendMessage()">
+
+    </div>
+
+  </div>
+
+</ng-container>
+<ng-template #chatList>
+  <div class="chat">
+<!--    <virtual-scroller #scroll [items]="messages" [ngStyle]="{'height': isChatbox ? '20rem' : '500px'}">-->
+<!--      <ng-container *ngIf="!loading else loadingTemplate">-->
+
+<!--        <main #chatContainer class="messenger-chat" *ngFor="let message of scroll.viewPortItems; let i = index">-->
+<!--          <div class="msg left-msg" *ngIf="(getUser | async)?.id !== message?.sender">-->
+<!--            <div class="message-container left">-->
+<!--              <div>-->
+<!--                <div class="msg-info">-->
+<!--                  &lt;!&ndash;            <div class="msg-info-time">{{(message?.created_at.seconds * 1000) | date : 'M/d/yy, h:mm a'}}</div>&ndash;&gt;-->
+<!--                </div>-->
+<!--                <div class="msg-bubble">-->
+<!--                  <div class="msg-text" *ngIf="!message?.url">-->
+<!--                    <div class="message left" *ngIf="chat.type !== 'private'" [innerHTML]="message.body"></div>-->
+<!--                    <div class="message left" *ngIf="chat.type === 'private'">{{ message.body}}</div>-->
+<!--                  </div>-->
+<!--                  <div class="msg-text" *ngIf="message?.url">-->
+<!--                    <div class="message left" *ngIf="chat.type === 'marketing'">-->
+<!--                      <a style="color: black; text-decoration: underline" *ngIf="message?.url_type === 'inApp'"-->
+<!--                         [routerLink]="message.url">{{message.body}}</a>-->
+<!--                      <a style="color: black; text-decoration: underline" *ngIf="message?.url_type === 'full'"-->
+<!--                         [href]="message.url">{{message.body}}</a>-->
+<!--                    </div>-->
+<!--                    <div class="message left" *ngIf="chat.type === 'tournament_message'"-->
+<!--                         [innerHTML]=" message['body']"></div>-->
+<!--                    <div class="message left" *ngIf="chat.type === 'private'"><p>{{message.body}}</p></div>-->
+<!--                  </div>-->
+<!--                  <span-->
+<!--                    style="color: #888;font-size: 0.8rem">{{(message.created_at.seconds * 1000 ? message.created_at.seconds * 1000 : message.created_at * 1000) | date: 'dd/MM/yy, HH:mm'  }}</span>-->
+
+<!--                </div>-->
+
+
+<!--              </div>-->
+
+<!--              <nz-avatar-->
+<!--                [nzSrc]="message?.sender === 1 ||  message?.sender === 2  ? 'assets/svg-icons/robot.svg' : chat.avatar"-->
+<!--                nzShape="circle" nzSize="default"></nz-avatar>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="msg right-msg" *ngIf="(getUser | async)?.id === message?.sender">-->
+<!--            <div class="message-container">-->
+<!--              <div>-->
+<!--                <div class="msg-info">-->
+<!--                  &lt;!&ndash;            <div class="msg-info-time">{{(message?.created_at.seconds * 1000) | date : 'M/d/yy, h:mm a'}}</div>&ndash;&gt;-->
+<!--                </div>-->
+<!--                <div class="msg-bubble">-->
+<!--                  <div class="msg-text" *ngIf="!message?.url">-->
+<!--                    <div class="message right" *ngIf="chat.type !== 'private'" [innerHTML]=" message['body']"></div>-->
+<!--                    <div class="message right" *ngIf="chat.type === 'private'"><p>{{message.body}}</p></div>-->
+<!--                    <span-->
+<!--                      style="color: white;font-size: 0.8rem">{{(message.created_at.seconds * 1000 ? message.created_at.seconds * 1000 : message.created_at * 1000) | date: 'dd/MM/yy, HH:mm'  }}</span>-->
+<!--                  </div>-->
+<!--                  <div class="msg-text" *ngIf="message?.url">-->
+<!--                    <div class="message right" *ngIf="chat.type === 'marketing'">-->
+<!--                      <a style=" text-decoration: underline" *ngIf="message?.url_type === 'inApp'"-->
+<!--                         [routerLink]="message.url">{{message.body}}</a>-->
+<!--                      <a style="text-decoration: underline" *ngIf="message?.url_type === 'full'"-->
+<!--                         [href]="message.url">{{message.body}}</a>-->
+<!--                    </div>-->
+<!--                    <div class="message right" *ngIf="chat.type === 'tournament_message'"-->
+<!--                         [innerHTML]=" message['body']"></div>-->
+<!--                    <div class="message right" *ngIf="chat.type === 'private'"><p>{{message.body}}</p></div>-->
+
+<!--                    <span-->
+<!--                      style="color: white;font-size: 0.8rem">{{(message.created_at.seconds * 1000 ? message.created_at.seconds * 1000 : message.created_at * 1000) | date: 'dd/MM/yy, HH:mm'  }}</span>-->
+<!--                  </div>-->
+
+<!--                </div>-->
+
+<!--              </div>-->
+
+<!--              <nz-avatar [nzSrc]="(getUser| async)?.avatar" nzShape="circle" nzSize="default"></nz-avatar>-->
+
+<!--            </div>-->
+
+<!--          </div>-->
+<!--        </main>-->
+<!--      </ng-container>-->
+
+<!--    </virtual-scroller>-->
+    <ng-template #loadingTemplate>
+      <app-loading-indicator></app-loading-indicator>
+
+    </ng-template>
+  </div>
+  <!--  <div *ngIf="link && chat.type !== 'tournament_message'" class="p-3">-->
+  <!--    <input (keydown.enter)="sendMessage($event)" type="text" class="small" nz-input placeholder="Send Message"-->
+  <!--           style="background: #280659 !important;"/>-->
+  <!--  </div>-->
+</ng-template>

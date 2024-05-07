@@ -1,0 +1,33 @@
+<div class="riot-container">
+  <div class="menu-container">
+      <a class="menu-item"   routerLink="./home"  routerLinkActive="active">Home</a>
+      <a class="menu-item"  routerLink="./tournaments-challenges"  routerLinkActive="active">Tournaments & Challenges</a>
+      <a class="menu-item"  routerLink="./cafes"  routerLinkActive="active">Cafés</a>
+      <a class="menu-item"  routerLink="./rules"  routerLinkActive="active">Rules</a>
+<!--      <a class="menu-item"  routerLink="./achievements"  routerLinkActive="active">Achievements</a>-->
+
+  </div>
+  <!--  <div class="riot-cover" [ngClass]="{}">-->
+  <!--    -->
+  <!--  </div>-->
+  <img class="cover-riot" src="assets/riot-images/riot-cover.jpg" alt="">
+
+  <div class="main-container">
+    <div class="container">
+      <ng-container *ngIf="!(getEventIsExecuting$ | async) ; else loadingIndicator">
+    <router-outlet></router-outlet>
+      </ng-container>
+
+    </div>
+  </div>
+
+  <ng-template #loadingIndicator>
+    <div class="row">
+      <div class="col-12">
+        <app-loading-indicator></app-loading-indicator>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+

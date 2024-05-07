@@ -1,0 +1,281 @@
+@import 'src/app/styles/core/variables';
+@import "src/app/styles/functions";
+
+.match-bar-container {
+  background-color: $dark-gray-8;
+  border-radius: 8px;
+  //margin: 10px 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  width: 100%;
+
+  .right-badge {
+    display: flex;
+    width: 15px;
+    background-color: $gb-primary-color;
+
+    &.cancelled {
+      background-color: $gray-2
+    }
+
+    &.finished {
+      background-color: $alert
+    }
+
+    &.live {
+      background: $gold;
+    }
+
+    &.active, &.tobeplayed {
+      background-color: $green;
+    }
+
+  }
+
+  .tournament-container {
+    background: $gb-main-darker;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    @include dynamic-m-v-property(padding, 3);
+    @include dynamic-font(10);
+    @include dynamic-s-v-property(gap, 5);
+
+    img {
+      width: 10px;
+    }
+
+  }
+
+  .match-container {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    @include dynamic-s-v-property(gap, 10);
+    @include dynamic-m-v-property(padding, 20, 10);
+
+
+    .match-status-data {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      @include dynamic-s-v-property(gap, 10);
+      flex: 1;
+      @include dynamic-m-v-property(padding, 0);
+      flex-flow: row wrap;
+    }
+
+    .match-info {
+      flex: 3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      @include dynamic-s-v-property(gap, 10);
+
+      .versus {
+        border: solid 1px $purple;
+        @include dynamic-m-v-property(padding, 10, 20);
+        @include dynamic-m-v-property(border-radius, 5);
+
+        p {
+          @include dynamic-font(12);
+          font-weight: normal;
+          &.vs {
+            font-weight: bold;
+            color: $green;
+          }
+        }
+      }
+
+      .home {
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        height: 40px;
+        @include dynamic-s-v-property(gap, 5);
+
+        app-marquee {
+          height: 30px;
+        }
+
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          margin: 0 10px;
+
+          &.country {
+            width: 10px;
+            border-radius: 50%;
+
+          }
+        }
+
+        &:last-of-type {
+          flex-flow: row-reverse;
+
+          app-marquee {
+            text-align: right;
+          }
+        }
+      }
+
+      .card-text {
+        color: $white;
+        width: 100px;
+        @include dynamic-font(12);
+      }
+
+    }
+
+    @media screen and (max-width: 992px) {
+      flex-flow: column;
+      @include dynamic-s-v-property(gap, 15);
+      .match-status-data {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    @media screen and (max-width: 590px) {
+      @include dynamic-m-v-property(padding, 10);
+
+      .match-info {
+        flex-flow: column;
+        align-items: flex-start;
+        width: 100%;
+
+        .versus {
+          margin-left:auto;
+        }
+        p {
+          align-self: flex-end;
+        }
+
+        .home {
+          &:last-of-type {
+            flex-flow: row;
+              app-marquee {
+                text-align: left;
+              }
+          }
+
+          width: 100%;
+
+          .card-text {
+            //width: 100%;
+          }
+        }
+      }
+
+      .buttons-container {
+        width: 100%;
+      }
+    }
+
+    .buttons-container {
+      flex: 1;
+      @include dynamic-s-v-property(gap, 5);
+      display: flex;
+      flex-flow: column;
+
+      img {
+        width: 15px;
+      }
+    }
+  }
+}
+
+
+.match-status {
+  @include dynamic-m-v-property(padding, 5);
+  @include dynamic-m-v-property(border-radius, 5);
+  @include dynamic-font(10);
+  text-transform: uppercase;
+  font-weight: lighter;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include dynamic-s-v-property(gap, 5);
+
+  &.cancelled {
+    border-color: $gray-2;
+    color: $gray-2;
+    background-color: rgba(228, 233, 240, 0.3)
+  }
+
+  &.finished {
+    border-color: $alert;
+    color: $alert;
+    background-color: rgba(233, 68, 68, 0.3);
+
+  }
+
+  &.live {
+    border-color: $gold;
+    color: $gold;
+    background-color: rgba(252, 192, 96, 0.3);
+  }
+
+  &.active, &.tobeplayed {
+    background-color: rgba(0, 221, 189, 0.3);
+    border-color: $green;
+    color: $green
+  }
+
+  .circle {
+    width: 10px;
+    height: 10px;
+    @include dynamic-m-v-property(border-radius, 50);
+
+    &.cancelled {
+      background-color: $gray-2;
+    }
+
+    &.finished {
+      background-color: $alert;
+
+    }
+
+    &.live {
+      background-color: $gold;
+    }
+
+    &.active, &.tobeplayed {
+      background-color: $green;
+    }
+  }
+}
+.match-container{
+  .match-status-data{
+    span{
+      border-radius: 4px;
+      padding: 0 5px;
+      margin-right: 5px;
+
+      &.cancelled {
+        color: $gray-2;
+        border: solid 1px $gray-2;
+      }
+
+      &.finished {
+        color: $alert;
+        border: solid 1px $alert;
+      }
+
+      &.live {
+        color: $gold;
+        border: solid 1px $gold;
+      }
+
+      &.active, &.tobeplayed {
+        color: $green;
+        border: solid 1px $green;
+      }
+    }
+  }
+}

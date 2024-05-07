@@ -1,0 +1,153 @@
+<ng-container *ngIf="(getTournament$ | async) as tournament">
+  <div class="d-flex justify-content-center mb-3 mt-3 gap-2 ">
+    <nz-input-group>
+      <input type="text" class="mid-height" nz-input [placeholder]="'search'| translate" [(ngModel)]="searchText"
+      />
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <span nz-icon nzType="search"></span>
+    </ng-template>
+    <nz-select class="w-100 font-weight-bold" [(ngModel)]="selectedGroupIndex"
+               [ngModelOptions]="{standalone: true}"
+               (ngModelChange)="getSelectedFreeForAllGroups(true)">
+      <nz-option
+        *ngFor="let group of freeForAllGroups; let i = index"
+        [nzValue]="i" [nzLabel]="('group ' | translate )  + group?.group_name"></nz-option>
+    </nz-select>
+  </div>
+
+  <ng-container *ngTemplateOutlet="tableView"></ng-container>
+
+
+  <!--this for free for all only-->
+  <ng-template #tableView>
+    <nz-page-header
+      class="site-page-header"
+      [nzTitle]="tableTitle"
+      [nzSubtitle]="tableSubTitle">
+    </nz-page-header>
+    <ng-container *ngIf="freeForAllGroups">
+      <nz-radio-group class="d-flex justify-content-between gap-10 mb-5"
+                      *ngIf="freeForAllGroups[selectedGroupIndex]?.matches?.length > 1"
+                      [(ngModel)]="selectedMatchIndex" (ngModelChange)="getSelectedFreeForAllGroups()">
+        <label class="w-100" *ngFor="let match of freeForAllGroups[selectedGroupIndex].matches; let i = index"
+               nz-radio-button nz-radio [nzValue]="i">{{'common.match'| translate}} - {{i + 1}}</label>
+      </nz-radio-group>
+
+    </ng-container>
+    <!--    <nz-divider></nz-divider>-->
+
+    <nz-table #headerTable [nzData]="participantsOfFreeForAllGroup| appFilter: searchText : 'ffa'"
+              [nzScroll]="{ y: '500px' , x: '900px' }"
+              [nzFrontPagination]="false" [nzShowPagination]="false"
+    >
+      <!--    <ng-container *ngIf="(headerTable.data | appFilter: searchText : 'ffa').length > 0 ; else noResult">-->
+
+      <thead>
+      <tr>
+        <th>{{'common.name' | translate}}</th>
+        <ng-container *ngFor='let column of displayedColumns;let index = index'>
+          <th>{{column | translate}}</th>
+        </ng-container>
+        <th *ngFor="let variable of scoringVariables">{{variable | translate}}</th>
+        <th>{{'common.score' | translate}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of headerTable.data ; let i = index" class="editable-row">
+        <td>
+          <div class="d-flex gap-1 align-items-center">
+            <img (click)="tournament?.participants_type === 'single' ? '' : openTeamDrawer(data)"
+                 [src]="data?.original?.avatar" class="gb-avatar" loading="lazy">
+            <app-marquee [text]="data?.original?.participant_name"></app-marquee>
+          </div>
+        </td>
+
+        <ng-container *ngIf="tournament?.supportedRequiredInputsKeys?.length> 0">
+          <ng-container *ngIf="data?.tournament_participant?.supported_required_inputs?.length > 0 ; else noIngameName">
+            <ng-container *ngFor="let item of data?.tournament_participant?.supported_required_inputs">
+              <td *ngIf="item?.category === 'IGN'">
+                <app-marquee [text]="item?.value"></app-marquee>
+              </td>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+        <ng-template #noIngameName>
+          <td>__</td>
+        </ng-template>
+        <td *ngFor="let variable of scoringVariables">
+          <nz-input-number style="background: #280659 !important; border: none !important;" [nzMin]="1"
+                           (ngModelChange)="getParticipants(data)"
+                           [(ngModel)]="data[variable]" [nzStep]="1"></nz-input-number>
+        </td>
+        <td>{{data?.score}}</td>
+      </tr>
+      </tbody>
+      <!--    </ng-container>-->
+
+    </nz-table>
+
+  </ng-template>
+
+  <ng-template #group_name>
+  </ng-template>
+
+  <ng-template #tableTitle>
+    {{('group' | translate) + (selectedGroupIndex | convertNumToChar)}}
+  </ng-template>
+  <ng-template #tableSubTitle>
+    <!--  <span nz-icon nzType="edit" nzTheme="outline"></span>-->
+  </ng-template>
+
+  <ng-template #match_list_header>
+    <div class="d-flex justify-content-between mb-4">
+      <nz-input-group class="w-25 border-radius-12 match_list_search" [nzSuffix]="suffixIconSearch">
+        <input type="text" nz-input
+               [placeholder]="('search_for_participants' | translate)"/>
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <span nz-icon nzType="search"></span>
+      </ng-template>
+      <nz-select class="w-20 font-weight-bold" [(ngModel)]="selectedGroupIndex"
+                 [ngModelOptions]="{standalone: true}"
+                 (ngModelChange)="getSelectedFreeForAllGroups(true)">
+        <nz-option
+          *ngFor="let group of freeForAllGroups; let i = index"
+          [nzValue]="i" [nzLabel]="('group' | translate) + group?.group_name"></nz-option>
+      </nz-select>
+    </div>
+
+  </ng-template>
+  <ng-template #noResult>
+    <div class="m-auto w-100">
+      {{'common.noResult'| translate}}
+    </div>
+
+  </ng-template>
+</ng-container>
+<ng-template #drawerTitle>
+  <div class="overlay">
+  </div>
+  <nz-list nzItemLayout="horizontal">
+    <nz-list-item class="title-avatar">
+      <nz-list-item-meta style="color: #fff!important"
+                         nzAvatar="{{teamMember?.original?.avatar}}"
+                         nzDescription="{{teamMember?.original.participant_name}}"
+
+      >
+        <nz-list-item-meta-title>
+          <p>{{ teamMember?.original.country}}</p>
+        </nz-list-item-meta-title>
+      </nz-list-item-meta>
+    </nz-list-item>
+    <!--        <nz-list-empty *ngIf="data.length === 0"></nz-list-empty>-->
+  </nz-list>
+</ng-template>
+
+<ng-template #drawerFooter let-drawerRef="drawerRef">
+  <!--  <nz-divider></nz-divider>-->
+
+  <a nz-button class="ml-auto" nzType="primary" style="border-radius: 20px"
+     href="">{{'common.buttons.viewTeam'|translate}}</a>
+
+</ng-template>

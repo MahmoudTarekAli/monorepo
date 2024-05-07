@@ -1,0 +1,10 @@
+// Import mixins
+@import 'src/app/styles/core/variables.scss';
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+  .ant-progress {
+    &-inner {
+      background: $dark-gray-4;
+    }
+  }

@@ -1,0 +1,34 @@
+
+<img *ngIf="challenge.game.code === 'valorant'" class="w-100" src="assets/riot-ramadan/valorant-banner.webp" alt="">
+<img *ngIf="challenge.game.code === 'league-of-legends'" class="w-100" src="assets/riot-ramadan/lol-banner.webp"><div class="px-4">
+  <h4 class="my-3 text-center">{{'referral_system_des' | translate}}</h4>
+    <h6 class="my-2">      {{'win_free_coin' | translate}}</h6>
+    <ul>
+      <li>-{{ 'referral_desc1' | translate}}</li>
+      <li>-{{'referral_desc2' | translate}}</li>
+    </ul>
+  <div class="d-flex justify-content-between gap-2">
+  <div class="flex-grow-1">
+   <h5>Referral Code</h5>
+    <nz-form-control class="d-flex">
+      <input style=" border-radius: 8px 0 0 8px!important;" readonly class="ant-input mid-height" [(ngModel)]="joinedAccount.ref_code" type="text">
+      <div class="copy-icon" nz-typography nzCopyable  [nzCopyText]="joinedAccount.ref_code">        </div>
+    </nz-form-control>
+  </div>
+
+    <div class="flex-grow-1">
+    <h5>Referral Link</h5>
+      <nz-form-control class="d-flex">
+      <input style=" border-radius: 8px 0 0 8px!important;" readonly class="ant-input mid-height" [(ngModel)]="joinedAccount.invitation_link" type="text">
+      <div class="copy-icon" nz-typography nzCopyable  [nzCopyText]="joinedAccount.invitation_link">
+      </div>
+      </nz-form-control>
+
+
+    </div>
+  </div>
+  <app-button (click)="closeDialog()" variant=" two-tone-primary fit-content " class=" my-5 d-flex align-items-center justify-content-center pb-0"
+              height="40" width="200">
+    {{'View Challenge ' | uppercase}}
+  </app-button>
+</div>

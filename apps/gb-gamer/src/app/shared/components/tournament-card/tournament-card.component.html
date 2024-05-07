@@ -1,0 +1,74 @@
+<!--<nz-ribbon nzText="Featured" nzColor="gold">-->
+<div class="card ">
+  <a class="top-container"
+     routerLink="/{{tournament.arena_slug ? tournament.arena_slug + '/tournaments/'+ tournament.code : 'tournaments/' + tournament.code}}">
+    <img class="cover"
+
+         [src]="(tournament.cover_pictures.s)|defaultImage">
+
+    <div class="card-type tournament">
+      <img src="assets/svg-icons/trophy.svg" alt="">
+      <h6>{{'common.tournament' | translate}}</h6>
+    </div>
+    <div class="prime-container" *ngIf="tournament?.is_premium">
+      <img src="assets/svg-icons/prime-icon.svg" alt="">
+      <h6>{{'common.primeOnly' | translate}}</h6>
+    </div>
+    <div class="guaranteed-container" *ngIf="tournament?.guaranteed_prizes">
+      <img src="assets/svg-icons/prize-guaranteed-icon.svg" alt="">
+      <!--        <img src="assets/svg-icons/verified-user.svg" alt="">-->
+
+      <h6>{{'tournament.prizeGuaranteed' | translate}}</h6>
+    </div>
+    <div class="prime-overlay" *ngIf="tournament?.is_premium || tournament?.guaranteed_prizes"></div>
+    <div class="game-icon" [nz-tooltip]="tournament?.game?.data?.name">
+      <img src="{{tournament?.game?.data?.icon}}" alt="">
+    </div>
+  </a>
+
+  <div class="card-body">
+    <div class="card-info">
+      <div class="d-flex justify-content-between align-items-center">
+
+        <h6 class="text-gray">starts at<br>{{tournament.start_at_date + 'Z'  | date :  'MMM d, h:mm a' }} <app-user-timezone></app-user-timezone></h6>
+        <div class="status-container">
+          <div class="status {{tournament.status | lowercase}}">
+            <h6>{{ 'status.' + tournament.status | lowercase | translate }}</h6>
+
+          </div>
+        </div>
+      </div>
+      <h4>
+        <app-marquee [text]="tournament.name"></app-marquee>
+      </h4>
+    </div>
+
+    <div class="card-footer">
+      <a [href]="tournament.arena_slug? (tournament.arena_slug | appArenaRouter) : './gamer/'+tournament.organizer.slug"
+         class="card-details  flex-1">
+        <nz-avatar nzSize="default"
+                   [nzSrc]="tournament.arena_avatar?  tournament.arena_avatar: tournament.organizer.avatar"></nz-avatar>
+        <h5>
+          <app-marquee class="text-gray"
+                       [text]="tournament.arena_name? tournament.arena_name: tournament.organizer.username"></app-marquee>
+        </h5>
+        <!--            <img class="badge-img" src="assets/svg-icons/verified-user.svg"  alt="">-->
+      </a>
+
+      <div class="card-details">
+        <div class="d-flex gap-2 align-items-center justify-content-center">
+          <img [nz-tooltip]="tournament?.participants_type" class="icon"
+               [src]="tournament?.participants_type === 'single' ? 'assets/svg-icons/users-icon.svg' : 'assets/svg-icons/team-icon.svg' ">
+          <h6>{{tournament.total_participants_count}}</h6>
+          <!--            <img src="assets/svg-icons/team-icon.svg" alt="">-->
+        </div>
+        <div *ngIf="tournament?.coins" class="d-flex gap-2 align-items-center justify-content-center"
+             [nz-tooltip]="tournament?.coins?.toString()">
+          <img class="icon" src="assets/svg-icons/coins.svg">
+          <h6>{{tournament?.coins |formatCoins}}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--</nz-ribbon>-->

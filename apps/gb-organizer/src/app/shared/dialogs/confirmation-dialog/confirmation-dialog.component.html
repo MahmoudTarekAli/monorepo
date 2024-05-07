@@ -1,0 +1,50 @@
+
+
+<ng-container *ngIf="actionName">
+  <div class="confirmation-modal-container">
+
+  <h3>{{actionName | translate}}</h3>
+  <img *ngIf="actionName === 'reset_bracket' || actionName === 'reset_second_stage_bracket'" src="assets/svg-icons/tournament-bracket-icon-purple.svg" alt="">
+  <img *ngIf="actionName === 'cancel_tournament' || actionName === 'delete_tournament'|| actionName === 'duplicate_tournament'" src="assets/svg-icons/match-icon.svg" alt="">
+
+    <ng-container *ngIf="actionName !== 'duplicate_tournament' ; else duplicateTournament">
+      <p class="text-danger border-radius-12 " style="border: 1px solid" *ngIf="actionName === 'reset_bracket'"> Warning: You will lose matches tree, scores, and chat history, and these actions cannot be undone.</p>
+
+      <p>Confirm you want to {{actionName | translate}} this tournament by writing tournament name <span class="text-danger">"{{tournamentName}}"</span> then, Press Yes ?</p>
+        <nz-input-group>
+          <input (input)="validateTournamentNameSpelling($event)"
+                 type="text" nz-input
+                 [placeholder]="('please_type_tournament_name' | translate)"/>
+        </nz-input-group>
+
+    </ng-container>
+    <ng-template #duplicateTournament>
+        <p>You are duplicating <span class="text-danger">"{{tournamentName}}"</span>  Please enter the name of the new tournament then, Press Yes ?</p>
+
+        <nz-input-group >
+
+          <input [(ngModel)]="dubTournamentName"
+                 (input)="validateTournamentNameSpelling($event)"
+                 type="text" nz-input
+                 [placeholder]="('please_type_tournament_name' | translate)"/>
+        </nz-input-group>
+    </ng-template>
+    <div class="d-flex justify-content-between mt-5 w-100">
+      <button nz-button class="confirm-button px-5 border-radius-8"
+              [disabled]="actionName === 'duplicate_tournament' ? isCorrectTournamentName === false || dubTournamentName === '' : isCorrectTournamentName === false " (click)="closeDialog({actionName , tournamentName:dubTournamentName})">{{'yes'|translate}}</button>
+      <button nz-button nzType="primary" (click)="closeDialog('close')"  class=" cancel-button   px-5 border-radius-8" >{{'no'|translate}}</button>
+
+    </div>
+  </div>
+
+</ng-container>
+
+<ng-container *ngIf="!actionName">
+<h3>{{message}}</h3>
+
+<div class="d-flex justify-content-between mt-5">
+  <button nz-button nzType="primary" (click)="closeDialog('confirm')"  class="confirm-button px-5 border-radius-8" >{{'yes'|translate}}</button>
+  <button nz-button nzType="primary" (click)="closeDialog('close')"  class=" cancel-button   px-5 border-radius-8" >{{'no'|translate}}</button>
+
+</div>
+</ng-container>

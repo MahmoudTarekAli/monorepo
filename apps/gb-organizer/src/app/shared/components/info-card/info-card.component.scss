@@ -1,0 +1,133 @@
+@import 'src/app/components/mixins.scss';
+
+
+.info-card {
+  background-color: $gb-sec-bg;
+  color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+  //min-height: 150px;
+  width: 100%;
+  flex-flow: row;
+  justify-content: center;
+  //align-items: flex-end;
+  min-width: 220px;
+  position: relative;
+  overflow: hidden;
+
+  .text {
+    display: flex;
+    flex-flow: column;
+    flex: 1;
+    justify-content: center;
+    padding: 20px;
+    gap: 10px;
+
+  }
+
+  .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 20px;
+    }
+  }
+
+  .title {
+    font-weight: bold;
+    color: $gb-thirdly-color;
+  }
+
+  .sub-title {
+    font-weight: normal;
+    //text-transform: uppercase;
+  }
+
+
+  .curve {
+    position: relative;
+    top: 0;
+    left: 0;
+    border-bottom-right-radius: 50%;
+    height: 50px;
+    width: 50px;
+    background: $gb-green-blue-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-start;
+    //overflow: hidden;
+
+    &:before {
+      content: '';
+      position: absolute;
+      //@include dynamic-s-v-property(bottom,-39);
+      left: 0;
+      bottom: -59%;
+      height: 30px;
+      width: 30px;
+      border-radius: 30px 0 0 0;
+      background: transparent;
+      box-shadow: -5 -5 0 5;
+      color: $gb-green-blue-color;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      //@include dynamic-s-v-property(right,-39);
+      top: 0;
+      right: -59%;
+      width: 30px;
+      height: 30px;
+      box-shadow: -5 -5 0 5;
+      border-radius: 30px 0 0 0;
+      background: transparent;
+      color: $gb-green-blue-color;
+    }
+
+
+    .blended-color {
+      background: rgb(0, 221, 189);
+      background: linear-gradient(119deg, rgba(0, 221, 189, 0.22875087535014005) 0%, rgba(250, 173, 20, 1) 100%);
+      position: absolute;
+      width: 100%;
+      height: 100%;
+
+    }
+
+  }
+
+  &.smaller {
+    .curve {
+      width: 30px;
+      height: 30px;
+
+      .icon {
+        img {
+          width: 15px;
+          height: 15px;
+        }
+      }
+
+    &:before {
+      width: 10px;
+      height: 10px;
+      bottom:-35%;
+
+    }
+
+    &:after {
+      width: 10px;
+      height: 10px;
+      right:-35%;
+
+    }
+  }
+}
+
+}

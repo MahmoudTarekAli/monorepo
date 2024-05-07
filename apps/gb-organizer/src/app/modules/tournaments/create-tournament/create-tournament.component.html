@@ -1,0 +1,311 @@
+<app-section-container [title]="'create_tournament'|translate" [customButtons]="createButton"
+                       class="tournament-info-container">
+  <!--  <div class="d-flex flex-wrap justify-content-between " *ngIf="!isEditable">-->
+  <!--    <ng-container *ngFor="let game of skeleton">-->
+  <!--      <nz-skeleton-element nzType="image" [nzActive]="true" *ngIf="loading">-->
+  <!--      </nz-skeleton-element>-->
+  <!--    </ng-container>-->
+  <!--  </div>-->
+
+  <div [formGroup]="createTournamentForm" nz-form nzLayout="vertical">
+    <div class="row" *ngIf="isEditable">
+      <div class="col-12">
+        <nz-form-label>
+          <p>{{'choose_game'|translate}}</p>
+        </nz-form-label>
+      </div>
+      <div class="col-2">
+        <div class="selected-image" *ngIf="isEditable">
+          <img class="game-container isImage" style="border: 4px solid #8429F5FF"
+               [src]="tournament?.game?.data?.aw | defaultImage"
+               alt=""/>
+          <span class="img-icon" nz-icon nzType="check-circle" nzTheme="fill"></span>
+        </div>
+
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col-12">
+        <nz-form-label *ngIf="!isEditable && !loading">{{'choose_game'|translate}}</nz-form-label>
+        <nz-radio-group *ngIf="!isEditable" nzSize="large" class="d-flex flex-wrap justify-content-between gap-2"
+                        formControlName="game_code"
+                        (ngModelChange)="selectGame($event)">
+
+          <ng-container *ngFor="let game of featuredGames ; let index = index">
+
+            <img nz-radio [@enter]="true"
+                 [nzValue]="game['code']"
+                 class="game-container isImage imagMob"
+                 [src]="game['aw']"
+                 alt=""/>
+          </ng-container>
+
+          <!--              <img class="cover">-->
+
+        </nz-radio-group>
+
+        <nz-divider nzText="{{'or_search'| translate}}" *ngIf="!isEditable"
+                    style="text-transform: uppercase"></nz-divider>
+
+
+        <nz-select [nzShowSearch]="true" nzPlaceHolder="{{'choose_game'|translate}}" formControlName="game_code"
+                   [nzShowArrow]="true"
+                   (ngModelChange)="selectGame($event)" *ngIf="!isEditable">
+          <nz-option *ngFor="let game of games" [nzLabel]="game.name" [nzValue]="game.code"></nz-option>
+
+        </nz-select>
+
+        <h6 class="mb-3 mt-3" *ngIf="platforms?.length > 0" [@enter]="true">{{'platform' | translate}}</h6>
+        <nz-radio-group nzButtonStyle="solid" class="d-flex flex-wrap justify-content-start gap-10"
+                        formControlName="platform_id" [nzDisabled]="isEditable">
+          <label *ngFor="let platform of platforms" nz-radio-button [nzValue]="platform?.id " [@enter]="true">
+            <div class="d-flex flex-wrap justify-content-center align-items-center gap-10">
+              <!--              <span nz-icon nzType="play-square" nzTheme="outline"></span>-->
+              <span>
+                <img src="assets/svg-icons/{{platform.icon}}" alt="">
+               <p>{{platform.name}}</p>
+              </span>
+            </div>
+          </label>
+        </nz-radio-group>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <nz-form-item>
+
+          <nz-form-label nzRequired nzFor="English Name">{{'tournament_name'|translate}}</nz-form-label>
+          <!--          nzRequired-->
+          <nz-form-control [nzErrorTip]="name">
+            <input nz-input placeholder="{{'tournament_name_placeholder'|translate}}" id="English Name"
+                   formControlName="name"/>
+          </nz-form-control>
+          <ng-template #name let-control>
+            <ng-container>
+              {{'tournament_name_required'|translate}}
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label>{{'organized_by'|translate}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="name">
+            <nz-select [nzShowSearch]="true" nzPlaceHolder="Select Organizer" formControlName="arena_slug"
+                       [nzShowArrow]="true">
+              <nz-option [nzLabel]="user?.username + ' - User'" [nzValue]="''"></nz-option>
+              <nz-option *ngFor="let arena of arenas$ | async"
+                         [nzLabel]="arena?.name + ' - Arena'"
+                         [nzValue]="arena?.slug"></nz-option>
+              <nz-option *ngIf="isEditable && !(arenas$ | async).includes(tournament?.arena_slug)"
+                         [nzLabel]="tournament?.arena_name + ' - Arena'"
+                         [nzValue]="tournament?.arena_slug"></nz-option>
+            </nz-select>
+          </nz-form-control>
+          <ng-template #name let-control>
+            <ng-container>
+              Please enter select arena
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzFor="English Name">{{'choose_country'|translate}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="name">
+            <nz-select [nzShowSearch]="true" nzPlaceHolder="{{'select_country'|translate}}" formControlName="country"
+                       [nzShowArrow]="true">
+              <nz-option *ngFor="let country of Countries | async" [nzLabel]="country['name']"
+                         [nzValue]="country['abbr']"></nz-option>
+            </nz-select>
+          </nz-form-control>
+          <ng-template #name let-control>
+            <ng-container>
+              Please enter select country
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6">
+        <nz-form-item>
+          <nz-form-label nzFor="English Name">{{'date'|translate}}</nz-form-label>
+
+          <nz-form-control [nzErrorTip]="date" class="position-relative">
+<!--            <input [owlDateTimeTrigger]="dt" [owlDateTime]="dt" nz-input formControlName="start_at">-->
+<!--            <span class="date-icon" [owlDateTimeTrigger]="dt"><i class="fa fa-calendar"></i></span>-->
+<!--            <owl-date-time #dt pickerMode="popup" [scrollStrategy]="scrollStrategy"></owl-date-time>-->
+            <!--            <nz-date-picker-->
+            <!--              [nzPlaceHolder]="'date'|translate"-->
+            <!--              nzFormat="yyyy-MM-dd HH:mm:ss"-->
+            <!--              formControlName="start_at"-->
+            <!--              [nzShowTime]="true"-->
+            <!--            ></nz-date-picker>-->
+            <p class="gray" style="margin:5px 0;"> {{'timezone'|translate}} (UTC {{globalService.clientTimezoneOffset}})</p>
+          </nz-form-control>
+          <ng-template #date let-control>
+            <ng-container>
+              {{'please_enter_date'|translate}}
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+
+      <div class="col-md-12 mb-2">
+        <nz-form-item>
+
+          <nz-form-label nzFor="English Name">{{'participants_type'|translate}}</nz-form-label>
+
+          <nz-radio-group formControlName="participants_type" [nzDisabled]="tournament?.is_published"
+                          (ngModelChange)="changeParticipantsType($event)" class="gap-2">
+
+            <div class="participants-type">
+              <label nz-radio-button nzValue="single" class="participantsType">
+                <img src="assets/svg-icons/user-icon.svg" alt="">
+                <p>  {{'single'|translate}} </p>
+              </label>
+              <label nz-radio-button nzValue="teams" class="participantsType">
+                <img src="assets/svg-icons/users-icon.svg" alt="">
+                <p>{{'team'|translate}}</p>
+              </label>
+            </div>
+          </nz-radio-group>
+        </nz-form-item>
+      </div>
+      <ng-container *ngIf="createTournamentForm.get('participants_type')?.value === 'teams'">
+        <div class="col-md-6 mb-2">
+          <nz-form-label nzFor="English Name">
+            {{'number_of_team_members'|translate}}
+          </nz-form-label>
+          <nz-input-number nzPlaceHolder="{{'number_of_team_members'|translate}}" [nzMin]="2" [nzMax]="7"
+                           formControlName="no_of_participants_per_team"></nz-input-number>
+        </div>
+        <div class="col-md-6 mb-2">
+          <nz-form-label nzFor="English Name">
+            {{'number_of_substitutes'|translate}}
+          </nz-form-label>
+          <nz-input-number nzPlaceHolder="{{'number_of_substitutes'|translate}}" [nzMin]="1"
+                           formControlName="no_of_substitutes_per_team"></nz-input-number>
+        </div>
+      </ng-container>
+
+      <div class="col-md-6 mb-2"
+           *ngIf="tournament?.data?.code === 'valorant' || tournament?.data?.code === 'league-of-legends' ||
+            createTournamentForm.get('game_code').value === 'league-of-legends'
+            || createTournamentForm.get('game_code').value === 'valorant'">
+        <nz-form-item>
+          <nz-form-label nzFor="English Name">{{'game_automation'|translate}}</nz-form-label>
+          <nz-switch formControlName="is_trackable" [disabled]="tournament?.is_published"
+                     (ngModelChange)="isGameAutomationChange($event)"></nz-switch>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6 mb-2"
+           *ngIf="tournament?.data?.code === 'valorant' || tournament?.data?.code === 'league-of-legends' ||
+            createTournamentForm.get('game_code').value === 'league-of-legends'
+            || createTournamentForm.get('game_code').value === 'valorant'">
+        <nz-form-item>
+
+          <nz-form-label nzFor="English Name">{{'Connect Required account'|translate}}</nz-form-label>
+
+          <nz-switch formControlName="connected_accounts_required"
+                     [nzDisabled]="(!!tournament?.is_trackable ) || tournament?.is_published"></nz-switch>
+        </nz-form-item>
+      </div>
+      <div class="col-md-6 mb-2"
+           *ngIf="tournament?.data?.code === 'valorant' || tournament?.data?.code === 'league-of-legends' ||
+            createTournamentForm.get('game_code').value === 'league-of-legends'
+            || createTournamentForm.get('game_code').value === 'valorant'">
+        <nz-form-item>
+
+          <nz-form-label nzFor="English Name">{{'Members connected required accounts'|translate}}</nz-form-label>
+
+          <nz-switch formControlName="members_connected_accounts_required"
+                     (ngModelChange)="isMemberRequiredAccountChange($event)"
+                     [nzDisabled]="tournament?.is_published"></nz-switch>
+        </nz-form-item>
+      </div>
+
+      <ng-container
+        *ngIf="createTournamentForm.value.game_code === 'league-of-legends' || createTournamentForm.value.game_code === 'valorant' ">
+        <nz-divider></nz-divider>
+        <div class="col-md-12 mb-3">
+          <h1>{{createTournamentForm.value.game_code}} Settings</h1>
+        </div>
+        <ng-container formGroupName="publisher_settings">
+          <div class="col-md-6" *ngFor="let setting of leagueSettings | keyvalue">
+            <ng-container *ngIf="this.createTournamentForm.value.publisher_settings">
+              <nz-form-item *ngIf="setting.value.type === 'selection'">
+                <nz-form-label nzRequired>{{ (setting.key).toString()|translate}}</nz-form-label>
+                <nz-form-control [nzErrorTip]="name">
+                  <nz-select [nzDisabled]="tournament?.tree?.data[0]?.is_published === 1"
+                             nzPlaceHolder="{{('select'|translate) + ' ' + ((setting.key).toString() | translate) }}"
+                             formControlName="{{setting.key}}"
+                             [nzShowArrow]="true">
+                    <nz-option *ngFor="let option of setting?.value?.value" [nzLabel]="option | translate"
+                               [nzValue]="option"></nz-option>
+
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item *ngIf="setting.value.type === 'checkbox'">
+                <label nz-checkbox formControlName="{{setting.key}}" (nzCheckedChange)="change(setting.key)"
+                       [nzDisabled]="tournament?.tree?.data[0]?.is_published === 1">
+                  {{(setting.key).toString() | translate}}
+                </label>
+              </nz-form-item>
+            </ng-container>
+
+          </div>
+        </ng-container>
+      </ng-container>
+
+    </div>
+
+
+    <ng-container *ngIf="isEditable">
+      <app-upload-photos [coverCropRatio]="4"
+                         [coverResizeToWidth]="1920" [coverResizeToHeight]="480"
+        [avatar]="profileCroppedImage" [cover]="coverCroppedImage"
+                         (fileSelected)="selectImages($event)"></app-upload-photos>
+    </ng-container>
+
+    <div class="row mt-5" *ngIf="isEditable">
+      <div class="col-md-12">
+        <nz-form-item>
+
+          <nz-form-label nzFor="English Name">{{'description' |translate}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="description">
+
+            <ckeditor [editor]="Editor" formControlName="description" id="editor"
+                      (ready)="onReady($event)"></ckeditor>
+
+          </nz-form-control>
+          <ng-template #description let-control>
+            <ng-container>
+              {{'please_enter_description'|translate}}
+            </ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+
+    </div>
+
+    <div class="button-container">
+      <button nz-button nzType="primary" nzSize="large" [disabled]="createTournamentForm.invalid"
+              [nzLoading]="(addTournamentIsExecuting$ | async) === true || (updateTournamentIsExecuting$ | async) === true"
+              (click)="createTournament()">
+        <span nz-icon nzType="plus"></span>{{isEditable ? 'Save' : 'Create'  }}
+      </button>
+    </div>
+  </div>
+</app-section-container>
+
+<ng-template #createButton>
+  <nz-affix [nzOffsetTop]="70">
+    <!--    <button nz-button nzType="primary"  nzSize="large" [disabled]="createTournamentForm.invalid"-->
+    <!--            [nzLoading]="(addTournamentIsExecuting$ | async) === true || (updateTournamentIsExecuting$ | async) === true"-->
+    <!--            (click)="createTournament()">-->
+    <!--      <span nz-icon nzType="plus"></span>{{isEditable ? 'Save' : 'Create'  }}-->
+    <!--    </button>-->
+  </nz-affix>
+</ng-template>
+

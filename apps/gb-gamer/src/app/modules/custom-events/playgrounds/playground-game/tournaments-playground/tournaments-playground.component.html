@@ -1,0 +1,48 @@
+<div class="row">
+  <h1>Tournaments</h1>
+  <div class="col-md-4 my-2" *ngFor="let tournament of (tournaments$ | async).data">
+<!--    <ng-container *ngIf="tournament.resource === 'Tournament'">-->
+<!--      <app-tournament-card [tournament]="tournament"></app-tournament-card>-->
+<!--    </ng-container>-->
+
+
+
+    <div class="tournament-card-container">
+      <div class="cover">
+        <img class="img-fluid" src="{{tournament.cover_pictures.s}}" alt="">
+      </div>
+      <div class="card-info">
+        <div class="d-flex flex-column">
+          <h4><app-marquee  [text]="tournament.name"></app-marquee></h4>
+          <h6 class="text-gray">{{tournament.start_at_date + 'Z'  | date :  'MMM d, h:mm a' }}</h6>
+
+        </div>
+
+        <div class="d-flex flex-row gap-2">
+          <div class="rank flex-1 flex-column gap-2 justify-content-start">
+            <h6 class="fw-bold">Allowed Ranks</h6>
+            <ng-container *ngFor="let rank of tournament.game_settings">
+              <p style="color: black" *ngIf="rank?.key === 'Allowed Rank'">
+                {{rank.value.replaceAll(',' , ' & ')}}
+              </p>
+              <img src="" *ngIf="rank?.key === 'Allowed Rank' || rank?.key === 'Maximum Rank'">
+            </ng-container>
+          </div>
+          <div class="match-status {{tournament.status | lowercase | removeSpaces}}">
+            <div class="circle {{tournament.status | lowercase | removeSpaces}}"></div>
+            {{tournament.status}}
+          </div>
+        </div>
+
+        <a routerLink="/tournaments/{{tournament.code}}" class="button">
+          View Tournament
+        </a>
+      </div>
+    </div>
+
+
+<!--    <ng-container *ngIf="tournament.resource === 'Challenge'">-->
+<!--      <app-challenge-card [challenge]="tournament"></app-challenge-card>-->
+<!--    </ng-container>-->
+  </div>
+</div>

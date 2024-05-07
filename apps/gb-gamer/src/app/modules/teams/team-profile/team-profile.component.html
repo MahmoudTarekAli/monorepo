@@ -1,0 +1,40 @@
+
+<ng-container *ngIf="!(getTeamIsExecuting$ | async) ; else loadingIndicator">
+  <ng-container *ngIf="(Team$ | async) as team" >
+<app-banner-card [banner]="team.cover" [profile]="team.avatar">
+  <div class="tournament-description d-flex flex-column justify-content-around" ngProjectAs="tournament-description">
+    <h1>{{team.name}}
+      <span>#{{team?.reference_number}}</span>
+
+    </h1>
+<!--    <div class="d-flex flex-row gap-10 align-items-center">-->
+<!--&lt;!&ndash;      <h5> <span>{{team.participants_count}}</span> Participants</h5>&ndash;&gt;-->
+<!--&lt;!&ndash;      <h5> <span>{{team.tournaments_count}}</span> Tournaments</h5>&ndash;&gt;-->
+<!--      {{(isLoggedIn$ | async)}}-->
+<!--    </div>-->
+  </div>
+  <ng-container *ngIf="(isLoggedIn$ | async)" ngProjectAs="tournament-buttons">
+  <app-button *ngIf="team.is_joined  && !teamService.isTeamOwner"  (click)="leaveTeam(team.id)"  variant="primary" >
+    {{'common.buttons.leave' | translate :{leaveWord:'common.team' | translate} }}</app-button>
+  <app-button *ngIf="team.is_joined && teamService.isTeamOwner "  routerLink="/teams/{{team.id}}/edit"  variant="white" >
+    {{'common.buttons.editTeam' | translate  }}</app-button>
+  </ng-container>
+
+</app-banner-card>
+<nz-tabset nzLinkRouter nzType="card" >
+  <ng-container  *ngFor="let tab of tabs; let i = index">
+  <nz-tab *ngIf="tab.isOwner" [nzClosable]="i > 1" >
+    <a class="text-capitalize" *nzTabLink nz-tab-link routerLink="./{{tab.path}}" >
+      {{ tab.title | translate}}
+    </a>
+  </nz-tab>
+  </ng-container>
+</nz-tabset>
+<router-outlet></router-outlet>
+  </ng-container>
+
+</ng-container>
+
+<ng-template #loadingIndicator>
+  <app-loading-indicator></app-loading-indicator>
+</ng-template>

@@ -1,0 +1,252 @@
+@import "src/app/styles/functions";
+@import "src/app/styles/core/variables";
+
+.banner {
+  width: 100%;
+  border-radius: 30px;
+  overflow: hidden;
+  margin-top: 20px;
+
+  img {
+    width: 100%;
+  }
+}
+
+
+h1 {
+  font-family: 'Anton';
+
+  &.title {
+    font-size: 80px !important;
+    text-transform: uppercase;
+  }
+}
+
+p {
+  font-size: 16px;
+  font-family: Roboto;
+  font-weight: lighter;
+  max-width: 800px;
+}
+
+.description-section {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  gap: 20px;
+
+
+  @media screen and (max-width: 767px) {
+    flex-flow: column;
+    justify-content: center;
+
+    .icons {
+      img {
+        width: 60px !important;
+      }
+    }
+  }
+
+  .description {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+    @media screen and (max-width: 767px) {
+      justify-content: center;
+      align-items: center;
+      p {
+        text-align: center !important;
+      }
+    }
+
+    p {
+      text-align: left;
+      text-transform: unset;
+    }
+  }
+
+
+  .icons {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+
+    img {
+      width: 100px;
+    }
+  }
+}
+
+.blocks-container {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 30px;
+  justify-content: space-around;
+  margin: 20px 0;
+
+  @media screen and (max-width:767px) {
+    flex-flow:column;
+  }
+
+  .block {
+    height: 200px;
+    flex: 1;
+    background-size: cover !important;
+    background-position: center center;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    flex-flow: column;
+    gap: 10px;
+    text-align: center;
+
+    h1 {
+      text-transform: uppercase;
+    }
+
+    P {
+      font-size: 16px;
+    }
+
+    &.first {
+      //background:url("../../../../assets/images/playgrounds/league-bg.webp");
+      background: url('../../../../../assets/images/playgrounds/wildrift-pattern.png') #8274ed;
+
+    }
+
+    &.second {
+      //background:url('../../../../assets/images/playgrounds/valorant-bg.webp');
+      //background:url('../../../../assets/images/playgrounds/wildrift-bg.webp');
+      background: url('../../../../../assets/images/playgrounds/wildrift-pattern.png') #8274ed;
+    }
+
+    &.third {
+      //background:url('../../../../assets/images/playgrounds/wildrift-bg.webp');
+      background: url('../../../../../assets/images/playgrounds/wildrift-pattern.png') #8274ed;
+
+    }
+
+    &.games {
+      height: auto;
+      cursor: pointer;
+      padding: 0;
+      flex:0 0 45%;
+      overflow: hidden;
+      @media screen and (max-width:767px) {
+flex: 1;
+      }
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.ant-divider-horizontal {
+  margin: 60px 0;
+}
+
+.prizes-container {
+  margin: 100px 0;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 20px;
+
+  @media screen and (max-width: 1024px) {
+    flex-flow: column;
+    gap: 60px;
+    justify-content: center; align-items: center;
+  }
+
+  .text {
+    flex: 1;
+    h1 {
+      font-size: 36px;
+    }
+  }
+
+  .prize-count-container {
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex; justify-content: center; align-items: center;
+
+    .square {
+      position: absolute;
+      width: 100%;
+      max-width:500px;
+      min-height: 150px;
+      background: #C5ACE5;
+      top: -20px;
+      left: -50px;
+      z-index: 1;
+    }
+
+    .prize-count {
+      border-radius: 20px;
+      background: white;
+      min-height: 120px;
+      max-width:500px;
+      width:100%;
+      position: relative;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      padding:20px;
+      flex-flow: column;
+
+      h1 {
+        font-size: 50px !important;
+        color: $gb-main-bg;
+      }
+
+      h3 {
+        color: $gb-main-bg;
+
+      }
+      img {
+        &.coins {
+          width: 70px;
+        }
+
+        &.character {
+          position: absolute;
+          height: 150%;
+          left: -20px;
+          bottom: 0;
+          top: -50px;
+          z-index: 11;
+
+          @media screen and (max-width: 580px) {
+            display:none;
+
+          }
+        }
+      }
+
+    }
+
+  }
+}
+
+::ng-deep {
+  nz-carousel-content {
+    height: 200px;
+    padding: 10px;
+  }
+
+  .ant-carousel .slick-slider {
+    height: 200px;
+  }
+}
+

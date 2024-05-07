@@ -1,0 +1,81 @@
+<div class="card" [ngClass]="{'featured': challenge?.is_featured && isFeatured}">
+  <a class="top-container" routerLink="/challenges/{{challenge.id}}">
+
+
+    <img class="cover" width="100" height="135" [src]="challenge.banner">
+
+    <div class="game-icon" [nz-tooltip]="challenge.game.name">
+      <img src="{{challenge.game.icon}}" alt="">
+    </div>
+    <div class="prime-container" *ngIf="challenge?.is_premium">
+      <img src="assets/svg-icons/prime-icon.svg" alt="">
+      <h6>{{'common.primeOnly' | translate}}</h6>
+    </div>
+    <div class="prime-overlay" *ngIf="challenge?.is_premium"></div>
+    <ng-container *ngIf="isFeatured">
+    <div class="card-type challenge" [ngClass]="{ 'featured-challenge': challenge?.is_featured&& isFeatured }">
+      <img [src]="challenge?.is_featured&& isFeatured ? 'assets/svg-icons/riot-icon.svg' : 'assets/svg-icons/warrior-helmet.svg'"
+           alt="">
+      <h6>{{challenge?.is_featured&& isFeatured ? ('common.riotChallenge' | translate) : ('common.challenge' | translate)}}</h6>
+    </div>
+    </ng-container>
+  </a>
+  <div class="card-body">
+
+    <div class="card-info">
+      <div class="d-flex justify-content-between align-items-center">
+
+        <h6 class="text-gray" *ngIf="challenge.status === CHALLENGE_STATUS.OPEN">
+          <b>Starts at</b> <br>
+          {{ '' + challenge.start_at | date :'MMMM d, h:mm a' }}
+          <app-user-timezone></app-user-timezone>
+        </h6>
+        <h6 class="text-green" *ngIf="challenge.status === (CHALLENGE_STATUS.LIVE)">
+          <b>Ends in:</b><br>
+          {{'' + challenge.end_date | countdown  : true | async}}</h6>
+
+        <h6 class="text-gray" *ngIf="challenge.status === CHALLENGE_STATUS.FINISHED">
+          {{'' + challenge.end_date | timeAgo }}
+        </h6>
+
+
+        <div class="status-container">
+
+          <div class="status {{challenge.status | lowercase}}">
+            <h6>{{ 'status.' + challenge.status | lowercase | translate }}</h6>
+          </div>
+        </div>
+      </div>
+
+      <h5>
+        <app-marquee class="card-text" [text]="challenge.name"></app-marquee>
+      </h5>
+
+    </div>
+
+    <div class="card-footer" [ngClass]="{'featured-footer': challenge?.is_featured&& isFeatured}">
+
+      <div class="card-details flex-1">
+        <img class="icon" src="{{challenge.icon}}" alt="">
+        <h5>
+          <app-marquee class="text-gray" [ngClass]="{'text-white': challenge?.is_featured&& isFeatured}" [text]="challenge.type | uppercase"></app-marquee>
+        </h5>
+      </div>
+
+      <div class="card-details">
+        <div class="d-flex gap-2 align-items-center">
+          <img width="20" height="20" src="assets/svg-icons/users-icon.svg">
+          <p>{{challenge.total_participants_count}}</p>
+        </div>
+        <div *ngIf="challenge?.prize_pool" class="d-flex gap-2 align-items-center"
+             [nz-tooltip]="challenge.prize_pool.toString()">
+          <img width="20" height="20" src="assets/svg-icons/coins.svg">
+          <p>{{challenge.prize_pool |formatCoins}}</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+

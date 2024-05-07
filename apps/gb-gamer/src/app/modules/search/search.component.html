@@ -1,0 +1,219 @@
+<div class="container">
+
+  <div class="mb-4" *ngIf="isMobileView">
+    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+      <input type="text" class="mid-height" nz-input placeholder="search" [(ngModel)]="searchKey"/>
+    </nz-input-group>
+    <ng-template #suffixIconButton>
+      <button nz-button nzType="primary" nzSearch (click)="searchAction()"><span nz-icon nzType="search"></span>
+      </button>
+    </ng-template>
+
+  </div>
+  <app-section>
+
+    <ng-scrollbar>
+
+      <div class="search-button-wrapper" *ngIf="searchList?.length > 0 ">
+        <nz-radio-group nzButtonStyle="solid" [(ngModel)]="selectedFilter"
+                        (ngModelChange)="selectFilter($event)">
+          <label nz-radio-button [nzValue]="'all'">
+            <span class="label-text">{{ 'common.all'| translate |  uppercase}}</span>
+
+          </label>
+          <label nz-radio-button *ngFor="let search of searchList" [nzValue]="search.key">
+            <span class="label-text">{{ search.key  | translate | uppercase }}</span>
+          </label>
+        </nz-radio-group>
+      </div>
+    </ng-scrollbar>
+    <div class="mb-4" *ngIf="selectedFilter === 'all'">
+      <ng-container *ngFor="let item of searchList">
+
+        <ng-container [ngSwitch]="item.key"
+                      *ngIf="item.show && (item.value.data.length > 0 || selectedFilter !== 'all') ">
+          <ng-container *ngIf="item.value.data.length > 0 || selectedFilter === 'all'; else noData">
+
+            <ng-container *ngSwitchCase="'users'">
+              <app-section [title]="item.key  | translate | uppercase">
+
+                <div class="row gy-4">
+                  <div class="col-md-3 col-12"
+                       *ngFor="let user of item.value.data | sliceArray: item.paginated ? 20 : 8">
+                    <app-participant-card [user]="user" [name]="user.username" [country]="user.country"
+                                          [cover]="user.cover" [profile]="user.avatar"
+                                          [reference_number]="user.reference_number">
+                      <ng-container ngProjectAs="tournament-buttons">
+                        <app-button class="flex-grow-1" variant="primary full-width"
+                                    routerLink="/gamer/{{user.slug}}">
+                          {{'common.buttons.viewProfile' | translate}}
+                        </app-button>
+                      </ng-container>
+                    </app-participant-card>
+                  </div>
+                </div>
+
+              </app-section>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'teams'">
+
+              <app-section [title]="item.key  | translate | uppercase">
+
+                <div class="row gy-4">
+                  <div class="col-md-3 col-12"
+                       *ngFor="let team of item.value.data |  sliceArray: item.paginated ? 20 : 8">
+                    <app-participant-card [reference_number]="team.reference_number" [country]="team.country"
+                                          [cover]="team.cover" [profile]="team.avatar" [name]="team.name"
+                                          [isTeam]="true">
+                      <ng-container ngProjectAs="tournament-buttons">
+                        <app-button class="flex-grow-1" variant="primary full-width"
+                                    routerLink="/teams/{{team._id}}">
+                          {{'common.buttons.viewTeam' | translate}}
+                        </app-button>
+                      </ng-container>
+                    </app-participant-card>
+                  </div>
+                </div>
+
+              </app-section>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'games'">
+              <app-section [title]="item.key  | translate | uppercase">
+                <div class="row gy-4">
+                  <div class="col-md-2 col-12"
+                       *ngFor="let game of item.value.data| sliceArray: item.paginated ? 20 : 8 ">
+                    <app-game-card [game]="game"></app-game-card>
+                  </div>
+                </div>
+              </app-section>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'tournaments'">
+              <app-section [title]="item.key  | translate | uppercase">
+                <div class="row gy-4">
+
+                  <div class="col-md-4 col-12"
+                       *ngFor="let tournament of item.value.data | sliceArray: item.paginated ? 20 : 6">
+                    <app-tournament-card [tournament]="tournament"></app-tournament-card>
+                  </div>
+                </div>
+              </app-section>
+              <ng-template #tournamentButton>
+                <ng-container *ngTemplateOutlet="buttonTemplate; context: {key:'tournaments'}"></ng-container>
+              </ng-template>
+            </ng-container>
+            <ng-container *ngSwitchCase="'events'">
+              <app-section [title]="item.key  | translate | uppercase">
+                <div class="row gy-4">
+
+                  <div class="col-md-4 col-12"
+                       *ngFor="let event of item.value.data | sliceArray: item.paginated ? 20 : 6">
+                    <app-event-card [event]="event"></app-event-card>
+                  </div>
+                </div>
+              </app-section>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'arenas'">
+              <app-section [title]="item.key  | translate | uppercase">
+                <div class="row gy-4">
+                  <div class="col-md-2 col-12"
+                       *ngFor="let arena of item.value.data | sliceArray: item.paginated ? 20 : 8">
+                    <app-arena-card [arena]="arena" [isShowFollowButton]="false"></app-arena-card>
+                  </div>
+                </div>
+              </app-section>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+        <!--    <nz-divider></nz-divider>-->
+      </ng-container>
+    </div>
+    <div class="mb-4" *ngIf="selectedFilter !== 'all'">
+
+      <div class="row gy-4" *ngIf="!isLoading else loadingIndicator">
+        <div class="col-12" *ngFor="let item of searchFilteredList?.data" [ngClass]="selectedFilter === 'games' ? 'col-md-2' : 'col-md-3' ">
+          <ng-container [ngSwitch]="selectedFilter">
+            <ng-container *ngSwitchCase="'arenas'">
+              <app-arena-card [arena]="item"></app-arena-card>
+            </ng-container>
+            <ng-container *ngSwitchCase="'tournaments'">
+              <app-tournament-card [tournament]="item"></app-tournament-card>
+            </ng-container>
+            <ng-container *ngSwitchCase="'events'">
+              <app-event-card [event]="item"></app-event-card>
+            </ng-container>
+            <ng-container *ngSwitchCase="'teams'">
+              <app-participant-card [reference_number]="item.reference_number" [country]="item.country"
+                                    [cover]="item.cover" [profile]="item.avatar" [name]="item.name"
+                                    [isTeam]="true">
+                <ng-container ngProjectAs="tournament-buttons">
+                  <app-button class="flex-grow-1" variant="primary full-width"
+                              routerLink="/teams/{{item._id}}">
+                    {{'common.buttons.viewTeam' | translate}}
+                  </app-button>
+                </ng-container>
+              </app-participant-card>
+            </ng-container>
+            <ng-container *ngSwitchCase="'users'">
+              <app-participant-card [user]="item" [name]="item.username" [country]="item.country"
+                                    [cover]="item.cover" [profile]="item.avatar"
+                                    [reference_number]="item.reference_number">
+                <ng-container ngProjectAs="tournament-buttons">
+                  <app-button class="flex-grow-1" variant="primary full-width"
+                              routerLink="/gamer/{{item.slug}}">
+                    {{'common.buttons.viewProfile' | translate}}
+                  </app-button>
+                </ng-container>
+              </app-participant-card>
+
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'games'">
+              <app-game-card [game]="item"></app-game-card>
+
+            </ng-container>
+          </ng-container>
+        </div>
+
+      </div>
+      <ng-template #loadingIndicator>
+        <div style="padding: 20px">
+          <app-loading-indicator></app-loading-indicator>
+
+        </div>
+      </ng-template>
+
+      <app-section>
+        <div class="d-flex mt-3 justify-content-center">
+
+          <nz-pagination *ngIf="selectedFilter !== 'all' && searchFilteredList?.meta?.total >= 20" [nzPageIndex]="page"
+                         [nzPageSize]="20"
+                         [nzTotal]="searchFilteredList?.meta?.total"
+                         (nzPageIndexChange)="changePages($event)"></nz-pagination>
+        </div>
+
+      </app-section>
+
+    </div>
+    <ng-template #loadingIndicator>
+      <div style="padding: 20px">
+        <app-loading-indicator></app-loading-indicator>
+
+      </div>
+    </ng-template>
+    <ng-template #noData>
+      <div class="second-container d-flex align-items-center justify-content-center py-5 my-4">
+        {{'common.messages.noSearchResult' | translate : {selectedFilter: selectedFilter} }}
+      </div>
+    </ng-template>
+  </app-section>
+
+
+  <ng-template #buttonTemplate let-key=key>
+    <app-button variant=rounded-green (click)="selectFilter(key)"><p>{{'common.viewAll'| translate}}</p></app-button>
+  </ng-template>
+
+</div>

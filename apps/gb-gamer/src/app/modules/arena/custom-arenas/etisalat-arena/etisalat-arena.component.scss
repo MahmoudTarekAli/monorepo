@@ -1,0 +1,43 @@
+@import "src/app/styles/core/variables";
+.etisalat-arena{
+  .cover-image{
+    width: 100%;
+  }
+  .game {
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+
+    &.active {
+      border: 2px solid $gb-primary-color;
+    }
+    &:hover {
+      border: 1px solid  $gb-primary-color;
+    }
+
+
+  }
+  .etisalat-middle-container{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin: 20px auto;
+    max-width: 400px;
+    gap: 20px;
+    img{
+      width: 150px;
+    }
+  }
+  .cover-ad {
+    margin: 20px 0;
+    img{
+      width: 100%;
+    }
+  }
+  //.img-container:
+}
+.cover-etisalat{
+  background: linear-gradient(rgb(0 0 0 / 80%), rgb(0 0 0 / 80%)), url('../../../../../assets/images/etisalat-gaming/background-red.jpg') fixed;
+  background-size: cover;
+}

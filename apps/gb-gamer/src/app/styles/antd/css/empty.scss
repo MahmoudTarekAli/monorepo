@@ -1,0 +1,11 @@
+// Import mixins
+@import 'src/app/styles/core/variables.scss';
+
+////////////////////////////////////////////////////////////////////////////////////////////
+// DARK THEME STYLES
+  .ant-empty {
+    svg * {
+      fill: $gray-5;
+      stroke: $gray-6;
+    }
+  }

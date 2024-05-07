@@ -1,0 +1,76 @@
+<div class="row">
+  <nz-form-item class="col-lg-6 col-12">
+    <nz-form-label class="mb-2">{{'profile_photo' | translate}}</nz-form-label>
+
+    <button nz-button nzType="default" class="w-100  input-button-image" (click)=" isUserProfile ? openModal('avatar') : $event.stopPropagation()">
+      <div class="image">
+        <img [src]="avatar | defaultImage"  alt="profile-avatar">
+
+        <div class="icon">
+          <img src="assets/svg-icons/upload-icon.svg">
+        </div>
+      </div>
+
+      <div class="info">
+        <!--            - {{'upload_or_drag' | translate}}-->
+        <p> <em>{{'dimensions' | translate}}: 500H *500W</em>
+        </p>
+        <p class="d-flex align-items-center flex-wrap gap-2" *ngIf="isUserProfile">
+          <img src="assets/svg-icons/crown-icon.svg" alt="premium-crow">
+          <span>Only GB prime user can upload GIF</span></p>
+      </div>
+      <input *ngIf="!isUserProfile" #file1Input accept="image/*" type="file" (change)="fileChangeEvent($event, 'avatar')"/>
+    </button>
+  </nz-form-item>
+  <nz-form-item class="col-lg-6 col-12">
+    <nz-form-label class="mb-2">{{'cover_photo' | translate}}</nz-form-label>
+
+    <button nz-button nzType="default" class="w-100  input-button-image" (click)=" isUserProfile? openModal('cover') : $event.stopPropagation()">
+      <div class="image">
+        <img [src]="cover | defaultImage" >
+        <div class="icon">
+          <img src="assets/svg-icons/upload-icon.svg">
+        </div>
+      </div>
+
+      <div class="info">
+        <!--            - {{'upload_or_drag' | translate}}-->
+<!--        <p>{{'cover_photo'|translate}}-->
+          <p>{{'dimensions' | translate}}: 1400H * 600W</p>
+<!--        </p>-->
+      </div>
+      <input *ngIf="!isUserProfile" #file1Input accept="image/*" type="file" (change)="fileChangeEvent($event, 'cover')"/>
+    </button>
+  </nz-form-item>
+</div>
+<nz-modal [(nzVisible)]="openImageCropper" nzTitle="{{'upload_images'| translate}}" [nzFooter]="null"
+          (nzOnCancel)="openImageCropper = false"
+          (nzOnOk)="onModalOk(ImageType)">
+  <ng-container *nzModalContent>
+    <img class="image-border {{ImageType}}"  *ngIf="!imageChangedEvent" src="{{this[ImageType]}}" alt="">
+    <image-cropper *ngIf="imageChangedEvent"
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="cropRatio"
+      [resizeToWidth]="resizeToWidth"
+      [resizeToHeight]="resizeToHeight"
+      [disabled]="isCropperDisabled"
+      (imageLoaded)="imageLoaded($event)"
+      (imageCropped)="imageCropped($event, ImageType)"
+    ></image-cropper>
+   <div *ngIf="imageChangedEvent" class="buttons-container d-flex justify-content-between gap-2 mt-3">
+     <app-button variant="white flex-1" class="flex-1" (click)="cancelUpload()">{{'cancel' | translate}}</app-button>
+     <app-button variant="primary flex-1" class="flex-1" (click)="onModalOk(ImageType)">{{'submit' | translate}}</app-button>
+
+   </div>
+    <div *ngIf="!imageChangedEvent && isUserProfile" class="buttons-container d-flex justify-content-between  mt-3">
+      <p class="button-image">
+        <img src="assets/svg-icons/camera-icon.svg" alt="">
+        Edit Photo
+        <input  #file1Input accept="image/*" type="file" (change)="fileChangeEvent($event, ImageType)"/>
+      </p>
+      <p (click)="removePhoto()" class="button-image"><img src="assets/svg-icons/delete-icon.svg" alt="">Delete</p>
+
+   </div>
+  </ng-container>
+</nz-modal>

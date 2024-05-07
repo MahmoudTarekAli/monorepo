@@ -1,0 +1,14 @@
+{
+  "name": "$name$",
+  "version": "$version$",
+  "description": "$END$",
+  "main": "$main$",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GBarena/GBarena-Frontend-Organizer-Dashboard.git"
+  },
+  "private": true
+}

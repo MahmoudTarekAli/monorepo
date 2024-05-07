@@ -1,0 +1,8 @@
+
+<h2 class="text-center my-2">FAQS</h2>
+
+<nz-collapse nzAccordion [nzExpandIconPosition]="'right'" >
+  <nz-collapse-panel *ngFor="let panel of tournamentQuestion" [nzHeader]="panel.question | translate" >
+    <p>{{ panel.answer |translate}}</p>
+  </nz-collapse-panel>
+</nz-collapse>

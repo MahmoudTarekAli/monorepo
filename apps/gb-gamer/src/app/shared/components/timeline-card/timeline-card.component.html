@@ -1,0 +1,29 @@
+<div class="time-line-card">
+  <div [ngSwitch]="status">
+    <div *ngSwitchCase="timeLineStatus.INACTIVE">
+      <div class="circle">
+        <span class="number">{{index}}</span>
+      </div>
+    </div>
+    <div *ngSwitchCase="timeLineStatus.COMPLETED">
+      <div class="icon">
+        <img src="assets/svg-icons/check.svg">
+      </div>
+    </div>
+    <div *ngSwitchDefault>
+      <div class="circle">
+        <span class="number">{{index}}</span>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="title">
+    {{title}}
+  </div>
+<!--  <div class="description">-->
+<!--    {{subTitle}}-->
+<!--  </div>-->
+  <ng-content></ng-content>
+
+</div>

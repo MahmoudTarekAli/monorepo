@@ -1,0 +1,16 @@
+h2 {
+  font-weight: bold;
+  text-transform: uppercase
+}
+nz-page-header-title {
+  display: flex;
+  gap:10px;
+  align-items: center;
+}
+.icon {
+  display: flex;
+  img {
+    width:30px;
+    max-height:30px;
+  }
+}
